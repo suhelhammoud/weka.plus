@@ -1,0 +1,16 @@
+### By Suhel
+
+out/
+
+
+# experiments
+data/out
+
+
+# CMake
+cmake-build-debug/
+cmake-build-release/
+
+# Cursive Clojure plugin
+.idea/replstate.xml
+
