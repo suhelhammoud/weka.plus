@@ -21,10 +21,6 @@ import java.util.stream.DoubleStream;
 
 public class RTest {
 
-    /*
-    anneal, audiology, breast-cancer
-    car, cleve-d
-     */
     public static String getFilterCommand(RMethod method, double median) {
         final String filterCommand = "weka.filters.supervised.attribute.AttributeSelection " +
                 "-E \"weka.attributeSelection.AAAAAA \" " +
