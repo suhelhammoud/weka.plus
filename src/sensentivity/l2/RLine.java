@@ -1,4 +1,4 @@
-package l2Sensitivity;
+package sensentivity.l2;
 
 import weka.classifiers.Evaluation;
 import weka.classifiers.bayes.NaiveBayes;
@@ -90,7 +90,7 @@ public class RLine {
     System.out.println(RLine.HEADERS());
 
     RLine srun = RLine.of("irirs")
-            .set(KEYS.method, RMethod.IG);
+            .set(KEYS.att_method, AttributeEvalMethod.IG);
     srun.set(KEYS.errorRate, 77);
     System.out.println(srun.stringValues());
   }

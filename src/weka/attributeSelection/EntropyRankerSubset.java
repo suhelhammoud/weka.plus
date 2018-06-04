@@ -61,9 +61,9 @@ import java.util.Vector;
  *
  * @author
  */
-public class EntropyRankerSubset extends Ranker {
-//        ASSearch implements RankedOutputSearch,
-//        StartSetHandler, OptionHandler {
+public class EntropyRankerSubset
+        extends Ranker {
+//        extends ASSearch implements RankedOutputSearch,StartSetHandler, OptionHandler {
 
 
     /**

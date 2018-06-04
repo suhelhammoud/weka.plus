@@ -1,9 +1,6 @@
-package l2Sensitivity;
+package sensentivity.l2;
 
-import weka.attributeSelection.ASEvaluation;
-import weka.attributeSelection.InfoGainAttributeEval;
-import weka.attributeSelection.L2AttributeEval;
-import weka.attributeSelection.L2RankerSubset;
+import weka.attributeSelection.*;
 import weka.classifiers.Evaluation;
 import weka.classifiers.bayes.NaiveBayes;
 import weka.core.Instances;
@@ -21,7 +18,7 @@ import java.util.stream.DoubleStream;
 
 public class RTest {
 
-    public static String getFilterCommand(RMethod method, double median) {
+    public static String getFilterCommand(AttributeEvalMethod method, double median) {
         final String filterCommand = "weka.filters.supervised.attribute.AttributeSelection " +
                 "-E \"weka.attributeSelection.AAAAAA \" " +
                 "-S \"weka.attributeSelection.L2AboveFrequencySubset -T TTTTTT -N -1\"";
@@ -46,7 +43,7 @@ public class RTest {
     }
 
 
-    public static AttributeSelection getFilter(RMethod method, double median) {
+    public static AttributeSelection getFilter(AttributeEvalMethod method, double median) {
         L2RankerSubset search = new L2RankerSubset();
         search.setThreshold(median);
 
@@ -59,7 +56,7 @@ public class RTest {
                 evaluator = new L2AttributeEval();
                 break;
             case CHI:
-                evaluator = new L2AttributeEval();
+                evaluator = new ChiSquaredAttributeEval();
                 break;
             default:
                 System.err.println("unknown method name");
@@ -70,7 +67,7 @@ public class RTest {
         return result;
     }
 
-    public static Instances filtered(Instances train, RMethod method, double median)
+    public static Instances filtered(Instances train, AttributeEvalMethod method, double median)
             throws Exception {
         Filter filter = getFilter(method, median);
         filter.setInputFormat(train);
@@ -83,7 +80,7 @@ public class RTest {
 
         RLine result = RLine.of(story.get(KEYS.dataset))
                 .set(KEYS.numAttributes, story.get(KEYS.numAttributes))
-                .set(KEYS.method, story.get(KEYS.method))
+                .set(KEYS.att_method, story.get(KEYS.att_method))
                 .set(KEYS.median, story.get(KEYS.median))
                 .set(KEYS.classifier, RClassifier.NB)
                 .set(KEYS.variables, train.numAttributes() - 1);
@@ -104,11 +101,11 @@ public class RTest {
 
     public static String oneStory(Instances data,
                                   RLine basicStory,
-                                  RMethod method,
+                                  AttributeEvalMethod method,
                                   double median) throws Exception {
 
         RLine result = basicStory.copy()
-                .set(KEYS.method, method)
+                .set(KEYS.att_method, method)
                 .set(KEYS.median, median);
         Instances dataFiltered = filtered(data, method, median);
 
@@ -122,9 +119,9 @@ public class RTest {
     public static List<String> oneGo(Instances data, RLine basiceStory, double median) {
         List<String> result = new ArrayList<>(3);
         try {
-            result.add(oneStory(data, basiceStory, RMethod.IG, median));
-            result.add(oneStory(data, basiceStory, RMethod.CHI, median));
-            result.add(oneStory(data, basiceStory, RMethod.L2, median));
+            result.add(oneStory(data, basiceStory, AttributeEvalMethod.IG, median));
+            result.add(oneStory(data, basiceStory, AttributeEvalMethod.CHI, median));
+            result.add(oneStory(data, basiceStory, AttributeEvalMethod.L2, median));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -168,11 +165,11 @@ public class RTest {
         data.setClassIndex(data.numAttributes() - 1);
         basicStory.set(KEYS.numAttributes, data.numAttributes() - 1);
 
-        for (RMethod method : RMethod.values()) {
+        for (AttributeEvalMethod method : AttributeEvalMethod.values()) {
             for (double median : medians) {
                 RLine story = basicStory
                         .copy()
-                        .set(KEYS.method, method)
+                        .set(KEYS.att_method, method)
                         .set(KEYS.median, median);
                 Instances dataFiltered = filtered(data, method, median);
                 dataFiltered.setClassIndex(dataFiltered.numAttributes() - 1);
