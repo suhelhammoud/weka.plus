@@ -29,7 +29,7 @@ public class MedriOptions implements OptionHandler, Serializable {
     }
 
 
-    enum LEVELS {
+    public enum LEVELS {
         off, trace, debug, info, warn, error, fatal;
 
         public static Tag[] toTags() {
@@ -44,8 +44,8 @@ public class MedriOptions implements OptionHandler, Serializable {
     }
 
 
-    enum ALGORITHMS {
-        Prism, eDRI, MeDRI;
+    public enum ALGORITHMS {
+        prism, edri, medri;
 
         public static Tag[] toTags() {
             ALGORITHMS[] levels = values();
@@ -56,11 +56,13 @@ public class MedriOptions implements OptionHandler, Serializable {
             return result;
         }
 
-        ;
+        public static ALGORITHMS of(String name){
+            return valueOf(name.toLowerCase());
+        }
     }
 
-    protected String m_debugLevel = "info";
-    protected String m_algorithm = "Prism";
+    protected String m_debugLevel = LEVELS.info.name();
+    protected String m_algorithm = "medri";
 
 
     public String debugLevel() {
@@ -148,7 +150,7 @@ public class MedriOptions implements OptionHandler, Serializable {
         result.addElement(new Option("minimum support", "S", 1, "-S <lower bound for minimum support >"));
         result.addElement(new Option("minimum confidence", "C", 1, "-C <minimum confidence ofOne a rule >"));
         result.addElement(new Option("descritption", "D", 1, "-D < off | trace | debug | info | warn | error | fatal >"));
-        result.addElement(new Option("descritption", "A", 1, "-A < Prism | eDRI | MeDRI >"));
+        result.addElement(new Option("descritption", "A", 1, "-A < prism | edri | medri >"));
         return result.elements();
 
     }
@@ -210,7 +212,7 @@ public class MedriOptions implements OptionHandler, Serializable {
 
 
     public static void changeLogLevelRunTime(String logLevel) {
-//        Logger lg = (Logger) LoggerFactory.getLogger(eDRI.class);
+//        Logger lg = (Logger) LoggerFactory.getLogger(edri.class);
         ((ch.qos.logback.classic.Logger) LoggerFactory.getLogger(eDRI.class)).setLevel(Level.toLevel(logLevel));
 
     }

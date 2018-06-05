@@ -111,7 +111,7 @@ public class EDRIUtils {
     public static void main(String[] args) throws IOException {
         String inFile = "/media/suhel/workspace/work/wekaprism/data/fadi.arff";
 //        String command = "-t "+ inFile + " -T "+ inFile + " -no-cv";
-//        runClassifier(new Prism(), args);
+//        runClassifier(new prism(), args);
 
 
         String p = formatIntPattern(1);

@@ -24,6 +24,7 @@ public class MedriUtils {
 
     /**
      * Return array containing number of items in each corresponding attribute
+     *
      * @param data
      * @return number of distinct items in each attributes
      */
@@ -35,29 +36,38 @@ public class MedriUtils {
         return iattrs;
     }
 
+    /**
+     * Map each instance in data into its internal presentation values, cast double into int because
+     * the data type is "nominal", and "numeric" attributes should be "discretized" first
+     *
+     * @param data
+     * @return pair of
+     * key: List of int arrays represent the internal values of data items
+     * value: int array to hold the frequency of each label
+     */
     public static Pair<Collection<int[]>, int[]> mapIdataAndLabels(Instances data) {
-        int labelIndex = data.classIndex();
+        final int labelIndex = data.classIndex();
         assert labelIndex == data.numAttributes() - 1;
 
-        Collection<int[]> lineData = new ArrayList<>(data.numInstances());
+        Collection<int[]> lineData = data.stream()
+                .map(MedriUtils::toIntArray)
+                .collect(Collectors.toList());
+
         int[] labelsCount = new int[data.attribute(data.classIndex()).numValues()];
+        lineData.stream()
+                .mapToInt(row -> row[labelIndex])
+                .forEach(index -> labelsCount[index]++);
 
-        int numAttrs = data.numAttributes();
-        for (int i = 0; i < data.numInstances(); i++) {
-            Instance instance = data.instance(i);
-            final int[] row = new int[numAttrs];
-
-            for (int att = 0; att < row.length; att++) {
-                row[att] = (int) instance.value(att);
-            }
-            labelsCount[row[labelIndex]]++;
-            lineData.add(row);
-        }
         return new Pair(lineData, labelsCount);
     }
 
+    /**
+     * map and instance to ints internal representation in Instances class in "int" format rather than double
+     * @param instance
+     * @return
+     */
     public static int[] toIntArray(Instance instance) {
-        int[] result = new int[instance.numValues()];
+        int[] result = new int[instance.numValues()]; //assert numValues == numAttributes data is not sparse
         for (int i = 0; i < result.length; i++) {
             result[i] = (int) instance.value(i);
         }

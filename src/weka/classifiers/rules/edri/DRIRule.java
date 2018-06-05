@@ -222,7 +222,7 @@ public class DRIRule
             return text.toString();
         } catch (Exception e) {
             e.printStackTrace();
-            return "Can't print Prism classifier!";
+            return "Can't print prism classifier!";
         }
     }
 

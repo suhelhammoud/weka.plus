@@ -15,7 +15,7 @@
  */
 
 /*
- *    Prism.java
+ *    prism.java
  *    Copyright (C) 1999 University ofOne Waikato, Hamilton, New Zealand
  *
  */
@@ -44,7 +44,7 @@ import java.util.List;
 
 /**
  * <!-- globalinfo-start -->
- * Class for building and using a eDRI rule set for classification. Can only deal with nominal attributes. Can't deal with missing values. Doesn't do any pruning.<br/>
+ * Class for building and using a edri rule set for classification. Can only deal with nominal attributes. Can't deal with missing values. Doesn't do any pruning.<br/>
  * <br/>
  * For more information, see <br/>
  * <br/>
@@ -60,7 +60,7 @@ import java.util.List;
  *    journal = { Journal Ref. here},
  *    number = {number},
  *    pages = {pagestart - pageend},
- *    title = {eDRI enhanced Dynamic Rule Induction},
+ *    title = {edri enhanced Dynamic Rule Induction},
  *    volume = {vol},
  *    year = {2016}
  * }
@@ -104,7 +104,7 @@ public class eDRI
      * displaying in the explorer/experimenter gui
      */
     public String globalInfo() {
-        return "Class for building and using a eDRI rule set for classification. "
+        return "Class for building and using a edri rule set for classification. "
                 + "Can only deal with nominal attributes. Can't deal with missing values. "
                 + "For more information, see \n\n"
                 + getTechnicalInformation().toString();
@@ -123,7 +123,7 @@ public class eDRI
         result = new TechnicalInformation(Type.ARTICLE);
         result.setValue(Field.AUTHOR, "F. Thabtah, S. Hammoud");
         result.setValue(Field.YEAR, "2016");
-        result.setValue(Field.TITLE, "eDRI: An algorithm for inducing modular rules");
+        result.setValue(Field.TITLE, "edri: An algorithm for inducing modular rules");
         result.setValue(Field.JOURNAL, "Journal");
         result.setValue(Field.VOLUME, "vol");
         result.setValue(Field.NUMBER, "number");
@@ -655,14 +655,14 @@ public class eDRI
     public String toString() {
         int maxDigits = pOptions.getMaxNumInstances();
         if (m_rules == null) {
-            return "Prism: No model built yet.";
+            return "prism: No model built yet.";
         }
 
         StringBuilder sb = new StringBuilder();
 
         sb.append("Number ofOne rules generated = " + m_rules.size());
         String intPattern = EDRIUtils.formatIntPattern(m_rules.size());
-        sb.append("\nPrism rules ( frequency, confidence ) \n----------\n");
+        sb.append("\nprism rules ( frequency, confidence ) \n----------\n");
         for (int i = 0; i < m_rules.size(); i++) {
             DRIRule rule = m_rules.get(i);
             sb.append(String.format(intPattern + " - ", (i + 1)) + rule.toString(maxDigits) + "\n");
@@ -715,7 +715,7 @@ public class eDRI
     public static void main(String[] args) throws Exception {
         String inFile = "/media/suhel/workspace/work/wekaprism/data/fadi.arff";
 //        String command = "-t "+ inFile + " -T "+ inFile + " -no-cv";
-//        runClassifier(new Prism(), args);
+//        runClassifier(new prism(), args);
 
         Instances data = new Instances(EDRIUtils.readDataFile(inFile));
         data.setClassIndex(data.numAttributes() - 1);

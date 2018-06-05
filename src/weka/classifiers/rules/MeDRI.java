@@ -8,9 +8,6 @@ import weka.core.*;
 
 import java.io.Serializable;
 import java.util.*;
-import java.util.stream.DoubleStream;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 /**
  * Created by suhel on 23/03/16.
@@ -22,7 +19,6 @@ public class MeDRI implements Classifier, OptionHandler,
     static final long serialVersionUID = 1310258885525902107L;
 
     private String[] labels;
-    Attribute classAttibute;
 
     /**
      * Returns the revision string.
@@ -40,7 +36,7 @@ public class MeDRI implements Classifier, OptionHandler,
      * displaying in the explorer/experimenter gui
      */
     public String globalInfo() {
-        return "Class for building and using a MeDRI rule set for classification. "
+        return "Class for building and using a medri rule set for classification. "
                 + "Can only deal with nominal attributes. Can't deal with missing values. "
                 + "For more information, see \n\n"
                 + getTechnicalInformation().toString();
@@ -59,7 +55,7 @@ public class MeDRI implements Classifier, OptionHandler,
         result = new TechnicalInformation(TechnicalInformation.Type.ARTICLE);
         result.setValue(TechnicalInformation.Field.AUTHOR, "F. Thabtah, S. Hammoud");
         result.setValue(TechnicalInformation.Field.YEAR, "2016");
-        result.setValue(TechnicalInformation.Field.TITLE, "MeDRI: An algorithm for inducing modular rules");
+        result.setValue(TechnicalInformation.Field.TITLE, "medri: An algorithm for inducing modular rules");
         result.setValue(TechnicalInformation.Field.JOURNAL, "Journal");
         result.setValue(TechnicalInformation.Field.VOLUME, "vol");
         result.setValue(TechnicalInformation.Field.NUMBER, "number");
@@ -103,10 +99,13 @@ public class MeDRI implements Classifier, OptionHandler,
 
     @Override
     public double[] distributionForInstance(Instance instance) throws Exception {
+        //TODO bug fix, exceptions in classification are not considered mis-classification
         int predication = (int) classifyInstance(instance);
         assert predication > -1;
         double[] result = new double[labels.length];
-        result[predication] = 1.0;
+        if (predication > -1) //TODO search weka to find how to report missing values
+            result[predication] = 1.0;
+
         return result;
     }
 
@@ -161,7 +160,7 @@ public class MeDRI implements Classifier, OptionHandler,
     }
 
     public String algorithmTipText() {
-        return "Which algorithm to use, Prism, eDRI, or MeDRI ?";
+        return "Which algorithm to use, prism, edri, or medri ?";
     }
 
     /**
@@ -205,13 +204,14 @@ public class MeDRI implements Classifier, OptionHandler,
 
         moptions.resetScannedInstances(0);
 
-        String algorithm = moptions.getAlgorithm().toString().toLowerCase();
-        switch (algorithm) {
-            case "prism":
+        MedriOptions.ALGORITHMS algo = MedriOptions.ALGORITHMS.of(
+                moptions.getAlgorithm().toString());
+        switch (algo) {
+            case prism:
                 buildClassifierPrism(data, moptions.getAddDefaultRule());
                 break;
 
-            case "edri": {
+            case edri: {
                 double minSupport = moptions.getMinFrequency();
                 double minConfidence = moptions.getMinRuleStrength();
                 int minFreq = (int) Math.ceil(minSupport * data.numInstances() + 1.e-6);
@@ -220,7 +220,7 @@ public class MeDRI implements Classifier, OptionHandler,
             }
             break;
 
-            case "medri": {
+            case medri: {
                 double minSupport = moptions.getMinFrequency();
                 double minConfidence = moptions.getMinRuleStrength();
                 int minFreq = (int) Math.ceil(minSupport * data.numInstances() + 1.e-6);

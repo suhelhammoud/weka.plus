@@ -99,7 +99,7 @@ public class DRIOptions implements OptionHandler, Serializable {
     @Override
     public Enumeration listOptions() {
         Vector<Option> result = new Vector<>(1);
-        result.addElement(new Option("Old Prism algorithm", "P", 0, "-P"));
+        result.addElement(new Option("Old prism algorithm", "P", 0, "-P"));
         result.addElement(new Option("Add Default Rule?", "R", 0, "-R"));
         result.addElement(new Option("minimum support", "S", 1, "-S <lower bound for minimum support >"));
 //        result.addElement(new Option("minimum support", "s", 1, "-s <lower bound for minimum support >"));
@@ -159,7 +159,7 @@ public class DRIOptions implements OptionHandler, Serializable {
     }
 
     public static void changeLogLevelRunTime(String logLevel) {
-//        Logger lg = (Logger) LoggerFactory.getLogger(eDRI.class);
+//        Logger lg = (Logger) LoggerFactory.getLogger(edri.class);
         ((ch.qos.logback.classic.Logger) LoggerFactory.getLogger(eDRI.class)).setLevel(Level.toLevel(logLevel));
 
     }
