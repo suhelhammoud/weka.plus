@@ -1,6 +1,7 @@
 package weka.classifiers.rules.medri;
 
 import weka.core.Attribute;
+import weka.core.Instance;
 import weka.core.Instances;
 
 import java.io.Serializable;
@@ -139,15 +140,22 @@ public class IRule implements Serializable {
         return true;
     }
 
-    public int classify(int[] cond) {
-        if (attIndexes.length == 0) return label;
+    public boolean canMatchInstance(int[] cond) {
+        if (attIndexes.length == 0)
+            return true;
 
         for (int index = 0; index < attIndexes.length; index++) {
             if (attValues[index] != cond[attIndexes[index]]) {
-                return EMPTY;
+                return false;
             }
         }
-        return label;
+        return true;
+    }
+
+    public int classify(int[] cond) {
+        return canMatchInstance(cond) ?
+                label :
+                EMPTY;
     }
 
 
@@ -170,7 +178,7 @@ public class IRule implements Serializable {
         return new StringJoiner(", ",
                 this.getClass().getSimpleName() + "[", "]")
                 .add("label=" + label)
-                .add("index= " + attIndexes)
+                .add("index= " + Arrays.toString(attIndexes))
                 .add("val=" + attValues)
                 .add("correct=" + correct)
                 .add("errors= " + errors)

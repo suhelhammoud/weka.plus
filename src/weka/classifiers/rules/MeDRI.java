@@ -7,10 +7,10 @@ import weka.classifiers.rules.medri.*;
 import weka.core.*;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Enumeration;
-import java.util.List;
+import java.util.*;
+import java.util.stream.DoubleStream;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 /**
  * Created by suhel on 23/03/16.
@@ -21,6 +21,8 @@ public class MeDRI implements Classifier, OptionHandler,
     static Logger logger = LoggerFactory.getLogger(MeDRI.class.getName());
     static final long serialVersionUID = 1310258885525902107L;
 
+    private String[] labels;
+    Attribute classAttibute;
 
     /**
      * Returns the revision string.
@@ -93,10 +95,19 @@ public class MeDRI implements Classifier, OptionHandler,
         return -1;
     }
 
-    //TODO
+    //TODO use instead of EMPTY (-1) returned values, later...
+    public boolean canClassifyInstance(Instance inst) {
+        return m_rules.stream()
+                .anyMatch(r -> r.canMatchInstance(MedriUtils.toIntArray(inst)));
+    }
+
     @Override
     public double[] distributionForInstance(Instance instance) throws Exception {
-        return new double[0];
+        int predication = (int) classifyInstance(instance);
+        assert predication > -1;
+        double[] result = new double[labels.length];
+        result[predication] = 1.0;
+        return result;
     }
 
 
@@ -182,11 +193,13 @@ public class MeDRI implements Classifier, OptionHandler,
      * @throws Exception if the classifier can't built successfully
      */
     public void buildClassifier(Instances data) throws Exception {
-        logger.info("build classifer with data ={} of size={}", data.relationName(), data.numInstances());
+        logger.info("build classifier with data ={} of size={}", data.relationName(), data.numInstances());
 
         assert data.classIndex() == data.numAttributes() - 1;
 
         data.setClassIndex(data.numAttributes() - 1);
+        this.labels = MedriUtils.attributValues(data.attribute(data.classIndex()));
+
         moptions.setMaxNumInstances(data.numInstances());
         moptions.setInstancesCopy(data);
 
@@ -226,6 +239,7 @@ public class MeDRI implements Classifier, OptionHandler,
 
 
     public MeDRIResult buildClassifierMeDRI(Instances data, int minSupport, double minConfidence, boolean addDefaultRule) {
+        logger.debug("buildClassifierMeDRI");
         int[] iattrs = MedriUtils.mapAttributes(data);
 
         Pair<Collection<int[]>, int[]> linesLabels = MedriUtils.mapIdataAndLabels(data);

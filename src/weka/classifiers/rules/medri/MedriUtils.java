@@ -5,6 +5,7 @@ package weka.classifiers.rules.medri;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import weka.classifiers.rules.edri.EDRIUtils;
+import weka.core.Attribute;
 import weka.core.Instance;
 import weka.core.Instances;
 
@@ -348,6 +349,29 @@ public class MedriUtils {
         return new IRuleLines(rule, notCoveredLines, scannedInstances);
     }
 
+    //TODO delete later
+//    public static double[] attribToArray(Attribute att) {
+//        double[] result = new double[att.numValues()];
+//        for (int i = 0; i < result.length; i++) {
+//            result[i] = Double.valueOf(att.value(i));
+//        }
+//        return result;
+//    }
+
+    public static String[] attributValues(Attribute att) {
+        String[] result = new String[att.numValues()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = att.value(i);
+        }
+        return result;
+    }
+
+    public static int indexOf(double[] arr, double value) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == value) return i;
+        }
+        return -1;
+    }
 
     public static MeDRIResult buildClassifierMeDRI(int[] iattrs, int[] labelsCount, Collection<int[]> lineData,
                                                    int minFreq, double minConfidence, boolean addDefaultRule) {
