@@ -22,6 +22,11 @@ public class MedriUtils {
 
     static Logger logger = LoggerFactory.getLogger(MedriUtils.class.getName());
 
+    /**
+     * Return array containing number of items in each corresponding attribute
+     * @param data
+     * @return number of distinct items in each attributes
+     */
     public static int[] mapAttributes(Instances data) {
         int[] iattrs = new int[data.numAttributes()];
         for (int i = 0; i < iattrs.length; i++) {

@@ -1,7 +1,6 @@
 package weka.classifiers.rules.medri;
 
 import weka.core.Attribute;
-import weka.core.Instance;
 import weka.core.Instances;
 
 import java.io.Serializable;
