@@ -19,6 +19,5 @@ public class IRuleLines {
 
     public IRuleLines(IRule rule, Collection<int[]> lines) {
         this(rule, lines, 0);
-
     }
 }

@@ -240,14 +240,15 @@ public class MeDRI implements Classifier, OptionHandler,
 
     public MeDRIResult buildClassifierMeDRI(Instances data, int minSupport, double minConfidence, boolean addDefaultRule) {
         logger.debug("buildClassifierMeDRI");
-        int[] iattrs = MedriUtils.mapAttributes(data);
 
         Pair<Collection<int[]>, int[]> linesLabels = MedriUtils.mapIdataAndLabels(data);
         Collection<int[]> lineData = linesLabels.key;
         int[] labelsCount = linesLabels.value;
 //
         logger.trace("original lines size ={}", lineData.size());
-        MeDRIResult result = MedriUtils.buildClassifierMeDRI(iattrs, labelsCount,
+
+        int[] numItems = MedriUtils.numItems(data);
+        MeDRIResult result = MedriUtils.buildClassifierMeDRI(numItems, labelsCount,
                 lineData, minSupport, minConfidence, addDefaultRule);
 
         m_rules.clear();
@@ -257,7 +258,7 @@ public class MeDRI implements Classifier, OptionHandler,
     }
 
     public MeDRIResult buildClassifierEDRI(Instances data, int minSupport, double minConfidence, boolean addDefaultRule) {
-        int[] iattrs = MedriUtils.mapAttributes(data);
+        int[] iattrs = MedriUtils.numItems(data);
 
         Pair<Collection<int[]>, int[]> linesLabels = MedriUtils.mapIdataAndLabels(data);
         Collection<int[]> lineData = linesLabels.key;
@@ -276,7 +277,7 @@ public class MeDRI implements Classifier, OptionHandler,
 
     public MeDRIResult buildClassifierPrism(Instances data, boolean addDefaultRule) {
 
-        int[] iattrs = MedriUtils.mapAttributes(data);
+        int[] iattrs = MedriUtils.numItems(data);
 
         Pair<Collection<int[]>, int[]> linesLabels = MedriUtils.mapIdataAndLabels(data);
         Collection<int[]> lineData = linesLabels.key;

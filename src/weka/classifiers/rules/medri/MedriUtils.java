@@ -12,6 +12,7 @@ import weka.core.Instances;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -28,7 +29,7 @@ public class MedriUtils {
      * @param data
      * @return number of distinct items in each attributes
      */
-    public static int[] mapAttributes(Instances data) {
+    public static int[] numItems(Instances data) {
         int[] iattrs = new int[data.numAttributes()];
         for (int i = 0; i < iattrs.length; i++) {
             iattrs[i] = data.attribute(i).numValues();
@@ -63,6 +64,7 @@ public class MedriUtils {
 
     /**
      * map and instance to ints internal representation in Instances class in "int" format rather than double
+     *
      * @param instance
      * @return
      */
@@ -116,16 +118,25 @@ public class MedriUtils {
     }
 
 
-    public static int[][][] countStep(int[] iattrs, Collection<int[]> lineData, int[] avAtts) {
+    /**
+     * @param numItems
+     * @param lineData
+     * @param availableAttArray
+     * @return counter of frequencies of labels as an array [i][j][k] :
+     * i: attribute
+     * j: item in attribute i
+     * k: label class
+     */
+    public static int[][][] countStep(int[] numItems, Collection<int[]> lineData, int[] availableAttArray) {
 
-        int labelIndex = iattrs.length - 1;
-        int numLabels = iattrs[labelIndex];
+        int labelIndex = numItems.length - 1;
+        int numLabels = numItems[labelIndex];
 
-        //create array of One attributes, withoud the class name;
-        int[][][] result = new int[iattrs.length][][];
+        //create array of One attributes, without the class name;
+        int[][][] result = new int[numItems.length][][];
 
-        for (int attIndex : avAtts) {
-            result[attIndex] = new int[iattrs[attIndex]][numLabels];
+        for (int attIndex : availableAttArray) {
+            result[attIndex] = new int[numItems[attIndex]][numLabels];
         }
         //fill remaining attributes with empty arrays
         for (int i = 0; i < result.length; i++) {
@@ -136,7 +147,7 @@ public class MedriUtils {
         for (int[] row : lineData) {
             int cls = row[labelIndex];
 
-            for (int a : avAtts)
+            for (int a : availableAttArray)
                 result[a][row[a]][cls]++;
         }
         return result;
@@ -246,28 +257,35 @@ public class MedriUtils {
     }
 
 
-    public static IRuleLines calcStepMeDRI(int[] iattrs, Collection<int[]> lineData,
-                                           int minFreq, double minConfidence) {
+    public static IRuleLines calcStepMeDRI(int[] numItems,
+                                           Collection<int[]> lineData,
+                                           int minFreq,
+                                           double minConfidence) {
 
         if (lineData.size() < minFreq) return null;
 
-        int labelIndex = iattrs.length - 1;
-        int numLabels = iattrs[labelIndex];
+//        int labelIndex = numItems.length - 1;
+//        int numLabels = numItems[labelIndex];
 
         /** Start with all attributes, does not include the label attribute*/
-        Set<Integer> avAtts = new LinkedHashSet<>();
-        for (int i = 0; i < labelIndex; i++) avAtts.add(i);
+        Set<Integer> availablesAttrbutes = IntStream.range(0, numItems.length - 1)
+                .boxed()
+                .collect(Collectors.toSet());
+
+//        Set<Integer> avAtts = new LinkedHashSet<>();
+//        for (int i = 0; i < labelIndex; i++) avAtts.add(i);
+
         IRule rule = null;// new IRule(label);// Does not know the label yet
         MaxIndex mx = null;
 
         Collection<int[]> entryLines = lineData;
         Collection<int[]> notCoveredLines = new ArrayList<>(lineData.size());
 //
-        long scannedInstances = 0L;
+        long scannedInstances = 0L; // for statistical measures only
         do {
             scannedInstances += 2 * entryLines.size();
 
-            int[][][] stepCount = countStep(iattrs, entryLines, intsToArray(avAtts));
+            int[][][] stepCount = countStep(numItems, entryLines, intsToArray(availablesAttrbutes));
             if (mx == null) {
                 //For the first time
                 mx = MaxIndex.ofMeDRI(stepCount, minFreq, minConfidence);
@@ -285,7 +303,7 @@ public class MedriUtils {
             assert mx.getBestAtt() >= 0;
             assert mx.getBestItem() >= 0;
 
-            avAtts.remove(mx.getBestAtt());
+            availablesAttrbutes.remove(mx.getBestAtt());
             rule.addTest(mx.getBestAtt(), mx.getBestItem());
             rule.updateWith(mx);
 
@@ -294,7 +312,7 @@ public class MedriUtils {
 
             entryLines = splitResult.key;
 
-        } while (rule.getErrors() > 0 && avAtts.size() > 0 && rule.getCorrect() >= minFreq);
+        } while (rule.getErrors() > 0 && availablesAttrbutes.size() > 0 && rule.getCorrect() >= minFreq);
 
         if (rule.getLenght() == 0) {//TODO more inspection is needed here
             return null;
@@ -388,14 +406,20 @@ public class MedriUtils {
         return -1;
     }
 
-    public static MeDRIResult buildClassifierMeDRI(int[] iattrs, int[] labelsCount, Collection<int[]> lineData,
-                                                   int minFreq, double minConfidence, boolean addDefaultRule) {
+    public static MeDRIResult buildClassifierMeDRI(int[] numItems,
+                                                   int[] labelsCount,
+                                                   Collection<int[]> lineData,
+                                                   int minFreq,
+                                                   double minConfidence,
+                                                   boolean addDefaultRule) {
         List<IRule> rules = new ArrayList<>();
         long scannedInstance = 0L;
 
-        int labelIndex = iattrs.length - 1;
-        int numLabels = iattrs[labelIndex];
-        labelsCount = labelsCount.clone();
+        int labelIndex = numItems.length - 1;
+        int numLabels = numItems[labelIndex];
+        assert numItems[labelIndex] == labelsCount.length;
+
+//        labelsCount = labelsCount.clone();
 
         int lineDataSize = lineData.size();
 
@@ -406,21 +430,22 @@ public class MedriUtils {
 
 
         while (lineDataSize > 0) {
-            IRuleLines lnrl = calcStepMeDRI(iattrs, lines, minFreq, minConfidence);
-            if (lnrl == null) break; // stop adding rules for current class. break out to the new class
-            scannedInstance += lnrl.scannedInstances;
+
+            IRuleLines rllns = calcStepMeDRI(numItems, lines, minFreq, minConfidence);
+            if (rllns == null) break; // stop adding rules for current class. break out to the new class
+            scannedInstance += rllns.scannedInstances;
 
 
-            logger.trace("rule {}", lnrl.rule);
-            logger.trace("remaining lines={}", lnrl.lines.size());
+            logger.trace("rule {}", rllns.rule);
+            logger.trace("remaining lines={}", rllns.lines.size());
 
-            lines = lnrl.lines;
+            lines = rllns.lines;
             remainingLines = lines;
-            lineDataSize -= lnrl.rule.getCorrect();
+            lineDataSize -= rllns.rule.getCorrect();
             logger.trace("took {} , remains {} instances",
-                    lnrl.rule.getCorrect(), lineDataSize);
+                    rllns.rule.getCorrect(), lineDataSize);
 
-            rules.add(lnrl.rule);
+            rules.add(rllns.rule);
         }
 
         if (addDefaultRule) {
@@ -582,7 +607,7 @@ public class MedriUtils {
         Instances data = new Instances(EDRIUtils.readDataFile(inFile));
         data.setClassIndex(data.numAttributes() - 1);
         System.out.println(data.numInstances());
-        int[] iattrs = MedriUtils.mapAttributes(data);
+        int[] iattrs = MedriUtils.numItems(data);
 
         Pair<Collection<int[]>, int[]> linesLabels = MedriUtils.mapIdataAndLabels(data);
         Collection<int[]> lineData = linesLabels.key;
