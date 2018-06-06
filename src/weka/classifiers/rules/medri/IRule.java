@@ -17,7 +17,7 @@ public class IRule implements Serializable {
 
     public final static int EMPTY = -1;
     public final int label;
-    private int[] attIndexes;
+    private int[] attIndexes; //TODO what about using List ??
     private int[] attValues;
 
     private int correct;
@@ -64,50 +64,6 @@ public class IRule implements Serializable {
         this.attValues = new int[0];
     }
 
-
-//    /**
-//     * Filter the lineData to keep only lines satisfies this rule
-//     * Reset correct, covers, and errors
-//     *
-//     * @param lineData
-//     * @return Set ofOne not covered lines
-//     */
-//    public Set<int[]> keepCoveredBy(Set<int[]> lineData) {
-//        return keepCoveredBy(lineData, this);
-//    }
-//
-//    public static Set<int[]> keepCoveredBy(Set<int[]> lineData, IRule rule) {
-//        rule.resetCounters();
-//        final int label = rule.label;
-//
-//        Set<int[]> result = new HashSet<>(lineData.size());
-//
-//        for (Iterator<int[]> iter = lineData.iterator(); iter.hasNext(); ) {
-//            int[] line = iter.next();
-//            int lbl = rule.classify(line);
-//            if (lbl == IRule.EMPTY) { //rule can not classify line
-//                rule.covers++;
-//                iter.remove();
-//                result.add(line);
-//            } else if (lbl == label) {
-//                rule.correct++;
-//            } else {
-//                rule.errors++;
-//            }
-//        }
-//        assert rule.covers == rule.correct + rule.errors;
-//        return result;
-//    }
-
-
-    public void updateWith(MaxIndex maxIndex) {
-        assert this.label == maxIndex.getLabel();
-        this.correct = maxIndex.getBestCorrect();
-        this.covers = maxIndex.getBestCover();
-        this.errors = covers - correct;
-    }
-
-
     private static int[] addElement(int[] a, int e) {
         a = Arrays.copyOf(a, a.length + 1);
         a[a.length - 1] = e;
@@ -139,6 +95,13 @@ public class IRule implements Serializable {
         return true;
     }
 
+    public void updateWith(MaxIndex maxIndex) {
+        assert this.label == maxIndex.getLabel();
+        this.correct = maxIndex.getBestCorrect();
+        this.covers = maxIndex.getBestCover();
+        this.errors = covers - correct;
+    }
+
     public boolean canMatchInstance(int[] cond) {
         if (attIndexes.length == 0)
             return true;
@@ -164,15 +127,6 @@ public class IRule implements Serializable {
 
     @Override
     public String toString() {
-//        old guava
-//        return MoreObjects.toStringHelper(this)
-//                .add("label", label)
-//                .add("index", attIndexes)
-//                .add("val", attValues)
-//                .add("correct", correct)
-//                .add("errors", errors)
-//                .add("covers", covers)
-//                .toString();
 
         return new StringJoiner(", ",
                 this.getClass().getSimpleName() + "[", "]")

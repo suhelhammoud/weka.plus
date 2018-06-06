@@ -9,9 +9,10 @@ import java.util.StringJoiner;
 
 public class MaxIndex {
     public final static int EMPTY = -1;
-    protected int bestCorrect = -1;//Should start with negative value
-    int bestCover = 0;
-    protected int bestAtt = EMPTY, bestItem = EMPTY, label = EMPTY;
+    private int bestCorrect = -1;//Should start with negative value
+    private int bestCover = 0;
+    private int bestAtt = EMPTY, bestItem = EMPTY;
+    private int label = EMPTY;
 
     final public int minFreq;
     final public double minConfidence;
@@ -48,10 +49,15 @@ public class MaxIndex {
         result.label = this.label;
         result.bestCorrect = this.bestCorrect;
         result.bestCover = this.bestCover;
-
         return result;
     }
 
+    /**
+     * Find best (att, item, label) based on confidence and support, no prior label condition
+     *
+     * @param count (att, item, label) -> count
+     * @return MaxIndex instance with values of (att, item, label) that maximize confidence/support
+     */
     public static MaxIndex of(int[][][] count) {
         MaxIndex mi = new MaxIndex(0, 0);
         for (int at = 0; at < count.length; at++) {
@@ -62,7 +68,17 @@ public class MaxIndex {
         return mi;
     }
 
-    public static MaxIndex ofMeDRI(int[][][] count, int minFreq, double minConfidence) {
+    /**
+     * Find best ranked item with no prior label selection
+     *
+     * @param count         counter matrix [att][item][label] -> count
+     * @param minFreq
+     * @param minConfidence
+     * @return MaxIndex with best item and corresponding label selected
+     */
+    public static MaxIndex ofMeDRI(int[][][] count,
+                                   int minFreq,
+                                   double minConfidence) {
         MaxIndex mi = new MaxIndex(minFreq, minConfidence);
         for (int at = 0; at < count.length; at++) {
             for (int itm = 0; itm < count[at].length; itm++) {
@@ -71,6 +87,29 @@ public class MaxIndex {
         }
         return mi;
     }
+
+    /**
+     * Find best item (with predefined label) which meets the support and confidence rankings.
+     *
+     * @param count
+     * @param label
+     * @param minFreq
+     * @param minConfidence
+     * @return
+     */
+    public static MaxIndex ofMeDRI(int[][][] count,
+                                   int minFreq,
+                                   double minConfidence,
+                                   int label) {
+        MaxIndex mi = new MaxIndex(minFreq, minConfidence);
+        for (int at = 0; at < count.length; at++) {
+            for (int itm = 0; itm < count[at].length; itm++) {
+                mi.maxMeDRI(count[at][itm], at, itm, label);
+            }
+        }
+        return mi;
+    }
+
 
     public static MaxIndex ofOne(int[][][] count, int label) {
         MaxIndex mi = new MaxIndex(0, 0);
@@ -82,17 +121,6 @@ public class MaxIndex {
         return mi;
     }
 
-
-    public static MaxIndex ofSupportConfidence(int[][][] count, int label,
-                                               int minFreq, double minConfidence) {
-        MaxIndex mi = new MaxIndex(minFreq, minConfidence);
-        for (int at = 0; at < count.length; at++) {
-            for (int itm = 0; itm < count[at].length; itm++) {
-                mi.maxSupportConfidence(count[at][itm], at, itm, label);
-            }
-        }
-        return mi;
-    }
 
     private void maxOne(int[] itemLabels, int attIndex, int itemIndex, int label) {
         int sum = sum(itemLabels);
@@ -106,22 +134,6 @@ public class MaxIndex {
         }
     }
 
-    private void maxSupportConfidence(int[] itemLabels, int attIndex, int itemIndex, int label) {
-        int itemCorrect = itemLabels[label];
-        if (itemCorrect < minFreq) return;
-        int sum = sum(itemLabels);
-
-        if (minConfidence > (double) itemCorrect / (double) sum) return;
-
-        int diff = itemCorrect * bestCover - bestCorrect * sum;
-        if (diff > 0 || diff == 0 && itemCorrect > bestCorrect) {
-            this.bestAtt = attIndex;
-            this.bestItem = itemIndex;
-            this.label = label;
-            this.bestCorrect = itemCorrect;
-            this.bestCover = sum;
-        }
-    }
 
     private boolean max(int[] itemLabels, int attIndex, int itemIndex) {
         int sum = sum(itemLabels);
@@ -141,7 +153,16 @@ public class MaxIndex {
     }
 
 
+    /**
+     * Find item that has the max value based on chosen ranking criteria
+     * local max value will be updated
+     *
+     * @param itemLabels frequencies of labels occurred with this item
+     * @param attIndex   which attribute this items belongs to
+     * @param itemIndex  item index
+     */
     private void maxMeDRI(int[] itemLabels, int attIndex, int itemIndex) {
+        //TODO try using immutable results rather than local mutual ones.
         int sum = sum(itemLabels);
         for (int i = 0; i < itemLabels.length; i++) {
             int itemCorrect = itemLabels[i];
@@ -149,8 +170,9 @@ public class MaxIndex {
 
             if (minConfidence > (double) itemCorrect / (double) sum) continue;
 
-            int diff = itemCorrect * bestCover - bestCorrect * sum;
+            int diff = itemCorrect * bestCover - bestCorrect * sum; //TODO nice to allow plugging in ranking criteria
             if (diff > 0 || diff == 0 && itemCorrect > bestCorrect) {
+                //switch (att,item,label)
                 this.bestAtt = attIndex;
                 this.bestItem = itemIndex;
                 this.label = i;
@@ -160,17 +182,31 @@ public class MaxIndex {
         }
     }
 
+    /**
+     * @param itemLabels
+     * @param attIndex
+     * @param itemIndex
+     * @param label
+     */
+    private void maxMeDRI(int[] itemLabels, int attIndex, int itemIndex, int label) {
+        int itemCorrect = itemLabels[label];
+        if (itemCorrect < minFreq) return;
+        int sum = sum(itemLabels);
+
+        if (minConfidence > (double) itemCorrect / (double) sum) return;
+
+        int diff = itemCorrect * bestCover - bestCorrect * sum;
+        if (diff > 0 || diff == 0 && itemCorrect > bestCorrect) {
+            this.bestAtt = attIndex;
+            this.bestItem = itemIndex;
+            this.label = label;
+            this.bestCorrect = itemCorrect;
+            this.bestCover = sum;
+        }
+    }
+
     @Override
     public String toString() {
-
-//        return MoreObjects.toStringHelper(this)
-//                .add("bestAtt", bestAtt)
-//                .add("bestItem", bestItem)
-//                .add("lbl", label)
-//                .add("correct", bestCorrect)
-//                .add("cover", bestCover)
-//                .toString();
-
         return new StringJoiner(", ",
                 this.getClass().getSimpleName() + "[", "]")
                 .add("bestAtt=" + bestAtt)
@@ -182,6 +218,7 @@ public class MaxIndex {
     }
 
     public static int sum(int[] a) {
+//        return Arrays.stream(a).sum(); // TODO performance comparision
         int result = 0;
         for (int i : a) result += i;
         return result;

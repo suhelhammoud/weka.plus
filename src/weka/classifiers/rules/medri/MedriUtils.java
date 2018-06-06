@@ -246,7 +246,7 @@ public class MedriUtils {
             rule.addTest(mx.getBestAtt(), mx.getBestItem());
             rule.updateWith(mx);
 
-            Pair<Collection<int[]>, Collection<int[]>> splitResult = splitAndGetCovered(entryLines, rule, mx.bestCover);
+            Pair<Collection<int[]>, Collection<int[]>> splitResult = splitAndGetCovered(entryLines, rule, mx.getBestCover());
             notCoveredLines.addAll(splitResult.value);
 
             entryLines = splitResult.key;
@@ -257,7 +257,7 @@ public class MedriUtils {
     }
 
 
-    public static IRuleLines calcStepMeDRI(int[] numItems,
+    public static IRuleLines calcStepMeDRI(int[] numItemsInAtt,
                                            Collection<int[]> lineData,
                                            int minFreq,
                                            double minConfidence) {
@@ -268,7 +268,7 @@ public class MedriUtils {
 //        int numLabels = numItems[labelIndex];
 
         /** Start with all attributes, does not include the label attribute*/
-        Set<Integer> availablesAttrbutes = IntStream.range(0, numItems.length - 1)
+        Set<Integer> availableAttributes = IntStream.range(0, numItemsInAtt.length - 1)
                 .boxed()
                 .collect(Collectors.toSet());
 
@@ -281,18 +281,21 @@ public class MedriUtils {
         Collection<int[]> entryLines = lineData;
         Collection<int[]> notCoveredLines = new ArrayList<>(lineData.size());
 //
-        long scannedInstances = 0L; // for statistical measures only
+        long scannedInstances = 0L; // for statistical measures only, TODO investigate using annotation
         do {
             scannedInstances += 2 * entryLines.size();
 
-            int[][][] stepCount = countStep(numItems, entryLines, intsToArray(availablesAttrbutes));
+            int[][][] stepCount = countStep(numItemsInAtt, entryLines, intsToArray(availableAttributes));
             if (mx == null) {
                 //For the first time
                 mx = MaxIndex.ofMeDRI(stepCount, minFreq, minConfidence);
                 if (mx.getLabel() == MaxIndex.EMPTY) return null;
                 rule = new IRule(mx.getLabel());
             } else {
-                mx = MaxIndex.ofSupportConfidence(stepCount, mx.getLabel(), minFreq, minConfidence);
+                mx = MaxIndex.ofMeDRI(stepCount,
+                        minFreq,
+                        minConfidence,
+                        mx.getLabel());
                 if (mx.getLabel() == MaxIndex.EMPTY) break;
 
             }
@@ -303,16 +306,17 @@ public class MedriUtils {
             assert mx.getBestAtt() >= 0;
             assert mx.getBestItem() >= 0;
 
-            availablesAttrbutes.remove(mx.getBestAtt());
+            availableAttributes.remove(mx.getBestAtt());
+
             rule.addTest(mx.getBestAtt(), mx.getBestItem());
             rule.updateWith(mx);
 
-            Pair<Collection<int[]>, Collection<int[]>> splitResult = splitAndGetCovered(entryLines, rule, mx.bestCover);
+            Pair<Collection<int[]>, Collection<int[]>> splitResult = splitAndGetCovered(entryLines, rule, mx.getBestCover());
             notCoveredLines.addAll(splitResult.value);
 
             entryLines = splitResult.key;
 
-        } while (rule.getErrors() > 0 && availablesAttrbutes.size() > 0 && rule.getCorrect() >= minFreq);
+        } while (rule.getErrors() > 0 && availableAttributes.size() > 0 && rule.getCorrect() >= minFreq);
 
         if (rule.getLenght() == 0) {//TODO more inspection is needed here
             return null;
@@ -351,8 +355,10 @@ public class MedriUtils {
 
             scannedInstances += 2 * entryLines.size();
             int[][][] stepCount = countStep(iattrs, entryLines, intsToArray(avAtts));
-            MaxIndex mx = MaxIndex.ofSupportConfidence(stepCount,
-                    rule.label, minFreq, minConfidence);
+            MaxIndex mx = MaxIndex.ofMeDRI(stepCount,
+                    minFreq,
+                    minConfidence,
+                    rule.label);
 
 
             if (mx.getLabel() == MaxIndex.EMPTY) {
@@ -368,7 +374,7 @@ public class MedriUtils {
             rule.addTest(mx.getBestAtt(), mx.getBestItem());
             rule.updateWith(mx);
 
-            Pair<Collection<int[]>, Collection<int[]>> splitResult = splitAndGetCovered(entryLines, rule, mx.bestCover);
+            Pair<Collection<int[]>, Collection<int[]>> splitResult = splitAndGetCovered(entryLines, rule, mx.getBestCover());
             notCoveredLines.addAll(splitResult.value);
 
             entryLines = splitResult.key;
