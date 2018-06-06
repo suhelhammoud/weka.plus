@@ -17,7 +17,8 @@ public class IRule implements Serializable {
 
     public final static int EMPTY = -1;
     public final int label;
-    private int[] attIndexes; //TODO what about using List ??
+    //TODO what about using List ??, check the update to read ratio and measure performance to decide
+    private int[] attIndexes;
     private int[] attValues;
 
     private int correct;
@@ -64,6 +65,12 @@ public class IRule implements Serializable {
         this.attValues = new int[0];
     }
 
+    /**
+     *
+     * @param a
+     * @param e
+     * @return
+     */
     private static int[] addElement(int[] a, int e) {
         a = Arrays.copyOf(a, a.length + 1);
         a[a.length - 1] = e;
@@ -102,7 +109,7 @@ public class IRule implements Serializable {
         this.errors = covers - correct;
     }
 
-    public boolean canMatchInstance(int[] cond) {
+    public boolean canCoverInstance(int[] cond) {
         if (attIndexes.length == 0)
             return true;
 
@@ -115,7 +122,7 @@ public class IRule implements Serializable {
     }
 
     public int classify(int[] cond) {
-        return canMatchInstance(cond) ?
+        return canCoverInstance(cond) ?
                 label :
                 EMPTY;
     }

@@ -94,7 +94,7 @@ public class MeDRI implements Classifier, OptionHandler,
     //TODO use instead of EMPTY (-1) returned values, later...
     public boolean canClassifyInstance(Instance inst) {
         return m_rules.stream()
-                .anyMatch(r -> r.canMatchInstance(MedriUtils.toIntArray(inst)));
+                .anyMatch(r -> r.canCoverInstance(MedriUtils.toIntArray(inst)));
     }
 
     @Override

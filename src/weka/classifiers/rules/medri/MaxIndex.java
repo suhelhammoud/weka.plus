@@ -110,49 +110,6 @@ public class MaxIndex {
         return mi;
     }
 
-
-    public static MaxIndex ofOne(int[][][] count, int label) {
-        MaxIndex mi = new MaxIndex(0, 0);
-        for (int at = 0; at < count.length; at++) {
-            for (int itm = 0; itm < count[at].length; itm++) {
-                mi.maxOne(count[at][itm], at, itm, label);
-            }
-        }
-        return mi;
-    }
-
-
-    private void maxOne(int[] itemLabels, int attIndex, int itemIndex, int label) {
-        int sum = sum(itemLabels);
-        int diff = itemLabels[label] * bestCover - bestCorrect * sum;
-        if (diff > 0 || diff == 0 && itemLabels[label] > bestCorrect) {
-            this.bestAtt = attIndex;
-            this.bestItem = itemIndex;
-            this.label = label;
-            this.bestCorrect = itemLabels[label];
-            this.bestCover = sum;
-        }
-    }
-
-
-    private boolean max(int[] itemLabels, int attIndex, int itemIndex) {
-        int sum = sum(itemLabels);
-        boolean changed = false;
-        for (int i = 0; i < itemLabels.length; i++) {
-            int diff = itemLabels[i] * bestCover - bestCorrect * sum;
-            if (diff > 0 || diff == 0 && itemLabels[i] > bestCorrect) {
-                this.bestAtt = attIndex;
-                this.bestItem = itemIndex;
-                this.label = i;
-                this.bestCorrect = itemLabels[i];
-                this.bestCover = sum;
-                changed = true;
-            }
-        }
-        return changed;
-    }
-
-
     /**
      * Find item that has the max value based on chosen ranking criteria
      * local max value will be updated
@@ -204,6 +161,51 @@ public class MaxIndex {
             this.bestCover = sum;
         }
     }
+
+
+    public static MaxIndex ofOne(int[][][] count, int label) {
+        MaxIndex mi = new MaxIndex(0, 0);
+        for (int at = 0; at < count.length; at++) {
+            for (int itm = 0; itm < count[at].length; itm++) {
+                mi.maxOne(count[at][itm], at, itm, label);
+            }
+        }
+        return mi;
+    }
+
+
+    private void maxOne(int[] itemLabels, int attIndex, int itemIndex, int label) {
+        int sum = sum(itemLabels);
+        int diff = itemLabels[label] * bestCover - bestCorrect * sum;
+        if (diff > 0 || diff == 0 && itemLabels[label] > bestCorrect) {
+            this.bestAtt = attIndex;
+            this.bestItem = itemIndex;
+            this.label = label;
+            this.bestCorrect = itemLabels[label];
+            this.bestCover = sum;
+        }
+    }
+
+
+    private boolean max(int[] itemLabels, int attIndex, int itemIndex) {
+        int sum = sum(itemLabels);
+        boolean changed = false;
+        for (int i = 0; i < itemLabels.length; i++) {
+            int diff = itemLabels[i] * bestCover - bestCorrect * sum;
+            if (diff > 0 || diff == 0 && itemLabels[i] > bestCorrect) {
+                this.bestAtt = attIndex;
+                this.bestItem = itemIndex;
+                this.label = i;
+                this.bestCorrect = itemLabels[i];
+                this.bestCover = sum;
+                changed = true;
+            }
+        }
+        return changed;
+    }
+
+
+
 
     @Override
     public String toString() {

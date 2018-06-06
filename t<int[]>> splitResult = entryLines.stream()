@@ -1,0 +1,59 @@
+[33mcommit 45e27f4fe2bf1c840b283d15663e02bdbfb2ebeb[m[33m ([m[1;36mHEAD -> [m[1;32mpas3[m[33m)[m
+Author: Suhel Hammoud <suhel.hammoud@gmail.com>
+Date:   Wed Jun 6 20:48:37 2018 +0300
+
+    maxIndex comments
+
+[33mcommit 13cb85e1907d5c583470ab129cbda11c913567ed[m[33m ([m[1;32mmaster[m[33m)[m
+Author: Suhel Hammoud <suhel.hammoud@gmail.com>
+Date:   Wed Jun 6 08:32:01 2018 +0300
+
+    comments to countStepMedri
+
+[33mcommit f26147647ffc1bf2c46d1326069d628851f39b8b[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: Suhel Hammoud <suhel.hammoud@gmail.com>
+Date:   Tue Jun 5 17:57:18 2018 +0300
+
+    mapping and -1 classification
+
+[33mcommit 030124b2ac0b3c3fd93c36a2ac28c1f0cb0a37fd[m
+Author: Suhel Hammoud <suhel.hammoud@gmail.com>
+Date:   Tue Jun 5 15:35:23 2018 +0300
+
+    README.md
+
+[33mcommit d67ab515b3d95a0f5a1acd550053d2fedfaf8cb1[m
+Author: Suhel Hammoud <suhel.hammoud@gmail.com>
+Date:   Tue Jun 5 15:22:32 2018 +0300
+
+    before merging
+
+[33mcommit 22061d695ba04f1b11c05d0d9f8e3406880ff883[m[33m ([m[1;31morigin/medri[m[33m)[m
+Author: Suhel Hammoud <suhel.hammoud@gmail.com>
+Date:   Tue Jun 5 10:49:44 2018 +0300
+
+    importing medri to weka 3.8.x
+
+[33mcommit a28a4d5bafd5671797b4479fe818851173fd212a[m
+Author: Suhel Hammoud <suhel.hammoud@gmail.com>
+Date:   Tue Jun 5 00:18:53 2018 +0300
+
+    first import medri
+
+[33mcommit be54a14a1c947b8ef33d86be17f3456e9004e8cd[m[33m ([m[1;31morigin/entropy.strip[m[33m)[m
+Author: Suhel Hammoud <suhel.hammoud@gmail.com>
+Date:   Mon Jun 4 22:48:26 2018 +0300
+
+    att_method
+
+[33mcommit 6324024ca1e156c5281f1674cc60acb3f3a47445[m
+Author: Suhel Hammoud <suhel.hammoud@gmail.com>
+Date:   Fri May 25 09:48:17 2018 +0300
+
+    entropy
+
+[33mcommit 06e6ca45431bd136dc92019aec4fe7b12c048708[m
+Author: Suhel Hammoud <suhel.hammoud@gmail.com>
+Date:   Fri May 25 09:34:37 2018 +0300
+
+    Initial commit
