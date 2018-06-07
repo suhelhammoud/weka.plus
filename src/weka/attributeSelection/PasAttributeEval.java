@@ -418,6 +418,7 @@ public class PasAttributeEval extends ASEvaluation implements
         } else { //All OK
             text.append("\tPas Ranking Filter");
 
+
             if (!m_missing_merge) {
                 text.append("\n\tMissing values treated as separate"); //TODO check
             }
@@ -430,7 +431,23 @@ public class PasAttributeEval extends ASEvaluation implements
         text.append("\n\t Minimum Confidence: " + m_confidence);
 
         text.append("\n");
+        text.append("\n");
+        text.append(printRanks(m_pas));
+
+        text.append("\n");
+
         return text.toString();
+    }
+
+    private String printRanks(double[] ranks) {
+        StringJoiner sj = new StringJoiner("\n\t\t");
+        sj.add("Attributes Ranks:");
+        sj.add("att\t\tweight");
+        sj.add("-------------------------");
+        for (int i = 0; i < m_pas.length; i++) {
+            sj.add(String.format("%02d\t\t%1.3f", i + 1, m_pas[i]));
+        }
+        return sj.toString();
     }
 
     /**
