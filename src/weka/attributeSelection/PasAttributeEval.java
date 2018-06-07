@@ -1,25 +1,20 @@
 package weka.attributeSelection;
 
 
-import weka.attributeSelection.ASEvaluation;
-import weka.attributeSelection.AttributeEvaluator;
 import weka.core.*;
 import weka.filters.Filter;
 import weka.filters.supervised.attribute.Discretize;
 import weka.filters.unsupervised.attribute.NumericToBinary;
 
-import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Vector;
-import java.util.stream.IntStream;
 
 /**
- * <!-- globalinfo-start --> Va AttributeEval :<br/>
+ * <!-- globalinfo-start --> Practical Attribute Selection :<br/>
  * <br/>
- * Evaluates the worth of an attribute by measuring the va value with
- * respect to the class.<br/>
+ * Evaluates the worth of an attribute by measuring the practical initial coverage.<br/>
+ * capability of it
  * <br/>
- * Va formulas : <br/>
  * <p/>
  * <!-- globalinfo-end -->
  * <p>
@@ -42,7 +37,7 @@ import java.util.stream.IntStream;
  * <pre>
  * &#64;inproceedings{todo,
  *    address = {todo},
- *    author = {Fadi, Fairuz, Suhel, Reza},
+ *    author = {Suhel, Fadi},
  *    journal title = { todo},
  *    pages = {xxx-xxx},
  *    publisher = {todo},
@@ -56,7 +51,7 @@ import java.util.stream.IntStream;
  *
  * @author Fadi  (f.thabtah@gmail.com)
  * @author Suhel (suhel.hammoud@gmail.com)
- * @version $Revision: 00007777 $
+ * @version $Revision: 00007778 $
  * @see Discretize
  * @see NumericToBinary
  */
@@ -68,10 +63,10 @@ public class PasAttributeEval extends ASEvaluation implements
     /**
      * for serialization
      */
-    static final long serialVersionUID = -3049819495125892189L;
+    static final long serialVersionUID = -3049819495125894189L;
 
     /**
-     * Treat missing values as a seperate value
+     * Treat missing values as a separate value
      */
     private boolean m_missing_merge;
 
@@ -80,20 +75,19 @@ public class PasAttributeEval extends ASEvaluation implements
      */
     private boolean m_Binarize;
 
+    /**
+     * Optional initial searching measures
+     */
+    protected double m_support = 0.05;
+
+    protected double m_confidence = 0.40;
 
     /**
-     * The Va value for each attribute (suhel)
+     * The Pas ranking value for each attribute
      */
-    private double[] m_Va;
+    private double[] m_pas;
 
-    public double[] getAttributesRanks() {
-        return Arrays.copyOf(m_Va, m_Va.length);
-    }
 
-    /**
-     * The formula used for Va
-     */
-    protected String m_vaFormula = "delete";
     /**
      * Returns a string describing this attribute evaluator
      *
@@ -101,9 +95,8 @@ public class PasAttributeEval extends ASEvaluation implements
      * explorer/experimenter gui
      */
     public String globalInfo() {
-        return "Va AttributeEval :\n\nEvaluates the worth of an attribute "
-                + "by computing the value of the |Va| with respect to the class.\n" +
-                "\n more info on :\nhttps://gitlab.com/suhel.hammoud/weka.3.8.1/blob/master/src/weka/attributeSelection";
+        return "Pas AttributeEval :\n\nEvaluates the worth of an attribute "
+                + "\n more info on :\nhttps://gitlab.com/suhel.hammoud/weka.plus/tree/master/src/weka/attributeSelection/PasAttributeEval.java";
     }
 
     /**
@@ -120,15 +113,20 @@ public class PasAttributeEval extends ASEvaluation implements
      **/
     @Override
     public Enumeration<Option> listOptions() {
-        Vector<Option> newVector = new Vector<Option>(3);
-        newVector.addElement(new Option("\ttreat missing values as a separate "
-                + "value.", "M", 0, "-M"));
+        Vector<Option> newVector = new Vector<Option>(4);
+
+        newVector.addElement(new Option("\ttreat missing values as a separate value.",
+                "M", 0, "-M"));
+
+        newVector.addElement(new Option("\tminimum support value "
+                , "S", 0, "-S"));
+
+        newVector.addElement(new Option("\tminimum confidence value "
+                , "C", 0, "-C"));
+
         newVector.addElement(new Option(
                 "\tjust binarize numeric attributes instead \n"
                         + "\tof properly discretizing them.", "B", 0, "-B"));
-        newVector.addElement(new Option(
-                "\tWether to use 0=Firuz/1=Suhel formula. (default 0=Firuz)",
-                "F", 1, "-F < Firuz | Suhel >"));
 
         return newVector.elements();
     }
@@ -141,6 +139,12 @@ public class PasAttributeEval extends ASEvaluation implements
      * <p/>
      * <p>
      * <pre>
+     * -S
+     *  Minimums support threshold.
+     * </pre><pre>
+     * -C
+     *  Minimum confidence threshold.
+     * </pre><pre>
      * -M
      *  treat missing values as a separate value.
      * </pre>
@@ -162,8 +166,10 @@ public class PasAttributeEval extends ASEvaluation implements
         setMissingMerge(!(Utils.getFlag('M', options)));
         setBinarizeNumericAttributes(Utils.getFlag('B', options));
 
-        final String fIndex = Utils.getOption('F', options);
-        m_vaFormula = "delete";
+        setSupport(Double.parseDouble(Utils.getOption('S', options)));
+        setConfidence(Double.parseDouble(Utils.getOption('C', options)));
+
+        final String fIndex = Utils.getOption('F', options); //TODO what is F ?
         Utils.checkForRemainingOptions(options); //only in chi, TODO: check this later
     }
 
@@ -183,16 +189,15 @@ public class PasAttributeEval extends ASEvaluation implements
             options.add("-B");
         }
 
-        options.add("-F");
-        options.add("" + m_vaFormula);
+        options.add("-S");
+        options.add(String.valueOf(m_support));
 
+        options.add("-C");
+        options.add(String.valueOf(m_confidence));
 
         return options.toArray(new String[0]);
     }
 
-    public String vaFormulaAttributesTipText() {
-        return "vaFormula tip text";
-    }
 
     /**
      * Returns the tip text for this property
@@ -235,6 +240,31 @@ public class PasAttributeEval extends ASEvaluation implements
                 + "missing is treated as a separate value.";
     }
 
+    public void setSupport(double support) {
+        m_support = support;
+    }
+
+    //TODO double support or minimum frequency ?
+    public double getSupport() {
+        return m_support;
+    }
+
+    public String supportTipText() {
+        return "Minimum support value, default = 0.05";
+    }
+
+    public void setConfidence(double confidence) {
+        m_confidence = confidence;
+    }
+
+    public double getConfidence() {
+        return m_confidence;
+    }
+
+    public String confidenceTipText() {
+        return "Minimum confidence valu, default = 0.40";
+    }
+
     /**
      * distribute the counts for missing values across observed values
      *
@@ -267,12 +297,12 @@ public class PasAttributeEval extends ASEvaluation implements
         // attributes
         result.enable(Capabilities.Capability.NOMINAL_ATTRIBUTES);
         result.enable(Capabilities.Capability.NUMERIC_ATTRIBUTES);
-        result.enable(Capabilities.Capability.DATE_ATTRIBUTES);
-        result.enable(Capabilities.Capability.MISSING_VALUES);
+//        result.enable(Capabilities.Capability.DATE_ATTRIBUTES); //TODO check if applicable
+        result.enable(Capabilities.Capability.MISSING_VALUES); // TODO check if applicable
 
         // class
         result.enable(Capabilities.Capability.NOMINAL_CLASS);
-        result.enable(Capabilities.Capability.MISSING_CLASS_VALUES);
+        result.enable(Capabilities.Capability.MISSING_CLASS_VALUES); //TODO check if applicable
 //        result.enable(Capabilities.Capability.NUMERIC_CLASS);
 //        result.enable(Capabilities.Capability.DATE_CLASS);
 
@@ -280,10 +310,7 @@ public class PasAttributeEval extends ASEvaluation implements
     }
 
     /**
-     * Initializes a chi-squared attribute evaluator, a InfoGain attribute evaluator,
-     * and the Va Attribute evaluator all in one place. Discretizes all attributes
-     * that are numeric.
-     * Make new contingency table once and then use it to calculate IG, CHI, and Va
+     * PAS attribute evaluator
      *
      * @param data set of instances serving as training dataset
      * @throws Exception if the evaluator has not been generated successfully
@@ -308,200 +335,21 @@ public class PasAttributeEval extends ASEvaluation implements
         }
         int numClasses = data.attribute(classIndex).numValues();
 
-        // Reserve space and initialize counters
-        double[][][] counts = new double[data.numAttributes()][][];
-        for (int k = 0; k < data.numAttributes(); k++) {
-            if (k != classIndex) {
-                int numValues = data.attribute(k).numValues();
-                counts[k] = new double[numValues + 1][numClasses + 1];
-            }
-        }
+        //TODO look into Chi implementation of contingency tables
 
-        // Initialize counters
-        double[] temp = new double[numClasses + 1];
-        for (int k = 0; k < numInstances; k++) {
-            Instance inst = data.instance(k);
-            if (inst.classIsMissing()) {
-                temp[numClasses] += inst.weight();
-            } else {
-                temp[(int) inst.classValue()] += inst.weight();
-            }
-        }
-        for (int k = 0; k < counts.length; k++) {
-            if (k != classIndex) {
-                for (int i = 0; i < temp.length; i++) {
-                    counts[k][0][i] = temp[i];
-                }
-            }
-        }
-
-        // Get counts
-        for (int k = 0; k < numInstances; k++) {
-            Instance inst = data.instance(k);
-            for (int i = 0; i < inst.numValues(); i++) {
-                if (inst.index(i) != classIndex) {
-                    if (inst.isMissingSparse(i) || inst.classIsMissing()) {
-                        if (!inst.isMissingSparse(i)) {
-                            counts[inst.index(i)][(int) inst.valueSparse(i)][numClasses] += inst
-                                    .weight();
-                            counts[inst.index(i)][0][numClasses] -= inst.weight();
-                        } else if (!inst.classIsMissing()) {
-                            counts[inst.index(i)][data.attribute(inst.index(i)).numValues()][(int) inst
-                                    .classValue()] += inst.weight();
-                            counts[inst.index(i)][0][(int) inst.classValue()] -= inst
-                                    .weight();
-                        } else {
-                            counts[inst.index(i)][data.attribute(inst.index(i)).numValues()][numClasses] += inst
-                                    .weight();
-                            counts[inst.index(i)][0][numClasses] -= inst.weight();
-                        }
-                    } else {
-                        counts[inst.index(i)][(int) inst.valueSparse(i)][(int) inst
-                                .classValue()] += inst.weight();
-                        counts[inst.index(i)][0][(int) inst.classValue()] -= inst.weight();
-                    }
-                }
-            }
-        }
-
-        // distribute missing counts if required
-        if (m_missing_merge) {
-
-            for (int k = 0; k < data.numAttributes(); k++) {
-                if (k != classIndex) {
-                    int numValues = data.attribute(k).numValues();
-
-                    // Compute marginals
-                    double[] rowSums = new double[numValues];
-                    double[] columnSums = new double[numClasses];
-                    double sum = 0;
-                    for (int i = 0; i < numValues; i++) {
-                        for (int j = 0; j < numClasses; j++) {
-                            rowSums[i] += counts[k][i][j];
-                            columnSums[j] += counts[k][i][j];
-                        }
-                        sum += rowSums[i];
-                    }
-
-                    if (Utils.gr(sum, 0)) {
-                        double[][] additions = new double[numValues][numClasses];
-
-                        // Compute what needs to be added to each row
-                        for (int i = 0; i < numValues; i++) {
-                            for (int j = 0; j < numClasses; j++) {
-                                additions[i][j] = (rowSums[i] / sum) * counts[k][numValues][j];
-                            }
-                        }
-
-                        // Compute what needs to be added to each column
-                        for (int i = 0; i < numClasses; i++) {
-                            for (int j = 0; j < numValues; j++) {
-                                additions[j][i] += (columnSums[i] / sum)
-                                        * counts[k][j][numClasses];
-                            }
-                        }
-
-                        // Compute what needs to be added to each cell
-                        for (int i = 0; i < numClasses; i++) {
-                            for (int j = 0; j < numValues; j++) {
-                                additions[j][i] += (counts[k][j][i] / sum)
-                                        * counts[k][numValues][numClasses];
-                            }
-                        }
-
-                        // Make new contingency table
-                        double[][] newTable = new double[numValues][numClasses];
-                        for (int i = 0; i < numValues; i++) {
-                            for (int j = 0; j < numClasses; j++) {
-                                newTable[i][j] = counts[k][i][j] + additions[i][j];
-                            }
-                        }
-                        counts[k] = newTable;
-                    }
-                }
-            }
-        }
-
-        /** ** IG ** **/
-        // Compute info gains
-        double[] m_InfoGains = new double[data.numAttributes()];
-        for (int i = 0; i < data.numAttributes(); i++) {
-            if (i != classIndex) {
-                m_InfoGains[i] = (ContingencyTables.entropyOverColumns(counts[i]) - ContingencyTables
-                        .entropyConditionedOnRows(counts[i]));
-            }
-        }
-
-        /*** Chi ***/
-        // Compute chi-squared values
-        double[] m_ChiSquareds = new double[data.numAttributes()];
-        for (int i = 0; i < data.numAttributes(); i++) {
-            if (i != classIndex) {
-                m_ChiSquareds[i] = ContingencyTables.chiVal(
-                        ContingencyTables.reduceMatrix(counts[i]), false);
-            }
-        }
-
-
-
-
-        if (m_Va.length != m_ChiSquareds.length ||
-                m_Va.length != m_InfoGains.length)
-            throw new AssertionError("m_va length != m_InfoGains.length != m_ChiSquareds.lenght");
     }
 
-    public static double[] normalizedVectorSuhel(double[] values) {
-        double sqrtSumSquares = Math.sqrt(
-                Arrays.stream(values)
-                        .map(value -> value * value)
-                        .sum());
-        return Arrays.stream(values)
-                .map(value -> value / sqrtSumSquares)
-                .toArray();
-    }
-
-    /**
-     * use Firuz formula to normalize the value vector
-     *
-     * @param values
-     * @return
-     */
-    private static double[] normalizedVectorFiruz(double[] values) {
-        double maxValue = Arrays.stream(values).max().getAsDouble(); //TODO check zero
-        return Arrays.stream(values).map(v -> v / maxValue).toArray();
-    }
-
-    private static double[] vaFiruz(double[] ig, double[] chi) {
-
-        double[] igF = normalizedVectorFiruz(ig);
-        double[] chiF = normalizedVectorFiruz(chi);
-
-        return IntStream.range(0, igF.length)
-                .mapToDouble(i -> Math.sqrt(igF[i] * igF[i]
-                        + chiF[i] * chiF[i]))
-                .toArray();
-    }
-
-    private static double[] vaSuhel(double[] ig, double[] chi) {
-
-        double[] igF = normalizedVectorSuhel(ig);
-        double[] chiF = normalizedVectorSuhel(chi);
-
-        double[] vaTmp = IntStream.range(0, igF.length)
-                .mapToDouble(i -> Math.sqrt(igF[i] * igF[i]
-                        + chiF[i] * chiF[i]))
-                .toArray();
-        return normalizedVectorSuhel(vaTmp);
-    }
 
     /**
      * Reset options to their default values
      */
     protected void resetOptions() {
-        m_Va = null;          //Va
+        m_pas = null;          //Va
         m_missing_merge = true;
         m_Binarize = false;
-        m_vaFormula = "delete";
+
+        m_support = 0.05;
+        m_confidence = .4;
     }
 
     /**
@@ -513,7 +361,7 @@ public class PasAttributeEval extends ASEvaluation implements
      */
     @Override
     public double evaluateAttribute(int attribute) throws Exception {
-        return m_Va[attribute];
+        return m_pas[attribute];
     }
 
     /**
@@ -523,19 +371,21 @@ public class PasAttributeEval extends ASEvaluation implements
      */
     @Override
     public String toString() {
-        StringBuffer text = new StringBuffer();
-        if (m_Va == null) {  //Va
-            text.append("Va attribute evaluator has not been built");
+        StringBuilder text = new StringBuilder();
+        if (m_pas == null) {  //Va
+            text.append("Pas attribute evaluator has not been built");
         } else { //All OK
-            text.append("\tVa Ranking Filter");
+            text.append("\tPas Ranking Filter");
             if (!m_missing_merge) {
-                text.append("\n\tMissing values treated as separate");
+                text.append("\n\tMissing values treated as separate"); //TODO check
             }
             if (m_Binarize) {
                 text.append("\n\tNumeric attributes are just binarized");
             }
         }
-        text.append("\n\tVa Formula: " + m_vaFormula);
+
+        text.append("\n\t Minimum Support: " + m_support);
+        text.append("\n\t Minimum Confidence: " + m_confidence);
 
         text.append("\n");
         return text.toString();
@@ -548,7 +398,7 @@ public class PasAttributeEval extends ASEvaluation implements
      */
     @Override
     public String getRevision() {
-        return RevisionUtils.extract("$Revision: 00007777 $"); //arbitrary number
+        return RevisionUtils.extract("$Revision: 00007778 $"); //arbitrary number
     }
 
     // ============
@@ -561,9 +411,8 @@ public class PasAttributeEval extends ASEvaluation implements
      * @param args the options
      */
     public static void main(String[] args) {
-        runEvaluator(new weka.attributeSelection.Va(), args);
+        runEvaluator(new weka.attributeSelection.PasAttributeEval(), args);
 
     }
-
 
 }

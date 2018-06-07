@@ -252,7 +252,7 @@ public class eDRI
      *
      * @param data:          training dataset
      * @param minFreqs:      minimum frequency threshold, (numInstances * minFrequency)
-     * @param minConfidence: confidence threshold
+     * @param minConfidence: m_confidence threshold
      * @throws Exception
      */
     public void buildClassifierEDRI(Instances data, int minFreqs, double minConfidence) throws Exception {
@@ -662,7 +662,7 @@ public class eDRI
 
         sb.append("Number ofOne rules generated = " + m_rules.size());
         String intPattern = EDRIUtils.formatIntPattern(m_rules.size());
-        sb.append("\nprism rules ( frequency, confidence ) \n----------\n");
+        sb.append("\nprism rules ( frequency, m_confidence ) \n----------\n");
         for (int i = 0; i < m_rules.size(); i++) {
             DRIRule rule = m_rules.get(i);
             sb.append(String.format(intPattern + " - ", (i + 1)) + rule.toString(maxDigits) + "\n");

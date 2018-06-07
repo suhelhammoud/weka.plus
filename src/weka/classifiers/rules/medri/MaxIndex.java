@@ -53,10 +53,10 @@ public class MaxIndex {
     }
 
     /**
-     * Find best (att, item, label) based on confidence and support, no prior label condition
+     * Find best (att, item, label) based on m_confidence and m_support, no prior label condition
      *
      * @param count (att, item, label) -> count
-     * @return MaxIndex instance with values of (att, item, label) that maximize confidence/support
+     * @return MaxIndex instance with values of (att, item, label) that maximize m_confidence/m_support
      */
     public static MaxIndex of(int[][][] count) {
         MaxIndex mi = new MaxIndex(0, 0);
@@ -89,7 +89,7 @@ public class MaxIndex {
     }
 
     /**
-     * Find best item (with predefined label) which meets the support and confidence rankings.
+     * Find best item (with predefined label) which meets the m_support and m_confidence rankings.
      *
      * @param count
      * @param label

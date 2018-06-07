@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b4ffecf-fd2d-4ac9-8d65-3aedb6a8be09" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasAttributeEval.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/suhel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/suhel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/PasAttributeEval.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/PasAttributeEval.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/eDRI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/eDRI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/edri/DRIOptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/edri/DRIOptions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/MaxIndex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/MaxIndex.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/MedriOptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/MedriOptions.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,30 +20,12 @@
   <component name="FileEditorManager">
     <leaf>
       <file leaf-file-name="PasAttributeEval.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/weka/attributeSelection/pas/PasAttributeEval.java">
+        <entry file="file://$PROJECT_DIR$/src/weka/attributeSelection/PasAttributeEval.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="366">
-              <caret line="224" lean-forward="true" selection-start-line="224" selection-end-line="224" />
+            <state relative-caret-position="640">
+              <caret line="416" lean-forward="true" selection-start-line="416" selection-end-line="416" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2385#2386#0" expanded="true" />
-                <element signature="e#2434#2435#0" expanded="true" />
-                <element signature="e#2695#2696#0" expanded="true" />
-                <element signature="e#2725#2726#0" expanded="true" />
-                <element signature="e#3351#3359#0" expanded="true" />
-                <element signature="e#4958#4966#0" expanded="true" />
-                <element signature="e#5259#5260#0" expanded="true" />
-                <element signature="e#5296#5297#0" expanded="true" />
-                <element signature="e#5988#5989#0" expanded="true" />
-                <element signature="e#6012#6013#0" expanded="true" />
-                <element signature="e#6201#6202#0" expanded="true" />
-                <element signature="e#6228#6229#0" expanded="true" />
-                <element signature="e#6818#6819#0" expanded="true" />
-                <element signature="e#6847#6848#0" expanded="true" />
-                <element signature="e#7022#7023#0" expanded="true" />
-                <element signature="e#7054#7055#0" expanded="true" />
-                <element signature="e#16920#16921#0" expanded="true" />
-                <element signature="e#17002#17003#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -84,6 +70,8 @@
       <find>coveredBy</find>
       <find>coveredby</find>
       <find>splitResult</find>
+      <find>getOpt</find>
+      <find>setOp</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -129,6 +117,7 @@
         <option value="$PROJECT_DIR$/src/weka/classifiers/rules/medri/IRule.java" />
         <option value="$PROJECT_DIR$/src/weka/classifiers/rules/medri/MedriUtils.java" />
         <option value="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasAttributeEval.java" />
+        <option value="$PROJECT_DIR$/src/weka/attributeSelection/PasAttributeEval.java" />
       </list>
     </option>
   </component>
@@ -367,7 +356,8 @@
       <window_info anchor="bottom" id="Run" order="2" weight="0.32349467" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.3270366" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.225" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.19791667" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3293979" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="4" />
@@ -378,7 +368,6 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3293979" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" id="Palette" order="3" />
@@ -462,16 +451,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/weka/attributeSelection/ChiSquaredAttributeEval.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="61" column="45" selection-start-line="61" selection-start-column="45" selection-end-line="61" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/arff/arrhythmia.arff">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/arff/anneal.arff">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="96">
@@ -571,6 +550,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="246">
           <caret line="59" column="10" selection-start-line="59" selection-start-column="10" selection-end-line="59" selection-end-column="10" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -739,17 +721,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/weka/classifiers/rules/medri/MedriOptions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="492">
-          <caret line="58" column="22" selection-start-line="58" selection-start-column="22" selection-end-line="58" selection-end-column="22" />
-          <folding>
-            <element signature="e#1580#1581#0" expanded="true" />
-            <element signature="e#1638#1639#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/weka/classifiers/rules/medri/MaxIndex.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="222">
@@ -818,30 +789,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/weka/attributeSelection/pas/PasAttributeEval.java">
+    <entry file="jar://$PROJECT_DIR$/lib/weka-src.jar!/src/main/java/weka/core/ContingencyTables.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="224" lean-forward="true" selection-start-line="224" selection-end-line="224" />
+        <state relative-caret-position="282">
+          <caret line="325" column="23" selection-start-line="325" selection-start-column="23" selection-end-line="325" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/weka-src.jar!/src/main/java/weka/core/Utils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="617" column="38" selection-start-line="617" selection-start-column="38" selection-end-line="617" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/weka/classifiers/rules/medri/MedriOptions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="158" column="21" selection-start-line="158" selection-start-column="16" selection-end-line="158" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/weka/attributeSelection/PasAttributeEval.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="640">
+          <caret line="416" lean-forward="true" selection-start-line="416" selection-end-line="416" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2385#2386#0" expanded="true" />
-            <element signature="e#2434#2435#0" expanded="true" />
-            <element signature="e#2695#2696#0" expanded="true" />
-            <element signature="e#2725#2726#0" expanded="true" />
-            <element signature="e#3351#3359#0" expanded="true" />
-            <element signature="e#4958#4966#0" expanded="true" />
-            <element signature="e#5259#5260#0" expanded="true" />
-            <element signature="e#5296#5297#0" expanded="true" />
-            <element signature="e#5988#5989#0" expanded="true" />
-            <element signature="e#6012#6013#0" expanded="true" />
-            <element signature="e#6201#6202#0" expanded="true" />
-            <element signature="e#6228#6229#0" expanded="true" />
-            <element signature="e#6818#6819#0" expanded="true" />
-            <element signature="e#6847#6848#0" expanded="true" />
-            <element signature="e#7022#7023#0" expanded="true" />
-            <element signature="e#7054#7055#0" expanded="true" />
-            <element signature="e#16920#16921#0" expanded="true" />
-            <element signature="e#17002#17003#0" expanded="true" />
           </folding>
         </state>
       </provider>

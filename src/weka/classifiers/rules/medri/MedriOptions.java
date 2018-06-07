@@ -147,8 +147,8 @@ public class MedriOptions implements OptionHandler, Serializable {
     public Enumeration listOptions() {
         Vector<Option> result = new Vector<>(1);
         result.addElement(new Option("Add Default Rule?", "R", 0, "-R"));
-        result.addElement(new Option("minimum support", "S", 1, "-S <lower bound for minimum support >"));
-        result.addElement(new Option("minimum confidence", "C", 1, "-C <minimum confidence ofOne a rule >"));
+        result.addElement(new Option("minimum m_support", "S", 1, "-S <lower bound for minimum m_support >"));
+        result.addElement(new Option("minimum m_confidence", "C", 1, "-C <minimum m_confidence ofOne a rule >"));
         result.addElement(new Option("descritption", "D", 1, "-D < off | trace | debug | info | warn | error | fatal >"));
         result.addElement(new Option("descritption", "A", 1, "-A < prism | edri | medri >"));
         return result.elements();
