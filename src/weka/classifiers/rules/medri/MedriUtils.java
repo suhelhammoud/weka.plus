@@ -30,11 +30,11 @@ public class MedriUtils {
      * @return number of distinct items in each attributes
      */
     public static int[] numItems(Instances data) {
-        int[] iattrs = new int[data.numAttributes()];
-        for (int i = 0; i < iattrs.length; i++) {
-            iattrs[i] = data.attribute(i).numValues();
+        int[] result = new int[data.numAttributes()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = data.attribute(i).numValues();
         }
-        return iattrs;
+        return result;
     }
 
     /**

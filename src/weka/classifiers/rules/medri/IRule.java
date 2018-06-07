@@ -38,6 +38,10 @@ public class IRule implements Serializable {
         return covers;
     }
 
+    public int[] getAttIndexes(){
+        return Arrays.copyOf(attIndexes, attIndexes.length);
+    }
+
     public double getConfidence() {
         return (double) correct / (double) covers;
     }

@@ -1,13 +1,18 @@
 package weka.attributeSelection;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import weka.attributeSelection.pas.PasUtils;
+import weka.classifiers.rules.medri.MeDRIResult;
+import weka.classifiers.rules.medri.MedriUtils;
+import weka.classifiers.rules.medri.Pair;
 import weka.core.*;
 import weka.filters.Filter;
 import weka.filters.supervised.attribute.Discretize;
 import weka.filters.unsupervised.attribute.NumericToBinary;
 
-import java.util.Enumeration;
-import java.util.Vector;
+import java.util.*;
 
 /**
  * <!-- globalinfo-start --> Practical Attribute Selection :<br/>
@@ -60,6 +65,8 @@ import java.util.Vector;
 public class PasAttributeEval extends ASEvaluation implements
         AttributeEvaluator, OptionHandler {
 
+    static Logger logger = LoggerFactory.getLogger(PasAttributeEval.class.getName());
+
     /**
      * for serialization
      */
@@ -87,6 +94,22 @@ public class PasAttributeEval extends ASEvaluation implements
      */
     private double[] m_pas;
 
+
+    public double[] getAttributesRanks() {
+        return Arrays.copyOf(m_pas, m_pas.length);
+    }
+
+    /**
+     * evaluates an individual attribute by measuring Its Va values
+     *
+     * @param attribute the index of the attribute to be evaluated
+     * @return the Va value
+     * @throws Exception if the attribute could not be evaluated
+     */
+    @Override
+    public double evaluateAttribute(int attribute) throws Exception {
+        return m_pas[attribute];
+    }
 
     /**
      * Returns a string describing this attribute evaluator
@@ -336,6 +359,35 @@ public class PasAttributeEval extends ASEvaluation implements
         int numClasses = data.attribute(classIndex).numValues();
 
         //TODO look into Chi implementation of contingency tables
+        logger.info("build classifier with data ={} of size={}", data.relationName(), data.numInstances());
+
+        assert data.classIndex() == data.numAttributes() - 1;
+
+        data.setClassIndex(data.numAttributes() - 1);
+        logger.debug("build pas evaluator");
+
+        Pair<Collection<int[]>, int[]> linesLabels = MedriUtils.mapIdataAndLabels(data);
+        Collection<int[]> lineData = linesLabels.key;
+        int[] labelsCount = linesLabels.value;
+//
+        logger.trace("original lines size ={}", lineData.size());
+
+        int[] numItems = MedriUtils.numItems(data);
+
+        int minFreq = (int) Math.ceil(getSupport() * data.numInstances() + 1.e-6);
+        logger.debug("minFreq used = {}", minFreq);
+
+        MeDRIResult result = PasUtils.evaluateAttributes(numItems,
+                labelsCount,
+                lineData,
+                minFreq,
+                getConfidence(),
+                false);
+
+        double[] rawRanks = PasUtils.rankAttributes(result.getRules(), data.numAttributes() - 1);//exclude label class attribute
+
+        m_pas = PasUtils.normalizedVector(rawRanks);
+
 
     }
 
@@ -352,17 +404,6 @@ public class PasAttributeEval extends ASEvaluation implements
         m_confidence = .4;
     }
 
-    /**
-     * evaluates an individual attribute by measuring Its Va values
-     *
-     * @param attribute the index of the attribute to be evaluated
-     * @return the Va value
-     * @throws Exception if the attribute could not be evaluated
-     */
-    @Override
-    public double evaluateAttribute(int attribute) throws Exception {
-        return m_pas[attribute];
-    }
 
     /**
      * Describe the attribute evaluator
@@ -376,6 +417,7 @@ public class PasAttributeEval extends ASEvaluation implements
             text.append("Pas attribute evaluator has not been built");
         } else { //All OK
             text.append("\tPas Ranking Filter");
+
             if (!m_missing_merge) {
                 text.append("\n\tMissing values treated as separate"); //TODO check
             }
