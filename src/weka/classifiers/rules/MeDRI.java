@@ -197,7 +197,7 @@ public class MeDRI implements Classifier, OptionHandler,
         assert data.classIndex() == data.numAttributes() - 1;
 
         data.setClassIndex(data.numAttributes() - 1);
-        this.labels = MedriUtils.attributValues(data.attribute(data.classIndex()));
+        this.labels = MedriUtils.attributeValues(data.attribute(data.classIndex()));
 
         moptions.setMaxNumInstances(data.numInstances());
         moptions.setInstancesCopy(data);
