@@ -4,7 +4,7 @@ import weka.attributeSelection.ChiSquaredAttributeEval;
 import weka.attributeSelection.InfoGainAttributeEval;
 import weka.classifiers.bayes.NaiveBayes;
 
-enum AttributeEvalMethod {
+enum L2AttributeEvalMethod {
     IG, CHI, L2;
 
     public String className() {
@@ -20,11 +20,11 @@ enum AttributeEvalMethod {
     }
 
     public static void main(String[] args) {
-        System.out.println(RClassifier.NB.className());
+        System.out.println(L2RClassifier.NB.className());
     }
 }
 
-enum RClassifier {
+enum L2RClassifier {
     NB;
 
     public String className() {
@@ -36,7 +36,7 @@ enum RClassifier {
     }
 }
 
-enum KEYS {
+enum L2KEYS {
     dataset, numAttributes, att_method, median, variables,
     classifier, errorRate, precision, recall, fMeasure
 }
