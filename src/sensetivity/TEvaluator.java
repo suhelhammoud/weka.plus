@@ -21,6 +21,19 @@ public enum TEvaluator {
         }
     }
 
+    public ASEvaluation getWith(Object... args) {
+        switch (this) {
+            case PAS:
+                PasAttributeEval result = new PasAttributeEval();
+                result.setSupport((Double) args[0]);
+                result.setConfidence((Double) args[1]);
+                return result;
+            default:
+                return get();
+        }
+
+    }
+
 }
 
 

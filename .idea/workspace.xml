@@ -7,11 +7,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b4ffecf-fd2d-4ac9-8d65-3aedb6a8be09" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/suhel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/suhel.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sensetivity/RunT.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sensetivity/TaskData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensentivity/l2/RLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensentivity/l2/L2RLine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensentivity/l2/RTags.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensentivity/l2/RTags.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensentivity/l2/RTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensentivity/l2/L2RTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/RTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/Experiment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/TEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/TEvaluator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/TLine.java" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,11 +24,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="RTest.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/sensetivity/RTest.java">
+      <file leaf-file-name="Experiment.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/sensetivity/Experiment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2640">
-              <caret line="35" column="35" lean-forward="true" selection-start-line="35" selection-start-column="35" selection-end-line="35" selection-end-column="35" />
+            <state relative-caret-position="-632">
+              <caret line="140" column="17" selection-start-line="140" selection-start-column="17" selection-end-line="140" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -46,7 +47,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>build classifer with data</find>
       <find>classifyInstance</find>
       <find>classifyInstan</find>
       <find>mapA</find>
@@ -76,6 +76,7 @@
       <find>getAtt</find>
       <find>evaluateAttribute</find>
       <find>buildcl</find>
+      <find>test</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -129,9 +130,12 @@
         <option value="$PROJECT_DIR$/src/sensetivity/RLine.java" />
         <option value="$PROJECT_DIR$/src/sensetivity/RTags.java" />
         <option value="$PROJECT_DIR$/src/sensetivity/TClassifier.java" />
-        <option value="$PROJECT_DIR$/src/sensetivity/TLine.java" />
+        <option value="$PROJECT_DIR$/src/sensetivity/RunT.java" />
         <option value="$PROJECT_DIR$/src/sensetivity/TEvaluator.java" />
+        <option value="$PROJECT_DIR$/src/sensetivity/TLine.java" />
+        <option value="$PROJECT_DIR$/src/sensetivity/TaskData.java" />
         <option value="$PROJECT_DIR$/src/sensetivity/RTest.java" />
+        <option value="$PROJECT_DIR$/src/sensetivity/Experiment.java" />
       </list>
     </option>
   </component>
@@ -147,12 +151,25 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="weka.plus" type="b2602c69:ProjectViewProjectNode" />
               <item name="weka.plus" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="weka.plus" type="b2602c69:ProjectViewProjectNode" />
+              <item name="weka.plus" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="weka.plus" type="b2602c69:ProjectViewProjectNode" />
+              <item name="weka.plus" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="weka.plus" type="b2602c69:ProjectViewProjectNode" />
@@ -189,16 +206,21 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="sensetivity" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="weka.plus" type="b2602c69:ProjectViewProjectNode" />
+              <item name="weka.plus" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="sensetivity" type="462c0819:PsiDirectoryNode" />
+              <item name="TaskData.java" type="529ef68f:ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="add_unversioned_files" value="true" />
+    <property name="add_unversioned_files" value="true&#10;/home/suhel/workspace/java/weka.plus/data/out/out.csv" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
@@ -229,22 +251,22 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.RTest">
-    <configuration name="ATest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="weka.attributeSelection.pas.ATest" />
-      <module name="weka.plus" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="weka.attributeSelection.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-    </configuration>
+  <component name="RunManager" selected="Application.RunT">
     <configuration name="AppLauncher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="AppLauncher" />
       <module name="weka.plus" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    </configuration>
+    <configuration name="Experiment" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="sensetivity.Experiment" />
+      <module name="weka.plus" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="sensetivity.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
     </configuration>
     <configuration name="PasAttributeEval" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="weka.attributeSelection.PasAttributeEval" />
@@ -257,8 +279,8 @@
         </pattern>
       </extension>
     </configuration>
-    <configuration name="RTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="sensetivity.RTest" />
+    <configuration name="RunT" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="sensetivity.RunT" />
       <module name="weka.plus" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
@@ -268,8 +290,8 @@
         </pattern>
       </extension>
     </configuration>
-    <configuration name="TLine" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="sensetivity.TLine" />
+    <configuration name="TaskData" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="sensetivity.TaskData" />
       <module name="weka.plus" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
@@ -322,18 +344,18 @@
     </configuration>
     <list>
       <item itemvalue="Application.AppLauncher" />
-      <item itemvalue="Application.ATest" />
       <item itemvalue="Application.PasAttributeEval" />
-      <item itemvalue="Application.TLine" />
-      <item itemvalue="Application.RTest" />
+      <item itemvalue="Application.TaskData" />
+      <item itemvalue="Application.Experiment" />
+      <item itemvalue="Application.RunT" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.RTest" />
-        <item itemvalue="Application.TLine" />
+        <item itemvalue="Application.RunT" />
+        <item itemvalue="Application.Experiment" />
+        <item itemvalue="Application.TaskData" />
         <item itemvalue="Application.AppLauncher" />
         <item itemvalue="Application.PasAttributeEval" />
-        <item itemvalue="Application.ATest" />
       </list>
     </recent_temporary>
   </component>
@@ -370,38 +392,38 @@
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.3293979" />
       <window_info anchor="right" id="Palette&#9;" order="5" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="4" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.329" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.2857143" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32585597" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25694445" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25694445" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3293979" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Favorites" order="3" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.32575756" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.2857143" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.32575756" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.3293979" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32467532" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32954547" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.225" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32954547" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3293979" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32467532" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="4" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.32575756" />
@@ -410,11 +432,14 @@
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3293979" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.3293979" />
       <window_info anchor="right" id="Maven Projects" order="4" />
       <window_info id="Favorites" order="3" side_tool="true" />
     </layout-to-restore>
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.csv" />
   </component>
   <component name="Vcs.Log.History.Properties">
     <option name="COLUMN_ORDER">
@@ -483,20 +508,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$PROJECT_DIR$/lib/weka-src.jar!/src/main/java/weka/gui/explorer/AttributeSelectionPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="114" column="30" lean-forward="true" selection-start-line="114" selection-start-column="30" selection-end-line="114" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/weka-src.jar!/src/main/java/weka/attributeSelection/Ranker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="775">
-          <caret line="638" lean-forward="true" selection-start-line="638" selection-end-line="638" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/weka/attributeSelection/EntropyRankerSubset.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="246">
@@ -795,9 +806,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/data/out/out.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-82" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sensetivity/RunT.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="12" column="5" selection-start-line="9" selection-start-column="3" selection-end-line="12" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sensetivity/TaskData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="43" column="29" selection-start-line="43" selection-start-column="29" selection-end-line="43" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/sensetivity/TClassifier.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
+        <state relative-caret-position="480">
           <caret line="20" column="1" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -805,24 +835,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sensetivity/TLine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="26" selection-start-line="26" selection-end-line="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sensetivity/TEvaluator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="11" column="20" lean-forward="true" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
+        <state relative-caret-position="408">
+          <caret line="23" column="24" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sensetivity/RTest.java">
+    <entry file="file://$PROJECT_DIR$/src/sensetivity/Experiment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2640">
-          <caret line="35" column="35" lean-forward="true" selection-start-line="35" selection-start-column="35" selection-end-line="35" selection-end-column="35" />
+        <state relative-caret-position="-632">
+          <caret line="140" column="17" selection-start-line="140" selection-start-column="17" selection-end-line="140" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
