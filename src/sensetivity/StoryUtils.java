@@ -3,6 +3,7 @@ package sensetivity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import weka.attributeSelection.ASEvaluation;
+import weka.attributeSelection.AttributeEvaluator;
 import weka.attributeSelection.Ranker;
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
@@ -25,7 +26,7 @@ public class StoryUtils {
     static Logger logger = LoggerFactory.getLogger(StoryUtils.class.getName());
 
 
-    public static ASEvaluation getASEvaluation(Story story) {
+    public static <T extends ASEvaluation & AttributeEvaluator> T getASEvaluation(Story story) {
         TEvaluator tEvaluator = (TEvaluator) story.get(StoryKey.evalMethod);
 
 
@@ -33,14 +34,12 @@ public class StoryUtils {
             case PAS:
                 double evalSupport = (double) story.get(StoryKey.evalSupport);
                 double evalConfidence = (double) story.get(StoryKey.evalConfidence);
-                return PAS.getWith(evalSupport, evalConfidence);
+                return (T) PAS.getWith(evalSupport, evalConfidence);
 //            case CHI:
 //                // ChiSquaredAttributeEval settings
 //                break;
             default:
-                return tEvaluator.get();
-
-
+                return (T) tEvaluator.get();
         }
     }
 
@@ -94,7 +93,7 @@ public class StoryUtils {
             Classifier classifier)
             throws Exception {
 
-        train.setClassIndex(train.numAttributes()-1);
+        train.setClassIndex(train.numAttributes() - 1);
         Story result = Story.get();
 
         Evaluation eval = new Evaluation(train);
@@ -108,16 +107,24 @@ public class StoryUtils {
         return result;
     }
 
-    public static Story playStory(Story story, Instances data) {
+    public static Story playStory(Story story,
+                                  Instances data,
+                                  boolean withEntropy) {
 //        Story result = story.copy(StoryKey.dataset, data.relationName());
 
         Story result = story; //mutual data structure
+
 
         try {
 
 
             Instances dataFiltered = applyFilter(story, data);
             assert (int) result.get(StoryKey.numAttributesToSelect) == dataFiltered.numAttributes() - 1;
+
+            if (withEntropy) {
+                double entropy = calcEntropy(story, dataFiltered);
+                result.set(StoryKey.attributeEntropy, entropy);
+            }
 
             Classifier classifier = getClassifier(story);
 
@@ -135,9 +142,10 @@ public class StoryUtils {
 
         return stories.stream()
                 .parallel()
-                .map(s -> playStory(s, data))
+                .map(s -> playStory(s, data, true))
                 .collect(Collectors.toList());
     }
+
 
     public static List<Story> generate(Story story,
                                        PropsUtils props,
@@ -191,6 +199,35 @@ public class StoryUtils {
 
     }
 
+
+    private static double evaluateAttribute(AttributeEvaluator attEval, int index) {
+        try {
+            return attEval.evaluateAttribute(index);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public static double calcEntropy(Story story, Instances data) {
+        data.setClassIndex(data.numAttributes() - 1);
+
+        ASEvaluation eval = getASEvaluation(story);
+        try {
+            eval.buildEvaluator(data);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        AttributeEvaluator attEval = (AttributeEvaluator) eval;
+        List<Double> ranks = IntStream.range(0, data.numAttributes() - 1)
+                .mapToDouble(i -> evaluateAttribute(attEval, i))
+                .boxed()
+                .collect(Collectors.toList());
+
+        return entropy(ranks);
+    }
+
     /**
      * generate all test stories related to one dataset
      *
@@ -216,7 +253,7 @@ public class StoryUtils {
 
         int expectedNum = (int) bs.get(StoryKey.numAttributes)
                 * calculateEvalClassifier(props);
-        if (expectedNum != result.size() ) {
+        if (expectedNum != result.size()) {
             logger.error("expected = {}, actual = {}",
                     expectedNum, result.size());
         }
@@ -285,22 +322,27 @@ public class StoryUtils {
         return -p * Math.log(p) / Math.log(2);
     }
 
-    public static double entropy(double[] ranks) {
+    public static double entropy(List<Double> ranks) {
         //normalize dataset
-        final double sumValue = Arrays.stream(ranks).sum();
-        if (sumValue == 0) throw new NullPointerException("Max Rank Can not be Zero !!");
-        double[] ranksNormalized = Arrays.stream(ranks)
-                .map(v -> v / sumValue)
-                .toArray();
+        final double sumValue = ranks.stream()
+                .mapToDouble(i -> i.doubleValue())
+                .sum();
 
-        double hV = Arrays.stream(ranksNormalized)
-                .map(StoryUtils::entropyValue)
+        if (sumValue == 0) throw new NullPointerException("Max Rank Can not be Zero !!");
+        List<Double> ranksNormalized = ranks.stream()
+                .map(v -> v / sumValue)
+                .collect(Collectors.toList());
+
+        double hV = ranksNormalized.stream()
+                .mapToDouble(StoryUtils::entropyValue)
                 .sum();
         return Math.pow(2, hV);
     }
 
     public static void main(String[] args) throws IOException {
-        PropsUtils params = PropsUtils.of("data/conf.properties");
+
+        String confName = args.length > 0 ? args[0] : "data/conf.properties";
+        PropsUtils params = PropsUtils.of(confName);
 
 
         Path resultDir = FilesUtils.createOutDir(params.getOutDir());
@@ -319,11 +361,12 @@ public class StoryUtils {
         for (Path datasetPath : arffDatasets) {
 
             Instances data = FilesUtils.instancesOf(datasetPath);
+            data.setClassIndex(data.numAttributes() - 1);
             List<Story> stories = generateStories(params, data);
 
             stories.parallelStream()
                     .forEach(story -> {
-                        playStory(story, data);
+                        playStory(story, data, true);
                     });
 
             FilesUtils.writeStoriesToFile(resultDir,

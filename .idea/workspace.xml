@@ -10,8 +10,6 @@
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/conf.properties" beforeDir="false" afterPath="$PROJECT_DIR$/data/conf.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/FilesUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/FilesUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/PropsUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/PropsUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryUtils.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -24,11 +22,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
+      <file leaf-file-name="StoryUtils.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/sensetivity/StoryUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="16" column="16" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
+            <state relative-caret-position="964">
+              <caret line="351" lean-forward="true" selection-start-line="351" selection-end-line="351" />
             </state>
           </provider>
         </entry>
@@ -44,9 +42,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>toUpp</find>
-      <find>medri</find>
-      <find>coveredBy</find>
       <find>coveredby</find>
       <find>splitResult</find>
       <find>getOpt</find>
@@ -74,6 +69,9 @@
       <find>Files.wri</find>
       <find>applyC</find>
       <find>applycor</find>
+      <find>entory</find>
+      <find>ranked</find>
+      <find>Instances dat</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -140,9 +138,9 @@
         <option value="$PROJECT_DIR$/data/eval.properties" />
         <option value="$PROJECT_DIR$/src/sensetivity/FilesUtils.java" />
         <option value="$PROJECT_DIR$/src/sensetivity/PropsUtils.java" />
-        <option value="$PROJECT_DIR$/src/sensetivity/StoryUtils.java" />
-        <option value="$PROJECT_DIR$/data/conf.properties" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/data/conf.properties" />
+        <option value="$PROJECT_DIR$/src/sensetivity/StoryUtils.java" />
       </list>
     </option>
   </component>
@@ -158,7 +156,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -170,6 +167,19 @@
               <item name="weka.plus" type="b2602c69:ProjectViewProjectNode" />
               <item name="weka.plus" type="462c0819:PsiDirectoryNode" />
               <item name="data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="weka.plus" type="b2602c69:ProjectViewProjectNode" />
+              <item name="weka.plus" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+              <item name="results" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="weka.plus" type="b2602c69:ProjectViewProjectNode" />
+              <item name="weka.plus" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+              <item name="results" type="462c0819:PsiDirectoryNode" />
+              <item name="0" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="weka.plus" type="b2602c69:ProjectViewProjectNode" />
@@ -192,6 +202,7 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -372,8 +383,8 @@
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="4" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.329" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.284" />
-      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.323" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.284" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.323" />
       <window_info id="Designer" order="2" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2416" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -390,15 +401,15 @@
     </layout>
     <layout-to-restore>
       <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32954547" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32467532" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.225" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32467532" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3293979" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="4" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.32575756" />
@@ -406,8 +417,8 @@
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.329" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32954547" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3293979" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.3293979" />
       <window_info anchor="right" id="Maven Projects" order="4" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -483,42 +494,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/weka/classifiers/rules/medri/MeDRIResult.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/weka/classifiers/rules/medri/IRule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="43" column="4" selection-start-line="43" selection-start-column="4" selection-end-line="43" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/weka/attributeSelection/Va.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="491" column="3" lean-forward="true" selection-start-line="483" selection-start-column="2" selection-end-line="491" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/weka/attributeSelection/pas/PasUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="58" column="22" selection-start-line="58" selection-start-column="22" selection-end-line="58" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/t&lt;int[]&gt;&gt; splitResult = entryLines.stream()" />
-    <entry file="file://$PROJECT_DIR$/src/META-INF/MANIFEST.MF">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sensentivity/l2/RTags.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="528">
@@ -614,20 +589,6 @@
         <state relative-caret-position="-2160" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/arff/anneal.arff">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="17" column="2" lean-forward="true" selection-start-line="17" selection-start-column="2" selection-end-line="17" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/weka/attributeSelection/EntropyRankerSubset.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="614" column="5" lean-forward="true" selection-start-line="610" selection-start-column="4" selection-end-line="614" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sensetivity/Story.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="24">
@@ -666,12 +627,8 @@
     <entry file="file://$PROJECT_DIR$/data/results/8/contact-lenses.arff.csv" />
     <entry file="file://$PROJECT_DIR$/data/results/10/tic-tac-toe.arff.csv" />
     <entry file="file://$PROJECT_DIR$/data/results/4/tic-tac-toe.arff.csv" />
-    <entry file="file://$PROJECT_DIR$/data/results/2/tic-tac-toe.arff.csv">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/results/3/tic-tac-toe.arff.csv">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/data/results/2/tic-tac-toe.arff.csv" />
+    <entry file="file://$PROJECT_DIR$/data/results/3/tic-tac-toe.arff.csv" />
     <entry file="file://$PROJECT_DIR$/data/results/0/contact-lenses.arff.csv">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -685,12 +642,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/results/1/contact-lenses.arff.csv">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/results/2/contact-lenses.arff.csv">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/data/results/2/contact-lenses.arff.csv" />
     <entry file="file://$PROJECT_DIR$/src/sensetivity/TClassifier.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="432">
@@ -701,10 +653,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/results/3/contact-lenses.arff.csv">
+    <entry file="file://$PROJECT_DIR$/data/results/3/contact-lenses.arff.csv" />
+    <entry file="file://$PROJECT_DIR$/data/results/4/contact-lenses.arff.csv" />
+    <entry file="file://$PROJECT_DIR$/data/results/5/contact-lenses.arff.csv" />
+    <entry file="file://$PROJECT_DIR$/data/results/6/contact-lenses.arff.csv" />
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+        <state relative-caret-position="408">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
         </state>
       </provider>
     </entry>
@@ -718,44 +674,73 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/results/4/contact-lenses.arff.csv">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/results/5/contact-lenses.arff.csv">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/conf.properties">
+    <entry file="file://$PROJECT_DIR$/src/weka/attributeSelection/L2AttributeEval.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="13" column="18" selection-start-line="13" selection-start-column="18" selection-end-line="13" selection-end-column="18" />
+        <state relative-caret-position="339">
+          <caret line="63" column="14" lean-forward="true" selection-start-line="63" selection-start-column="14" selection-end-line="63" selection-end-column="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/results/6/contact-lenses.arff.csv">
+    <entry file="file://$PROJECT_DIR$/src/weka/attributeSelection/EntropyRankerSubset.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="15" column="21" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
+        <state relative-caret-position="336">
+          <caret line="64" column="19" selection-start-line="64" selection-start-column="19" selection-end-line="64" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/weka-src.jar!/src/main/java/weka/attributeSelection/RankedOutputSearch.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="32" column="17" selection-start-line="32" selection-start-column="17" selection-end-line="32" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/weka-src.jar!/src/main/java/weka/attributeSelection/Ranker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="939">
+          <caret line="567" column="16" lean-forward="true" selection-start-line="567" selection-start-column="16" selection-end-line="567" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sensetivity/TEvaluator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="768">
-          <caret line="32" column="16" selection-start-line="32" selection-start-column="16" selection-end-line="32" selection-end-column="16" />
+        <state relative-caret-position="168">
+          <caret line="7" column="26" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/weka-src.jar!/src/main/java/weka/attributeSelection/AttributeEvaluator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="30" column="17" selection-start-line="30" selection-start-column="17" selection-end-line="30" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/results/1/contact-lenses.arff.csv" />
+    <entry file="file://$PROJECT_DIR$/data/results/0/anneal.arff.csv">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/arff/anneal.arff">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="16" column="17" lean-forward="true" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/results/0/tic-tac-toe.arff.csv">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/conf.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="4" column="16" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sensetivity/StoryUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="108" column="5" lean-forward="true" selection-start-line="108" selection-start-column="5" selection-end-line="108" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="16" column="16" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
+        <state relative-caret-position="964">
+          <caret line="351" lean-forward="true" selection-start-line="351" selection-end-line="351" />
         </state>
       </provider>
     </entry>

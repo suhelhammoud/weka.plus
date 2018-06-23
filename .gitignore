@@ -5,6 +5,7 @@ out/
 
 # experiments
 data/out
+data/resuls
 
 
 # CMake
@@ -14,4 +15,3 @@ cmake-build-release/
 # Cursive Clojure plugin
 .idea/replstate.xml
 
-# data/results/*
