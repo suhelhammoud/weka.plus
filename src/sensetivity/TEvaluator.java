@@ -21,6 +21,12 @@ public enum TEvaluator {
         }
     }
 
+    /**
+     * @param args case PAS:
+     *             args[0]: support
+     *             args[1]: confidence
+     * @return
+     */
     public ASEvaluation getWith(Object... args) {
         switch (this) {
             case PAS:

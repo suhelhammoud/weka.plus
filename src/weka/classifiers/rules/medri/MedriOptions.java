@@ -56,6 +56,10 @@ public class MedriOptions implements OptionHandler, Serializable {
             return result;
         }
 
+        public SelectedTag selectedTag(){
+            return new SelectedTag(this.name(), ALGORITHMS.toTags());
+        }
+
         public static ALGORITHMS of(String name){
             return valueOf(name.toLowerCase());
         }
@@ -63,6 +67,7 @@ public class MedriOptions implements OptionHandler, Serializable {
 
     protected String m_debugLevel = LEVELS.info.name();
     protected String m_algorithm = "medri";
+
 
 
     public String debugLevel() {

@@ -155,6 +155,10 @@ public class MeDRI implements Classifier, OptionHandler,
         moptions.setAlgorithm(newMethod);
     }
 
+    public void setAlgorithm(String algorithm){
+        MedriOptions.ALGORITHMS.valueOf(algorithm);
+    }
+
     public SelectedTag getAlgorithm() {
         return moptions.getAlgorithm();
     }
