@@ -34,8 +34,10 @@ public class FilesUtils {
     public static boolean writeToFile(Path outDir,
                                       String filename,
                                       List<String> content) {
+        Path path = Paths.get(outDir.toString(), filename);
+
+//        try(Files.write(path, content)){}
         try {
-            Path path = Paths.get(outDir.toString(), filename);
             Files.write(path, content);
             return true;
         } catch (IOException e) {

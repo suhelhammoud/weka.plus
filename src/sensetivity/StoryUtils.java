@@ -93,12 +93,14 @@ public class StoryUtils {
             Instances train,
             Classifier classifier)
             throws Exception {
-        Story result = Story.get().set(StoryKey.dataset, train.relationName());
+
+        train.setClassIndex(train.numAttributes()-1);
+        Story result = Story.get();
 
         Evaluation eval = new Evaluation(train);
         //TODO change seed selection method
         eval.crossValidateModel(classifier, train, 10, new Random(1));
-        result.set(StoryKey.classifier, TClassifier.NB);
+//        result.set(StoryKey.classifier, TClassifier.NB);
         result.set(StoryKey.errorRate, eval.errorRate());
         result.set(StoryKey.precision, eval.weightedPrecision());
         result.set(StoryKey.recall, eval.weightedRecall());
@@ -109,7 +111,7 @@ public class StoryUtils {
     public static Story playStory(Story story, Instances data) {
 //        Story result = story.copy(StoryKey.dataset, data.relationName());
 
-        Story result = story.copy();
+        Story result = story; //mutual data structure
 
         try {
 
@@ -317,9 +319,12 @@ public class StoryUtils {
         for (Path datasetPath : arffDatasets) {
 
             Instances data = FilesUtils.instancesOf(datasetPath);
-            logger.debug("data {} contains {} attributes",
-                    datasetPath.getFileName(), data.numAttributes());
             List<Story> stories = generateStories(params, data);
+
+            stories.parallelStream()
+                    .forEach(story -> {
+                        playStory(story, data);
+                    });
 
             FilesUtils.writeStoriesToFile(resultDir,
                     datasetPath.getFileName().toString() + ".csv"
@@ -327,14 +332,5 @@ public class StoryUtils {
         }
 
 
-        //        List<Path> datasetsPaths = listArffFiles(params.getArffDir());
-//
-//
-//        String result = listArffFiles("data/arff").stream()
-//                .map(p -> instancesOf(p))
-//                .map(i -> i.relationName())
-//                .sorted()
-//                .collect(Collectors.joining("\n"));
-//        System.out.println("result = " + result);
     }
 }

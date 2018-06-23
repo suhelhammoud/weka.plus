@@ -1,5 +1,8 @@
 package sensetivity;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
@@ -9,6 +12,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class PropsUtils extends Properties {
+    static Logger logger = LoggerFactory.getLogger(PropsUtils.class.getName());
 
     public static PropsUtils of(String fileName) throws IOException {
         PropsUtils result = new PropsUtils();
@@ -83,8 +87,10 @@ public class PropsUtils extends Properties {
                 .collect(Collectors.toList());
 
         classifiers = getStream("classifiers")
-                .map(s -> TClassifier.valueOf(s.trim().toUpperCase()))
+                .map(s -> TClassifier.valueOf(s.toUpperCase()))
                 .collect(Collectors.toList());
+
+        logger.debug("classifiers : {}", classifiers);
 
         evalSupports = getStream("eval.supports")
                 .mapToDouble(i -> Double.valueOf(i))
