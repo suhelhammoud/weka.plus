@@ -10,17 +10,10 @@ import weka.core.Instances;
 import weka.filters.Filter;
 import weka.filters.supervised.attribute.AttributeSelection;
 
-import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
 import java.nio.file.Path;
 
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -145,9 +138,9 @@ public class StoryUtils {
     }
 
     public static List<Story> generate(Story story,
-                                  EvalProps props,
-                                  TEvaluator eval,
-                                  TClassifier classifier) {
+                                       PropsUtils props,
+                                       TEvaluator eval,
+                                       TClassifier classifier) {
 
         List<Story> result = new ArrayList<>();
         //set evalMethod and classifier
@@ -157,9 +150,10 @@ public class StoryUtils {
         List<Story> storiesNumSelect = propStoriesNumAttSelected(bs);
 
         List<Story> evalStories = new ArrayList<>();
-        for (Story numStory : storiesNumSelect) {
-            switch (eval) {
-                case PAS:
+
+        switch (eval) {
+            case PAS:
+                for (Story numStory : storiesNumSelect) {
                     List<Story> evalSupportStories = propStories(
                             numStory, StoryKey.evalSupport, props.getEvalSupports());
                     for (Story supStory : evalSupportStories) {
@@ -167,28 +161,29 @@ public class StoryUtils {
                                 StoryKey.evalConfidence, props.getEvalConfidences());
                         evalStories.addAll(confStories);
                     }
-                    break;
-                default:
-                    evalStories.addAll(storiesNumSelect);
+                }
+                break;
 
-            }
+            default:
+                evalStories.addAll(storiesNumSelect);
 
-            switch (classifier) {
-                case MEDRI:
-                    for (Story evalStory : evalStories) {
-                        List<Story> supportStories = propStories(evalStory,
-                                StoryKey.support, props.getSupports());
-                        for (Story supStory : supportStories) {
-                            List<Story> confStories = propStories(supStory,
-                                    StoryKey.confidence, props.getConfidences());
-                            result.addAll(confStories);
-                        }
+        }
+
+        switch (classifier) {
+            case MEDRI:
+                for (Story evalStory : evalStories) {
+                    List<Story> supportStories = propStories(evalStory,
+                            StoryKey.support, props.getSupports());
+                    for (Story supStory : supportStories) {
+                        List<Story> confStories = propStories(supStory,
+                                StoryKey.confidence, props.getConfidences());
+                        result.addAll(confStories);
                     }
-                    break;
-                    default:
-                        result.addAll(evalStories);
+                }
+                break;
+            default:
+                result.addAll(evalStories);
 
-            }
         }
         return result;
 
@@ -196,11 +191,12 @@ public class StoryUtils {
 
     /**
      * generate all test stories related to one dataset
+     *
      * @param props configuration file
      * @param data
      * @return
      */
-    public static List<Story> generateStories(EvalProps props, Instances data) {
+    public static List<Story> generateStories(PropsUtils props, Instances data) {
         List<Story> result = new ArrayList<>();
 
         Story bs = Story.get()
@@ -216,15 +212,60 @@ public class StoryUtils {
             }
         }
 
+        int expectedNum = (int) bs.get(StoryKey.numAttributes)
+                * calculateEvalClassifier(props);
+        if (expectedNum != result.size() ) {
+            logger.error("expected = {}, actual = {}",
+                    expectedNum, result.size());
+        }
+        return result;
+    }
+
+    /**
+     * Calculate expected for one dataset for one numAttributesToSelect only
+     *
+     * @param props
+     * @return
+     */
+    public static int calculateEvalClassifier(PropsUtils props) {
+
+        int result = 0; //non PAS nor MEDRI
+
+
+        int pasProduct = props.getEvalSupports().size()
+                * props.getEvalConfidences().size();
+        int medriProduct = props.getSupports().size()
+                * props.getConfidences().size();
+
+        boolean hasPas = props.getEvaluatorMethods().contains(PAS);
+        boolean hasMedri = props.getClassifiers().contains(MEDRI);
+
+        int methods = props.getEvaluatorMethods().size();
+        if (hasPas) methods--;
+        int classifiers = props.getClassifiers().size();
+        if (hasMedri) classifiers--;
+
+        result += methods * classifiers;
+        if (hasPas) {
+            result += pasProduct * classifiers;
+        }
+
+        if (hasMedri) {
+            result += medriProduct * methods;
+        }
+
+        if (hasPas && hasMedri) {
+            result += pasProduct * medriProduct;
+        }
         return result;
     }
 
 
-
-
-    public static List<Story> propStories(Story story, StoryKey skey, double[] skeyValues) {
-        return Arrays.stream(skeyValues)
-                .mapToObj(s -> story.copy(skey, s))
+    public static List<Story> propStories(Story story,
+                                          StoryKey skey,
+                                          List<Double> skeyValues) {
+        return skeyValues.stream()
+                .map(s -> story.copy(skey, s))
                 .collect(Collectors.toList());
     }
 
@@ -257,24 +298,32 @@ public class StoryUtils {
     }
 
     public static void main(String[] args) throws IOException {
-        EvalProps params = EvalProps.of("data/eval.properties");
+        PropsUtils params = PropsUtils.of("data/conf.properties");
 
 
-        Path resultDir = FileUtils.createOutDir(params.getOutDir());
+        Path resultDir = FilesUtils.createOutDir(params.getOutDir());
         logger.info("result directory : {}", resultDir.toString());
 
-        List<Path> arffDatasets = FileUtils.listFiles(
+        List<String> dataSetsNames = params.getDatasets();
+
+        List<Path> arffDatasets = FilesUtils.listFiles(
                 params.getArffDir(),
-                ".arff");
+                ".arff").stream()
+                .filter(path -> dataSetsNames.contains(
+                        path.getFileName().toString().replace(".arff", ""))
+                ).collect(Collectors.toList());
 
-        for(Path datasetPath: arffDatasets){
 
-            Instances data = FileUtils.instancesOf(datasetPath);
-            logger.info("data {} contains {} attributes",
+        for (Path datasetPath : arffDatasets) {
+
+            Instances data = FilesUtils.instancesOf(datasetPath);
+            logger.debug("data {} contains {} attributes",
                     datasetPath.getFileName(), data.numAttributes());
             List<Story> stories = generateStories(params, data);
 
-            FileUtils.writeStoriesToFile(resultDir, "out.csv", stories);
+            FilesUtils.writeStoriesToFile(resultDir,
+                    datasetPath.getFileName().toString() + ".csv"
+                    , stories);
         }
 
 

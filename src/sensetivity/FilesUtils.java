@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import weka.core.Instances;
 
-import javax.swing.*;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
@@ -16,8 +15,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FileUtils {
-    static Logger logger = LoggerFactory.getLogger(FileUtils.class.getName());
+public class FilesUtils {
+    static Logger logger = LoggerFactory.getLogger(FilesUtils.class.getName());
 
     public static boolean writeStoriesToFile(Path outDir,
                                              String filename,
