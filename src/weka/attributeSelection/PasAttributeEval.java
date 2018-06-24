@@ -359,7 +359,7 @@ public class PasAttributeEval extends ASEvaluation implements
         int numClasses = data.attribute(classIndex).numValues();
 
         //TODO look into Chi implementation of contingency tables
-        logger.info("build classifier with data ={} of size={}", data.relationName(), data.numInstances());
+        logger.debug("build classifier with data ={} of size={}", data.relationName(), data.numInstances());
 
         assert data.classIndex() == data.numAttributes() - 1;
 

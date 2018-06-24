@@ -362,7 +362,11 @@ public class StoryUtils {
 
             Instances data = FilesUtils.instancesOf(datasetPath);
             data.setClassIndex(data.numAttributes() - 1);
+
             List<Story> stories = generateStories(params, data);
+
+            logger.info("processing dataset: {}", data.relationName());
+            logger.info("expected stories = {}", stories.size());
 
             stories.parallelStream()
                     .forEach(story -> {
