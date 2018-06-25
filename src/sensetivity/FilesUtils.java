@@ -89,11 +89,20 @@ public class FilesUtils {
         return result;
     }
 
+    public static String fileNameNoSuffix(Path path) {
+        String fileName = path.getFileName().toString();
+        int extensionIndex = fileName.lastIndexOf(".");
+
+        return fileName.substring(0, extensionIndex);
+    }
     public static void main(String[] args) {
-        Path outDir = createOutDir("data/result");
-        List<String> content = Arrays.asList("one", "two", "three");
-        boolean written = writeToFile(outDir, "out.txt", content);
-        System.out.println("written = " + written);
+
+        Path path = Paths.get("data/arff/dd.txt");
+        System.out.println("fileNameNoSuffix(path) = " + fileNameNoSuffix(path));
+//        Path outDir = createOutDir("data/result");
+//        List<String> content = Arrays.asList("one", "two", "three");
+//        boolean written = writeToFile(outDir, "out.txt", content);
+//        System.out.println("written = " + written);
     }
 
 }

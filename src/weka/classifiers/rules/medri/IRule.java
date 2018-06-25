@@ -143,7 +143,7 @@ public class IRule implements Serializable {
                 this.getClass().getSimpleName() + "[", "]")
                 .add("label=" + label)
                 .add("index= " + Arrays.toString(attIndexes))
-                .add("val=" + attValues)
+                .add("val=" + Arrays.toString(attValues))
                 .add("correct=" + correct)
                 .add("errors= " + errors)
                 .add("covers=" + covers)

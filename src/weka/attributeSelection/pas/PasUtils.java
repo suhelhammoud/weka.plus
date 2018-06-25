@@ -35,9 +35,16 @@ public class PasUtils {
         return null;
     }
 
+    public static String arrayToString(double[] arr, String format) {
+        return Arrays.stream(arr)
+                .boxed()
+                .map(d -> String.format(format, d))
+                .collect(Collectors.joining(", ", "[", "]"));
+    }
+
 
     public static double[] rankAttributes(List<IRule> rules,
-                                                      int numAttributes) {
+                                          int numAttributes) {
 
         int totalLines = rules.stream()
                 .mapToInt(rule -> rule.getCovers())
@@ -118,14 +125,20 @@ public class PasUtils {
 
 
     public static double[] normalizedVector(double[] values) {
-        double sqrtSumSquares = Math.sqrt(
-                Arrays.stream(values)
-                        .map(value -> value * value)
-                        .sum());
+        double sum = Arrays.stream(values).sum();
         return Arrays.stream(values)
-                .map(value -> value / sqrtSumSquares)
+                .map(value -> value / sum)
                 .toArray();
     }
+// public static double[] normalizedVector(double[] values) {
+//        double sqrtSumSquares = Math.sqrt(
+//                Arrays.stream(values)
+//                        .map(value -> value * value)
+//                        .sum());
+//        return Arrays.stream(values)
+//                .map(value -> value / sqrtSumSquares)
+//                .toArray();
+//    }
 
     public static IRuleLines calcStepPas(int[] numItemsInAtt,
                                          Collection<int[]> lineData,

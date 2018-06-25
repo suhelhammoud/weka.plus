@@ -35,6 +35,15 @@ public class PropsUtils extends Properties {
     private List<String> datasets;
     private String outDir;
 
+    private boolean printRanks;
+
+    public void setPrintRanks(boolean printRanks) {
+        this.printRanks = printRanks;
+    }
+
+    public boolean getPrintRanks() {
+        return printRanks;
+    }
 
     public List<Double> getEvalSupports() {
         return evalSupports;
@@ -118,6 +127,8 @@ public class PropsUtils extends Properties {
                 .trim().split("\\s+"));
 
         outDir = getProperty("out.dir", "data/results");
+
+        printRanks = Boolean.valueOf(getProperty("print.ranks", "false"));
     }
 
     public static void main(String[] args)

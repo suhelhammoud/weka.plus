@@ -4,6 +4,7 @@ package weka.attributeSelection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import weka.attributeSelection.pas.PasUtils;
+import weka.classifiers.rules.medri.IRule;
 import weka.classifiers.rules.medri.MeDRIResult;
 import weka.classifiers.rules.medri.MedriUtils;
 import weka.classifiers.rules.medri.Pair;
@@ -83,6 +84,12 @@ public class PasAttributeEval extends ASEvaluation implements
     private boolean m_Binarize;
 
     /**
+     * To show more debug results to the output
+     */
+    private boolean m_debug; //TODO might delete it later
+
+
+    /**
      * Optional initial searching measures
      */
     protected double m_support = 0.05;
@@ -136,10 +143,11 @@ public class PasAttributeEval extends ASEvaluation implements
      **/
     @Override
     public Enumeration<Option> listOptions() {
-        Vector<Option> newVector = new Vector<Option>(4);
+        Vector<Option> newVector = new Vector<Option>(5);
 
         newVector.addElement(new Option("\ttreat missing values as a separate value.",
                 "M", 0, "-M"));
+
 
         newVector.addElement(new Option("\tminimum support value "
                 , "S", 0, "-S"));
@@ -150,6 +158,9 @@ public class PasAttributeEval extends ASEvaluation implements
         newVector.addElement(new Option(
                 "\tjust binarize numeric attributes instead \n"
                         + "\tof properly discretizing them.", "B", 0, "-B"));
+
+        newVector.addElement(new Option("\tshow debug messages.",
+                "D", 0, "-D"));
 
         return newVector.elements();
     }
@@ -188,6 +199,7 @@ public class PasAttributeEval extends ASEvaluation implements
         resetOptions();
         setMissingMerge(!(Utils.getFlag('M', options)));
         setBinarizeNumericAttributes(Utils.getFlag('B', options));
+        setShowDebugMessages(Utils.getFlag('D', options));
 
         setSupport(Double.parseDouble(Utils.getOption('S', options)));
         setConfidence(Double.parseDouble(Utils.getOption('C', options)));
@@ -208,6 +220,11 @@ public class PasAttributeEval extends ASEvaluation implements
         if (!getMissingMerge()) {
             options.add("-M");
         }
+
+        if (!getShowDebugMessages()) {
+            options.add("-D");
+        }
+
         if (getBinarizeNumericAttributes()) {
             options.add("-B");
         }
@@ -219,6 +236,18 @@ public class PasAttributeEval extends ASEvaluation implements
         options.add(String.valueOf(m_confidence));
 
         return options.toArray(new String[0]);
+    }
+
+    public boolean getShowDebugMessages() {
+        return m_debug;
+    }
+
+    public void setShowDebugMessages(boolean b) {
+        this.m_debug = b;
+    }
+
+    public String showDebugMessagesTipText() {
+        return "include debug messages in loggers";
     }
 
 
@@ -384,11 +413,65 @@ public class PasAttributeEval extends ASEvaluation implements
                 getConfidence(),
                 false);
 
-        double[] rawRanks = PasUtils.rankAttributes(result.getRules(), data.numAttributes() - 1);//exclude label class attribute
+        double[] rawRanks = PasUtils.rankAttributes(
+                result.getRules(),
+                data.numAttributes() - 1);//exclude label class attribute
+
 
         m_pas = PasUtils.normalizedVector(rawRanks);
 
+        if (m_debug) {
+            String msg = printResult(result.getRules(),
+                    data,
+                    Arrays.stream(rawRanks).sum(),
+                    data.numAttributes() - 1);
+            logger.info(msg);
+        }
+    }
 
+    //TODO delete later
+    private String printResult(List<IRule> rules,
+                               Instances data,
+                               double sumWeights,
+                               int numAttributes) {
+        StringBuilder result = new StringBuilder();
+
+        StringJoiner sj = new StringJoiner("\n\t",
+                "\n" + data.relationName() + "\n\t",
+                "\n\n");
+//        double sumWeights = Arrays.stream(rawRanks).sum();
+
+        final int totalLines = rules.stream()
+                .mapToInt(rule -> rule.getCovers())
+                .sum();
+        int availableLines = totalLines;
+
+        double[] rawRanks = new double[numAttributes];
+        for (IRule rule : rules) {
+//            sj.add("rule: " + rule.toString(data, 3));
+            sj.add("rule: " + rule.toString());
+            final double linesRatio = (double) availableLines / totalLines;
+            final double weight = rule.getCorrect()
+                    * availableLines;
+            sj.add(String.format("weight = %06.1f , lines = %04d, lines ratio = %3.3f",
+                    weight,
+                    availableLines,
+                    linesRatio));
+            availableLines -= rule.getCovers();
+            for (int attIndex : rule.getAttIndexes()) {
+                rawRanks[attIndex] += weight;
+            }
+        }
+
+        sj.add("Result attributes weights");
+        sj.add(Arrays.toString(rawRanks));
+
+        sj.add("Normalized Attributes weights");
+
+        sj.add(PasUtils.arrayToString(PasUtils.normalizedVector(rawRanks),
+                "%1.3f"));
+
+        return sj.toString();
     }
 
 
@@ -399,7 +482,7 @@ public class PasAttributeEval extends ASEvaluation implements
         m_pas = null;          //Va
         m_missing_merge = true;
         m_Binarize = false;
-
+        m_debug = false;
         m_support = 0.05;
         m_confidence = .4;
     }
