@@ -63,10 +63,10 @@ import java.util.*;
  */
 
 
-public class PasAttributeEval extends ASEvaluation implements
+public class PasAttributeEvalDemo extends ASEvaluation implements
         AttributeEvaluator, OptionHandler {
 
-    static Logger logger = LoggerFactory.getLogger(PasAttributeEval.class.getName());
+    static Logger logger = LoggerFactory.getLogger(PasAttributeEvalDemo.class.getName());
 
     /**
      * for serialization
@@ -132,7 +132,7 @@ public class PasAttributeEval extends ASEvaluation implements
     /**
      * Constructor
      */
-    public PasAttributeEval() {
+    public PasAttributeEvalDemo() {
         resetOptions();
     }
 
@@ -397,6 +397,7 @@ public class PasAttributeEval extends ASEvaluation implements
 
         Pair<Collection<int[]>, int[]> linesLabels = MedriUtils.mapIdataAndLabels(data);
         Collection<int[]> lineData = linesLabels.key;
+
         int[] labelsCount = linesLabels.value;
 //
         logger.trace("original lines size ={}", lineData.size());
@@ -406,12 +407,12 @@ public class PasAttributeEval extends ASEvaluation implements
         int minFreq = (int) Math.ceil(getSupport() * data.numInstances() + 1.e-6);
         logger.debug("minFreq used = {}", minFreq);
 
-        MeDRIResult result = PasUtils.evaluateAttributes(numItems,
+        MeDRIResult result = PasUtils.evaluateAttributesDemo(numItems,
                 labelsCount,
                 lineData,
                 minFreq,
                 getConfidence(),
-                false);
+                true);
 
         double[] rawRanks = PasUtils.rankAttributes(
                 result.getRules(),
@@ -553,7 +554,7 @@ public class PasAttributeEval extends ASEvaluation implements
      * @param args the options
      */
     public static void main(String[] args) {
-        runEvaluator(new weka.attributeSelection.PasAttributeEval(), args);
+        runEvaluator(new PasAttributeEvalDemo(), args);
 
     }
 

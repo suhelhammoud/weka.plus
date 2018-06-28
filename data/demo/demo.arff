@@ -1,0 +1,16 @@
+
+@relation demo
+
+@attribute A {a, b, c}
+@attribute B {d, e}
+@attribute C {f, g}
+@attribute Class { x, y}
+
+@data
+a, e, f, x
+a, e, f, y
+c, e, f, x
+c, e, f, y
+
+
+

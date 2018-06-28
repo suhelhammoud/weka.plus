@@ -18,12 +18,12 @@ public class IRule implements Serializable {
     public final static int EMPTY = -1;
     public final int label;
     //TODO what about using List ??, check the update to read ratio and measure performance to decide
-    private int[] attIndexes;
-    private int[] attValues;
+    protected int[] attIndexes;
+    protected int[] attValues;
 
-    private int correct;
-    private int errors;
-    private int covers;
+    protected int correct;
+    protected int errors;
+    protected int covers;
 
 
     public int getErrors() {
@@ -38,7 +38,7 @@ public class IRule implements Serializable {
         return covers;
     }
 
-    public int[] getAttIndexes(){
+    public int[] getAttIndexes() {
         return Arrays.copyOf(attIndexes, attIndexes.length);
     }
 
@@ -70,12 +70,11 @@ public class IRule implements Serializable {
     }
 
     /**
-     *
      * @param a
      * @param e
      * @return
      */
-    private static int[] addElement(int[] a, int e) {
+    protected static int[] addElement(int[] a, int e) {
         a = Arrays.copyOf(a, a.length + 1);
         a[a.length - 1] = e;
         return a;
@@ -172,8 +171,6 @@ public class IRule implements Serializable {
         }
         return sb.toString();
     }
-
-    ;
 
     public static void main(String[] args) {
         System.out.println("done");

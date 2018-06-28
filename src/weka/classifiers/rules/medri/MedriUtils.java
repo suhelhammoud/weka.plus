@@ -29,7 +29,7 @@ public class MedriUtils {
      * @param data
      * @return number of distinct items in each attributes
      */
-    public static int[] numItems(Instances data) {
+    public static int[] countItemsInAttributes(Instances data) {
         int[] result = new int[data.numAttributes()];
         for (int i = 0; i < result.length; i++) {
             result[i] = data.attribute(i).numValues();
@@ -273,8 +273,8 @@ public class MedriUtils {
 
         if (lineData.size() < minFreq) return null;
 
-//        int labelIndex = numItems.length - 1;
-//        int numLabels = numItems[labelIndex];
+//        int labelIndex = countItemsInAttributes.length - 1;
+//        int numLabels = countItemsInAttributes[labelIndex];
 
         /** Start with all attributes, does not include the label attribute*/
         Set<Integer> availableAttributes = IntStream.range(0, numItemsInAtt.length - 1)
@@ -633,7 +633,7 @@ public class MedriUtils {
         Instances data = new Instances(EDRIUtils.readDataFile(inFile));
         data.setClassIndex(data.numAttributes() - 1);
         System.out.println(data.numInstances());
-        int[] iattrs = MedriUtils.numItems(data);
+        int[] iattrs = MedriUtils.countItemsInAttributes(data);
 
         Pair<Collection<int[]>, int[]> linesLabels = MedriUtils.mapIdataAndLabels(data);
         Collection<int[]> lineData = linesLabels.key;

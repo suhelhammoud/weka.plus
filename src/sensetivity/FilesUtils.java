@@ -66,6 +66,10 @@ public class FilesUtils {
         return null; //never reached TODO
     }
 
+    public static Instances instancesOf(String path) {
+        return instancesOf(Paths.get(path));
+    }
+
     public static Instances instancesOf(Path path) {
         try {
             return new Instances(new FileReader(path.toFile()));
@@ -95,6 +99,7 @@ public class FilesUtils {
 
         return fileName.substring(0, extensionIndex);
     }
+
     public static void main(String[] args) {
 
         Path path = Paths.get("data/arff/dd.txt");

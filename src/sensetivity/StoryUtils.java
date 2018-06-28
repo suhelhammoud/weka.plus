@@ -13,8 +13,10 @@ import weka.filters.Filter;
 import weka.filters.supervised.attribute.AttributeSelection;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -347,9 +349,14 @@ public class StoryUtils {
         String confName = args.length > 0 ? args[0] : "data/conf.properties";
         PropsUtils params = PropsUtils.of(confName);
 
+        Path confPath = Paths.get(confName);
 
         Path resultDir = FilesUtils.createOutDir(params.getOutDir());
         logger.info("result directory : {}", resultDir.toString());
+
+        //copy config file to output
+        Files.copy(confPath,
+                resultDir.getParent().resolve(resultDir.getFileName()+".properties"));
 
         List<String> dataSetsNames = params.getDatasets();
 
@@ -384,7 +391,7 @@ public class StoryUtils {
     }
 
     public static void runDemo(String... args) throws Exception {
-        String confName = args.length > 0 ? args[0] : "data/demo.properties";
+        String confName = args.length > 0 ? args[0] : "data/demo1.properties";
         PropsUtils props = PropsUtils.of(confName);
 
         List<String> dataSetsNames = props.getDatasets();
@@ -442,7 +449,8 @@ public class StoryUtils {
 
 
     public static void main(String[] args) throws Exception {
-        runDemo("data/demo.properties");
+//        runDemo("data/demo1.properties");
+        experiment1("data/conf.properties");
     }
 
 }
