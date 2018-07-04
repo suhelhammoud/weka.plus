@@ -3,10 +3,7 @@ package weka.attributeSelection;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import weka.attributeSelection.pas.PasItem;
-import weka.attributeSelection.pas.PasOptions;
-import weka.attributeSelection.pas.PasUtils;
-import weka.attributeSelection.pas.Tuple;
+import weka.attributeSelection.pas.*;
 import weka.core.*;
 import weka.filters.Filter;
 import weka.filters.supervised.attribute.Discretize;
@@ -212,22 +209,30 @@ public class PasAttributeEval extends ASEvaluation implements
 
         List<PasItem> items = new ArrayList<>();
 
-        switch (pasOptions.getAlgorithmEnum()) {
+        final PasMethod pasMethod = pasOptions.getPasMethodEnum();
+
+        switch (pasMethod) {
             case rules:
-                items = PasUtils.evaluateAttributes(numItems,
+                items = PasUtils.evaluateAttributesRules(numItems,
                         labelsCount,
                         lineData,
                         minFreq,
                         pasOptions.getMinItemStrength(),
                         false);
+//                logger.info("run att eval with algorithm rules = {}", items.size());
+
                 break;
             case rules1st:
-                items = PasUtils.evaluateAttributes(numItems,
+
+                items = PasUtils.evaluateAttributesRules1st(numItems,
                         labelsCount,
                         lineData,
                         minFreq,
                         pasOptions.getMinItemStrength(),
                         false);
+
+//                logger.info("run att eval with algorithm rules1st = {}", items.size());
+
                 break;
             case items:
                 items = PasUtils.evaluateAttributesItems(numItems,
@@ -236,13 +241,16 @@ public class PasAttributeEval extends ASEvaluation implements
                         minFreq,
                         pasOptions.getMinItemStrength(),
                         false);
+//                logger.info("run att eval with algorithm items = {}", items.size());
                 break;
         }
 
 
         double[] rawRanks = PasUtils.rankAttributes(
                 items,
-                data.numAttributes() - 1);//exclude label class attribute
+                data.numAttributes() - 1,
+                pasMethod
+        );//exclude label class attribute
 
 
         m_pas = PasUtils.normalizeVector(rawRanks);
@@ -299,12 +307,16 @@ public class PasAttributeEval extends ASEvaluation implements
         return text.toString();
     }
 
-    public SelectedTag getAlgorithm() {
-        return pasOptions.getAlgorithm();
+    public SelectedTag getPasMethod() {
+        return pasOptions.getPashMethod();
     }
 
-    public void setAlgorithm(SelectedTag tag) {
-        pasOptions.setAlgorithm(tag);
+    public void setPasMethod(SelectedTag tag) {
+        pasOptions.setPasMethod(tag);
+    }
+
+    public void setPasMethod(PasMethod pm) {
+        pasOptions.setPasMethod(pm);
     }
 
     public double getMinFrequency() {

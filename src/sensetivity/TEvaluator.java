@@ -1,6 +1,7 @@
 package sensetivity;
 
 import weka.attributeSelection.*;
+import weka.attributeSelection.pas.PasMethod;
 
 public enum TEvaluator {
     IG, CHI, L2, PAS;
@@ -25,14 +26,16 @@ public enum TEvaluator {
      * @param args case PAS:
      *             args[0]: support
      *             args[1]: confidence
+     *             args[2]: PasMethod
      * @return
      */
     public ASEvaluation getWith(Object... args) {
         switch (this) {
             case PAS:
                 PasAttributeEval result = new PasAttributeEval();
-                result.getPasOptions().setMinFrequency((Double) args[0]);
-                result.getPasOptions().setMinItemStrength((Double) args[1]);
+                result.setMinFrequency((Double) args[0]);
+                result.setMinItemStrength((Double) args[1]);
+                result.setPasMethod((PasMethod) args[2]);
                 return result;
             default:
                 return get();

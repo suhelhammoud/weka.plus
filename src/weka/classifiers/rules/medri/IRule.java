@@ -47,7 +47,7 @@ public class IRule implements Serializable {
         return (double) correct / (double) covers;
     }
 
-    public int getLenght() {
+    public int getLength() {
         return attIndexes.length;
     }
 
@@ -141,7 +141,7 @@ public class IRule implements Serializable {
 
 
     public double getLenghtWeighted() {
-        return this.correct * this.getLenght();
+        return this.correct * this.getLength();
     }
 
     @Override

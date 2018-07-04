@@ -6,6 +6,7 @@ import weka.attributeSelection.ASEvaluation;
 import weka.attributeSelection.AttributeEvaluator;
 import weka.attributeSelection.PasAttributeEval;
 import weka.attributeSelection.Ranker;
+import weka.attributeSelection.pas.PasMethod;
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
 import weka.core.Instances;
@@ -38,7 +39,9 @@ public class StoryUtils {
             case PAS:
                 double evalSupport = (double) story.get(StoryKey.evalSupport);
                 double evalConfidence = (double) story.get(StoryKey.evalConfidence);
-                return (T) PAS.getWith(evalSupport, evalConfidence);
+                PasMethod pasmethod = (PasMethod) story.get(StoryKey.pasMethod);
+
+                return (T) PAS.getWith(evalSupport, evalConfidence, pasmethod);
 //            case CHI:
 //                // ChiSquaredAttributeEval settings
 //                break;
@@ -170,10 +173,18 @@ public class StoryUtils {
                 for (Story numStory : storiesNumSelect) {
                     List<Story> evalSupportStories = propStories(
                             numStory, StoryKey.evalSupport, props.getEvalSupports());
+
                     for (Story supStory : evalSupportStories) {
                         List<Story> confStories = propStories(supStory,
-                                StoryKey.evalConfidence, props.getEvalConfidences());
-                        evalStories.addAll(confStories);
+                                StoryKey.evalConfidence,
+                                props.getEvalConfidences());
+
+                        for (Story s : confStories) {
+                            List<Story> pasMethodStories = propStories(s,
+                                    StoryKey.pasMethod,
+                                    props.getPasMethods());
+                            evalStories.addAll(pasMethodStories);
+                        }
                     }
                 }
                 break;
@@ -276,7 +287,9 @@ public class StoryUtils {
 
 
         int pasProduct = props.getEvalSupports().size()
-                * props.getEvalConfidences().size();
+                * props.getEvalConfidences().size()
+                * props.getPasMethods().size();
+
         int medriProduct = props.getSupports().size()
                 * props.getConfidences().size();
 
@@ -304,13 +317,22 @@ public class StoryUtils {
     }
 
 
-    public static List<Story> propStories(Story story,
-                                          StoryKey skey,
-                                          List<Double> skeyValues) {
+    //TODO does it work with this general method?
+    public static <T> List<Story> propStories(Story story,
+                                              StoryKey skey,
+                                              List<T> skeyValues) {
         return skeyValues.stream()
                 .map(s -> story.copy(skey, s))
                 .collect(Collectors.toList());
     }
+
+//    public static List<Story> propStories(Story story,
+//                                          StoryKey skey,
+//                                          List<Double> skeyValues) {
+//        return skeyValues.stream()
+//                .map(s -> story.copy(skey, s))
+//                .collect(Collectors.toList());
+//    }
 
     public static List<Story> propStoriesNumAttSelected(Story story) {
         final int numAttributes = (int) story.get(StoryKey.numAttributes);
@@ -324,6 +346,47 @@ public class StoryUtils {
         if (p < 1e-8 || p > (1 - 1e-8))
             return 0;
         return -p * Math.log(p) / Math.log(2);
+    }
+
+    public static double sum(BitSet bs, double[] ranks) {
+        return bs.stream()
+                .mapToDouble(i -> ranks[i])
+                .sum();
+    }
+
+     public static double sum(BitSet bs, List<Double> ranks) {
+        return bs.stream()
+                .mapToDouble(i -> ranks.get(i))
+                .sum();
+    }
+
+
+    public static double estimate(List<Double> ranks) {
+        Comparator<BitSet> comp = (o1, o2) -> (int) Math.signum(sum(o1, ranks) - sum(o2, ranks));
+
+        double sum = 0.0;
+        List<BitSet> current = IntStream.range(0, ranks.size())
+                .mapToObj(i -> {
+                    BitSet bitSet = new BitSet(ranks.size());
+                    bitSet.set(i);
+                    return bitSet;
+                })
+                .collect(Collectors.toList());
+
+        while (current.size() > 1) {
+            BitSet min1 = Collections.min(current, comp);
+            current.remove(min1);
+            BitSet min2 = Collections.min(current, comp);
+            current.remove(min2);
+
+            BitSet two = new BitSet(ranks.size());
+            two.or(min1);
+            two.or(min2);
+            current.add(two);
+            sum += sum(two, ranks);
+        }
+
+        return Math.pow(2, sum);
     }
 
     public static double entropy(List<Double> ranks) {
@@ -344,100 +407,11 @@ public class StoryUtils {
     }
 
 
-    public static void experiment1(String... args) throws IOException {
-
-        String confName = args.length > 0 ? args[0] : "data/conf.properties";
-        PropsUtils params = PropsUtils.of(confName);
-
-        Path confPath = Paths.get(confName);
-
-        Path resultDir = FilesUtils.createOutDir(params.getOutDir());
-        logger.info("result directory : {}", resultDir.toString());
-
-        //copy config file to output
-        Files.copy(confPath,
-                resultDir.getParent().resolve(resultDir.getFileName()+".properties"));
-
-        List<String> dataSetsNames = params.getDatasets();
-
-        List<Path> arffDatasets = FilesUtils.listFiles(
-                params.getArffDir(),
-                ".arff").stream()
-                .filter(path -> dataSetsNames.contains(
-                        path.getFileName().toString().replace(".arff", ""))
-                ).collect(Collectors.toList());
-
-
-        for (Path datasetPath : arffDatasets) {
-
-            Instances data = FilesUtils.instancesOf(datasetPath);
-            data.setClassIndex(data.numAttributes() - 1);
-
-            List<Story> stories = generateStories(params, data);
-
-            logger.info("processing dataset: {}", data.relationName());
-            logger.info("expected stories = {}", stories.size());
-
-            stories.parallelStream()
-                    .forEach(story -> {
-                        playStory(story, data, true);
-                    });
-
-            FilesUtils.writeStoriesToFile(resultDir,
-                    datasetPath.getFileName().toString() + ".csv"
-                    , stories);
-        }
-
-    }
-
-    public static void runDemo(String... args) throws Exception {
-        String confName = args.length > 0 ? args[0] : "data/demo1.properties";
-        PropsUtils props = PropsUtils.of(confName);
-
-        List<String> dataSetsNames = props.getDatasets();
-        logger.info(dataSetsNames.toString());
-
-        List<Path> arffDatasets = FilesUtils.listFiles(
-                props.getArffDir(),
-                ".arff").stream()
-                .filter(path -> dataSetsNames.contains(
-                        fileNameNoSuffix(path)))
-                .sorted((o1, o2) -> dataSetsNames.indexOf(fileNameNoSuffix(o1))
-                        - dataSetsNames.indexOf(fileNameNoSuffix(o2)))
-                .collect(Collectors.toList());
-
-
-        for (Path datasetPath : arffDatasets) {
-
-            Instances data = FilesUtils.instancesOf(datasetPath);
-            data.setClassIndex(data.numAttributes() - 1);
-
-            logger.info("dataset = {}", datasetPath.getFileName());
-            logger.info("num attributes = {}", data.numAttributes() - 1);
-
-            double support = props.getEvalSupports().get(0);
-            double confidence = props.getEvalConfidences().get(0);
-            PasAttributeEval eval = (PasAttributeEval) TEvaluator
-                    .PAS.getWith(support, confidence);
-
-            eval.getPasOptions().setShowDebugMessages(props.getPrintRanks());
-
-            logger.info("PAS with support = {}, and confidence = {} ",
-                    support,
-                    confidence
-            );
-            int minimumFrequency = (int) Math.ceil(data.numInstances() * support);
-            logger.info("minimum frequency (support) = {} instances ", minimumFrequency);
-
-            eval.buildEvaluator(data);
-
-        }
-    }
 
 
     public static void main(String[] args) throws Exception {
 //        runDemo("data/demo1.properties");
-        experiment1("data/conf.properties");
+//        experiment1("data/conf.properties");
     }
 
 }

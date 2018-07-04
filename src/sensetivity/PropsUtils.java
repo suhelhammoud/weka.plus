@@ -2,6 +2,7 @@ package sensetivity;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import weka.attributeSelection.pas.PasMethod;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -36,6 +37,12 @@ public class PropsUtils extends Properties {
     private String outDir;
 
     private boolean printRanks;
+
+    private List<PasMethod> pasMethods;
+
+    public List<PasMethod> getPasMethods() {
+        return pasMethods;
+    }
 
     public void setPrintRanks(boolean printRanks) {
         this.printRanks = printRanks;
@@ -81,8 +88,13 @@ public class PropsUtils extends Properties {
         return outDir;
     }
 
+
     private Stream<String> getStream(String property) {
-        return Arrays.stream(getProperty(property, "")
+        return getStream(property, "");
+    }
+
+    private Stream<String> getStream(String property, String defaultValue) {
+        return Arrays.stream(getProperty(property, defaultValue)
                 .trim().split("\\s+"))
                 .map(s -> s.trim())
                 .filter(s -> s.length() > 0);
@@ -111,6 +123,12 @@ public class PropsUtils extends Properties {
                 .boxed()
                 .collect(Collectors.toList());
 
+        pasMethods = getStream("pas.methods",
+                PasMethod.items.name())
+                .map(m -> PasMethod.of(m))
+                .collect(Collectors.toList());
+
+
         supports = getStream("supports")
                 .mapToDouble(i -> Double.valueOf(i))
                 .boxed()
@@ -129,12 +147,15 @@ public class PropsUtils extends Properties {
         outDir = getProperty("out.dir", "data/results");
 
         printRanks = Boolean.valueOf(getProperty("print.ranks", "false"));
+
+
     }
 
     public static void main(String[] args)
             throws IOException {
         PropsUtils params = PropsUtils.of("data/conf.properties");
 
+        System.out.println("params.getPasMethods() = " + params.getPasMethods());
         System.out.println("evalSupports = " + params.getEvalSupports());
 
         System.out.println("evalConfidences = " + params.getEvalConfidences());

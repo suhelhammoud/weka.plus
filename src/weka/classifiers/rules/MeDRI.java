@@ -392,7 +392,7 @@ public class MeDRI implements Classifier, OptionHandler,
     private double getAvgRuleLength(List<IRule> rules) {
         double result = 0;
         for (IRule rule : rules) {
-            result += rule.getLenght();
+            result += rule.getLength();
         }
         return result / (double) rules.size();
     }

@@ -12,7 +12,7 @@ import java.util.Vector;
 public class PasOptions implements OptionHandler, Serializable {
     static final long serialVersionUID = 3110258885025902127L;
 
-    protected String m_algorithm = PasAlgorithm.medri.name();
+    protected String m_pasMethod = PasMethod.items.name();
     protected double m_minFrequency = 0.01;
     protected double m_minItemStrength = 0.5;
 
@@ -32,49 +32,53 @@ public class PasOptions implements OptionHandler, Serializable {
     private boolean m_Binarize;
 
 
-
-    public String binarizeTipText(){
+    public String binarizeTipText() {
         return "binarize tip text";
     }
 
 
-    public PasAlgorithm getAlgorithmEnum(){
-        return PasAlgorithm.of(m_algorithm);
+    public PasMethod getPasMethodEnum() {
+        return PasMethod.of(m_pasMethod);
     }
 
-    public SelectedTag getAlgorithm(){
-        return PasAlgorithm.of(m_algorithm).selectedTag();
+
+    public SelectedTag getPashMethod() {
+        return PasMethod.of(m_pasMethod).selectedTag();
     }
 
-    public void setAlgorithm(SelectedTag algorithm){
-        m_algorithm = algorithm.getSelectedTag().getIDStr();
+    public void setPasMethod(SelectedTag algorithm) {
+        m_pasMethod = algorithm.getSelectedTag().getIDStr();
     }
 
-    public String algorithmTipText(){
+    public void setPasMethod(PasMethod pm) {
+        m_pasMethod = pm.name();
+    }
+
+    public String algorithmTipText() {
         return "choose algorithm";
     }
 
-    public void setMinFrequency(double minFrequency){
+    public void setMinFrequency(double minFrequency) {
         m_minFrequency = minFrequency;
     }
 
-    public double getMinFrequency(){
+    public double getMinFrequency() {
         return m_minFrequency;
     }
 
-    public String minFrequencyTipText(){
+    public String minFrequencyTipText() {
         return "min frequency tip text";
     }
 
-    public void setMinItemStrength(double strength){
+    public void setMinItemStrength(double strength) {
         m_minItemStrength = strength;
     }
 
-    public double getMinItemStrength(){
+    public double getMinItemStrength() {
         return m_minItemStrength;
     }
 
-    public String minItemStrengthTipText(){
+    public String minItemStrengthTipText() {
         return "min items strength tip text";
     }
 
@@ -107,8 +111,6 @@ public class PasOptions implements OptionHandler, Serializable {
     public boolean getMissingMerge() {
         return m_missing_merge;
     }
-
-
 
 
     @Override

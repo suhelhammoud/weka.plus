@@ -337,7 +337,7 @@ public class MedriUtils {
                 && availableAttributes.size() > 0
                 && rule.getCorrect() >= minFreq);
 
-        if ( rule.getLenght() == 0) {//TODO more inspection is needed here
+        if ( rule.getLength() == 0) {//TODO more inspection is needed here
             return null;
         }
 
@@ -403,7 +403,7 @@ public class MedriUtils {
 
         } while (rule.getErrors() > 0 && avAtts.size() > 0 && rule.getCorrect() >= minFreq);
 
-        if (rule.getLenght() == 0) {//TODO more inspection is needed here
+        if (rule.getLength() == 0) {//TODO more inspection is needed here
             return null;
         }
 

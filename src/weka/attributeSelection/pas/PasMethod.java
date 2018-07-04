@@ -3,11 +3,11 @@ package weka.attributeSelection.pas;
 import weka.core.SelectedTag;
 import weka.core.Tag;
 
-public enum PasAlgorithm {
+public enum PasMethod {
     rules, rules1st, items;
 
     public static Tag[] toTags() {
-        PasAlgorithm[] levels = values();
+        PasMethod[] levels = values();
         Tag[] result = new Tag[levels.length];
         for (int i = 0; i < levels.length; i++) {
             result[i] = new Tag(i, levels[i].name(), levels[i].name());
@@ -19,7 +19,7 @@ public enum PasAlgorithm {
         return new SelectedTag(this.name(), toTags());
     }
 
-    public static PasAlgorithm of(String name) {
+    public static PasMethod of(String name) {
         return valueOf(name.toLowerCase());
     }
 }
