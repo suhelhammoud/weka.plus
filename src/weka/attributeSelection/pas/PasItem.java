@@ -2,7 +2,7 @@ package weka.attributeSelection.pas;
 
 import weka.classifiers.rules.medri.IRule;
 
-public class PasRule extends IRule {
+public class PasItem extends IRule {
 
     private int[] corrects;
 
@@ -10,11 +10,11 @@ public class PasRule extends IRule {
         return corrects;
     }
 
-    public PasRule(int label, int correct, int covers) {
+    public PasItem(int label, int correct, int covers) {
         super(label, correct, covers);
     }
 
-    public PasRule(int label) {
+    public PasItem(int label) {
         super(label);
         this.corrects = new int[0];
     }

@@ -420,7 +420,7 @@ public class StoryUtils {
             PasAttributeEval eval = (PasAttributeEval) TEvaluator
                     .PAS.getWith(support, confidence);
 
-            eval.setShowDebugMessages(props.getPrintRanks());
+            eval.getPasOptions().setShowDebugMessages(props.getPrintRanks());
 
             logger.info("PAS with support = {}, and confidence = {} ",
                     support,
@@ -431,19 +431,6 @@ public class StoryUtils {
 
             eval.buildEvaluator(data);
 
-//            List<Story> stories = generateStories(params, data);
-//
-//            logger.info("processing dataset: {}", data.relationName());
-//            logger.info("expected stories = {}", stories.size());
-//
-//            stories.parallelStream()
-//                    .forEach(story -> {
-//                        playStory(story, data, true);
-//                    });
-//
-//            FilesUtils.writeStoriesToFile(resultDir,
-//                    datasetPath.getFileName().toString() + ".csv"
-//                    , stories);
         }
     }
 

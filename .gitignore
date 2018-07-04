@@ -15,4 +15,4 @@ cmake-build-release/
 # Cursive Clojure plugin
 .idea/replstate.xml
 
-data/results/*
+data/results

@@ -1,5 +1,6 @@
 package weka.classifiers.rules.medri;
 
+import weka.attributeSelection.pas.PasMax;
 import weka.core.Attribute;
 import weka.core.Instances;
 
@@ -60,6 +61,7 @@ public class IRule implements Serializable {
         this(label);
         this.correct = correct;
         this.covers = covers;
+        this.errors = covers - correct;
     }
 
     public IRule(int label) {
@@ -109,6 +111,13 @@ public class IRule implements Serializable {
         assert this.label == maxIndex.getLabel();
         this.correct = maxIndex.getBestCorrect();
         this.covers = maxIndex.getBestCover();
+        this.errors = covers - correct;
+    }
+
+   public void updateWith(PasMax pasIndex) {
+        assert this.label == pasIndex.getLabel();
+        this.correct = pasIndex.getBestCorrect();
+        this.covers = pasIndex.getBestCover();
         this.errors = covers - correct;
     }
 

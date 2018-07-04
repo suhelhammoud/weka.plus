@@ -3,6 +3,7 @@ package weka.attributeSelection;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import weka.attributeSelection.pas.PasItem;
 import weka.attributeSelection.pas.PasUtils;
 import weka.classifiers.rules.medri.IRule;
 import weka.classifiers.rules.medri.MeDRIResult;
@@ -407,7 +408,7 @@ public class PasAttributeEvalDemo extends ASEvaluation implements
         int minFreq = (int) Math.ceil(getSupport() * data.numInstances() + 1.e-6);
         logger.debug("minFreq used = {}", minFreq);
 
-        MeDRIResult result = PasUtils.evaluateAttributesDemo(numItems,
+        List<PasItem> items = PasUtils.evaluateAttributesDemo(numItems,
                 labelsCount,
                 lineData,
                 minFreq,
@@ -415,14 +416,14 @@ public class PasAttributeEvalDemo extends ASEvaluation implements
                 true);
 
         double[] rawRanks = PasUtils.rankAttributes(
-                result.getRules(),
+                items,
                 data.numAttributes() - 1);//exclude label class attribute
 
 
         m_pas = PasUtils.normalizeVector(rawRanks);
 
         if (m_debug) {
-            String msg = printResult(result.getRules(),
+            String msg = printResult(items,
                     data,
                     Arrays.stream(rawRanks).sum(),
                     data.numAttributes() - 1);
@@ -431,7 +432,7 @@ public class PasAttributeEvalDemo extends ASEvaluation implements
     }
 
     //TODO delete later
-    private String printResult(List<IRule> rules,
+    private String printResult(List<PasItem> rules,
                                Instances data,
                                double sumWeights,
                                int numAttributes) {

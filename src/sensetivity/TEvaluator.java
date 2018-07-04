@@ -31,8 +31,8 @@ public enum TEvaluator {
         switch (this) {
             case PAS:
                 PasAttributeEval result = new PasAttributeEval();
-                result.setSupport((Double) args[0]);
-                result.setConfidence((Double) args[1]);
+                result.getPasOptions().setMinFrequency((Double) args[0]);
+                result.getPasOptions().setMinItemStrength((Double) args[1]);
                 return result;
             default:
                 return get();

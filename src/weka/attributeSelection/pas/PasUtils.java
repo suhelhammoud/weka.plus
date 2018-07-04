@@ -42,7 +42,56 @@ public class PasUtils {
     }
 
 
-    public static double[] rankAttributes(List<IRule> rules,
+    public static double[] buildEvaluator1st(Instances data,
+                                             double support,
+                                             double confidence) throws Exception {
+
+        int classIndex = data.classIndex();
+        int numInstances = data.numInstances();
+        int numClasses = data.attribute(classIndex).numValues();
+
+        //TODO look into Chi implementation of contingency tables
+        logger.debug("buildEvaluator1st with data ={} of size={}", data.relationName(), data.numInstances());
+
+        assert data.classIndex() == data.numAttributes() - 1;
+
+        data.setClassIndex(data.numAttributes() - 1);
+
+        Pair<Collection<int[]>, int[]> linesLabels = MedriUtils.mapIdataAndLabels(data);
+        Collection<int[]> lineData = linesLabels.key;
+        int[] labelsCount = linesLabels.value;
+//
+        logger.trace("original lines size ={}", lineData.size());
+
+        int[] numItems = MedriUtils.countItemsInAttributes(data);
+
+        int minFreq = (int) Math.ceil( support * data.numInstances() + 1.e-6);
+        logger.debug("minFreq used = {}", minFreq);
+
+        List<PasItem> items = PasUtils.evaluateAttributesItems(numItems,
+                labelsCount,
+                lineData,
+                minFreq,
+                confidence,
+                false);
+
+        double[] rawRanks = PasUtils.rankAttributesFromItems(
+                items,
+                data.numAttributes() - 1);//exclude label class attribute
+
+
+        return PasUtils.normalizeVector(rawRanks);
+//
+//        if (m_debug) {
+//            String msg = printResult(result.getRules(),
+//                    data,
+//                    Arrays.stream(rawRanks).sum(),
+//                    data.numAttributes() - 1);
+//            logger.info(msg);
+//        }
+    }
+
+    public static double[] rankAttributes(List<PasItem> rules,
                                           int numAttributes) {
 
         int totalLines = rules.stream()
@@ -52,7 +101,7 @@ public class PasUtils {
         double[] result = new double[numAttributes];
 
         for (IRule rule : rules) {
-            int[] corrects = ((PasRule) rule).getCorrects();
+            int[] corrects = ((PasItem) rule).getCorrects();
             int finalTotalLines = totalLines;
             double[] weights = Arrays.stream(corrects)
                     .mapToDouble(c -> c * finalTotalLines)
@@ -79,14 +128,83 @@ public class PasUtils {
 
     }
 
-    public static MeDRIResult evaluateAttributes(int[] numItems,
+    public static double[] rankAttributesFromItems(List<PasItem> items,
+                                                   int numAttributes) {
+
+        int totalLines = items.stream()
+                .mapToInt(rule -> rule.getCovers())
+                .sum();
+
+        double[] result = new double[numAttributes];
+
+        for (PasItem item : items) {
+            final double weight = item.getCorrect() * totalLines;
+            totalLines -= item.getCovers();
+
+            result[item.getAttIndexes()[0]] += weight;
+        }
+
+        return result;
+
+    }
+
+
+    public static List<PasItem> evaluateAttributesItems(int[] numItems,
+                                                        int[] labelsCount,
+                                                        Collection<int[]> lineData,
+                                                        int minFreq,
+                                                        double minConfidence,
+                                                        boolean addDefaultItem) {
+        List<PasItem> items = new ArrayList<>();
+
+        int labelIndex = numItems.length - 1;
+        int numLabels = numItems[labelIndex];
+        assert numItems[labelIndex] == labelsCount.length;
+
+        int lineDataSize = lineData.size();
+
+        Collection<int[]> remainingLines = null;
+
+
+        Collection<int[]> lines = lineData;//new ArrayList<>(lineData);//defensive copy
+
+
+        while (lineDataSize > 0) {
+
+            Tuple<PasItem, Collection<int[]>> itmlns = calcNextItem(numItems, lines, minFreq, minConfidence);
+            if (itmlns == null) break; // stop adding rules for current class. break out to the new class
+
+            logger.trace("rule {}", itmlns.k);
+            logger.trace("remaining lines={}", itmlns.v.size());
+
+            lines = itmlns.v;
+            remainingLines = lines;
+            lineDataSize -= itmlns.k.getCorrect();
+            logger.trace("took {} , remains {} instances",
+                    itmlns.k.getCorrect(), lineDataSize);
+
+            items.add(itmlns.k);
+        }
+
+        if (addDefaultItem) {
+            if (remainingLines != null && remainingLines.size() > 0) {
+                PasItem item = getDefaultPasItem(remainingLines, labelIndex, numLabels);
+                items.add(item);
+            }
+        }
+
+        //TODO check to add defaultRule
+        assert items.size() > 0;
+        return items;
+    }
+
+    public static List<PasItem> evaluateAttributes(int[] numItems,
                                                  int[] labelsCount,
                                                  Collection<int[]> lineData,
                                                  int minFreq,
                                                  double minConfidence,
                                                  boolean addDefaultRule) {
-        List<IRule> rules = new ArrayList<>();
-        long scannedInstance = 0L;
+        List<PasItem> result = new ArrayList<>();
 
         int labelIndex = numItems.length - 1;
         int numLabels = numItems[labelIndex];
@@ -104,7 +222,6 @@ public class PasUtils {
 
             IRuleLines rllns = calcStepPas(numItems, lines, minFreq, minConfidence);
             if (rllns == null) break; // stop adding rules for current class. break out to the new class
-            scannedInstance += rllns.scannedInstances;
 
 
             logger.trace("rule {}", rllns.rule);
@@ -116,32 +233,28 @@ public class PasUtils {
             logger.trace("took {} , remains {} instances",
                     rllns.rule.getCorrect(), lineDataSize);
 
-            rules.add(rllns.rule);
+            result.add((PasItem) rllns.rule);
         }
 
         if (addDefaultRule) {
             if (remainingLines != null && remainingLines.size() > 0) {
-                scannedInstance += remainingLines.size();
-                IRule rule = getDefaultRule(remainingLines, labelIndex, numLabels);
-                rules.add(rule);
+                PasItem rule = getDefaultPasItem(remainingLines, labelIndex, numLabels);
+                result.add(rule);
             }
         }
 
         //TODO check to add defaultRule
-        assert rules.size() > 0;
-        MeDRIResult result = new MeDRIResult();
-        result.setRules(rules);
-        result.setScannedInstances(scannedInstance);
+        assert result.size() > 0;
         return result;
     }
 
-    public static MeDRIResult evaluateAttributesDemo(int[] itemsInAttribute,
+    public static List<PasItem> evaluateAttributesDemo(int[] itemsInAttribute,
                                                      int[] labelsCount,
                                                      Collection<int[]> lineData,
                                                      int minFreq,
                                                      double minConfidence,
                                                      boolean addDefaultRule) {
-        List<IRule> rules = new ArrayList<>();
+        List<PasItem> rules = new ArrayList<>();
         long scannedInstance = 0L;
 
         int labelIndex = itemsInAttribute.length - 1;
@@ -174,7 +287,7 @@ public class PasUtils {
             logger.trace("took {} , remains {} instances",
                     rllns.rule.getCorrect(), lineDataSize);
 
-            rules.add(rllns.rule);
+            rules.add((PasItem) rllns.rule);
             iteration++;
         }
 
@@ -183,17 +296,14 @@ public class PasUtils {
                     , remainingLines.size());
             if (remainingLines != null && remainingLines.size() > 0) {
                 scannedInstance += remainingLines.size();
-                IRule rule = getDefaultRule(remainingLines, labelIndex, numLabels);
+                PasItem rule = getDefaultPasItem(remainingLines, labelIndex, numLabels);
                 rules.add(rule);
             }
         }
 
         //TODO check to add defaultRule
         assert rules.size() > 0;
-        MeDRIResult result = new MeDRIResult();
-        result.setRules(rules);
-        result.setScannedInstances(scannedInstance);
-        return result;
+        return rules;
     }
 
 
@@ -213,6 +323,46 @@ public class PasUtils {
 //                .toArray();
 //    }
 
+    public static Tuple<PasItem, Collection<int[]>> calcNextItem(int[] numItemsInAtt,
+                                          Collection<int[]> lineData,
+                                          int minFreq,
+                                          double minConfidence) {
+
+        if (lineData.size() < minFreq) return null;
+
+        /** Start with all attributes, does not include the label attribute*/
+        Set<Integer> availableAttributes = IntStream.range(0, numItemsInAtt.length - 1)
+                .boxed()
+                .collect(Collectors.toSet());
+
+        int[][][] stepCount = countStep(numItemsInAtt,
+                lineData,
+                intsToArray((availableAttributes)));
+
+        PasMax mx = PasMax.ofThreshold(stepCount, minFreq, minConfidence);
+        if (mx.getLabel() == PasMax.EMPTY)
+            return null; //TODO not reached, check carefully
+
+        //found best next item
+        assert mx.getLabel() != PasMax.EMPTY;
+        assert mx.getBestAtt() >= 0;
+        assert mx.getBestItem() >= 0;
+
+        //rule with more attributes conditions
+        final PasItem item = new PasItem(mx.getLabel(), mx.getBestCorrect(), mx.getBestCover());
+        item.addTest(mx.getBestAtt(), mx.getBestItem(), mx.getBestCorrect());
+
+        List<int[]> notCoveredLines = lineData.stream()
+                .filter(row -> !item.canCoverInstance(row))
+                .collect(Collectors.toList());
+        if (item.getLenght() == 0) {//TODO more inspection is needed here
+            return null;
+        }
+
+        return Tuple.of(item, notCoveredLines);
+    }
+
+
     public static IRuleLines calcStepPas(int[] numItemsInAtt,
                                          Collection<int[]> lineData,
                                          int minFreq,
@@ -231,7 +381,7 @@ public class PasUtils {
 //        Set<Integer> avAtts = new LinkedHashSet<>();
 //        for (int i = 0; i < labelIndex; i++) avAtts.add(i);
 
-        PasRule rule = null;// null, Does not know the label yet
+        PasItem rule = null;// null, Does not know the label yet
         MaxIndex mx = null;
 
         Collection<int[]> entryLines = lineData; // start with all lines
@@ -246,7 +396,7 @@ public class PasUtils {
                 mx = MaxIndex.ofMeDRI(stepCount, minFreq, minConfidence);
 
                 if (mx.getLabel() == MaxIndex.EMPTY) return null;
-                rule = new PasRule(mx.getLabel());
+                rule = new PasItem(mx.getLabel());
             } else {
                 mx = MaxIndex.ofMeDRI(stepCount,
                         minFreq,
@@ -306,7 +456,7 @@ public class PasUtils {
 //        Set<Integer> avAtts = new LinkedHashSet<>();
 //        for (int i = 0; i < labelIndex; i++) avAtts.add(i);
 
-        PasRule rule = null;// null, Does not know the label yet
+        PasItem rule = null;// null, Does not know the label yet
         MaxIndex mx = null;
 
         Collection<int[]> entryLines = lineData; // start with all lines
@@ -321,7 +471,7 @@ public class PasUtils {
                 mx = MaxIndex.ofMeDRI(stepCount, minFreq, minConfidence);
 
                 if (mx.getLabel() == MaxIndex.EMPTY) return null;
-                rule = new PasRule(mx.getLabel());
+                rule = new PasItem(mx.getLabel());
             } else {
                 mx = MaxIndex.ofMeDRI(stepCount,
                         minFreq,
@@ -390,6 +540,23 @@ public class PasUtils {
         return rule;
     }
 
+    private static PasItem getDefaultPasItem(Collection<int[]> lines,
+                                             int labelIndex,
+                                             int numLabels) {
+        int[] freqs = new int[numLabels];
+        for (int[] line : lines) {
+            freqs[line[labelIndex]]++;
+        }
+        int maxVal = Integer.MIN_VALUE;
+        int maxIndex = Integer.MIN_VALUE;
+        for (int i = 0; i < freqs.length; i++) {
+            if (freqs[i] > maxVal) {
+                maxVal = freqs[i];
+                maxIndex = i;
+            }
+        }
+        return new PasItem(maxIndex, maxVal, PasMax.sum(freqs));
+    }
 
     /**
      * @param attValues
@@ -433,5 +600,104 @@ public class PasUtils {
                 .mapToInt(Number::intValue)
                 .toArray();
     }
+
+
+
+    //TODO delete later
+    public static String printResult(List<PasItem> rules,
+                               Instances data,
+                               double sumWeights,
+                               int numAttributes) {
+        StringBuilder result = new StringBuilder();
+
+        StringJoiner sj = new StringJoiner("\n\t",
+                "\n" + data.relationName() + "\n\t",
+                "\n\n");
+//        double sumWeights = Arrays.stream(rawRanks).sum();
+
+        final int totalLines = rules.stream()
+                .mapToInt(rule -> rule.getCovers())
+                .sum();
+        int availableLines = totalLines;
+
+        double[] rawRanks = new double[numAttributes];
+        for (IRule rule : rules) {
+//            sj.add("rule: " + rule.toString(data, 3));
+            sj.add("rule: " + rule.toString());
+            final double linesRatio = (double) availableLines / totalLines;
+            final double weight = rule.getCorrect()
+                    * availableLines;
+            sj.add(String.format("weight = %06.1f , lines = %04d, lines ratio = %3.3f",
+                    weight,
+                    availableLines,
+                    linesRatio));
+            availableLines -= rule.getCovers();
+            for (int attIndex : rule.getAttIndexes()) {
+                rawRanks[attIndex] += weight;
+            }
+        }
+
+        sj.add("Result attributes weights");
+        sj.add(Arrays.toString(rawRanks));
+
+        sj.add("Normalized Attributes weights");
+
+        sj.add(PasUtils.arrayToString(PasUtils.normalizeVector(rawRanks),
+                "%1.3f"));
+
+        return sj.toString();
+    }
+
+    public static String printRanks(double[] ranks) {
+        StringJoiner sj = new StringJoiner("\n\t\t");
+        sj.add("Attributes Ranks:");
+        sj.add("att\t\tweight");
+        sj.add("-------------------------");
+        for (int i = 0; i < ranks.length; i++) {
+            sj.add(String.format("%02d\t\t%1.3f", i + 1, ranks[i]));
+        }
+        return sj.toString();
+    }
+
+
+    /**
+     * Map each instance in data into its internal presentation values, cast double into int because
+     * the data type is "nominal", and "numeric" attributes should be "discretized" first
+     *
+     * @param data
+     * @return pair of
+     * key: List of int arrays represent the internal values of data items
+     * value: int array to hold the frequency of each label
+     */
+    public static Tuple<Collection<int[]>, int[]> mapIdataAndLabels(Instances data) {
+        final int labelIndex = data.classIndex();
+        assert labelIndex == data.numAttributes() - 1;
+
+        Collection<int[]> lineData = data.stream()
+                .map(MedriUtils::toIntArray)
+                .collect(Collectors.toList());
+
+        int[] labelsCount = new int[data.attribute(data.classIndex()).numValues()];
+        lineData.stream()
+                .mapToInt(row -> row[labelIndex])
+                .forEach(index -> labelsCount[index]++);
+
+        return Tuple.of(lineData, labelsCount);
+    }
+
+    /**
+     * Return array containing number of items in each corresponding attribute
+     *
+     * @param data
+     * @return number of distinct items in each attributes
+     */
+    public static int[] countItemsInAttributes(Instances data) {
+        int[] result = new int[data.numAttributes()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = data.attribute(i).numValues();
+        }
+        return result;
+    }
+
 
 }
