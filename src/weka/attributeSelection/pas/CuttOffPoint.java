@@ -23,13 +23,13 @@ public class CuttOffPoint {
                 .sum();
     }
 
-    public static List<Double> toList(double[] arr){
+    public static List<Double> toList(double[] arr) {
         return Arrays.stream(arr)
                 .boxed()
                 .collect(Collectors.toList());
     }
 
-    public static List<Double> normalize(List<Double> ranks){
+    public static List<Double> normalize(List<Double> ranks) {
         //normalize dataset
         final double sumValue = ranks.stream()
                 .mapToDouble(i -> i.doubleValue())
@@ -90,20 +90,20 @@ public class CuttOffPoint {
 
 
     public static void main(String[] args) {
-//        double[] weights = new double[]{.125, .125, .125, .125, .125, .125, .125};
+//        double[] weights = new double[]{20, 20, 5, 0, 0, 0, 0};
 
         double[] weights = new double[]{
                 30,
                 20,
-                24,
                 15,
+                10,
+                8,
+                7,
                 5,
-                1,
-                1,
-                0,
-                0,
-                0
+                5,
         };
+         // 2.75
+
 
         double huffman = huffman(weights);
         double entropy = entropy(weights);

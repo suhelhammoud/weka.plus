@@ -7,11 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b4ffecf-fd2d-4ac9-8d65-3aedb6a8be09" name="Default" comment="Initial commit">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/conf_anneal.properties" beforeDir="false" afterPath="$PROJECT_DIR$/data/conf_pas_methods.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryDriver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryDriver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryKey.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/conf_pas_methods.properties" beforeDir="false" afterPath="$PROJECT_DIR$/data/conf_pas_methods.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/CuttOffPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/CuttOffPoint.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,13 +20,15 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="StoryDriver.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/sensetivity/StoryDriver.java">
+      <file leaf-file-name="CuttOffPoint.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/weka/attributeSelection/pas/CuttOffPoint.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
-              <caret line="65" column="16" selection-start-line="65" selection-start-column="16" selection-end-line="65" selection-end-column="16" />
+            <state relative-caret-position="384">
+              <caret line="104" column="16" lean-forward="true" selection-start-line="104" selection-start-column="12" selection-end-line="104" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#382#383#0" expanded="true" />
+                <element signature="e#427#428#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -47,8 +46,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>setOptions</find>
-      <find>setMissing</find>
       <find>getBinarizeNumericAttributes</find>
       <find>setOp</find>
       <find>m_Binarize</find>
@@ -77,6 +74,8 @@
       <find>listOpt</find>
       <find>ListOpt</find>
       <find>Options</find>
+      <find>lymp</find>
+      <find>iono</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -136,7 +135,6 @@
         <option value="$PROJECT_DIR$/src/sensetivity/FilesUtils.java" />
         <option value="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasItem.java" />
         <option value="$PROJECT_DIR$/src/sensetivity/Estimate.java" />
-        <option value="$PROJECT_DIR$/src/weka/attributeSelection/pas/CuttOffPoint.java" />
         <option value="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasUtils.java" />
         <option value="$PROJECT_DIR$/src/weka/attributeSelection/PasAttributeEval.java" />
         <option value="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasOptions.java" />
@@ -146,12 +144,13 @@
         <option value="$PROJECT_DIR$/data/results/0.properties" />
         <option value="$PROJECT_DIR$/src/sensetivity/StoryKey.java" />
         <option value="$PROJECT_DIR$/data/conf_pas_methods.properties" />
+        <option value="$PROJECT_DIR$/src/weka/attributeSelection/pas/CuttOffPoint.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1989" />
-    <option name="y" value="294" />
+    <option name="x" value="45" />
+    <option name="y" value="25" />
     <option name="width" value="1277" />
     <option name="height" value="544" />
   </component>
@@ -265,7 +264,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.StoryDriver">
+  <component name="RunManager" selected="Application.CuttOffPoint">
     <configuration name="AppLauncher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="AppLauncher" />
       <module name="weka.plus" />
@@ -365,9 +364,9 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.StoryDriver" />
-        <item itemvalue="Application.AppLauncher" />
         <item itemvalue="Application.CuttOffPoint" />
+        <item itemvalue="Application.AppLauncher" />
+        <item itemvalue="Application.StoryDriver" />
         <item itemvalue="Application.FilesUtils" />
         <item itemvalue="Application.Estimate" />
       </list>
@@ -401,8 +400,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1920" y="92" width="1440" height="902" extended-state="6" />
-    <editor active="true" />
+    <frame x="45" y="25" width="1875" height="1055" extended-state="6" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -411,10 +409,10 @@
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="4" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.329" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.20026007" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.1670282" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32769832" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20659971" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15746309" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32769832" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.1902679" />
@@ -715,22 +713,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/weka/attributeSelection/pas/CuttOffPoint.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-936">
-          <caret line="60" column="17" selection-start-line="60" selection-start-column="17" selection-end-line="60" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#382#383#0" expanded="true" />
-            <element signature="e#410#411#0" expanded="true" />
-            <element signature="e#1306#1307#0" expanded="true" />
-            <element signature="e#1351#1352#0" expanded="true" />
-            <element signature="e#2366#2367#0" expanded="true" />
-            <element signature="e#2406#2407#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/util/function/ToIntFunction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="576">
@@ -849,19 +831,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/conf_pas_methods.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="1" column="25" selection-start-line="1" selection-start-column="25" selection-end-line="1" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sensetivity/StoryDriver.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
           <caret line="65" column="16" selection-start-line="65" selection-start-column="16" selection-end-line="65" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/conf_pas_methods.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="15" column="40" selection-start-line="15" selection-start-column="40" selection-end-line="15" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/weka/attributeSelection/pas/CuttOffPoint.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="104" column="16" lean-forward="true" selection-start-line="104" selection-start-column="12" selection-end-line="104" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#382#383#0" expanded="true" />
+            <element signature="e#427#428#0" expanded="true" />
           </folding>
         </state>
       </provider>
