@@ -361,13 +361,23 @@ public class StoryUtils {
     }
 
 
-    public static double estimate(List<Double> ranks) {
-        Comparator<BitSet> comp = (o1, o2) -> (int) Math.signum(sum(o1, ranks) - sum(o2, ranks));
+    public static double huffman(List<Double> ranks) {
+        //normalize dataset
+        final double sumValue = ranks.stream()
+                .mapToDouble(i -> i.doubleValue())
+                .sum();
+
+        if (sumValue == 0) throw new NullPointerException("Max Rank Can not be Zero !!");
+        List<Double> ranksN = ranks.stream()
+                .map(v -> v / sumValue)
+                .collect(Collectors.toList());
+
+        Comparator<BitSet> comp = (o1, o2) -> (int) Math.signum(sum(o1, ranksN) - sum(o2, ranksN));
 
         double sum = 0.0;
         List<BitSet> current = IntStream.range(0, ranks.size())
                 .mapToObj(i -> {
-                    BitSet bitSet = new BitSet(ranks.size());
+                    BitSet bitSet = new BitSet(ranksN.size());
                     bitSet.set(i);
                     return bitSet;
                 })
@@ -383,7 +393,7 @@ public class StoryUtils {
             two.or(min1);
             two.or(min2);
             current.add(two);
-            sum += sum(two, ranks);
+            sum += sum(two, ranksN);
         }
 
         return Math.pow(2, sum);

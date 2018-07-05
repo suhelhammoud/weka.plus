@@ -7,22 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b4ffecf-fd2d-4ac9-8d65-3aedb6a8be09" name="Default" comment="Initial commit">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/conf.properties" beforeDir="false" afterPath="$PROJECT_DIR$/data/conf.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/Demo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/Demo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/PropsUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/PropsUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/Story.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/Story.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/Estimate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/Estimate.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/TEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/TEvaluator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/PasAttributeEval.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/PasAttributeEval.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/PasAttributeEvalDemo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasMethod.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasOptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasOptions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/MeDRI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/MeDRI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/IRule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/IRule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/MedriUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/MedriUtils.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -37,8 +23,8 @@
       <file leaf-file-name="StoryUtils.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sensetivity/StoryUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="381" column="48" selection-start-line="381" selection-start-column="48" selection-end-line="381" selection-end-column="48" />
+            <state relative-caret-position="96">
+              <caret line="373" lean-forward="true" selection-start-line="373" selection-end-line="373" />
             </state>
           </provider>
         </entry>
@@ -411,12 +397,12 @@
       <window_info anchor="right" id="Palette&#9;" order="5" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="4" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32639793" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32639793" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.329" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.46944082" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.46944082" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18938307" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32821724" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18938307" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32769832" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="4" />
@@ -900,8 +886,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sensetivity/Estimate.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="15" column="1" selection-start-line="15" selection-start-column="1" selection-end-line="20" />
+        <state relative-caret-position="263">
+          <caret line="24" column="39" lean-forward="true" selection-start-line="24" selection-start-column="39" selection-end-line="24" selection-end-column="39" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -910,8 +896,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sensetivity/StoryUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="381" column="48" selection-start-line="381" selection-start-column="48" selection-end-line="381" selection-end-column="48" />
+        <state relative-caret-position="96">
+          <caret line="373" lean-forward="true" selection-start-line="373" selection-end-line="373" />
         </state>
       </provider>
     </entry>
