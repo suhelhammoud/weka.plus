@@ -167,25 +167,28 @@ public class PasAttributeEval extends ASEvaluation implements
     /**
      * PAS attribute evaluator
      *
-     * @param data set of instances serving as training dataset
+     * @param initialData set of instances serving as training dataset
      * @throws Exception if the evaluator has not been generated successfully
      */
     @Override
-    public void buildEvaluator(Instances data) throws Exception {
+    public void buildEvaluator(Instances initialData) throws Exception {
         // can evaluator handle dataset?
-        getCapabilities().testWithFail(data);
+        getCapabilities().testWithFail(initialData);
 
+        Instances data = null;
 
         if (!pasOptions.getBinarizeNumericAttributes()) {
             Discretize disTransform = new Discretize();
             disTransform.setUseBetterEncoding(true);
-            disTransform.setInputFormat(data);
-            data = Filter.useFilter(data, disTransform);
+            disTransform.setInputFormat(initialData);
+            data = Filter.useFilter(initialData, disTransform);
         } else {
             NumericToBinary binTransform = new NumericToBinary();
-            binTransform.setInputFormat(data);
-            data = Filter.useFilter(data, binTransform);
+            binTransform.setInputFormat(initialData);
+            data = Filter.useFilter(initialData, binTransform);
         }
+
+        data.setRelationName(initialData.relationName());
 
         //TODO look into Chi implementation of contingency tables
         logger.debug("build classifier with data ={} of size={}", data.relationName(), data.numInstances());
@@ -301,6 +304,9 @@ public class PasAttributeEval extends ASEvaluation implements
         text.append("\n");
         text.append("\n");
         text.append(PasUtils.printRanks(m_pas));
+        text.append("\n\n");
+        text.append(PasUtils.printCutOffPoint(m_pas));
+
 
         text.append("\n");
 
@@ -358,6 +364,16 @@ public class PasAttributeEval extends ASEvaluation implements
     public void setShowDebugMessages(boolean b) {
         pasOptions.setShowDebugMessages(b);
     }
+
+    public boolean getShowCutOffPoint() {
+        return pasOptions.getShowCuttOffPoint();
+    }
+
+    public void setShowCutOffPoint(boolean b) {
+        pasOptions.setShowCutOffPoint(b);
+    }
+
+    ;
 
     /**
      * Returns the revision string.

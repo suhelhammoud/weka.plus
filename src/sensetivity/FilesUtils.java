@@ -3,6 +3,10 @@ package sensetivity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import weka.core.Instances;
+import weka.core.converters.ArffSaver;
+import weka.filters.Filter;
+import weka.filters.supervised.attribute.Discretize;
+import weka.filters.unsupervised.attribute.NumericToBinary;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -100,10 +104,33 @@ public class FilesUtils {
         return fileName.substring(0, extensionIndex);
     }
 
-    public static void main(String[] args) {
+    public static void discretize(String inDir, String outDir) throws Exception {
 
-        Path path = Paths.get("data/arff/dd.txt");
-        System.out.println("fileNameNoSuffix(path) = " + fileNameNoSuffix(path));
+        List<Path> arffDatasets = FilesUtils.listFiles(inDir, ".arff");
+        for (Path path : arffDatasets) {
+            try {
+
+                Instances data = instancesOf(path);
+                data.setClassIndex(data.numAttributes() - 1);
+                Discretize disTransform = new Discretize();
+                disTransform.setUseBetterEncoding(true);
+                disTransform.setInputFormat(data);
+                Instances dataD = Filter.useFilter(data, disTransform);
+                dataD.setRelationName(data.relationName());
+
+                ArffSaver saver = new ArffSaver();
+                saver.setInstances(dataD);
+                saver.setFile(Paths.get(outDir, path.getFileName().toString()).toFile());
+                saver.writeBatch();
+            } catch (Exception e) {
+                logger.error("Can not discretize "+ path.toString());
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+        discretize("data/arff", "/tmp/a");
 //        Path outDir = createOutDir("data/result");
 //        List<String> content = Arrays.asList("one", "two", "three");
 //        boolean written = writeToFile(outDir, "out.txt", content);

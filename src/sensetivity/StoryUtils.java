@@ -6,6 +6,7 @@ import weka.attributeSelection.ASEvaluation;
 import weka.attributeSelection.AttributeEvaluator;
 import weka.attributeSelection.PasAttributeEval;
 import weka.attributeSelection.Ranker;
+import weka.attributeSelection.pas.CuttOffPoint;
 import weka.attributeSelection.pas.PasMethod;
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
@@ -240,7 +241,7 @@ public class StoryUtils {
                 .boxed()
                 .collect(Collectors.toList());
 
-        return entropy(ranks);
+        return CuttOffPoint.entropy(ranks);
     }
 
     /**
@@ -339,81 +340,6 @@ public class StoryUtils {
         return IntStream.rangeClosed(1, numAttributes)
                 .mapToObj(i -> story.copy(StoryKey.numAttributesToSelect, i))
                 .collect(Collectors.toList());
-    }
-
-
-    private static double entropyValue(double p) {
-        if (p < 1e-8 || p > (1 - 1e-8))
-            return 0;
-        return -p * Math.log(p) / Math.log(2);
-    }
-
-    public static double sum(BitSet bs, double[] ranks) {
-        return bs.stream()
-                .mapToDouble(i -> ranks[i])
-                .sum();
-    }
-
-     public static double sum(BitSet bs, List<Double> ranks) {
-        return bs.stream()
-                .mapToDouble(i -> ranks.get(i))
-                .sum();
-    }
-
-
-    public static double huffman(List<Double> ranks) {
-        //normalize dataset
-        final double sumValue = ranks.stream()
-                .mapToDouble(i -> i.doubleValue())
-                .sum();
-
-        if (sumValue == 0) throw new NullPointerException("Max Rank Can not be Zero !!");
-        List<Double> ranksN = ranks.stream()
-                .map(v -> v / sumValue)
-                .collect(Collectors.toList());
-
-        Comparator<BitSet> comp = (o1, o2) -> (int) Math.signum(sum(o1, ranksN) - sum(o2, ranksN));
-
-        double sum = 0.0;
-        List<BitSet> current = IntStream.range(0, ranks.size())
-                .mapToObj(i -> {
-                    BitSet bitSet = new BitSet(ranksN.size());
-                    bitSet.set(i);
-                    return bitSet;
-                })
-                .collect(Collectors.toList());
-
-        while (current.size() > 1) {
-            BitSet min1 = Collections.min(current, comp);
-            current.remove(min1);
-            BitSet min2 = Collections.min(current, comp);
-            current.remove(min2);
-
-            BitSet two = new BitSet(ranks.size());
-            two.or(min1);
-            two.or(min2);
-            current.add(two);
-            sum += sum(two, ranksN);
-        }
-
-        return Math.pow(2, sum);
-    }
-
-    public static double entropy(List<Double> ranks) {
-        //normalize dataset
-        final double sumValue = ranks.stream()
-                .mapToDouble(i -> i.doubleValue())
-                .sum();
-
-        if (sumValue == 0) throw new NullPointerException("Max Rank Can not be Zero !!");
-        List<Double> ranksNormalized = ranks.stream()
-                .map(v -> v / sumValue)
-                .collect(Collectors.toList());
-
-        double hV = ranksNormalized.stream()
-                .mapToDouble(StoryUtils::entropyValue)
-                .sum();
-        return Math.pow(2, hV);
     }
 
 

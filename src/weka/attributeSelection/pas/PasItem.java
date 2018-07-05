@@ -42,10 +42,10 @@ public class PasItem {
         return (double) correct / (double) covers;
     }
 
-    private int[] corrects;
+    private int firstCorrect;
 
-    public int[] getCorrects() {
-        return corrects;
+    public int getFirstCorrect() {
+        return firstCorrect;
     }
 
     public PasItem(int label, int correct, int covers) {
@@ -60,16 +60,19 @@ public class PasItem {
         this.label = label;
         this.attIndexes = new int[0];
         this.attValues = new int[0];
-        this.corrects = new int[0];
     }
 
 
     public boolean addTest(int att, int val, int correct) {
         if (contains(attIndexes, att))
             return false;
+
+        if(attIndexes.length == 0){
+            firstCorrect = correct;
+        }
         attIndexes = addElement(attIndexes, att);
         attValues = addElement(attValues, val);
-        corrects = addElement(corrects, correct);
+
         return true;
     }
 
@@ -92,6 +95,7 @@ public class PasItem {
         result.correct = this.correct;
         result.errors = this.errors;
         result.covers = this.covers;
+        result.firstCorrect = this.firstCorrect;
         return result;
     }
 

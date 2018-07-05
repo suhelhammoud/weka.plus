@@ -1,0 +1,179 @@
+@relation hepatitis
+
+@attribute AGE {'\'(-inf-29]\'','\'(29-inf)\''}
+@attribute SEX {male,female}
+@attribute STEROID {no,yes}
+@attribute ANTIVIRALS {no,yes}
+@attribute FATIGUE {no,yes}
+@attribute MALAISE {no,yes}
+@attribute ANOREXIA {no,yes}
+@attribute LIVER_BIG {no,yes}
+@attribute LIVER_FIRM {no,yes}
+@attribute SPLEEN_PALPABLE {no,yes}
+@attribute SPIDERS {no,yes}
+@attribute ASCITES {no,yes}
+@attribute VARICES {no,yes}
+@attribute BILIRUBIN {'\'(-inf-1.65]\'','\'(1.65-inf)\''}
+@attribute ALK_PHOSPHATE {'\'All\''}
+@attribute SGOT {'\'All\''}
+@attribute ALBUMIN {'\'(-inf-2.65]\'','\'(2.65-3.85]\'','\'(3.85-inf)\''}
+@attribute PROTIME {'\'(-inf-44.5]\'','\'(44.5-inf)\''}
+@attribute HISTOLOGY {no,yes}
+@attribute Class {DIE,LIVE}
+
+@data
+'\'(29-inf)\'',male,no,no,no,no,no,no,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'',?,no,LIVE
+'\'(29-inf)\'',female,no,no,yes,no,no,no,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(2.65-3.85]\'',?,no,LIVE
+'\'(29-inf)\'',female,yes,no,yes,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'',?,no,LIVE
+'\'(29-inf)\'',female,?,yes,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,yes,no,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'',?,'\'All\'','\'(3.85-inf)\'',?,no,LIVE
+'\'(29-inf)\'',female,yes,no,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,no,no,yes,no,yes,yes,no,yes,yes,no,no,?,?,?,?,?,no,DIE
+'\'(-inf-29]\'',female,yes,no,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'',?,?,?,?,no,LIVE
+'\'(29-inf)\'',female,yes,no,yes,no,no,yes,yes,no,no,no,no,'\'(-inf-1.65]\'',?,'\'All\'','\'(3.85-inf)\'',?,no,LIVE
+'\'(29-inf)\'',female,yes,no,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'',?,'\'All\'','\'(3.85-inf)\'',?,no,LIVE
+'\'(29-inf)\'',female,no,yes,no,no,no,no,yes,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,yes,yes,yes,no,no,yes,yes,no,yes,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(2.65-3.85]\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,yes,yes,yes,no,no,yes,yes,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,yes,no,yes,no,no,yes,yes,no,no,no,no,'\'(1.65-inf)\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,no,yes,no,no,no,yes,no,no,no,no,no,?,?,'\'All\'',?,?,no,LIVE
+'\'(29-inf)\'',female,no,no,yes,yes,yes,yes,no,no,no,yes,no,'\'(1.65-inf)\'','\'All\'','\'All\'','\'(2.65-3.85]\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,yes,no,yes,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'',?,no,LIVE
+'\'(29-inf)\'',female,no,no,yes,no,no,yes,yes,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,yes,no,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',yes,LIVE
+'\'(29-inf)\'',female,no,yes,no,no,no,no,yes,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(-inf-29]\'',male,yes,yes,yes,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(-inf-29]\'',female,yes,no,yes,yes,yes,no,yes,yes,yes,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(-inf-44.5]\'',no,LIVE
+'\'(29-inf)\'',female,yes,no,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,yes,no,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(-inf-29]\'',male,no,yes,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(-inf-29]\'',female,no,no,yes,yes,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(2.65-3.85]\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,no,yes,yes,yes,yes,yes,yes,no,yes,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(2.65-3.85]\'',?,no,LIVE
+'\'(29-inf)\'',male,yes,no,yes,no,no,yes,yes,no,yes,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(2.65-3.85]\'','\'(-inf-44.5]\'',no,LIVE
+'\'(29-inf)\'',female,no,no,yes,no,no,no,yes,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(2.65-3.85]\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,no,yes,yes,yes,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,no,yes,yes,yes,no,yes,yes,no,no,no,no,'\'(1.65-inf)\'','\'All\'','\'All\'','\'(2.65-3.85]\'','\'(-inf-44.5]\'',no,DIE
+'\'(29-inf)\'',female,no,no,yes,yes,no,?,?,no,no,no,no,'\'(-inf-1.65]\'',?,'\'All\'',?,?,no,DIE
+'\'(29-inf)\'',male,yes,yes,yes,yes,yes,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(-inf-29]\'',male,no,no,no,no,no,yes,yes,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(2.65-3.85]\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,yes,no,yes,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,yes,no,yes,no,no,yes,no,no,yes,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'',?,no,DIE
+'\'(-inf-29]\'',female,yes,no,yes,yes,yes,yes,no,yes,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(-inf-29]\'',male,no,no,yes,yes,yes,no,yes,yes,yes,no,no,'\'(1.65-inf)\'','\'All\'','\'All\'','\'(3.85-inf)\'',?,no,LIVE
+'\'(29-inf)\'',female,no,no,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,yes,no,yes,yes,no,yes,yes,yes,yes,yes,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(2.65-3.85]\'','\'(44.5-inf)\'',yes,LIVE
+'\'(29-inf)\'',female,no,yes,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(-inf-44.5]\'',no,LIVE
+'\'(-inf-29]\'',female,yes,no,no,no,no,?,?,?,?,?,?,'\'(1.65-inf)\'','\'All\'','\'All\'','\'(3.85-inf)\'',?,no,LIVE
+'\'(29-inf)\'',female,yes,no,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,no,no,yes,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,yes,no,no,no,no,yes,no,no,no,no,no,?,?,'\'All\'',?,?,no,LIVE
+'\'(-inf-29]\'',female,yes,no,yes,yes,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'',?,no,LIVE
+'\'(29-inf)\'',female,no,no,no,no,no,yes,yes,no,yes,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(2.65-3.85]\'',?,no,LIVE
+'\'(-inf-29]\'',male,yes,no,yes,yes,no,yes,yes,no,no,no,no,'\'(1.65-inf)\'','\'All\'','\'All\'','\'(2.65-3.85]\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,no,no,no,no,no,yes,no,yes,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,yes,yes,yes,yes,yes,yes,no,no,yes,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,no,no,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'',?,no,LIVE
+'\'(29-inf)\'',female,yes,no,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'',?,no,LIVE
+'\'(29-inf)\'',female,yes,no,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,yes,yes,yes,no,no,yes,yes,yes,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,yes,no,yes,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,no,no,yes,yes,yes,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'',?,?,no,LIVE
+'\'(29-inf)\'',female,no,no,?,?,?,?,?,?,?,?,?,?,?,?,?,?,no,LIVE
+'\'(29-inf)\'',female,yes,yes,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,yes,yes,yes,yes,no,no,yes,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',male,no,no,yes,yes,no,yes,no,yes,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'',?,?,no,LIVE
+'\'(29-inf)\'',female,yes,no,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,yes,no,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,yes,no,yes,yes,yes,yes,no,no,yes,no,yes,'\'(1.65-inf)\'','\'All\'','\'All\'','\'(2.65-3.85]\'','\'(-inf-44.5]\'',no,LIVE
+'\'(29-inf)\'',female,no,no,no,no,no,no,yes,yes,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(2.65-3.85]\'','\'(-inf-44.5]\'',no,LIVE
+'\'(29-inf)\'',female,yes,no,yes,yes,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(2.65-3.85]\'','\'(44.5-inf)\'',no,LIVE
+'\'(-inf-29]\'',female,yes,no,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'',?,'\'All\'','\'(3.85-inf)\'',?,no,LIVE
+'\'(29-inf)\'',female,no,no,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(2.65-3.85]\'',?,no,LIVE
+'\'(29-inf)\'',female,yes,no,yes,yes,yes,yes,no,no,yes,yes,no,'\'(1.65-inf)\'',?,'\'All\'','\'(-inf-2.65]\'','\'(44.5-inf)\'',no,DIE
+'\'(29-inf)\'',female,yes,no,yes,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,no,no,yes,yes,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(2.65-3.85]\'',?,no,LIVE
+'\'(-inf-29]\'',female,yes,no,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'',?,no,LIVE
+'\'(29-inf)\'',female,no,no,yes,yes,no,no,yes,no,yes,no,no,'\'(1.65-inf)\'','\'All\'','\'All\'',?,?,no,DIE
+'\'(29-inf)\'',female,yes,no,yes,yes,yes,?,?,?,?,?,?,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'',?,no,LIVE
+'\'(29-inf)\'',female,no,no,yes,yes,yes,yes,yes,no,no,no,no,'\'(-inf-1.65]\'',?,'\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,yes,no,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'',?,no,LIVE
+'\'(29-inf)\'',female,no,yes,yes,yes,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,yes,no,yes,no,no,no,yes,yes,yes,no,no,'\'(1.65-inf)\'','\'All\'','\'All\'','\'(2.65-3.85]\'',?,no,DIE
+'\'(29-inf)\'',male,no,yes,no,no,no,yes,yes,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,no,no,yes,no,no,no,yes,no,yes,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(-inf-29]\'',female,yes,no,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'',?,no,LIVE
+'\'(-inf-29]\'',female,yes,no,yes,yes,yes,yes,no,no,no,no,no,'\'(-inf-1.65]\'',?,'\'All\'','\'(3.85-inf)\'',?,no,LIVE
+'\'(29-inf)\'',female,yes,no,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,no,no,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',male,no,no,yes,yes,no,yes,no,?,?,?,?,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(2.65-3.85]\'',?,no,LIVE
+'\'(29-inf)\'',male,yes,no,yes,yes,no,yes,yes,no,yes,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(-inf-29]\'',female,no,no,yes,yes,yes,yes,yes,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',no,LIVE
+'\'(29-inf)\'',female,no,no,yes,yes,no,yes,no,yes,no,no,yes,'\'(-inf-1.65]\'','\'All\'','\'All\'',?,'\'(-inf-44.5]\'',yes,DIE
+'\'(29-inf)\'',female,yes,no,yes,yes,yes,yes,yes,no,yes,yes,yes,'\'(1.65-inf)\'','\'All\'','\'All\'','\'(2.65-3.85]\'',?,yes,DIE
+'\'(29-inf)\'',female,no,no,yes,yes,yes,yes,yes,no,yes,yes,yes,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(2.65-3.85]\'',?,yes,DIE
+'\'(29-inf)\'',female,no,no,yes,yes,yes,no,yes,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',yes,LIVE
+'\'(29-inf)\'',male,no,no,yes,no,no,no,yes,yes,yes,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(2.65-3.85]\'','\'(-inf-44.5]\'',yes,LIVE
+'\'(29-inf)\'',female,no,no,yes,yes,yes,yes,no,yes,yes,no,yes,'\'(1.65-inf)\'',?,'\'All\'','\'(2.65-3.85]\'',?,yes,DIE
+'\'(29-inf)\'',female,yes,no,no,no,no,?,?,no,no,no,no,'\'(-inf-1.65]\'',?,'\'All\'','\'(3.85-inf)\'',?,yes,LIVE
+'\'(29-inf)\'',female,no,no,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'',?,'\'All\'','\'(2.65-3.85]\'',?,yes,LIVE
+'\'(29-inf)\'',female,no,no,yes,yes,no,yes,yes,yes,yes,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(2.65-3.85]\'','\'(-inf-44.5]\'',yes,DIE
+'\'(29-inf)\'',female,no,yes,yes,yes,yes,no,yes,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',yes,LIVE
+'\'(29-inf)\'',female,no,no,yes,yes,no,yes,yes,no,yes,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',yes,LIVE
+'\'(29-inf)\'',female,no,no,yes,yes,no,no,yes,no,yes,no,no,'\'(1.65-inf)\'','\'All\'','\'All\'','\'(2.65-3.85]\'',?,yes,LIVE
+'\'(29-inf)\'',female,yes,no,no,no,no,yes,no,no,yes,no,yes,'\'(1.65-inf)\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',yes,DIE
+'\'(29-inf)\'',female,no,no,yes,no,no,no,yes,yes,yes,no,no,?,?,'\'All\'',?,?,yes,LIVE
+'\'(29-inf)\'',female,no,no,yes,yes,no,yes,yes,no,yes,yes,yes,'\'(1.65-inf)\'','\'All\'','\'All\'','\'(2.65-3.85]\'','\'(-inf-44.5]\'',yes,DIE
+'\'(-inf-29]\'',female,yes,no,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'',?,'\'All\'',?,?,yes,LIVE
+'\'(-inf-29]\'',female,no,no,yes,no,no,yes,yes,no,no,no,no,'\'(1.65-inf)\'','\'All\'','\'All\'','\'(2.65-3.85]\'','\'(44.5-inf)\'',yes,LIVE
+'\'(29-inf)\'',female,no,no,yes,yes,yes,yes,yes,yes,yes,no,yes,'\'(1.65-inf)\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',yes,LIVE
+'\'(29-inf)\'',female,yes,no,yes,yes,no,yes,yes,no,no,yes,yes,'\'(1.65-inf)\'','\'All\'','\'All\'','\'(-inf-2.65]\'','\'(44.5-inf)\'',yes,DIE
+'\'(-inf-29]\'',female,yes,no,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'',?,'\'All\'','\'(3.85-inf)\'',?,yes,LIVE
+'\'(29-inf)\'',female,no,no,yes,no,no,?,?,yes,yes,yes,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(-inf-2.65]\'',?,yes,DIE
+'\'(29-inf)\'',female,no,no,yes,yes,yes,yes,no,no,no,no,no,'\'(1.65-inf)\'',?,'\'All\'',?,?,yes,LIVE
+'\'(29-inf)\'',female,no,yes,no,no,no,no,yes,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(2.65-3.85]\'','\'(44.5-inf)\'',yes,LIVE
+'\'(29-inf)\'',female,no,no,yes,yes,no,yes,no,no,no,yes,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(2.65-3.85]\'','\'(-inf-44.5]\'',yes,DIE
+'\'(-inf-29]\'',female,yes,no,no,no,no,yes,yes,yes,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'',?,yes,LIVE
+'\'(29-inf)\'',female,no,yes,yes,yes,no,yes,no,no,yes,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(2.65-3.85]\'','\'(-inf-44.5]\'',yes,DIE
+'\'(29-inf)\'',female,no,no,yes,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'',?,yes,LIVE
+'\'(29-inf)\'',female,no,no,yes,no,no,yes,yes,yes,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(2.65-3.85]\'',?,no,LIVE
+'\'(29-inf)\'',female,no,no,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(2.65-3.85]\'',?,yes,LIVE
+'\'(29-inf)\'',male,yes,no,yes,no,no,yes,no,no,no,no,no,'\'(1.65-inf)\'','\'All\'','\'All\'',?,?,yes,LIVE
+'\'(-inf-29]\'',female,no,no,yes,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'',?,'\'All\'','\'(3.85-inf)\'',?,yes,LIVE
+'\'(29-inf)\'',female,yes,no,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',yes,LIVE
+'\'(29-inf)\'',female,no,no,yes,yes,no,?,?,no,yes,no,no,?,?,?,?,?,yes,DIE
+'\'(29-inf)\'',female,yes,no,yes,no,no,no,yes,no,no,no,no,'\'(1.65-inf)\'','\'All\'','\'All\'','\'(2.65-3.85]\'',?,yes,LIVE
+'\'(29-inf)\'',female,no,no,yes,yes,yes,no,yes,no,yes,no,no,'\'(1.65-inf)\'','\'All\'','\'All\'','\'(3.85-inf)\'',?,yes,DIE
+'\'(-inf-29]\'',female,no,no,yes,yes,yes,yes,no,no,yes,yes,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(2.65-3.85]\'','\'(-inf-44.5]\'',yes,LIVE
+'\'(29-inf)\'',female,yes,no,no,no,no,yes,no,yes,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'',?,?,yes,LIVE
+'\'(29-inf)\'',female,no,no,yes,no,no,yes,no,no,yes,no,no,'\'(-inf-1.65]\'',?,'\'All\'','\'(3.85-inf)\'',?,yes,LIVE
+'\'(29-inf)\'',female,yes,no,no,no,no,yes,yes,yes,yes,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',yes,LIVE
+'\'(29-inf)\'',male,yes,no,yes,yes,yes,no,yes,no,yes,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',yes,LIVE
+'\'(-inf-29]\'',female,yes,no,yes,yes,yes,?,?,no,yes,yes,no,'\'(-inf-1.65]\'',?,'\'All\'','\'(3.85-inf)\'',?,yes,LIVE
+'\'(29-inf)\'',female,yes,no,yes,no,no,yes,yes,yes,no,yes,yes,'\'(1.65-inf)\'','\'All\'','\'All\'','\'(-inf-2.65]\'','\'(-inf-44.5]\'',yes,DIE
+'\'(29-inf)\'',female,no,no,yes,yes,no,yes,no,no,no,yes,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(2.65-3.85]\'','\'(44.5-inf)\'',yes,LIVE
+'\'(29-inf)\'',female,no,no,yes,yes,no,yes,no,no,yes,yes,no,'\'(1.65-inf)\'','\'All\'','\'All\'','\'(2.65-3.85]\'','\'(-inf-44.5]\'',yes,DIE
+'\'(29-inf)\'',female,yes,no,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(-inf-44.5]\'',yes,LIVE
+'\'(29-inf)\'',female,no,no,yes,yes,yes,yes,no,yes,no,no,no,'\'(1.65-inf)\'',?,'\'All\'','\'(-inf-2.65]\'',?,yes,DIE
+'\'(29-inf)\'',female,yes,no,yes,yes,yes,yes,yes,no,yes,no,no,'\'(1.65-inf)\'','\'All\'','\'All\'','\'(2.65-3.85]\'',?,yes,LIVE
+'\'(29-inf)\'',female,yes,yes,yes,no,no,yes,yes,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(2.65-3.85]\'','\'(44.5-inf)\'',yes,LIVE
+'\'(29-inf)\'',female,no,no,no,no,no,yes,yes,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(2.65-3.85]\'','\'(44.5-inf)\'',yes,DIE
+'\'(-inf-29]\'',female,yes,no,yes,no,no,no,yes,yes,yes,yes,yes,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',yes,LIVE
+'\'(29-inf)\'',female,yes,no,no,no,no,no,yes,no,yes,no,no,'\'(-inf-1.65]\'',?,'\'All\'','\'(3.85-inf)\'',?,yes,LIVE
+'\'(29-inf)\'',female,yes,no,no,no,no,yes,yes,no,yes,no,yes,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(2.65-3.85]\'','\'(44.5-inf)\'',yes,LIVE
+'\'(29-inf)\'',female,yes,no,yes,yes,no,yes,yes,no,yes,yes,yes,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(-inf-2.65]\'','\'(-inf-44.5]\'',yes,DIE
+'\'(29-inf)\'',female,yes,yes,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',yes,LIVE
+'\'(29-inf)\'',female,no,no,yes,yes,yes,no,yes,no,yes,no,yes,'\'(1.65-inf)\'','\'All\'','\'All\'','\'(2.65-3.85]\'',?,yes,LIVE
+'\'(29-inf)\'',female,no,no,yes,yes,no,?,?,yes,no,yes,no,'\'(1.65-inf)\'','\'All\'','\'All\'','\'(2.65-3.85]\'','\'(-inf-44.5]\'',yes,DIE
+'\'(29-inf)\'',female,yes,no,yes,no,no,yes,yes,yes,yes,no,yes,'\'(-inf-1.65]\'',?,'\'All\'','\'(2.65-3.85]\'','\'(44.5-inf)\'',yes,LIVE
+'\'(29-inf)\'',female,no,no,yes,yes,no,yes,no,yes,yes,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(2.65-3.85]\'','\'(-inf-44.5]\'',yes,DIE
+'\'(29-inf)\'',female,yes,no,yes,yes,yes,yes,no,no,yes,yes,no,'\'(1.65-inf)\'',?,'\'All\'','\'(-inf-2.65]\'',?,yes,DIE
+'\'(29-inf)\'',female,no,no,yes,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',yes,LIVE
+'\'(29-inf)\'',female,yes,no,yes,no,no,yes,yes,yes,yes,no,yes,'\'(1.65-inf)\'','\'All\'','\'All\'','\'(2.65-3.85]\'',?,yes,DIE
+'\'(29-inf)\'',female,no,no,yes,yes,yes,?,?,?,?,?,?,'\'(1.65-inf)\'','\'All\'','\'All\'','\'(2.65-3.85]\'','\'(-inf-44.5]\'',yes,DIE
+'\'(-inf-29]\'',female,no,no,no,no,no,yes,?,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'',?,yes,LIVE
+'\'(29-inf)\'',female,yes,no,no,no,no,yes,no,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'',?,yes,LIVE
+'\'(29-inf)\'',female,yes,no,yes,yes,yes,yes,no,no,yes,yes,yes,'\'(1.65-inf)\'',?,'\'All\'','\'(2.65-3.85]\'','\'(44.5-inf)\'',yes,DIE
+'\'(29-inf)\'',female,yes,no,yes,no,no,yes,yes,no,no,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'',?,yes,LIVE
+'\'(29-inf)\'',female,no,no,yes,yes,no,no,yes,no,yes,no,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'',?,yes,LIVE
+'\'(29-inf)\'',male,no,no,yes,no,no,yes,no,yes,yes,no,yes,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(3.85-inf)\'','\'(44.5-inf)\'',yes,LIVE
+'\'(29-inf)\'',female,yes,no,yes,no,no,yes,no,yes,yes,yes,no,'\'(-inf-1.65]\'','\'All\'','\'All\'','\'(2.65-3.85]\'','\'(-inf-44.5]\'',yes,DIE

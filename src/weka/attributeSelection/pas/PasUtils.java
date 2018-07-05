@@ -2,6 +2,7 @@ package weka.attributeSelection.pas;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sensetivity.StoryUtils;
 import weka.core.Instance;
 import weka.core.Instances;
 
@@ -101,52 +102,32 @@ public class PasUtils {
 
         double[] result = new double[numAttributes];
 
-        for (PasItem rule : items) {
-            int[] corrects = ((PasItem) rule).getCorrects();
-            int finalTotalLines = totalLines;
-            double[] weights = Arrays.stream(corrects)
-                    .mapToDouble(c -> c * finalTotalLines)
-                    .toArray();
-            final double weight = rule.getCorrect() * totalLines;
-            totalLines -= rule.getCovers();
-
-            for (int i = 0; i < rule.getAttIndexes().length; i++) {
-                int attIndex = rule.getAttIndexes()[i];
-                switch (pasMethod) {
-                    case items:
-                    case rules:
-                        result[attIndex] += weight;
-                        break;
-                    case rules1st:
-                        result[attIndex] += weights[i];
-                        break;
-                }
-            }
-        }
-
-        return result;
-
-    }
-
-    public static double[] rankAttributesFromItems(List<PasItem> items,
-                                                   int numAttributes) {
-
-        int totalLines = items.stream()
-                .mapToInt(rule -> rule.getCovers())
-                .sum();
-
-        double[] result = new double[numAttributes];
-
         for (PasItem item : items) {
             final double weight = item.getCorrect() * totalLines;
+            final double weightFirst = item.getFirstCorrect() * totalLines;
+
             totalLines -= item.getCovers();
 
-            result[item.getAttIndexes()[0]] += weight;
-        }
+            switch (pasMethod) {
+                case rules:
+                    for (int aIndex : item.getAttIndexes()) {
+                        result[aIndex] += weight;
+                    }
+                    break;
 
+                case rules1st:
+                    result[item.getAttIndexes()[0]] += weightFirst;
+                    break;
+
+                case items:
+                    result[item.getAttIndexes()[0]] += weight;
+            }
+        }
         return result;
 
     }
+
+
 
 
     public static List<PasItem> evaluateAttributesItems(int[] numItems,
@@ -197,6 +178,7 @@ public class PasUtils {
         assert items.size() > 0;
         return items;
     }
+
 
     public static List<PasItem> evaluateAttributesRules(int[] numItems,
                                                         int[] labelsCount,
@@ -299,63 +281,6 @@ public class PasUtils {
         return result;
     }
 
-    public static List<PasItem> evaluateAttributesDemo(int[] itemsInAttribute,
-                                                       int[] labelsCount,
-                                                       Collection<int[]> lineData,
-                                                       int minFreq,
-                                                       double minConfidence,
-                                                       boolean addDefaultRule) {
-        List<PasItem> rules = new ArrayList<>();
-        long scannedInstance = 0L;
-
-        int labelIndex = itemsInAttribute.length - 1;
-        int numLabels = itemsInAttribute[labelIndex];
-        assert itemsInAttribute[labelIndex] == labelsCount.length;
-
-        int lineDataSize = lineData.size();
-        logger.debug("initial number of instances = {}", lineData.size());
-
-        Collection<int[]> remainingLines = null;
-
-
-        Collection<int[]> lines = lineData;//new ArrayList<>(lineData);//defensive copy
-
-        int iteration = 1;
-        while (lineDataSize > 0) {
-            Tuple<PasItem, Collection<int[]>> rllns = calcStepPasDemo(itemsInAttribute, lines, minFreq, minConfidence);
-            if (rllns == null) break; // stop adding rules for current class. break out to the new class
-
-            logger.debug("iteration = {}", iteration);
-            logger.debug("Rule number {} = {}", iteration, rllns.k.toString());
-
-
-            logger.trace("remaining lines = {}", rllns.v.size());
-
-            lines = rllns.v;
-            remainingLines = lines;
-            lineDataSize -= rllns.k.getCorrect();
-            logger.trace("took {} , remains {} instances",
-                    rllns.k.getCorrect(), lineDataSize);
-
-            rules.add((PasItem) rllns.k);
-            iteration++;
-        }
-
-        if (addDefaultRule) {
-            logger.trace("add default rule that covers {} instances"
-                    , remainingLines.size());
-            if (remainingLines != null && remainingLines.size() > 0) {
-                scannedInstance += remainingLines.size();
-                PasItem rule = getDefaultPasItem(remainingLines, labelIndex, numLabels);
-                rules.add(rule);
-            }
-        }
-
-        //TODO check to add defaultRule
-        assert rules.size() > 0;
-        return rules;
-    }
-
 
     public static double[] normalizeVector(double[] values) {
         double sum = Arrays.stream(values).sum();
@@ -363,15 +288,7 @@ public class PasUtils {
                 .map(value -> value / sum)
                 .toArray();
     }
-// public static double[] normalizeVector(double[] values) {
-//        double sqrtSumSquares = Math.sqrt(
-//                Arrays.stream(values)
-//                        .map(value -> value * value)
-//                        .sum());
-//        return Arrays.stream(values)
-//                .map(value -> value / sqrtSumSquares)
-//                .toArray();
-//    }
+
 
     public static Tuple<PasItem, Collection<int[]>> calcStepItem(int[] numItemsInAtt,
                                                                  Collection<int[]> lineData,
@@ -488,79 +405,6 @@ public class PasUtils {
     }
 
 
-    public static Tuple<PasItem, Collection<int[]>> calcStepPasDemo(int[] numItemsInAtt,
-                                                                    Collection<int[]> lineData,
-                                                                    int minFreq,
-                                                                    double minConfidence) {
-
-        if (lineData.size() < minFreq) return null;
-
-//        int labelIndex = countItemsInAttributes.length - 1;
-//        int numLabels = countItemsInAttributes[labelIndex];
-
-        /** Start with all attributes, does not include the label attribute*/
-        Set<Integer> availableAttributes = IntStream.range(0, numItemsInAtt.length - 1)
-                .boxed()
-                .collect(Collectors.toSet());
-
-//        Set<Integer> avAtts = new LinkedHashSet<>();
-//        for (int i = 0; i < labelIndex; i++) avAtts.add(i);
-
-        PasItem rule = null;// null, Does not know the label yet
-        PasMax mx = null;
-
-        Collection<int[]> entryLines = lineData; // start with all lines
-        Collection<int[]> notCoveredLines = new ArrayList<>(lineData.size());//none covered
-        do {
-
-            int[][][] stepCount = countStep(numItemsInAtt,
-                    entryLines,
-                    intsToArray(availableAttributes));
-            if (mx == null) {
-                //For the first time
-                mx = PasMax.ofThreshold(stepCount, minFreq, minConfidence);
-
-                if (mx.getLabel() == PasMax.EMPTY) return null;
-                rule = new PasItem(mx.getLabel());
-            } else {
-                mx = PasMax.ofThreshold(stepCount,
-                        minFreq,
-                        minConfidence,
-                        mx.getLabel());
-                if (mx.getLabel() == PasMax.EMPTY) break;
-
-            }
-
-            //found best next item
-            assert mx.getLabel() != PasMax.EMPTY;
-            assert mx.getLabel() == rule.label;
-            assert mx.getBestAtt() >= 0;
-            assert mx.getBestItem() >= 0;
-
-            availableAttributes.remove(mx.getBestAtt());
-
-            //refine rule with more attributes conditions
-            rule.addTest(mx.getBestAtt(), mx.getBestItem(), mx.getBestCorrect());
-            rule.updateWith(mx);
-
-            PasItem finalRule = rule;
-            Map<Boolean, List<int[]>> coveredLines = entryLines.stream()
-                    .collect(Collectors.partitioningBy(row -> finalRule.canCoverInstance(row)));
-
-            notCoveredLines.addAll(coveredLines.get(false));
-
-            entryLines = coveredLines.get(true);
-
-        } while (rule.getErrors() > 0
-                && availableAttributes.size() > 0
-                && rule.getCorrect() >= minFreq);
-
-        if (rule.getLength() == 0) {//TODO more inspection is needed here
-            return null;
-        }
-
-        return Tuple.of(rule, notCoveredLines);
-    }
 
     /**
      * Gets the majority class in the labels of the remaining instances, do not check attributes
@@ -570,26 +414,6 @@ public class PasUtils {
      * @param numLabels
      * @return
      */
-    private static PasItem getDefaultItem(Collection<int[]> lines, int labelIndex, int numLabels) {
-        //TODO find default reamining attribute instead
-        int[] freqs = new int[numLabels];
-        for (int[] line : lines) {
-            freqs[line[labelIndex]]++;
-        }
-
-        int maxVal = Integer.MIN_VALUE;
-        int maxIndex = Integer.MIN_VALUE;
-        for (int i = 0; i < freqs.length; i++) {
-            if (freqs[i] > maxVal) {
-                maxVal = freqs[i];
-                maxIndex = i;
-            }
-        }
-        PasItem item = new PasItem(maxIndex, maxVal, PasMax.sum(freqs));
-
-        return item;
-    }
-
     private static PasItem getDefaultPasItem(Collection<int[]> lines,
                                              int labelIndex,
                                              int numLabels) {
@@ -708,6 +532,17 @@ public class PasUtils {
         return sj.toString();
     }
 
+    public static String printCutOffPoint(double[] ranks) {
+        List<Double> pasRanks = Arrays.stream(ranks).boxed().collect(Collectors.toList());
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("Cutoff point using entropy measure : %02.3f attributes",
+                CuttOffPoint.entropy(pasRanks)));
+        sb.append("\n");
+        sb.append(String.format("Cutoff point using Huffman measure : %02.3f attributes",
+                CuttOffPoint.huffman(pasRanks)));
+        return sb.toString();
+    }
 
     /**
      * Map each instance in data into its internal presentation values, cast double into int because

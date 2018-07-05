@@ -32,6 +32,16 @@ public class PasOptions implements OptionHandler, Serializable {
     private boolean m_Binarize;
 
 
+    private boolean showCutOffPoint;
+
+    public boolean getShowCuttOffPoint() {
+        return showCutOffPoint;
+    }
+
+    public void setShowCutOffPoint(boolean b) {
+        showCutOffPoint = b;
+    }
+
     public String binarizeTipText() {
         return "binarize tip text";
     }
@@ -90,8 +100,10 @@ public class PasOptions implements OptionHandler, Serializable {
         m_missing_merge = true;
         m_Binarize = false;
         m_debug = false;
-        m_minFrequency = 0.001;
+        m_minFrequency = 0.01;
         m_minItemStrength = .1;
+        showCutOffPoint = true;
+
     }
 
     /**
@@ -115,26 +127,29 @@ public class PasOptions implements OptionHandler, Serializable {
 
     @Override
     public Enumeration<Option> listOptions() {
-        Vector<Option> newVector = new Vector<Option>(5);
+        Vector<Option> result = new Vector<Option>(6);
 
-        newVector.addElement(new Option("\ttreat missing values as a separate value.",
+        result.addElement(new Option("\ttreat missing values as a separate value.",
                 "M", 0, "-M"));
 
 
-        newVector.addElement(new Option("\tminimum support value "
-                , "S", 0, "-S"));
+        result.addElement(new Option("\tminimum frequency (support) value "
+                , "S", 1, "-S"));
 
-        newVector.addElement(new Option("\tminimum confidence value "
-                , "C", 0, "-C"));
+        result.addElement(new Option("\tminimum strength (confidence) value "
+                , "C", 1, "-C"));
 
-        newVector.addElement(new Option(
+        result.addElement(new Option(
                 "\tjust binarize numeric attributes instead \n"
                         + "\tof properly discretizing them.", "B", 0, "-B"));
 
-        newVector.addElement(new Option("\tshow debug messages.",
+        result.addElement(new Option("\tshow debug messages.",
                 "D", 0, "-D"));
 
-        return newVector.elements();
+        result.addElement(new Option("\tshow cut-off point.",
+                "P", 0, "-P"));
+
+        return result.elements();
     }
 
     /**
@@ -169,25 +184,16 @@ public class PasOptions implements OptionHandler, Serializable {
     @Override
     public void setOptions(String[] options) throws Exception {
         resetOptions();
-        setMissingMerge(!(Utils.getFlag('M', options)));
-        setBinarizeNumericAttributes(Utils.getFlag('B', options));
-        setShowDebugMessages(Utils.getFlag('D', options));
-
-        setMinFrequency(Double.parseDouble(Utils.getOption('S', options)));
-        setMinItemStrength(Double.parseDouble(Utils.getOption('C', options)));
-
-//        final String fIndex = Utils.getOption('F', options); //TODO what is F ?
-        Utils.checkForRemainingOptions(options); //only in chi, TODO: check this later
 
         // exclude M, B, F
         setMissingMerge(!(Utils.getFlag('M', options)));
         setBinarizeNumericAttributes(Utils.getFlag('B', options));
         setShowDebugMessages(Utils.getFlag('D', options));
+        setShowCutOffPoint(Utils.getFlag('P', options));
 
         setMinFrequency(Double.parseDouble(Utils.getOption('S', options)));
         setMinItemStrength(Double.parseDouble(Utils.getOption('C', options)));
 
-        final String fIndex = Utils.getOption('F', options); //TODO what is F ?
         Utils.checkForRemainingOptions(options); //only in chi, TODO: check this later
 
     }
@@ -249,26 +255,30 @@ public class PasOptions implements OptionHandler, Serializable {
 
     @Override
     public String[] getOptions() {
-        Vector<String> options = new Vector<String>();
+        Vector<String> result = new Vector<String>();
 
         if (!getMissingMerge()) {
-            options.add("-M");
+            result.add("-M");
         }
 
         if (!getShowDebugMessages()) {
-            options.add("-D");
+            result.add("-D");
         }
 
         if (getBinarizeNumericAttributes()) {
-            options.add("-B");
+            result.add("-B");
         }
 
-        options.add("-S");
-        options.add(String.valueOf(m_minFrequency));
+        if(getShowCuttOffPoint()){
+            result.add("-P");
+        }
 
-        options.add("-C");
-        options.add(String.valueOf(m_minItemStrength));
+        result.add("-S");
+        result.add(String.valueOf(m_minFrequency));
 
-        return options.toArray(new String[0]);
+        result.add("-C");
+        result.add(String.valueOf(m_minItemStrength));
+
+        return result.toArray(new String[0]);
     }
 }
