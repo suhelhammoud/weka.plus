@@ -15,7 +15,8 @@ public enum StoryKey {
     evalSupport,// for PAS attribute selector only
     evalConfidence, // for PAS attribute selector only
     numAttributesToSelect, //for attribute selection filter
-    attributeEntropy, //entropy threshold for num of attributes
+    entropy, //entropy threshold for num of attributes
+    huffman, //huffman threshold for num of attributes
 
     classifier, // NB, MeDRI
     support, //

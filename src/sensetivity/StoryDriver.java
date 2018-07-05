@@ -2,7 +2,6 @@ package sensetivity;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import weka.attributeSelection.PasAttributeEval;
 import weka.core.Instances;
 
 import java.io.IOException;
@@ -11,8 +10,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static sensetivity.FilesUtils.fileNameNoSuffix;
 
 public class StoryDriver {
 
@@ -64,52 +61,10 @@ public class StoryDriver {
         }
     }
 
-    public static void runDemo(String... args) throws Exception {
-        String confName = args.length > 0 ? args[0] : "data/demo1.properties";
-        PropsUtils props = PropsUtils.of(confName);
 
-        List<String> dataSetsNames = props.getDatasets();
-        logger.info(dataSetsNames.toString());
-
-        List<Path> arffDatasets = FilesUtils.listFiles(
-                props.getArffDir(),
-                ".arff").stream()
-                .filter(path -> dataSetsNames.contains(
-                        fileNameNoSuffix(path)))
-                .sorted((o1, o2) -> dataSetsNames.indexOf(fileNameNoSuffix(o1))
-                        - dataSetsNames.indexOf(fileNameNoSuffix(o2)))
-                .collect(Collectors.toList());
-
-
-        for (Path datasetPath : arffDatasets) {
-
-            Instances data = FilesUtils.instancesOf(datasetPath);
-            data.setClassIndex(data.numAttributes() - 1);
-
-            logger.info("dataset = {}", datasetPath.getFileName());
-            logger.info("num attributes = {}", data.numAttributes() - 1);
-
-            double support = props.getEvalSupports().get(0);
-            double confidence = props.getEvalConfidences().get(0);
-            PasAttributeEval eval = (PasAttributeEval) TEvaluator
-                    .PAS.getWith(support, confidence);
-
-            eval.getPasOptions().setShowDebugMessages(props.getPrintRanks());
-
-            logger.info("PAS with support = {}, and confidence = {} ",
-                    support,
-                    confidence
-            );
-            int minimumFrequency = (int) Math.ceil(data.numInstances() * support);
-            logger.info("minimum frequency (support) = {} instances ", minimumFrequency);
-
-            eval.buildEvaluator(data);
-
-        }
-    }
 
     public static void main(String[] args) throws IOException {
-        experiment1("data/conf_anneal.properties");
+        experiment1("data/conf_pas_methods.properties");
     }
 
 }

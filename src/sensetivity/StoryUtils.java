@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import weka.attributeSelection.ASEvaluation;
 import weka.attributeSelection.AttributeEvaluator;
-import weka.attributeSelection.PasAttributeEval;
 import weka.attributeSelection.Ranker;
 import weka.attributeSelection.pas.CuttOffPoint;
 import weka.attributeSelection.pas.PasMethod;
@@ -14,16 +13,10 @@ import weka.core.Instances;
 import weka.filters.Filter;
 import weka.filters.supervised.attribute.AttributeSelection;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static sensetivity.FilesUtils.fileNameNoSuffix;
 import static sensetivity.TClassifier.MEDRI;
 import static sensetivity.TEvaluator.PAS;
 
@@ -130,8 +123,12 @@ public class StoryUtils {
             assert (int) result.get(StoryKey.numAttributesToSelect) == dataFiltered.numAttributes() - 1;
 
             if (withEntropy) {
-                double entropy = calcEntropy(story, dataFiltered);
-                result.set(StoryKey.attributeEntropy, entropy);
+                List<Double> ranks = calcAndGetRanks(story, dataFiltered);
+
+                double entropy = CuttOffPoint.entropy(ranks);
+                double huffman = CuttOffPoint.huffman(ranks);
+                result.set(StoryKey.entropy, entropy);
+                result.set(StoryKey.huffman, huffman);
             }
 
             Classifier classifier = getClassifier(story);
@@ -144,14 +141,6 @@ public class StoryUtils {
         }
 
         return result;
-    }
-
-    public static List<Story> playStories(List<Story> stories, Instances data) {
-
-        return stories.stream()
-                .parallel()
-                .map(s -> playStory(s, data, true))
-                .collect(Collectors.toList());
     }
 
 
@@ -225,7 +214,7 @@ public class StoryUtils {
         return 0;
     }
 
-    public static double calcEntropy(Story story, Instances data) {
+    public static List<Double> calcAndGetRanks(Story story, Instances data) {
         data.setClassIndex(data.numAttributes() - 1);
 
         ASEvaluation eval = getASEvaluation(story);
@@ -236,13 +225,13 @@ public class StoryUtils {
         }
 
         AttributeEvaluator attEval = (AttributeEvaluator) eval;
-        List<Double> ranks = IntStream.range(0, data.numAttributes() - 1)
+        return IntStream.range(0, data.numAttributes() - 1)
                 .mapToDouble(i -> evaluateAttribute(attEval, i))
                 .boxed()
                 .collect(Collectors.toList());
-
-        return CuttOffPoint.entropy(ranks);
     }
+
+
 
     /**
      * generate all test stories related to one dataset
