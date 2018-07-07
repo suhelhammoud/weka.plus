@@ -7,16 +7,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b4ffecf-fd2d-4ac9-8d65-3aedb6a8be09" name="Default" comment="Initial commit">
-      <change afterPath="$PROJECT_DIR$/data/sami.final.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/conf.properties" beforeDir="false" afterPath="$PROJECT_DIR$/data/conf.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/conf_pas_methods.properties" beforeDir="false" afterPath="$PROJECT_DIR$/data/conf_pas_methods.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/Experiment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/PropsUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/PropsUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/sami.final.properties" beforeDir="false" afterPath="$PROJECT_DIR$/data/sami.final.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryDriver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryDriver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryKey.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/TEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/TEvaluator.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,7 +25,7 @@
       <file leaf-file-name="sami.final.properties" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/data/sami.final.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="392">
+            <state relative-caret-position="480">
               <caret line="25" column="29" selection-start-line="25" selection-start-column="29" selection-end-line="25" selection-end-column="29" />
             </state>
           </provider>
@@ -49,7 +43,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>countitems</find>
       <find>countItemsInAttributes</find>
       <find>getPash</find>
       <find>assert</find>
@@ -79,6 +72,7 @@
       <find>horse</find>
       <find>diab</find>
       <find>playsto</find>
+      <find>sami</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -145,8 +139,8 @@
         <option value="$PROJECT_DIR$/src/sensetivity/TEvaluator.java" />
         <option value="$PROJECT_DIR$/data/conf.properties" />
         <option value="$PROJECT_DIR$/data/conf_pas_methods.properties" />
-        <option value="$PROJECT_DIR$/src/sensetivity/StoryDriver.java" />
         <option value="$PROJECT_DIR$/src/sensetivity/StoryUtils.java" />
+        <option value="$PROJECT_DIR$/src/sensetivity/StoryDriver.java" />
         <option value="$PROJECT_DIR$/data/sami.final.properties" />
       </list>
     </option>
@@ -163,6 +157,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -180,6 +176,13 @@
               <item name="weka.plus" type="462c0819:PsiDirectoryNode" />
               <item name="data" type="462c0819:PsiDirectoryNode" />
               <item name="results" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="weka.plus" type="b2602c69:ProjectViewProjectNode" />
+              <item name="weka.plus" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+              <item name="results" type="462c0819:PsiDirectoryNode" />
+              <item name="sami" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="weka.plus" type="b2602c69:ProjectViewProjectNode" />
@@ -217,8 +220,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -404,35 +405,35 @@
       <window_info anchor="right" id="Palette&#9;" order="5" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="4" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.37635574" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.329" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.3927178" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.37635574" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.39262474" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20831056" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32769832" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21049754" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.1902679" />
       <window_info id="UI Designer" order="4" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.32509753" />
       <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.32509753" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" x="0" y="0" width="310" height="702" id="Documentation" order="6" side_tool="true" weight="0.3298611" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32769832" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32467532" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32954547" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.225" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32954547" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32467532" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3293979" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="4" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.32575756" />
@@ -441,7 +442,7 @@
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3293979" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.3293979" />
       <window_info anchor="right" id="Maven Projects" order="4" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -683,10 +684,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="364">
           <caret line="865" selection-start-line="865" selection-end-line="865" />
-          <folding>
-            <element signature="e#31573#31581#0" expanded="true" />
-            <element signature="e#31637#31645#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -815,35 +812,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/results/sami/2/anneal.arff.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="7" column="69" lean-forward="true" selection-start-line="7" selection-start-column="69" selection-end-line="7" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sensetivity/StoryUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="136" column="67" selection-start-line="136" selection-start-column="52" selection-end-line="136" selection-end-column="67" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/results/sami/0.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-237" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sensetivity/Experiment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="17" column="51" selection-start-line="17" selection-start-column="51" selection-end-line="17" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/data/results/sami/2/anneal.arff.csv" />
+    <entry file="file://$PROJECT_DIR$/data/results/sami/0.properties" />
+    <entry file="file://$PROJECT_DIR$/src/sensetivity/Experiment.java" />
     <entry file="file://$PROJECT_DIR$/data/conf_pas_methods.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
@@ -851,10 +822,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/sensetivity/StoryUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="215" column="30" selection-start-line="215" selection-start-column="30" selection-end-line="215" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/sensetivity/StoryDriver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="117" column="1" lean-forward="true" selection-start-line="117" selection-start-column="1" selection-end-line="117" selection-end-column="1" />
+        <state relative-caret-position="333">
+          <caret line="115" column="20" lean-forward="true" selection-start-line="115" selection-start-column="20" selection-end-line="115" selection-end-column="20" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -863,7 +844,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/data/sami.final.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
+        <state relative-caret-position="480">
           <caret line="25" column="29" selection-start-line="25" selection-start-column="29" selection-end-line="25" selection-end-column="29" />
         </state>
       </provider>

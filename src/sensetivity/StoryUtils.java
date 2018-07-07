@@ -213,6 +213,71 @@ public class StoryUtils {
 
     }
 
+    public static List<Story> generateSami(Story story,
+                                           PropsUtils props,
+                                           TEvaluator eval,
+                                           TClassifier classifier) {
+
+        List<Story> result = new ArrayList<>();
+        //set evalMethod and classifier
+        final int numAttributes = (int) story.get(StoryKey.numAttributes);
+
+        Story bs = story.copy()
+                .set(StoryKey.evalMethod, eval)
+                .set(StoryKey.classifier, classifier)
+                .set(StoryKey.numAttributesToSelect, numAttributes);
+
+        List<Story> storiesNumSelect = new ArrayList<>();
+        storiesNumSelect.add(bs.copy());
+
+        List<Story> evalStories = new ArrayList<>();
+
+        switch (eval) {
+            case PAS:
+                for (Story numStory : storiesNumSelect) {
+                    List<Story> evalSupportStories = propStories(
+                            numStory, StoryKey.evalSupport, props.getEvalSupports());
+
+                    for (Story supStory : evalSupportStories) {
+                        List<Story> confStories = propStories(supStory,
+                                StoryKey.evalConfidence,
+                                props.getEvalConfidences());
+
+                        for (Story s : confStories) {
+                            List<Story> pasMethodStories = propStories(s,
+                                    StoryKey.pasMethod,
+                                    props.getPasMethods());
+                            evalStories.addAll(pasMethodStories);
+                        }
+                    }
+                }
+                break;
+
+            default:
+                evalStories.addAll(storiesNumSelect);
+
+        }
+
+        switch (classifier) {
+            case MEDRI:
+                for (Story evalStory : evalStories) {
+                    List<Story> supportStories = propStories(evalStory,
+                            StoryKey.support, props.getSupports());
+                    for (Story supStory : supportStories) {
+                        List<Story> confStories = propStories(supStory,
+                                StoryKey.confidence, props.getConfidences());
+                        result.addAll(confStories);
+                    }
+                }
+                break;
+            default:
+                result.addAll(evalStories);
+
+        }
+        return result;
+
+    }
+
 
     private static double evaluateAttribute(AttributeEvaluator attEval, int index) {
         try {
@@ -273,6 +338,40 @@ public class StoryUtils {
         }
         return result;
     }
+
+    /**
+     * generate all test stories related to one dataset
+     *
+     * @param props configuration file
+     * @param data
+     * @return
+     */
+    public static List<Story> generateStoriesSami(PropsUtils props, Instances data) {
+        List<Story> result = new ArrayList<>();
+
+        Story bs = Story.get()
+                .set(StoryKey.dataset, data.relationName())
+                .set(StoryKey.numInstances, data.numInstances())
+                .set(StoryKey.numAttributes, data.numAttributes() - 1)
+                .set(StoryKey.cutoffThreshold, props.getCutoffThreshold());
+
+
+        for (TEvaluator eval : props.getEvaluatorMethods()) {
+            for (TClassifier classifier : props.getClassifiers()) {
+                List<Story> gStories = generateSami(bs, props, eval, classifier);
+                result.addAll(gStories);
+            }
+        }
+
+        int expectedNum = (int) bs.get(StoryKey.numAttributes)
+                * calculateEvalClassifier(props);
+        if (expectedNum != result.size()) {
+            logger.error("expected = {}, actual = {}",
+                    expectedNum, result.size());
+        }
+        return result;
+    }
+
 
     /**
      * Calculate expected for one dataset for one numAttributesToSelect only

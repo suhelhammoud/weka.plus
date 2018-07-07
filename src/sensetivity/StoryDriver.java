@@ -92,7 +92,7 @@ public class StoryDriver {
             Instances data = FilesUtils.instancesOf(datasetPath);
             data.setClassIndex(data.numAttributes() - 1);
 
-            List<Story> stories = StoryUtils.generateStories(params, data);
+            List<Story> stories = StoryUtils.generateStoriesSami(params, data);
 
             logger.info("processing dataset: {}", data.relationName());
             logger.info("expected stories = {}", stories.size());
@@ -112,7 +112,8 @@ public class StoryDriver {
 
     public static void main(String[] args) throws IOException {
 //        experiment1("data/conf_pas_methods.properties");
-        experimentSami("data/sami.final.properties");
+//        experimentSami("data/sami.final.properties");
+        experiment1("data/sami.final.properties");
     }
 
 }
