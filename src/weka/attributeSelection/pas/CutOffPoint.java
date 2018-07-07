@@ -5,7 +5,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class CuttOffPoint {
+public class CutOffPoint {
 
     public static double entropyValue(double p) {
         if (p < 1e-8 || p > (1 - 1e-8))
@@ -83,11 +83,24 @@ public class CuttOffPoint {
         List<Double> ranksNormalized = normalize(ranks);
 
         double hV = ranksNormalized.stream()
-                .mapToDouble(CuttOffPoint::entropyValue)
+                .mapToDouble(CutOffPoint::entropyValue)
                 .sum();
         return Math.pow(2, hV);
     }
 
+    public static double threshold(double[] ranks, double threshold) {
+        return threshold(toList(ranks), threshold);
+    }
+        public static double threshold(List<Double> ranks, double threshold){
+        List<Double> ranksNormalized = normalize(ranks);
+
+        final double level = 1.0 / ranks.size() * threshold;
+//            System.out.println("level = " + level);
+
+        return ranksNormalized.stream()
+                .filter( r -> r > level)
+                .count();
+    }
 
     public static void main(String[] args) {
 //        double[] weights = new double[]{20, 20, 5, 0, 0, 0, 0};
@@ -107,9 +120,11 @@ public class CuttOffPoint {
 
         double huffman = huffman(weights);
         double entropy = entropy(weights);
+        double threshold = threshold(weights, .5);
 
         System.out.println("entropy = " + entropy);
         System.out.println("huffman = " + huffman);
+        System.out.println("threshold = " + threshold);
     }
 
 }

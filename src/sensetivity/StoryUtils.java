@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import weka.attributeSelection.ASEvaluation;
 import weka.attributeSelection.AttributeEvaluator;
 import weka.attributeSelection.Ranker;
-import weka.attributeSelection.pas.CuttOffPoint;
+import weka.attributeSelection.pas.CutOffPoint;
 import weka.attributeSelection.pas.PasMethod;
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
@@ -125,8 +125,8 @@ public class StoryUtils {
             if (withEntropy) {
                 List<Double> ranks = calcAndGetRanks(story, dataFiltered);
 
-                double entropy = CuttOffPoint.entropy(ranks);
-                double huffman = CuttOffPoint.huffman(ranks);
+                double entropy = CutOffPoint.entropy(ranks);
+                double huffman = CutOffPoint.huffman(ranks);
                 result.set(StoryKey.entropy, entropy);
                 result.set(StoryKey.huffman, huffman);
             }

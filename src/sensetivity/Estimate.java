@@ -1,6 +1,6 @@
 package sensetivity;
 
-import weka.attributeSelection.pas.CuttOffPoint;
+import weka.attributeSelection.pas.CutOffPoint;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -18,8 +18,8 @@ public class Estimate {
                 .boxed()
                 .collect(Collectors.toList());
 
-        double estimate = CuttOffPoint.huffman(rankList);
-        double entropy = CuttOffPoint.entropy(rankList);
+        double estimate = CutOffPoint.huffman(rankList);
+        double entropy = CutOffPoint.entropy(rankList);
         System.out.println("huffman = " + estimate);
         System.out.println("entropy =  " + entropy);
     }

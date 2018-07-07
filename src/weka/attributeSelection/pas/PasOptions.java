@@ -5,6 +5,7 @@ import weka.core.OptionHandler;
 import weka.core.SelectedTag;
 import weka.core.Utils;
 
+import javax.rmi.CORBA.Util;
 import java.io.Serializable;
 import java.util.Enumeration;
 import java.util.Vector;
@@ -40,6 +41,17 @@ public class PasOptions implements OptionHandler, Serializable {
 
     public void setShowCutOffPoint(boolean b) {
         showCutOffPoint = b;
+    }
+
+
+    double cutOffThreshold = 0.5;
+
+    public double getCutOffThreshold() {
+        return cutOffThreshold;
+    }
+
+    public void setCutOffThreshold(double cutOffThreshold) {
+        this.cutOffThreshold = cutOffThreshold;
     }
 
     public String binarizeTipText() {
@@ -103,6 +115,7 @@ public class PasOptions implements OptionHandler, Serializable {
         m_minFrequency = 0.01;
         m_minItemStrength = .1;
         showCutOffPoint = true;
+        cutOffThreshold = 0.5;
 
     }
 
@@ -127,7 +140,7 @@ public class PasOptions implements OptionHandler, Serializable {
 
     @Override
     public Enumeration<Option> listOptions() {
-        Vector<Option> result = new Vector<Option>(6);
+        Vector<Option> result = new Vector<Option>(7);
 
         result.addElement(new Option("\ttreat missing values as a separate value.",
                 "M", 0, "-M"));
@@ -138,6 +151,9 @@ public class PasOptions implements OptionHandler, Serializable {
 
         result.addElement(new Option("\tminimum strength (confidence) value "
                 , "C", 1, "-C"));
+
+        result.addElement(new Option("\tcut off threshold "
+                , "T", 1, "-T"));
 
         result.addElement(new Option(
                 "\tjust binarize numeric attributes instead \n"
@@ -193,6 +209,8 @@ public class PasOptions implements OptionHandler, Serializable {
 
         setMinFrequency(Double.parseDouble(Utils.getOption('S', options)));
         setMinItemStrength(Double.parseDouble(Utils.getOption('C', options)));
+
+        setCutOffThreshold(Double.parseDouble(Utils.getOption('T', options)));
 
         Utils.checkForRemainingOptions(options); //only in chi, TODO: check this later
 
@@ -269,7 +287,7 @@ public class PasOptions implements OptionHandler, Serializable {
             result.add("-B");
         }
 
-        if(getShowCuttOffPoint()){
+        if (getShowCuttOffPoint()) {
             result.add("-P");
         }
 
@@ -278,6 +296,9 @@ public class PasOptions implements OptionHandler, Serializable {
 
         result.add("-C");
         result.add(String.valueOf(m_minItemStrength));
+
+        result.add("-T");
+        result.add(String.valueOf(cutOffThreshold));
 
         return result.toArray(new String[0]);
     }

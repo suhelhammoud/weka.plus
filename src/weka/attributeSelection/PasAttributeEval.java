@@ -81,6 +81,13 @@ public class PasAttributeEval extends ASEvaluation implements
      */
     private double[] m_pas;
 
+    public double getCutOffThreshold() {
+        return pasOptions.getCutOffThreshold();
+    }
+
+    public void setCutOffThreshold(double cutOffThreshold) {
+        pasOptions.setCutOffThreshold(cutOffThreshold);
+    }
 
     public double[] getAttributesRanks() {
         return Arrays.copyOf(m_pas, m_pas.length);
@@ -305,7 +312,7 @@ public class PasAttributeEval extends ASEvaluation implements
         text.append("\n");
         text.append(PasUtils.printRanks(m_pas));
         text.append("\n\n");
-        text.append(PasUtils.printCutOffPoint(m_pas));
+        text.append(PasUtils.printCutOffPoint(m_pas, pasOptions.getCutOffThreshold()));
 
 
         text.append("\n");

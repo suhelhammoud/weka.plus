@@ -2,7 +2,6 @@ package weka.attributeSelection.pas;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sensetivity.StoryUtils;
 import weka.core.Instance;
 import weka.core.Instances;
 
@@ -126,8 +125,6 @@ public class PasUtils {
         return result;
 
     }
-
-
 
 
     public static List<PasItem> evaluateAttributesItems(int[] numItems,
@@ -405,7 +402,6 @@ public class PasUtils {
     }
 
 
-
     /**
      * Gets the majority class in the labels of the remaining instances, do not check attributes
      *
@@ -532,15 +528,18 @@ public class PasUtils {
         return sj.toString();
     }
 
-    public static String printCutOffPoint(double[] ranks) {
+    public static String printCutOffPoint(double[] ranks, double threshold) {
         List<Double> pasRanks = Arrays.stream(ranks).boxed().collect(Collectors.toList());
 
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("Cutoff point using entropy measure : %02.3f attributes",
-                CuttOffPoint.entropy(pasRanks)));
+                CutOffPoint.entropy(pasRanks)));
         sb.append("\n");
         sb.append(String.format("Cutoff point using Huffman measure : %02.3f attributes",
-                CuttOffPoint.huffman(pasRanks)));
+                CutOffPoint.huffman(pasRanks)));
+        sb.append("\n");
+        sb.append(String.format("Cutoff point using threshold measure : %02.3f attributes",
+                CutOffPoint.threshold(pasRanks, threshold)));
         return sb.toString();
     }
 
