@@ -27,6 +27,7 @@ public enum TEvaluator {
      *             args[0]: support
      *             args[1]: confidence
      *             args[2]: PasMethod
+     *             args[3]: cutoffThreshold
      * @return
      */
     public ASEvaluation getWith(Object... args) {
@@ -36,6 +37,7 @@ public enum TEvaluator {
                 result.setMinFrequency((Double) args[0]);
                 result.setMinItemStrength((Double) args[1]);
                 result.setPasMethod((PasMethod) args[2]);
+                result.setCutOffThreshold((Double) args[3]);
                 return result;
             default:
                 return get();

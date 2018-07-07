@@ -33,9 +33,15 @@ public class StoryUtils {
             case PAS:
                 double evalSupport = (double) story.get(StoryKey.evalSupport);
                 double evalConfidence = (double) story.get(StoryKey.evalConfidence);
+                double cutoffThreshold = (double) story.get(StoryKey.cutoffThreshold);
+
                 PasMethod pasmethod = (PasMethod) story.get(StoryKey.pasMethod);
 
-                return (T) PAS.getWith(evalSupport, evalConfidence, pasmethod);
+
+                return (T) PAS.getWith(evalSupport,
+                        evalConfidence,
+                        pasmethod,
+                        cutoffThreshold);
 //            case CHI:
 //                // ChiSquaredAttributeEval settings
 //                break;
@@ -127,8 +133,11 @@ public class StoryUtils {
 
                 double entropy = CutOffPoint.entropy(ranks);
                 double huffman = CutOffPoint.huffman(ranks);
+                double variableNumThreshold = CutOffPoint.threshold(ranks,
+                        (Double) story.get(StoryKey.cutoffThreshold));
                 result.set(StoryKey.entropy, entropy);
                 result.set(StoryKey.huffman, huffman);
+                result.set(StoryKey.variablesThreshold, variableNumThreshold);
             }
 
             Classifier classifier = getClassifier(story);
@@ -232,7 +241,6 @@ public class StoryUtils {
     }
 
 
-
     /**
      * generate all test stories related to one dataset
      *
@@ -246,7 +254,8 @@ public class StoryUtils {
         Story bs = Story.get()
                 .set(StoryKey.dataset, data.relationName())
                 .set(StoryKey.numInstances, data.numInstances())
-                .set(StoryKey.numAttributes, data.numAttributes() - 1);
+                .set(StoryKey.numAttributes, data.numAttributes() - 1)
+                .set(StoryKey.cutoffThreshold, props.getCutoffThreshold());
 
 
         for (TEvaluator eval : props.getEvaluatorMethods()) {
@@ -330,8 +339,6 @@ public class StoryUtils {
                 .mapToObj(i -> story.copy(StoryKey.numAttributesToSelect, i))
                 .collect(Collectors.toList());
     }
-
-
 
 
     public static void main(String[] args) throws Exception {

@@ -11,13 +11,14 @@ public enum StoryKey {
     numInstances,
     numAttributes,// excluding the label class attribute
     evalMethod, //PAS, L2, CHI, ..etc
-    pasMethod, //items,
+    pasMethod, //rules, rules1st, and items,
     evalSupport,// for PAS attribute selector only
     evalConfidence, // for PAS attribute selector only
     numAttributesToSelect, //for attribute selection filter
     entropy, //entropy threshold for num of attributes
     huffman, //huffman threshold for num of attributes
-
+    cutoffThreshold, // threshold in
+    variablesThreshold, //threshold out
     classifier, // NB, MeDRI
     support, //
     confidence, //

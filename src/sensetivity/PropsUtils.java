@@ -30,6 +30,7 @@ public class PropsUtils extends Properties {
 
     private List<Double> supports;
     private List<Double> confidences;
+    private double cutoffThreshold;
 
 
     private String arffDir;
@@ -84,6 +85,11 @@ public class PropsUtils extends Properties {
         return confidences;
     }
 
+    public double getCutoffThreshold() {
+        return cutoffThreshold;
+    }
+
+
     public String getOutDir() {
         return outDir;
     }
@@ -123,6 +129,8 @@ public class PropsUtils extends Properties {
                 .boxed()
                 .collect(Collectors.toList());
 
+        cutoffThreshold = Double.parseDouble(getProperty("cutoff.threshold", "0.5"));
+
         pasMethods = getStream("pas.methods",
                 PasMethod.items.name())
                 .map(m -> PasMethod.of(m))
@@ -153,7 +161,7 @@ public class PropsUtils extends Properties {
 
     public static void main(String[] args)
             throws IOException {
-        PropsUtils params = PropsUtils.of("data/conf.properties");
+        PropsUtils params = PropsUtils.of("data/sami.final.properties");
 
         System.out.println("params.getPasMethods() = " + params.getPasMethods());
         System.out.println("evalSupports = " + params.getEvalSupports());
@@ -165,5 +173,6 @@ public class PropsUtils extends Properties {
                 + params.getEvaluatorMethods());
         System.out.println("params.getClassifiers() = "
                 + params.getClassifiers());
+        System.out.println("params.getCutoffThreshold() = " + params.getCutoffThreshold());
     }
 }

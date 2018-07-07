@@ -63,8 +63,56 @@ public class StoryDriver {
 
 
 
+    public static void experimentSami(String... args) throws IOException {
+
+        String confName = args.length > 0 ? args[0] : "data/sami.final.properties";
+        PropsUtils params = PropsUtils.of(confName);
+
+        Path confPath = Paths.get(confName);
+
+        Path resultDir = FilesUtils.createOutDir(params.getOutDir());
+        logger.info("result directory : {}", resultDir.toString());
+
+        //copy config file to output
+        Files.copy(confPath,
+                resultDir.getParent().resolve(resultDir.getFileName() + ".properties"));
+
+        List<String> dataSetsNames = params.getDatasets();
+
+        List<Path> arffDatasets = FilesUtils.listFiles(
+                params.getArffDir(),
+                ".arff").stream()
+                .filter(path -> dataSetsNames.contains(
+                        path.getFileName().toString().replace(".arff", ""))
+                ).collect(Collectors.toList());
+
+
+        for (Path datasetPath : arffDatasets) {
+
+            Instances data = FilesUtils.instancesOf(datasetPath);
+            data.setClassIndex(data.numAttributes() - 1);
+
+            List<Story> stories = StoryUtils.generateStories(params, data);
+
+            logger.info("processing dataset: {}", data.relationName());
+            logger.info("expected stories = {}", stories.size());
+
+            stories.parallelStream()
+                    .forEach(story -> {
+                        StoryUtils.playStory(story, data, true);
+                    });
+
+            FilesUtils.writeStoriesToFile(resultDir,
+                    datasetPath.getFileName().toString() + ".csv"
+                    , stories);
+        }
+    }
+
+
+
     public static void main(String[] args) throws IOException {
-        experiment1("data/conf_pas_methods.properties");
+//        experiment1("data/conf_pas_methods.properties");
+        experimentSami("data/sami.final.properties");
     }
 
 }
