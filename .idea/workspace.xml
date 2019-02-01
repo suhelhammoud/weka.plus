@@ -7,7 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b4ffecf-fd2d-4ac9-8d65-3aedb6a8be09" name="Default" comment="Initial commit">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/weka/filters/supervised/instance/UnbalancedSampler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/filters/supervised/instance/UnbalancedSampler.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -20,6 +19,15 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
+        <entry file="jar://$PROJECT_DIR$/lib/weka-src.jar!/src/main/java/weka/filters/Filter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-13128">
+              <caret line="706" column="37" selection-start-line="706" selection-start-column="31" selection-end-line="706" selection-end-column="37" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="jar://$PROJECT_DIR$/lib/weka-src.jar!/src/main/java/weka/filters/supervised/instance/Resample.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-110">
@@ -31,14 +39,18 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/weka/filters/supervised/instance/UnbalancedSampler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="409" column="29" selection-start-line="409" selection-start-column="29" selection-end-line="409" selection-end-column="29" />
+            <state relative-caret-position="252">
+              <caret line="258" column="43" selection-start-line="258" selection-start-column="43" selection-end-line="258" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#6649#6650#0" expanded="true" />
                 <element signature="e#6718#6719#0" expanded="true" />
+                <element signature="e#7302#7303#0" expanded="true" />
+                <element signature="e#7382#7383#0" expanded="true" />
                 <element signature="e#7839#7840#0" expanded="true" />
                 <element signature="e#7897#7898#0" expanded="true" />
+                <element signature="e#8116#8117#0" expanded="true" />
+                <element signature="e#8196#8197#0" expanded="true" />
                 <element signature="e#8622#8623#0" expanded="true" />
                 <element signature="e#8667#8668#0" expanded="true" />
                 <element signature="e#13835#13836#0" expanded="true" />
@@ -62,8 +74,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>toIntArray</find>
-      <find>build</find>
       <find>evalu</find>
       <find>evaluateAtt</find>
       <find>buildEvaluatorRules1</find>
@@ -92,6 +102,8 @@
       <find>100</find>
       <find>revision</find>
       <find>sampleClass</find>
+      <find>tipText</find>
+      <find>percent</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -417,18 +429,18 @@
       <window_info id="Designer" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="UI Designer" order="4" />
-      <window_info anchor="bottom" id="SBT Console" order="0" />
+      <window_info anchor="bottom" id="SBT Console" order="0" weight="0.32988358" />
       <window_info anchor="bottom" id="Docker" order="1" show_stripe_button="false" />
       <window_info anchor="bottom" id="Message" order="2" />
       <window_info anchor="bottom" id="Find" order="3" weight="0.32769832" />
       <window_info active="true" anchor="bottom" id="Run" order="4" visible="true" weight="0.41138422" />
-      <window_info anchor="bottom" id="Debug" order="5" weight="0.32509753" />
+      <window_info anchor="bottom" id="Debug" order="5" weight="0.32470894" />
       <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="7" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="8" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.39096776" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.39068565" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="11" weight="0.329" />
+      <window_info anchor="bottom" id="Version Control" order="11" weight="0.538163" />
       <window_info anchor="bottom" id="Messages" order="12" weight="0.3275488" />
       <window_info anchor="right" id="Maven" order="0" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
@@ -832,13 +844,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/weka-src.jar!/src/main/java/weka/filters/Filter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="82" column="22" selection-start-line="82" selection-start-column="22" selection-end-line="82" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/lib/weka-src.jar!/src/main/java/weka/filters/SupervisedFilter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="242">
@@ -891,16 +896,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/weka-src.jar!/src/main/java/weka/filters/Filter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-13128">
+          <caret line="706" column="37" selection-start-line="706" selection-start-column="31" selection-end-line="706" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/weka/filters/supervised/instance/UnbalancedSampler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="409" column="29" selection-start-line="409" selection-start-column="29" selection-end-line="409" selection-end-column="29" />
+        <state relative-caret-position="252">
+          <caret line="258" column="43" selection-start-line="258" selection-start-column="43" selection-end-line="258" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#6649#6650#0" expanded="true" />
             <element signature="e#6718#6719#0" expanded="true" />
+            <element signature="e#7302#7303#0" expanded="true" />
+            <element signature="e#7382#7383#0" expanded="true" />
             <element signature="e#7839#7840#0" expanded="true" />
             <element signature="e#7897#7898#0" expanded="true" />
+            <element signature="e#8116#8117#0" expanded="true" />
+            <element signature="e#8196#8197#0" expanded="true" />
             <element signature="e#8622#8623#0" expanded="true" />
             <element signature="e#8667#8668#0" expanded="true" />
             <element signature="e#13835#13836#0" expanded="true" />
