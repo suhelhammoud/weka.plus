@@ -2,7 +2,6 @@ package weka.filters.supervised.instance;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sensetivity.FilesUtils;
 import weka.core.*;
 import weka.filters.Filter;
 import weka.filters.SupervisedFilter;
@@ -14,18 +13,15 @@ import java.util.Vector;
 
 /**
  * <!-- globalinfo-start -->
- * Produces an unbalanced random subsample (with replacement)
- * The number of instances in the generated
- * The dataset must have a binary class attribute
- * dataset must be specified. If not, the generated dataset will contain the same number as the original dataset
- * attribute.
- * If the unblance ratio is not specified then the flilter will maintain the class distribution
+ * Produces an unbalanced random sample (with replacement)
+ * Dataset must have a binary class attribute
+ * If the first class percent is equals to -1 then keep same class distribution
+ * in the newly generated dataset
  * <p/>
  * <!-- globalinfo-end -->
  * <p>
  * <!-- options-start --> Valid options are:
  * <p/>
- *
  * <pre>
  * -S &lt;num&gt;
  *  Specify the random number seed (default 1)
@@ -33,26 +29,21 @@ import java.util.Vector;
  *
  * <pre>
  * -Z &lt;num&gt;
- *  The size of the output dataset, as a percentage of
+ *  The size of the output dataset , as a ratio of
  *  the input dataset (default 1.0)
  * </pre>
-
- *
+ * *
  * <pre>
- * -no-replacement
- *  Disables replacement of instances
- *  (default: with replacement)
- * </pre>
- *
- * <pre>
- * -V
- *  Inverts the selection - only available with '-no-replacement'.
+ * -U &lt;num&gt;
+ *  The ratio of the first class compared to the size of output dataset
+ *  (default -1)
+ *  If equals to -1 then keep same class distribution as in the input dataset
  * </pre>
  * <p>
  * <!-- options-end -->
  *
  * @author Suhel Hammoud (suhel.hammoud@gmail.com)
- * @version $Revision: 0 $
+ * @version $Revision: 01 $
  */
 public class UnbalancedSampler extends Filter implements SupervisedFilter, OptionHandler {
 
@@ -65,14 +56,15 @@ public class UnbalancedSampler extends Filter implements SupervisedFilter, Optio
     static final long serialVersionUID = 7079004953548300686L;
 
     /**
-     * The subsample size, percent of original set, default 1.0.
+     * The out data size, as a ratio to original dataset, default 1.0.
      */
-    protected double m_SampleSizePercent = 1.0;
+    protected double m_SampleSizeRatio = 1.0;
 
     /**
-     * The 1st class Ratio percent, default 0.5
+     * The 1st class size as ratio to output dataset default -1.
+     * (-1 means keep same class distribution as input dataset)
      */
-    protected double m_classPercent = 0.5;
+    protected double m_sampleClassRatio = -1;
 
 
     /**
@@ -81,29 +73,16 @@ public class UnbalancedSampler extends Filter implements SupervisedFilter, Optio
     protected int m_RandomSeed = 1;
 
     /**
-     * The degree of bias towards uniform (nominal) class distribution.
-     */
-//    protected double m_BiasToUniformClass = 0;
-
-    /**
-     * Whether to perform sampling with replacement or without.
-     */
-    protected boolean m_NoReplacement = false;
-
-
-    /**
      * Returns a string describing this filter.
      *
      * @return a description of the filter suitable for displaying in the
      * explorer/experimenter gui
      */
     public String globalInfo() {
-        return "Produces an unbalanced random subsample (with replacement).\n" +
-                "The number of instances in the generated " +
-                "dataset must be specified. If not, the generated dataset will contain the same number as the original dataset" +
-                "The dataset must have a binary class attribute" +
-                "attribute. \n" +
-                " If the unblance ratio is not specified then the flilter will maintain the class distribution";
+        return "Produces an unbalanced random sample (with replacement)" +
+                "Input dataset must have a binary class attribute" +
+                "If the ratio of the first class is set to -1 then keep same class distribution" +
+                "in the newly generated dataset";
     }
 
     /**
@@ -123,10 +102,9 @@ public class UnbalancedSampler extends Filter implements SupervisedFilter, Optio
                 "\tThe size of the output dataset, as a percentage of\n"
                         + "\tthe input dataset (default 1.0)", "Z", 1, "-Z <num>"));
 
-
         result.addElement(new Option(
-                "\tPercentage of first class label in output generated dataset\n"
-                        + "\tthe input dataset (default 0.5)", "U", 1, "-U <num>"));
+                "\tRatio of first class label in output generated dataset ]0.0 ~ 1.0[ \n"
+                        + "\tthe input dataset (default -1, keep same class distribution)", "U", 1, "-U <num>"));
 
         return result.elements();
     }
@@ -145,14 +123,14 @@ public class UnbalancedSampler extends Filter implements SupervisedFilter, Optio
      *
      * <pre>
      * -Z &lt;num&gt;
-     *  The size of the output dataset, as a percentage of
+     *  The size of the output dataset, as a ratio of
      *  the input dataset (default 1.0)
      * </pre>
      *
      * <pre>
      * -U &lt;num&gt;
-     *  Percentage of first class label in output generated dataset
-     *  the input dataset (default 0.5)
+     *  Ratio of first class label in output generated dataset ]0.0 ~ 1.0[
+     *  (default -1, keep same distribution)
      * </pre>
      *
      * <p>
@@ -174,18 +152,17 @@ public class UnbalancedSampler extends Filter implements SupervisedFilter, Optio
 
         tmpStr = Utils.getOption('Z', options);
         if (tmpStr.length() != 0) {
-            setSampleSizePercent(Double.parseDouble(tmpStr));//TODO
+            setSampleSizeRatio(Double.parseDouble(tmpStr));
         } else {
-            setSampleSizePercent(1.0);//TODO
+            setSampleSizeRatio(1.0);
         }
 
         tmpStr = Utils.getOption('U', options);
         if (tmpStr.length() != 0) {
-            setSampleSizePercent(Double.parseDouble(tmpStr));//TODO
+            setSampleClassRatio(Double.parseDouble(tmpStr));
         } else {
-            setSampleSizePercent(0.5);//TODO
+            setSampleClassRatio(-1);
         }
-
 
         if (getInputFormat() != null) {
             setInputFormat(getInputFormat());
@@ -204,32 +181,17 @@ public class UnbalancedSampler extends Filter implements SupervisedFilter, Optio
 
         Vector<String> result = new Vector<String>();
 
-
         result.add("-S");
         result.add("" + getRandomSeed());
 
         result.add("-Z");
-        result.add("" + getSampleSizePercent());
+        result.add("" + getSampleSizeRatio());
 
         result.add("-U");
-        result.add("" + getClassPercent());//TODO
-
+        result.add("" + getSampleClassRatio());
 
         return result.toArray(new String[result.size()]);
     }
-
-    /**
-     * Returns the tip text for this property.
-     *
-     * @return tip text for this property suitable for displaying in the
-     * explorer/experimenter gui
-     */
-    public String biasToUniformClassTipText() {
-        return "Whether to use bias towards a uniform class. A value of 0 leaves the class "
-                + "distribution as-is, a value of 1 ensures the class distribution is "
-                + "uniform in the output data.";
-    }
-
 
     /**
      * Returns the tip text for this property.
@@ -274,17 +236,17 @@ public class UnbalancedSampler extends Filter implements SupervisedFilter, Optio
      *
      * @return the subsample size
      */
-    public double getSampleSizePercent() {
-        return m_SampleSizePercent;
+    public double getSampleSizeRatio() {
+        return m_SampleSizeRatio;
     }
 
     /**
      * Sets the size of the subsample, as a percentage of the original set.
      *
-     * @param newSampleSizePercent the subsample set size, between 0 and 1.0.
+     * @param sampleSizeRatio the subsample set size, between 0 and 1.0.
      */
-    public void setSampleSizePercent(double newSampleSizePercent) {
-        m_SampleSizePercent = newSampleSizePercent;
+    public void setSampleSizeRatio(double sampleSizeRatio) {
+        m_SampleSizeRatio = sampleSizeRatio;
     }
 
     /**
@@ -293,7 +255,7 @@ public class UnbalancedSampler extends Filter implements SupervisedFilter, Optio
      * @return tip text for this property suitable for displaying in the
      * explorer/experimenter gui
      */
-    public String classPercentTipText() {
+    public String sampleClassRatioTipText() {
         return "The subsample size as a percentage of the original set.";
     }
 
@@ -302,17 +264,17 @@ public class UnbalancedSampler extends Filter implements SupervisedFilter, Optio
      *
      * @return the subsample size
      */
-    public double getClassPercent() {
-        return m_classPercent;
+    public double getSampleClassRatio() {
+        return m_sampleClassRatio;
     }
 
     /**
      * Sets the size of the subsample, as a percentage of the original set.
      *
-     * @param classPercent the subsample set size, between 0 and 1.0.
+     * @param sampleClassRatio the subsample set size, between 0 and 1.0.
      */
-    public void setClassPercent(double classPercent) {
-        m_classPercent = classPercent;
+    public void setSampleClassRatio(double sampleClassRatio) {
+        m_sampleClassRatio = sampleClassRatio;
     }
 
     /**
@@ -331,8 +293,7 @@ public class UnbalancedSampler extends Filter implements SupervisedFilter, Optio
         result.enable(Capabilities.Capability.MISSING_VALUES);
 
         // class
-//        result.enable(Capabilities.Capability.NOMINAL_CLASS);
-        result.enable(Capabilities.Capability.BINARY_CLASS);//TODO check if this works
+        result.enable(Capabilities.Capability.BINARY_CLASS);
 
         return result;
     }
@@ -422,35 +383,38 @@ public class UnbalancedSampler extends Filter implements SupervisedFilter, Optio
         }
 
         if (Arrays.stream(numInstancesPerClass).anyMatch(i -> i == 0)) {
-            logger.error("Data contains less than 2 classes");
+            logger.error("Data contains less than 2 class labels");
             return;
         }
 
-        int numActualClasses = 2;//Arrays.stream(numInstancesPerClass).sum();
-
         // Collect data per class
-//        Instance[][] instancesPerClass = new Instance[data.numClasses()][];
         Instance[][] instancesPerClass = new Instance[2][];
         instancesPerClass[0] = new Instance[numInstancesPerClass[0]];
         instancesPerClass[1] = new Instance[numInstancesPerClass[1]];
 
 
-        int[] counterPerClass = new int[2];//TODO 2
-        for (Instance instance : data) {
-            int classValue = (int) instance.classValue();
-            instancesPerClass[classValue][counterPerClass[classValue]++] = instance;
-        }
+//        int[] counterPerClass = new int[2];//TODO 2
+//        for (Instance instance : data) {
+//            int classValue = (int) instance.classValue();
+//            instancesPerClass[classValue][counterPerClass[classValue]++] = instance;
+//        }
 
         // Determine how much data we want for each class
-        int numOutSamples = (int) Math.round(data.numInstances() * m_SampleSizePercent);
+        int numOutSamples = (int) Math.round(data.numInstances() * m_SampleSizeRatio);
 
+        //default ratio value is same as distribution of original dataset
+        double ratio = (double) numInstancesPerClass[0] / (double) data.numInstances();
+        logger.info("original ratio = {}", ratio);
+        if (m_sampleClassRatio > 0 && m_sampleClassRatio < 1.0) {
+            ratio = m_sampleClassRatio;
+            logger.info("new ratio = {}", ratio);
+        }
         int[] numInstancesToSample = new int[2];
-        numInstancesToSample[0] = (int) (m_classPercent * numOutSamples);
+        numInstancesToSample[0] = (int) (ratio * numOutSamples);
         numInstancesToSample[1] = numOutSamples - numInstancesToSample[0];
 
 
-
-
+        //Now do the sampling
         Random random = new Random(m_RandomSeed);
         for (int i = 0; i < data.numClasses(); i++) {
             int numEligible = numInstancesPerClass[i];
@@ -459,7 +423,7 @@ public class UnbalancedSampler extends Filter implements SupervisedFilter, Optio
                 push(instancesPerClass[i][random.nextInt(numEligible)]);
             }
         }
-
+        //TODO delete later
         logger.info("numOutSample = {}, 1st = {}, 2nd = {}",
                 numOutSamples,
                 numInstancesToSample[0],
@@ -474,7 +438,7 @@ public class UnbalancedSampler extends Filter implements SupervisedFilter, Optio
      */
     @Override
     public String getRevision() {
-        return RevisionUtils.extract("$Revision: 11310 $");
+        return RevisionUtils.extract("$Revision: 01 $");
     }
 
     /**
