@@ -8,10 +8,10 @@ import java.util.stream.Collectors;
 
 
 public class Story {
-    private final AtomicLong ID = new AtomicLong();
+    private final static AtomicLong ID = new AtomicLong();
 
     final private Map<StoryKey, Object> data;
-    public final long id = ID.getAndIncrement();
+    public final long id ;
 
     /**
      * Later stories would set the final values in the result
@@ -53,7 +53,7 @@ public class Story {
             return result;
 
         for (int i = 0; i < args.length / 2; i++) {
-            StoryKey key = (StoryKey) args[i];
+//            StoryKey key = (StoryKey) args[i];
             result.set((StoryKey) args[i], args[i + 1]);
         }
         return result;
@@ -64,6 +64,7 @@ public class Story {
     }
 
     public Story() {
+        id = ID.getAndIncrement();;
         data = new HashMap<>(StoryKey.values().length);
     }
 

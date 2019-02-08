@@ -12,12 +12,15 @@ import weka.classifiers.Evaluation;
 import weka.core.Instances;
 import weka.filters.Filter;
 import weka.filters.supervised.attribute.AttributeSelection;
+import weka.filters.supervised.instance.UnbalancedClassSampler;
 
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static sensetivity.TClassifier.MEDRI;
+import static sensetivity.TClassifier.NB;
+import static sensetivity.TEvaluator.L2;
 import static sensetivity.TEvaluator.PAS;
 
 public class StoryUtils {
@@ -78,6 +81,7 @@ public class StoryUtils {
         }
         return tClassifier.get(); //never reached !
     }
+
 
     public static Instances applyFilter(Story story, Instances data) throws Exception {
 
@@ -151,6 +155,31 @@ public class StoryUtils {
 
         return result;
     }
+
+//    public static Story playStoryL2Class(Story story,
+//                                  Instances data) {
+////        Story result = story.copy(StoryKey.dataset, data.relationName());
+//
+//        Story result = story; //mutual data structure
+//
+//
+//        try {
+//
+//
+//            Instances dataFiltered = applyFilter(story, data);
+//            assert (int) result.get(StoryKey.numAttributesToSelect) == dataFiltered.numAttributes() - 1;
+//
+//            Classifier classifier = getClassifier(story);
+//
+//            Story cvStory = applyCrossValidation(dataFiltered, classifier);
+//
+//            result.update(cvStory);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        return result;
+//    }
 
 
     public static List<Story> generate(Story story,
@@ -279,6 +308,8 @@ public class StoryUtils {
     }
 
 
+
+
     private static double evaluateAttribute(AttributeEvaluator attEval, int index) {
         try {
             return attEval.evaluateAttribute(index);
@@ -371,6 +402,9 @@ public class StoryUtils {
         }
         return result;
     }
+
+
+
 
 
     /**

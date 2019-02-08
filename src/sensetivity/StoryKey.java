@@ -22,7 +22,12 @@ public enum StoryKey {
     classifier, // NB, MeDRI
     support, //
     confidence, //
-
+    l2ResampleSizeRatio, // compared to original numInstances
+    l2ClassRatio, // for binary class labels only
+    l2ClassRepeat,
+    l2ClassExperimentID,
+    l2ClassExperimentIteration,
+    
     /* Classification results */
     errorRate,
     precision,

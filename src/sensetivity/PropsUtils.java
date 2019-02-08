@@ -32,6 +32,26 @@ public class PropsUtils extends Properties {
     private List<Double> confidences;
     private double cutoffThreshold;
 
+    private double l2ClassResampleSize;
+    private List<Double> l2ClassRatios;
+    private int l2ClassRepeat;
+    private boolean l2ClassRandomSeed;
+
+    public double getL2ClassResampleSize() {
+        return l2ClassResampleSize;
+    }
+
+    public void setL2ClassResampleSize(double l2ClassResampleSize) {
+        this.l2ClassResampleSize = l2ClassResampleSize;
+    }
+
+    public boolean isL2ClassRandomSeed() {
+        return l2ClassRandomSeed;
+    }
+
+    public void setL2ClassRandomSeed(boolean l2ClassRandomSeed) {
+        this.l2ClassRandomSeed = l2ClassRandomSeed;
+    }
 
     private String arffDir;
     private List<String> datasets;
@@ -89,6 +109,25 @@ public class PropsUtils extends Properties {
         return cutoffThreshold;
     }
 
+    public int getL2ClassRepeat() {
+        return l2ClassRepeat;
+    }
+
+    public void setL2ClassRepeat(int l2ClassRepeat) {
+        this.l2ClassRepeat = l2ClassRepeat;
+    }
+
+    public List<Double> getL2ClassRatios() {
+        return l2ClassRatios;
+    }
+
+    public void setL2ClassRatios(List<Double> l2ClassRatios) {
+        this.l2ClassRatios = l2ClassRatios;
+    }
+
+    public void setL2ClassRatios(double ... ratios) {
+        this.l2ClassRatios = Arrays.stream(ratios).boxed().collect(Collectors.toList());
+    }
 
     public String getOutDir() {
         return outDir;
@@ -147,6 +186,22 @@ public class PropsUtils extends Properties {
                 .boxed()
                 .collect(Collectors.toList());
 
+        l2ClassResampleSize = Double.parseDouble(
+                getProperty("l2.class.resample.size", "1.0"));
+        logger.debug("l2.class.resample.size = {}", l2ClassResampleSize);
+
+        l2ClassRatios = getStream("l2.class.ratios")
+                .mapToDouble(i -> Double.valueOf(i))
+                .boxed()
+                .collect(Collectors.toList());
+        logger.debug("l2.class.ratios : {}", getL2ClassRatios());
+
+        l2ClassRepeat = Integer.parseInt(getProperty("l2.class.repeat"), 10);
+        logger.debug("l2.class.repeat : {}", getL2ClassRepeat());
+
+        l2ClassRandomSeed = Boolean.parseBoolean(getProperty("l2.class.random.seed", "False"));
+        logger.debug("l2.class.random.seed : {}", l2ClassRandomSeed);
+
         arffDir = getProperty("arff.dir").trim();
 
         datasets = Arrays.asList(getProperty("datasets", "")
@@ -161,7 +216,7 @@ public class PropsUtils extends Properties {
 
     public static void main(String[] args)
             throws IOException {
-        PropsUtils params = PropsUtils.of("data/sami.final.properties");
+        PropsUtils params = PropsUtils.of("data/conf_l2_unbalanced.properties");
 
         System.out.println("params.getPasMethods() = " + params.getPasMethods());
         System.out.println("evalSupports = " + params.getEvalSupports());
@@ -174,5 +229,11 @@ public class PropsUtils extends Properties {
         System.out.println("params.getClassifiers() = "
                 + params.getClassifiers());
         System.out.println("params.getCutoffThreshold() = " + params.getCutoffThreshold());
+
+        logger.info("l2.class.repeat = {}", params.getL2ClassRepeat());
+        logger.info("l2.class.ratios = {}", params.getL2ClassRatios());
+        logger.info("l2.class.random.seed = {}", params.isL2ClassRandomSeed());
+        logger.info("l2.class.resample.size = {}", params.getL2ClassResampleSize());
+
     }
 }

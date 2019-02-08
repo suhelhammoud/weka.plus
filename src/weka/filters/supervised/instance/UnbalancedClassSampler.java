@@ -403,10 +403,9 @@ public class UnbalancedClassSampler extends Filter implements SupervisedFilter, 
 
         //default ratio value is same as distribution of original dataset
         double ratio = (double) numInstancesPerClass[0] / (double) data.numInstances();
-        logger.info("original ratio = {}", ratio);
         if (m_sampleClassRatio > 0 && m_sampleClassRatio < 1.0) {
             ratio = m_sampleClassRatio;
-            logger.info("new ratio = {}", ratio);
+//            logger.info("new ratio = {}", ratio);
         }
         int[] numInstancesToSample = new int[2];
         numInstancesToSample[0] = (int) (ratio * numOutSamples);
@@ -422,11 +421,7 @@ public class UnbalancedClassSampler extends Filter implements SupervisedFilter, 
                 push(instancesPerClass[i][random.nextInt(numEligible)]);
             }
         }
-        //TODO delete later
-        logger.info("numOutSample = {}, 1st = {}, 2nd = {}",
-                numOutSamples,
-                numInstancesToSample[0],
-                numInstancesToSample[1]);
+
 
     }
 
