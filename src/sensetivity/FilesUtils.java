@@ -24,12 +24,16 @@ public class FilesUtils {
 
     public static boolean writeStoriesToFile(Path outDir,
                                              String filename,
-                                             List<Story> stories) {
+                                             List<Story> stories,
+                                             StoryKey... keys) {
 
         List<String> content = new ArrayList<>(stories.size() + 2);
-        content.add(StoryKey.csvHeaders());
+        content.add(keys.length > 0 ?
+                StoryKey.csvHeaders(keys) :
+                StoryKey.csvHeaders());
+
         content.addAll(stories.stream()
-                .map(s -> s.stringValues())
+                .map(s -> s.stringValues(keys))
                 .collect(Collectors.toList()));
         return writeToFile(outDir, filename, content);
 
@@ -123,7 +127,7 @@ public class FilesUtils {
                 saver.setFile(Paths.get(outDir, path.getFileName().toString()).toFile());
                 saver.writeBatch();
             } catch (Exception e) {
-                logger.error("Can not discretize "+ path.toString());
+                logger.error("Can not discretize " + path.toString());
                 e.printStackTrace();
             }
         }

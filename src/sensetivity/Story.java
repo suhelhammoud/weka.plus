@@ -11,7 +11,7 @@ public class Story {
     private final static AtomicLong ID = new AtomicLong();
 
     final private Map<StoryKey, Object> data;
-    public final long id ;
+    public final long id;
 
     /**
      * Later stories would set the final values in the result
@@ -64,7 +64,8 @@ public class Story {
     }
 
     public Story() {
-        id = ID.getAndIncrement();;
+        id = ID.getAndIncrement();
+
         data = new HashMap<>(StoryKey.values().length);
     }
 
@@ -79,8 +80,19 @@ public class Story {
     }
 
 
-    public String stringValues() {
-        return Arrays.stream(StoryKey.values())
+//    public String stringValues() {
+//        return Arrays.stream(StoryKey.values())
+//                .map(key -> data.containsKey(key) ?
+//                        data.get(key).toString() :
+//                        "")
+//                .collect(Collectors.joining(", "));
+//    }
+
+    public String stringValues(StoryKey... keys) {
+        return Arrays.stream(
+                keys.length > 0 ?
+                        keys :
+                        StoryKey.values())
                 .map(key -> data.containsKey(key) ?
                         data.get(key).toString() :
                         "")

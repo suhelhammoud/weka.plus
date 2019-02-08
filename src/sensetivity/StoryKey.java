@@ -34,10 +34,19 @@ public enum StoryKey {
     recall,
     fMeasure;
 
-    public static String csvHeaders() {
-        //TODO check EnumSet.allOf(StoryKey)
-        return Arrays.stream(StoryKey.values())
-                .map(item -> item.toString())
+//    public static String csvHeaders() {
+//        //TODO check EnumSet.allOf(StoryKey)
+//        return Arrays.stream(StoryKey.values())
+//                .map(item -> item.toString())
+//                .collect(Collectors.joining(", "));
+//    }
+
+    public static String csvHeaders(StoryKey... keys) {
+        return Arrays.stream(keys.length > 0 ?
+                keys : StoryKey.values())
+                .map(key -> key.toString())
                 .collect(Collectors.joining(", "));
     }
+
+
 }

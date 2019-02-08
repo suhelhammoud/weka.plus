@@ -15,12 +15,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static sensetivity.StoryUtils.getASEvaluation;
 import static sensetivity.TClassifier.NB;
 import static sensetivity.TEvaluator.L2;
 
@@ -58,7 +57,7 @@ public class StoryDriverL2Unbalanced {
         Ranker search = new Ranker();
         search.setNumToSelect(numToSelect);
 
-        ASEvaluation evaluator = L2.get();
+        ASEvaluation evaluator = getASEvaluation(story);
 
         AttributeSelection result = new AttributeSelection();
         result.setEvaluator(evaluator);
@@ -90,7 +89,7 @@ public class StoryDriverL2Unbalanced {
         final int numAttributes = (int) story.get(StoryKey.numAttributes);
         return IntStream.rangeClosed(1, numAttributes)
                 .mapToObj(i -> story.copy(StoryKey.numAttributesToSelect, i))
-                .map( s -> s.set(StoryKey.l2ClassExperimentID, s.id))
+                .map(s -> s.set(StoryKey.l2ClassExperimentID, s.id))
                 .collect(Collectors.toList());
     }
 
@@ -116,16 +115,21 @@ public class StoryDriverL2Unbalanced {
             int numAttributes,
             double resampleSizeRatio,
             double classRatio,
-            int repeat) {
+            int repeat,
+            TClassifier classifier,
+            TEvaluator eval
+    ) {
         Story bs = Story.get()
                 .set(StoryKey.dataset, relationName)
                 .set(StoryKey.numInstances, numInstances)
                 .set(StoryKey.numAttributes, numAttributes)
-                .set(StoryKey.evalMethod, L2)
-                .set(StoryKey.classifier, NB)
+                .set(StoryKey.evalMethod, eval)
+                .set(StoryKey.classifier, classifier)
                 .set(StoryKey.l2ResampleSizeRatio, resampleSizeRatio)
                 .set(StoryKey.l2ClassRatio, classRatio)
-                .set(StoryKey.l2ClassRepeat, repeat);
+                .set(StoryKey.l2ClassRepeat, repeat)
+                .set(StoryKey.evalMethod, eval);
+
         bs.set(StoryKey.l2ClassExperimentID, bs.id);
         return propStoriesNumAttSelected(bs);
     }
@@ -133,7 +137,7 @@ public class StoryDriverL2Unbalanced {
     public static List<Story> setRepeat(List<Story> stories, int iteration) {
         return stories.stream()
                 .map(s -> s.copy()
-                        .set(StoryKey.l2ClassExperimentIteration, iteration + 1)
+                                .set(StoryKey.l2ClassExperimentIteration, iteration + 1)
 //                        .set(StoryKey.l2ClassExperimentID, s.id)
                 )
                 .collect(Collectors.toList());
@@ -159,9 +163,9 @@ public class StoryDriverL2Unbalanced {
     }
 
 
-
     public static void experimentL2Unbalanced(String... args) throws IOException {
         Random rnd = new Random(0);
+        StoryKey[] headers = getStorykeysHeaders();
 
         String confName = args.length > 0 ? args[0] : "data/experimentL2Unbalanced.properties";
         PropsUtils params = PropsUtils.of(confName);
@@ -186,6 +190,9 @@ public class StoryDriverL2Unbalanced {
 
         for (Path datasetPath : arffDatasets) {
 
+            TEvaluator eval = params.getEvaluatorMethods().get(0); //Dirty one eval value
+            TClassifier classifier = params.getClassifiers().get(0);
+
             Instances data = FilesUtils.instancesOf(datasetPath);
             logger.info("processing dataset: {}", data.relationName());
             data.setClassIndex(data.numAttributes() - 1);
@@ -203,7 +210,9 @@ public class StoryDriverL2Unbalanced {
                         data.numAttributes() - 1,
                         resampleSize,
                         classRatios.get(ratioIndex),
-                        repeat);
+                        repeat,
+                        classifier,
+                        eval);
 
                 for (int iteration = 0; iteration < repeat; iteration++) {
 
@@ -212,29 +221,77 @@ public class StoryDriverL2Unbalanced {
                             resampleSize,
                             classRatios.get(ratioIndex),
                             rnd.nextLong()
-                            );
+                    );
 
                     unbalancedData.setRelationName(data.relationName());
                     List<Story> iterStories = setRepeat(expStories, iteration);
 
                     iterStories.parallelStream()
                             .forEach(
-                            s -> playStory(s, unbalancedData)
-                    );
+                                    s -> playStory(s, unbalancedData)
+                            );
 
                     stories.addAll(iterStories);
                 }
-
-
             }
 
+            List<Story> avgStories = storiesWithAvg(stories,
+                    StoryKey.errorRate,
+                    StoryKey.precision,
+                    StoryKey.recall,
+                    StoryKey.fMeasure);
 
+//            List<Story> avgStories = stories;
             FilesUtils.writeStoriesToFile(resultDir,
                     datasetPath.getFileName().toString() + ".csv"
-                    , stories);
+                    , avgStories, headers);
         }
     }
 
+    public static StoryKey[] getStorykeysHeaders() {
+        return new StoryKey[]{
+                StoryKey.dataset,
+                StoryKey.numInstances,
+                StoryKey.numAttributes,
+                StoryKey.evalMethod,
+                StoryKey.classifier,
+                StoryKey.l2ClassRepeat,
+                StoryKey.l2ResampleSizeRatio,
+                StoryKey.numAttributesToSelect,
+                StoryKey.l2ClassRatio,
+                StoryKey.errorRate,
+                StoryKey.precision,
+                StoryKey.recall,
+                StoryKey.fMeasure
+        };
+    }
+
+    ;
+
+    public static List<Story> storiesWithAvg(List<Story> stories, StoryKey... keys) {
+        List<Story> result = new ArrayList<>();
+
+        Map<Long, List<Story>> mappedStories = stories.stream()
+                .collect(Collectors.groupingBy(item -> (Long) item.get(StoryKey.l2ClassExperimentID)));
+
+        for (List<Story> subStories : mappedStories.values()) {
+            Story outStory = subStories.get(0).copy();
+
+            for (StoryKey key : keys) {
+                double dbl = subStories.stream()
+                        .mapToDouble(s -> (Double) s.get(key))
+                        .average()
+                        .getAsDouble();
+                outStory.set(key, dbl);
+            }
+
+            result.add(outStory);
+        }
+
+        return result;
+    }
+
+    ;
 
     public static void playStory(Story story, Instances data) {
 //        if(true) return;
