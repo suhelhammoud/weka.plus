@@ -44,7 +44,6 @@ public class FilesUtils {
                                       List<String> content) {
         Path path = Paths.get(outDir.toString(), filename);
 
-//        try(Files.write(path, content)){}
         try {
             Files.write(path, content);
             return true;
@@ -74,9 +73,6 @@ public class FilesUtils {
         return null; //never reached TODO
     }
 
-    public static Instances instancesOf(String path) {
-        return instancesOf(Paths.get(path));
-    }
 
     public static Instances instancesOf(Path path) {
         try {
@@ -101,40 +97,7 @@ public class FilesUtils {
         return result;
     }
 
-    public static String fileNameNoSuffix(Path path) {
-        String fileName = path.getFileName().toString();
-        int extensionIndex = fileName.lastIndexOf(".");
-
-        return fileName.substring(0, extensionIndex);
-    }
-
-    public static void discretize(String inDir, String outDir) throws Exception {
-
-        List<Path> arffDatasets = FilesUtils.listFiles(inDir, ".arff");
-        for (Path path : arffDatasets) {
-            try {
-
-                Instances data = instancesOf(path);
-                data.setClassIndex(data.numAttributes() - 1);
-                Discretize disTransform = new Discretize();
-                disTransform.setUseBetterEncoding(true);
-                disTransform.setInputFormat(data);
-                Instances dataD = Filter.useFilter(data, disTransform);
-                dataD.setRelationName(data.relationName());
-
-                ArffSaver saver = new ArffSaver();
-                saver.setInstances(dataD);
-                saver.setFile(Paths.get(outDir, path.getFileName().toString()).toFile());
-                saver.writeBatch();
-            } catch (Exception e) {
-                logger.error("Can not discretize " + path.toString());
-                e.printStackTrace();
-            }
-        }
-    }
-
     public static void main(String[] args) throws Exception {
-        discretize("data/arff", "/tmp/a");
 //        Path outDir = createOutDir("data/result");
 //        List<String> content = Arrays.asList("one", "two", "three");
 //        boolean written = writeToFile(outDir, "out.txt", content);

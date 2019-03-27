@@ -9,9 +9,9 @@ import java.util.stream.Collectors;
 
 public class Story {
     private final static AtomicLong ID = new AtomicLong();
+    public final long id;
 
     final private Map<StoryKey, Object> data;
-    public final long id;
 
     /**
      * Later stories would set the final values in the result
@@ -20,12 +20,8 @@ public class Story {
      * @return
      */
     public static Story of(Story... stories) {
-        final Story result = new Story();
-        Arrays.stream(stories).forEach(s -> {
-            result.update(s);
-        });
-
-        return result;
+        return Arrays.stream(stories)
+                .reduce(new Story(), Story::update);
     }
 
     /**
@@ -35,15 +31,19 @@ public class Story {
      * @return
      */
     public Story update(Story that) {
-        for (Map.Entry<StoryKey, Object> ent : that.data.entrySet()) {
-            this.set(ent.getKey(), ent.getValue());
-        }
+        that.data.entrySet()
+                .stream()
+                .forEach(entry ->
+                        this.set(entry.getKey(), entry.getValue()));
         return this;
     }
 
     /**
-     * @param args
-     * @return
+     * Copy and add pair of (key,value) to the resulted Story
+     *
+     * @param args Must be an even number in order to accept the (key, value) pairs
+     * @return copy of this Story with additional (key, value) pairs set in args
+     * If number of args is not even then return only copy of this story
      */
     public Story copy(Object... args) {
         Story result = new Story();
@@ -51,9 +51,7 @@ public class Story {
 
         if (args.length % 2 != 0)
             return result;
-
         for (int i = 0; i < args.length / 2; i++) {
-//            StoryKey key = (StoryKey) args[i];
             result.set((StoryKey) args[i], args[i + 1]);
         }
         return result;
@@ -63,10 +61,9 @@ public class Story {
         return new Story();
     }
 
-    public Story() {
+    private Story() {
         id = ID.getAndIncrement();
-
-        data = new HashMap<>(StoryKey.values().length);
+         data = new HashMap<>(StoryKey.values().length);
     }
 
     public Object get(StoryKey key) {
@@ -78,15 +75,6 @@ public class Story {
         data.put(key, value);
         return this;
     }
-
-
-//    public String stringValues() {
-//        return Arrays.stream(StoryKey.values())
-//                .map(key -> data.containsKey(key) ?
-//                        data.get(key).toString() :
-//                        "")
-//                .collect(Collectors.joining(", "));
-//    }
 
     public String stringValues(StoryKey... keys) {
         return Arrays.stream(
@@ -107,12 +95,16 @@ public class Story {
     public static void main(String[] args) {
         System.out.println(StoryKey.csvHeaders());
 
-        Story srun = Story.get()
+        Story a = Story.get()
                 .set(StoryKey.dataset, "irirs")
                 .set(StoryKey.evalMethod, TEvaluator.IG);
 
-        srun.set(StoryKey.errorRate, 77);
-        System.out.println(srun.stringValues());
+        Story b = Story.get()
+                .set(StoryKey.dataset, "irirsb")
+                .set(StoryKey.errorRate, 0);
+
+        Story result = Story.of(a, b);
+        System.out.println(result.stringValues());
     }
 
 }

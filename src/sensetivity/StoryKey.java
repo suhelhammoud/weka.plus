@@ -4,8 +4,6 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public enum StoryKey {
-//  dataset, numAttributes, method, median, variables,
-//  classifier, errorRate, precision, recall, fMeasure
 
     dataset, //relation name, or dataset filename
     numInstances,
@@ -34,12 +32,6 @@ public enum StoryKey {
     recall,
     fMeasure;
 
-//    public static String csvHeaders() {
-//        //TODO check EnumSet.allOf(StoryKey)
-//        return Arrays.stream(StoryKey.values())
-//                .map(item -> item.toString())
-//                .collect(Collectors.joining(", "));
-//    }
 
     public static String csvHeaders(StoryKey... keys) {
         return Arrays.stream(keys.length > 0 ?
@@ -47,6 +39,4 @@ public enum StoryKey {
                 .map(key -> key.toString())
                 .collect(Collectors.joining(", "));
     }
-
-
 }

@@ -37,6 +37,14 @@ public class PropsUtils extends Properties {
     private int l2ClassRepeat;
     private boolean l2ClassRandomSeed;
 
+    private String arffDir;
+    private List<String> datasets;
+    private String outDir;
+
+    private boolean printRanks;
+
+    private List<PasMethod> pasMethods;
+
     public double getL2ClassResampleSize() {
         return l2ClassResampleSize;
     }
@@ -53,13 +61,7 @@ public class PropsUtils extends Properties {
         this.l2ClassRandomSeed = l2ClassRandomSeed;
     }
 
-    private String arffDir;
-    private List<String> datasets;
-    private String outDir;
 
-    private boolean printRanks;
-
-    private List<PasMethod> pasMethods;
 
     public List<PasMethod> getPasMethods() {
         return pasMethods;
@@ -210,8 +212,6 @@ public class PropsUtils extends Properties {
         outDir = getProperty("out.dir", "data/results");
 
         printRanks = Boolean.valueOf(getProperty("print.ranks", "false"));
-
-
     }
 
     public static void main(String[] args)
@@ -234,6 +234,5 @@ public class PropsUtils extends Properties {
         logger.info("l2.class.ratios = {}", params.getL2ClassRatios());
         logger.info("l2.class.random.seed = {}", params.isL2ClassRandomSeed());
         logger.info("l2.class.resample.size = {}", params.getL2ClassResampleSize());
-
     }
 }

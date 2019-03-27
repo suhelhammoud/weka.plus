@@ -5,7 +5,6 @@ import weka.core.OptionHandler;
 import weka.core.SelectedTag;
 import weka.core.Utils;
 
-import javax.rmi.CORBA.Util;
 import java.io.Serializable;
 import java.util.Enumeration;
 import java.util.Vector;
