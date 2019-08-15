@@ -7,66 +7,63 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b4ffecf-fd2d-4ac9-8d65-3aedb6a8be09" name="Default" comment="Initial commit">
-      <change afterPath="$PROJECT_DIR$/data/conf_l2_unbalanced_variance.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/aut/Autism_Data_Adult_Version-2.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/Demo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/Estimate.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppLauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppLauncher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUILauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUILauncher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/logback.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensentivity/l2/L2RLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/l2/L2RLine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensentivity/l2/L2RTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/l2/L2RTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensentivity/l2/RTags.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/l2/RTags.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sensetivity/FilesUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/FilesUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sensetivity/PropsUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/PropsUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/RStoryDriver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/RStoryDriver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sensetivity/Story.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/Story.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryDriver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryDriver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryDriverL2Unbalanced.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryDriverL2Unbalanced.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryDriverL2UnbalancedVariance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryDriverL2UnbalancedVariance.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryKey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/TClassifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/TClassifier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/TEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/TEvaluator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/ChiSquaredAttributeEval.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/ChiSquaredAttributeEval.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/EntropyRankerSubset.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/EntropyRankerSubset.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/L2AttributeEval.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/L2AttributeEval.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/L2RankerSubset.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/L2RankerSubset.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/PasAttributeEval.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/PasAttributeEval.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/Va.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/Va.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/VaCfsEval.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/VaCfsEval.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/ATest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/ATest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/CutOffPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/CutOffPoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasMax.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasMethod.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasMethod.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasOptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasOptions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/Tuple.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/Tuple.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/MeDRI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/MeDRI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/eDRI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/eDRI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/edri/DRIOptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/edri/DRIOptions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/edri/DRIRule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/edri/DRIRule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/edri/DRITest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/edri/DRITest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/edri/EDRIUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/edri/EDRIUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/IRule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/IRule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/IRuleLines.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/IRuleLines.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/MaxIndex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/MaxIndex.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/MeDRIResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/MeDRIResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/MedriOptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/MedriOptions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/MedriUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/MedriUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/Pair.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/Pair.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/filters/supervised/instance/UnbalancedClassSampler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/filters/supervised/instance/UnbalancedClassSampler.java" afterDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sensentivity/l2/L2RTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="434">
-              <caret line="210" column="17" selection-start-line="210" selection-start-column="17" selection-end-line="210" selection-end-column="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/data/conf_l2_unbalanced_variance.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sensetivity/StoryDriverL2UnbalancedVariance.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
-              <caret line="241" column="21" selection-start-line="241" selection-start-column="21" selection-end-line="241" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sensetivity/FilesUtils.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="24" column="11" selection-start-line="24" selection-start-column="11" selection-end-line="24" selection-end-column="11" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -123,63 +120,6 @@
       </map>
     </option>
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/src/weka/classifiers/rules/MeDRI.java" />
-        <option value="$PROJECT_DIR$/src/sensetivity/Experiment.java" />
-        <option value="$PROJECT_DIR$/src/sensetivity/PasParams.java" />
-        <option value="$PROJECT_DIR$/data/pas.properties" />
-        <option value="$PROJECT_DIR$/src/sensetivity/TClassifier.java" />
-        <option value="$PROJECT_DIR$/src/sensetivity/EvalParams.java" />
-        <option value="$PROJECT_DIR$/src/sensetivity/EvalProps.java" />
-        <option value="$PROJECT_DIR$/src/sensetivity/FileUtils.java" />
-        <option value="$PROJECT_DIR$/data/eval.properties" />
-        <option value="$PROJECT_DIR$/data/demo.properties" />
-        <option value="$PROJECT_DIR$/data/demo2.properties" />
-        <option value="$PROJECT_DIR$/data/demo/demo.arff" />
-        <option value="$PROJECT_DIR$/src/weka/classifiers/rules/medri/MeDRIResult.java" />
-        <option value="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasRule.java" />
-        <option value="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasMax.java" />
-        <option value="$PROJECT_DIR$/src/weka/attributeSelection/pas/Pair.java" />
-        <option value="$PROJECT_DIR$/src/weka/attributeSelection/pas/Tuple.java" />
-        <option value="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasAlgorithm.java" />
-        <option value="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasMethod.java" />
-        <option value="$PROJECT_DIR$/src/weka/classifiers/rules/medri/IRule.java" />
-        <option value="$PROJECT_DIR$/src/logback.xml" />
-        <option value="$PROJECT_DIR$/src/weka/attributeSelection/PasAttributeEvalDemo.java" />
-        <option value="$PROJECT_DIR$/src/sensetivity/Demo.java" />
-        <option value="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasItem.java" />
-        <option value="$PROJECT_DIR$/src/sensetivity/Estimate.java" />
-        <option value="$PROJECT_DIR$/data/conf_anneal.properties" />
-        <option value="$PROJECT_DIR$/data/results/0.properties" />
-        <option value="$PROJECT_DIR$/src/weka/attributeSelection/pas/CuttOffPoint.java" />
-        <option value="$PROJECT_DIR$/src/weka/attributeSelection/pas/CutOffPoint.java" />
-        <option value="$PROJECT_DIR$/src/weka/attributeSelection/PasAttributeEval.java" />
-        <option value="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasUtils.java" />
-        <option value="$PROJECT_DIR$/src/sensetivity/TEvaluator.java" />
-        <option value="$PROJECT_DIR$/data/conf.properties" />
-        <option value="$PROJECT_DIR$/data/conf_pas_methods.properties" />
-        <option value="$PROJECT_DIR$/data/sami.final.properties" />
-        <option value="$PROJECT_DIR$/data/conf_montecarlo.properties" />
-        <option value="$PROJECT_DIR$/src/weka/filters/supervised/instance/UnbalancedSampler.java" />
-        <option value="$PROJECT_DIR$/src/sensetivity/StoryDriver.java" />
-        <option value="$PROJECT_DIR$/src/sensetivity/StoryUtils.java" />
-        <option value="$PROJECT_DIR$/src/weka/filters/supervised/instance/UnbalancedClassSampler.java" />
-        <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/data/conf_l2_unbalanced.properties" />
-        <option value="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasOptions.java" />
-        <option value="$PROJECT_DIR$/src/sensetivity/StoryDriverL2Unbalanced.java" />
-        <option value="$PROJECT_DIR$/src/sensetivity/FilesUtils.java" />
-        <option value="$PROJECT_DIR$/src/sensetivity/PropsUtils.java" />
-        <option value="$PROJECT_DIR$/src/sensetivity/Story.java" />
-        <option value="$PROJECT_DIR$/src/sensetivity/StoryKey.java" />
-        <option value="$PROJECT_DIR$/src/sensetivity/RStoryDriver.java" />
-        <option value="$PROJECT_DIR$/src/sensetivity/StoryDriverL2UnbalancedVariance.java" />
-        <option value="$PROJECT_DIR$/data/conf_l2_unbalanced_variance.properties" />
-      </list>
-    </option>
-  </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="45" />
     <option name="y" value="25" />
@@ -187,82 +127,18 @@
     <option name="height" value="1055" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="weka.plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="weka.plus" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="weka.plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="weka.plus" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="weka.plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="weka.plus" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-              <item name="out" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="weka.plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="weka.plus" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-              <item name="out" type="462c0819:PsiDirectoryNode" />
-              <item name="OUt" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="weka.plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="weka.plus" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-              <item name="results" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="weka.plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="weka.plus" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="weka.plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="weka.plus" type="462c0819:PsiDirectoryNode" />
-              <item name="out" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="weka.plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="weka.plus" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="weka.plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="weka.plus" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="sensetivity" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
-    </panes>
-  </component>
   <component name="PropertiesComponent">
     <property name="GenerateAntBuildDialog.backupFiles" value="true" />
     <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
     <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="weka.plus" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="add_unversioned_files" value="$PROJECT_DIR$/data/results/1/cleved.arff.csv&#10;true&#10;/home/suhel/workspace/java/weka.plus/data/out/out.csv&#10;/home/suhel/workspace/java/weka.plus/data/results/0.properties" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/data/aut" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -272,11 +148,11 @@
       <recent name="weka.attributeSelection" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/data/aut" />
       <recent name="$PROJECT_DIR$/data" />
       <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/lib" />
       <recent name="$PROJECT_DIR$/src/weka/classifiers" />
-      <recent name="$PROJECT_DIR$/data/arff" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -422,66 +298,6 @@
       <is-autoscroll-to-source value="true" />
     </todo-panel>
   </component>
-  <component name="ToolWindowManager">
-    <frame x="1920" y="54" width="1440" height="902" extended-state="6" />
-    <editor active="true" />
-    <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25035867" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Designer" order="2" />
-      <window_info id="Favorites" order="3" side_tool="true" />
-      <window_info id="UI Designer" order="4" />
-      <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
-      <window_info anchor="bottom" id="SBT Console" order="1" weight="0.32988358" />
-      <window_info anchor="bottom" id="Message" order="2" />
-      <window_info anchor="bottom" id="Find" order="3" weight="0.32769832" />
-      <window_info anchor="bottom" id="Run" order="4" visible="true" weight="0.23415264" />
-      <window_info anchor="bottom" id="Debug" order="5" weight="0.32470894" />
-      <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="7" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="8" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.32341528" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="11" weight="0.32470894" />
-      <window_info anchor="bottom" id="Messages" order="12" weight="0.32665095" />
-      <window_info anchor="right" id="Maven" order="0" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="2" weight="0.1902679" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
-      <window_info anchor="right" id="Palette" order="4" />
-      <window_info anchor="right" id="Maven Projects" order="5" />
-      <window_info anchor="right" id="Palette&#9;" order="6" />
-      <window_info anchor="right" x="0" y="0" width="310" height="702" id="Documentation" order="7" side_tool="true" weight="0.3298611" />
-    </layout>
-    <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24246772" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Designer" order="2" />
-      <window_info id="Favorites" order="3" side_tool="true" />
-      <window_info id="UI Designer" order="4" />
-      <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
-      <window_info anchor="bottom" id="SBT Console" order="1" weight="0.32988358" />
-      <window_info anchor="bottom" id="Message" order="2" />
-      <window_info anchor="bottom" id="Find" order="3" weight="0.32769832" />
-      <window_info anchor="bottom" id="Run" order="4" weight="0.23544632" />
-      <window_info anchor="bottom" id="Debug" order="5" weight="0.32470894" />
-      <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="7" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="8" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.32470894" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="11" visible="true" weight="0.29624838" />
-      <window_info anchor="bottom" id="Messages" order="12" weight="0.32665095" />
-      <window_info anchor="right" id="Maven" order="0" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="2" weight="0.1902679" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
-      <window_info anchor="right" id="Palette" order="4" />
-      <window_info anchor="right" id="Maven Projects" order="5" />
-      <window_info anchor="right" id="Palette&#9;" order="6" />
-      <window_info anchor="right" x="0" y="0" width="310" height="702" id="Documentation" order="7" side_tool="true" weight="0.3298611" />
-    </layout-to-restore>
-  </component>
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.csv" />
   </component>
@@ -501,12 +317,6 @@
         <entry key="MAIN">
           <value>
             <State>
-              <option name="RECENTLY_FILTERED_USER_GROUPS">
-                <collection />
-              </option>
-              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
-                <collection />
-              </option>
               <option name="FILTERS">
                 <map>
                   <entry key="text">
@@ -518,14 +328,7 @@
                   </entry>
                 </map>
               </option>
-              <option name="COLUMN_ORDER">
-                <list>
-                  <option value="0" />
-                  <option value="1" />
-                  <option value="2" />
-                  <option value="3" />
-                </list>
-              </option>
+              <option name="COLUMN_ORDER" />
             </State>
           </value>
         </entry>
@@ -557,31 +360,26 @@
         <line-breakpoint enabled="true" type="java-line">
           <url>jar://$PROJECT_DIR$/lib/weka-src.jar!/src/main/java/weka/gui/explorer/ClassifierPanel.java</url>
           <line>1526</line>
-          <properties />
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>jar://$PROJECT_DIR$/lib/weka-src.jar!/src/main/java/weka/gui/explorer/ClassifierErrorsPlotInstances.java</url>
           <line>446</line>
-          <properties />
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/weka/attributeSelection/PasAttributeEval.java</url>
           <line>256</line>
-          <properties />
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/weka/attributeSelection/pas/PasUtils.java</url>
           <line>98</line>
-          <properties />
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/sensetivity/StoryUtils.java</url>
           <line>40</line>
-          <properties />
           <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
@@ -590,431 +388,5 @@
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/data/results/0/anneal.arff.csv" />
-    <entry file="file://$PROJECT_DIR$/src/weka/attributeSelection/pas/PasMethod.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="21" column="29" lean-forward="true" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/weka/attributeSelection/pas/PasUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="528" column="5" lean-forward="true" selection-start-line="528" selection-start-column="5" selection-end-line="528" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/weka/attributeSelection/PasAttributeEval.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="330" column="6" lean-forward="true" selection-start-line="330" selection-start-column="6" selection-end-line="330" selection-end-column="6" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1981#1982#0" expanded="true" />
-            <element signature="e#2043#2044#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/arff/credit-a.arff">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1080" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/arff/credit-g.arff">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/arff.discretize/anneal.arff">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-792" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/arff/anneal.arff">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25080">
-          <caret line="1045" column="19" selection-start-line="1045" selection-start-column="19" selection-end-line="1045" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/weka/attributeSelection/pas/CutOffPoint.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="93" column="29" selection-start-line="93" selection-start-column="29" selection-end-line="93" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2713#2714#0" expanded="true" />
-            <element signature="e#2771#2772#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/results/sami/2/anneal.arff.csv" />
-    <entry file="file://$PROJECT_DIR$/data/results/sami/0.properties" />
-    <entry file="file://$PROJECT_DIR$/src/sensetivity/Experiment.java" />
-    <entry file="jar://$PROJECT_DIR$/lib/weka-src.jar!/src/main/java/weka/filters/SupervisedFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="30" column="17" selection-start-line="30" selection-start-column="17" selection-end-line="30" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/conf_pas_methods.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/weka/attributeSelection/L2RankerSubset.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="88" column="17" selection-start-line="88" selection-start-column="17" selection-end-line="88" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/weka/attributeSelection/L2AttributeEval.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="66" column="22" selection-start-line="66" selection-start-column="22" selection-end-line="66" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/weka-src.jar!/src/main/java/weka/filters/Filter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14366">
-          <caret line="706" column="37" selection-start-line="706" selection-start-column="31" selection-end-line="706" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/weka-src.jar!/src/main/java/weka/filters/supervised/instance/Resample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="60" column="11" selection-start-line="60" selection-start-column="11" selection-end-line="60" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/sami.final.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sensetivity/TClassifier.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/weka-src.jar!/src/main/java/weka/attributeSelection/ASEvaluation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="41" column="22" selection-start-line="41" selection-start-column="22" selection-end-line="41" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sensetivity/TEvaluator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="5" column="22" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/results/all_avg/cleved.arff.csv" />
-    <entry file="file://$PROJECT_DIR$/src/weka/filters/supervised/instance/UnbalancedClassSampler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="408" column="9" selection-start-line="408" selection-start-column="9" selection-end-line="408" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#6015#6016#0" expanded="true" />
-            <element signature="e#6053#6054#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-97">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/results/1.properties" />
-    <entry file="file://$PROJECT_DIR$/data/results/2.properties" />
-    <entry file="file://$PROJECT_DIR$/data/results/creditg-chi.properties" />
-    <entry file="file://$PROJECT_DIR$/data/results/all_avg.properties" />
-    <entry file="file://$PROJECT_DIR$/data/results/3/cleved.arff.csv" />
-    <entry file="file://$PROJECT_DIR$/data/results/4/cleved.arff.csv" />
-    <entry file="file://$PROJECT_DIR$/data/conf.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="23" selection-start-line="23" selection-end-line="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/conf_l2_unbalanced.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="1" column="15" selection-start-line="1" selection-start-column="15" selection-end-line="1" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppLauncher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/weka/attributeSelection/pas/PasOptions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
-          <folding>
-            <element signature="e#7075#7083#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sensentivity/l2/L2RLine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="12" column="15" lean-forward="true" selection-start-line="12" selection-start-column="15" selection-end-line="12" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sensentivity/l2/RTags.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="26" column="11" lean-forward="true" selection-start-line="26" selection-start-column="11" selection-end-line="26" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sensetivity/Demo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sensetivity/Estimate.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="8" column="16" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sensetivity/PropsUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="236" selection-start-line="236" selection-end-line="236" />
-          <folding>
-            <element signature="e#1146#1147#0" expanded="true" />
-            <element signature="e#1188#1189#0" expanded="true" />
-            <element signature="e#1258#1259#0" expanded="true" />
-            <element signature="e#1320#1321#0" expanded="true" />
-            <element signature="e#3292#3293#0" expanded="true" />
-            <element signature="e#3338#3339#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sensetivity/Story.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="105" column="20" selection-start-line="105" selection-start-column="20" selection-end-line="105" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sensetivity/StoryKey.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sensetivity/StoryUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1512">
-          <caret line="48" column="26" lean-forward="true" selection-start-line="48" selection-start-column="26" selection-end-line="48" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sensetivity/StoryDriver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2079">
-          <caret line="89" column="24" selection-start-line="89" selection-start-column="24" selection-end-line="89" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sensetivity/StoryDriverL2Unbalanced.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="136" column="3" selection-start-line="136" selection-start-column="3" selection-end-line="143" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sensetivity/RStoryDriver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="19" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/results/1/cleved.arff.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="18" column="12" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sensetivity/FilesUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="24" column="11" selection-start-line="24" selection-start-column="11" selection-end-line="24" selection-end-column="11" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sensentivity/l2/L2RTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="434">
-          <caret line="210" column="17" selection-start-line="210" selection-start-column="17" selection-end-line="210" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sensetivity/StoryDriverL2UnbalancedVariance.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="241" column="21" selection-start-line="241" selection-start-column="21" selection-end-line="241" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/conf_l2_unbalanced_variance.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
-        </state>
-      </provider>
-    </entry>
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor />
-          <last-edited>weka.pas_1</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-                <option value="0.5" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <last-edited>No facets are configured</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <last-edited>scala-sdk-2.12.6</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <last-edited>9</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>weka.plus</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-                <option value="0.6" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectJDKs.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <last-edited>weka</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
   </component>
 </project>

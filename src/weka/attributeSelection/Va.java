@@ -78,7 +78,7 @@ enum MA_VA_FORMULA {
 };
 
 public class Va extends ASEvaluation implements
-    AttributeEvaluator, OptionHandler {
+        AttributeEvaluator, OptionHandler {
 
   /**
    * for serialization
@@ -118,8 +118,8 @@ public class Va extends ASEvaluation implements
    */
   public String globalInfo() {
     return "Va AttributeEval :\n\nEvaluates the worth of an attribute "
-        + "by computing the value of the |Va| with respect to the class.\n" +
-        "\n more info on :\nhttps://gitlab.com/suhel.hammoud/weka.3.8.1/blob/master/src/weka/attributeSelection";
+            + "by computing the value of the |Va| with respect to the class.\n" +
+            "\n more info on :\nhttps://gitlab.com/suhel.hammoud/weka.3.8.1/blob/master/src/weka/attributeSelection";
   }
 
   /**
@@ -138,13 +138,13 @@ public class Va extends ASEvaluation implements
   public Enumeration<Option> listOptions() {
     Vector<Option> newVector = new Vector<Option>(3);
     newVector.addElement(new Option("\ttreat missing values as a separate "
-        + "value.", "M", 0, "-M"));
+            + "value.", "M", 0, "-M"));
     newVector.addElement(new Option(
-        "\tjust binarize numeric attributes instead \n"
-            + "\tof properly discretizing them.", "B", 0, "-B"));
+            "\tjust binarize numeric attributes instead \n"
+                    + "\tof properly discretizing them.", "B", 0, "-B"));
     newVector.addElement(new Option(
-        "\tWether to use 0=Firuz/1=Suhel formula. (default 0=Firuz)",
-        "F", 1, "-F < Firuz | Suhel >"));
+            "\tWether to use 0=Firuz/1=Suhel formula. (default 0=Firuz)",
+            "F", 1, "-F < Firuz | Suhel >"));
 
     return newVector.elements();
   }
@@ -254,8 +254,8 @@ public class Va extends ASEvaluation implements
    */
   public String missingMergeTipText() {
     return "Distribute counts for missing values. Counts are distributed "
-        + "across other values in proportion to their frequency. Otherwise, "
-        + "missing is treated as a separate value.";
+            + "across other values in proportion to their frequency. Otherwise, "
+            + "missing is treated as a separate value.";
   }
 
   /**
@@ -366,21 +366,21 @@ public class Va extends ASEvaluation implements
           if (inst.isMissingSparse(i) || inst.classIsMissing()) {
             if (!inst.isMissingSparse(i)) {
               counts[inst.index(i)][(int) inst.valueSparse(i)][numClasses] += inst
-                  .weight();
+                      .weight();
               counts[inst.index(i)][0][numClasses] -= inst.weight();
             } else if (!inst.classIsMissing()) {
               counts[inst.index(i)][data.attribute(inst.index(i)).numValues()][(int) inst
-                  .classValue()] += inst.weight();
+                      .classValue()] += inst.weight();
               counts[inst.index(i)][0][(int) inst.classValue()] -= inst
-                  .weight();
+                      .weight();
             } else {
               counts[inst.index(i)][data.attribute(inst.index(i)).numValues()][numClasses] += inst
-                  .weight();
+                      .weight();
               counts[inst.index(i)][0][numClasses] -= inst.weight();
             }
           } else {
             counts[inst.index(i)][(int) inst.valueSparse(i)][(int) inst
-                .classValue()] += inst.weight();
+                    .classValue()] += inst.weight();
             counts[inst.index(i)][0][(int) inst.classValue()] -= inst.weight();
           }
         }
@@ -420,7 +420,7 @@ public class Va extends ASEvaluation implements
             for (int i = 0; i < numClasses; i++) {
               for (int j = 0; j < numValues; j++) {
                 additions[j][i] += (columnSums[i] / sum)
-                    * counts[k][j][numClasses];
+                        * counts[k][j][numClasses];
               }
             }
 
@@ -428,7 +428,7 @@ public class Va extends ASEvaluation implements
             for (int i = 0; i < numClasses; i++) {
               for (int j = 0; j < numValues; j++) {
                 additions[j][i] += (counts[k][j][i] / sum)
-                    * counts[k][numValues][numClasses];
+                        * counts[k][numValues][numClasses];
               }
             }
 
@@ -451,7 +451,7 @@ public class Va extends ASEvaluation implements
     for (int i = 0; i < data.numAttributes(); i++) {
       if (i != classIndex) {
         m_InfoGains[i] = (ContingencyTables.entropyOverColumns(counts[i]) - ContingencyTables
-            .entropyConditionedOnRows(counts[i]));
+                .entropyConditionedOnRows(counts[i]));
       }
     }
 
@@ -461,7 +461,7 @@ public class Va extends ASEvaluation implements
     for (int i = 0; i < data.numAttributes(); i++) {
       if (i != classIndex) {
         m_ChiSquareds[i] = ContingencyTables.chiVal(
-            ContingencyTables.reduceMatrix(counts[i]), false);
+                ContingencyTables.reduceMatrix(counts[i]), false);
       }
     }
 
@@ -477,18 +477,18 @@ public class Va extends ASEvaluation implements
 
 
     if (m_Va.length != m_ChiSquareds.length ||
-        m_Va.length != m_InfoGains.length)
+            m_Va.length != m_InfoGains.length)
       throw new AssertionError("m_va length != m_InfoGains.length != m_ChiSquareds.lenght");
   }
 
   public static double[] normalizedVectorSuhel(double[] values) {
     double sqrtSumSquares = Math.sqrt(
-        Arrays.stream(values)
-            .map(value -> value * value)
-            .sum());
+            Arrays.stream(values)
+                    .map(value -> value * value)
+                    .sum());
     return Arrays.stream(values)
-        .map(value -> value / sqrtSumSquares)
-        .toArray();
+            .map(value -> value / sqrtSumSquares)
+            .toArray();
   }
 
   /**
@@ -508,9 +508,9 @@ public class Va extends ASEvaluation implements
     double[] chiF = normalizedVectorFiruz(chi);
 
     return IntStream.range(0, igF.length)
-        .mapToDouble(i -> Math.sqrt(igF[i] * igF[i]
-            + chiF[i] * chiF[i]))
-        .toArray();
+            .mapToDouble(i -> Math.sqrt(igF[i] * igF[i]
+                    + chiF[i] * chiF[i]))
+            .toArray();
   }
 
   private static double[] vaSuhel(double[] ig, double[] chi) {
@@ -519,9 +519,9 @@ public class Va extends ASEvaluation implements
     double[] chiF = normalizedVectorSuhel(chi);
 
     double[] vaTmp = IntStream.range(0, igF.length)
-        .mapToDouble(i -> Math.sqrt(igF[i] * igF[i]
-            + chiF[i] * chiF[i]))
-        .toArray();
+            .mapToDouble(i -> Math.sqrt(igF[i] * igF[i]
+                    + chiF[i] * chiF[i]))
+            .toArray();
     return normalizedVectorSuhel(vaTmp);
   }
 
