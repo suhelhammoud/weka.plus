@@ -1,4 +1,4 @@
-package sensentivity.l2;
+package sensetivity.l2;
 
 import weka.classifiers.Evaluation;
 import weka.classifiers.bayes.NaiveBayes;

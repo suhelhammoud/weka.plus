@@ -1,4 +1,4 @@
-package sensentivity.l2;
+package sensetivity.l2;
 
 import weka.attributeSelection.ChiSquaredAttributeEval;
 import weka.attributeSelection.InfoGainAttributeEval;
