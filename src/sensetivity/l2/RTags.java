@@ -12,7 +12,6 @@ enum L2AttributeEvalMethod {
       case L2:
         return InfoGainAttributeEval.class.getName();
       case IG:
-        return ChiSquaredAttributeEval.class.getName();
       case CHI:
         return ChiSquaredAttributeEval.class.getName();
     }
@@ -37,7 +36,9 @@ enum L2RClassifier {
 }
 
 enum L2KEYS {
-  dataset, numAttributes, att_method, median, variables,
-  classifier, errorRate, precision, recall, fMeasure
+  dataset, numAttributes, att_method, median,
+  variables, classifier, errorRate, precision,
+  recall, fMeasure, weightedAreaUnderROC,
+  areaUnderROC0, areaUnderROC1
 }
 

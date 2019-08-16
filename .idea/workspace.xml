@@ -7,57 +7,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b4ffecf-fd2d-4ac9-8d65-3aedb6a8be09" name="Default" comment="Initial commit">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/aut/Autism_Data_Adult_Version-2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/aut/Autism.arff" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppLauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppLauncher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUILauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUILauncher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/logback.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensentivity/l2/L2RLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/l2/L2RLine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensentivity/l2/L2RTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/l2/L2RTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensentivity/l2/RTags.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/l2/RTags.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sensetivity/FilesUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/FilesUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/PropsUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/PropsUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/RStoryDriver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/RStoryDriver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sensetivity/Story.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/Story.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryDriver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryDriver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryDriverL2Unbalanced.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryDriverL2Unbalanced.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryDriverL2UnbalancedVariance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryDriverL2UnbalancedVariance.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryKey.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/TClassifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/TClassifier.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sensetivity/TEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/TEvaluator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/ChiSquaredAttributeEval.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/ChiSquaredAttributeEval.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/EntropyRankerSubset.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/EntropyRankerSubset.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/L2AttributeEval.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/L2AttributeEval.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/L2RankerSubset.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/L2RankerSubset.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/PasAttributeEval.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/PasAttributeEval.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/Va.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/Va.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/VaCfsEval.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/VaCfsEval.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/ATest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/ATest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/CutOffPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/CutOffPoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasMax.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasMethod.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasMethod.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasOptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasOptions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/Tuple.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/Tuple.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/MeDRI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/MeDRI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/eDRI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/eDRI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/edri/DRIOptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/edri/DRIOptions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/edri/DRIRule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/edri/DRIRule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/edri/DRITest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/edri/DRITest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/edri/EDRIUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/edri/EDRIUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/IRule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/IRule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/IRuleLines.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/IRuleLines.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/MaxIndex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/MaxIndex.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/MeDRIResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/MeDRIResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/MedriOptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/MedriOptions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/MedriUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/MedriUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/Pair.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/Pair.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/filters/supervised/instance/UnbalancedClassSampler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/filters/supervised/instance/UnbalancedClassSampler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/l2/L2RLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/l2/L2RLine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/l2/L2RTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/l2/L2RTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/l2/RTags.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/l2/RTags.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weka.plus.iml" beforeDir="false" afterPath="$PROJECT_DIR$/weka.plus.iml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -65,47 +27,17 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>iono</find>
-      <find>get</find>
-      <find>print</find>
-      <find>german</find>
-      <find>horse</find>
-      <find>diab</find>
-      <find>playsto</find>
-      <find>sami</find>
-      <find>Log</find>
-      <find>Logg</find>
-      <find>classPerce</find>
-      <find>100</find>
-      <find>revision</find>
-      <find>sampleClass</find>
-      <find>tipText</find>
-      <find>percent</find>
-      <find>l2class</find>
-      <find>balanc</find>
-      <find>stream</find>
-      <find>getClassi</find>
-      <find>applyCros</find>
-      <find>generateStorie</find>
-      <find>NumSelect</find>
-      <find>public static</find>
-      <find>sample seed</find>
-      <find>numOutSample</find>
-      <find>original ratio =</find>
-      <find>logger</find>
-      <find>eval</find>
-      <find>getAttributeSelection</find>
-    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
@@ -120,27 +52,39 @@
       </map>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="45" />
-    <option name="y" value="25" />
-    <option name="width" value="938" />
-    <option name="height" value="1055" />
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="1PSEWL7AzW6gpuWGM2sXyPBjsuS" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="true" />
     <property name="GenerateAntBuildDialog.backupFiles" value="true" />
     <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
     <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="weka.plus" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="add_unversioned_files" value="$PROJECT_DIR$/data/results/1/cleved.arff.csv&#10;true&#10;/home/suhel/workspace/java/weka.plus/data/out/out.csv&#10;/home/suhel/workspace/java/weka.plus/data/results/0.properties" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/data/aut" />
+    <property name="add_unversioned_files" value="true" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/data/arff/dsets03" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="sensetivity" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="sensetivity" />
       <recent name="weka.attributeSelection.pas" />
@@ -148,11 +92,11 @@
       <recent name="weka.attributeSelection" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/data/arff/dsets03" />
       <recent name="$PROJECT_DIR$/data/aut" />
       <recent name="$PROJECT_DIR$/data" />
       <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/lib" />
-      <recent name="$PROJECT_DIR$/src/weka/classifiers" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -167,22 +111,22 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.StoryDriverL2UnbalancedVariance">
-    <configuration name="AppLauncher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="AppLauncher" />
+  <component name="RunManager" selected="Application.L2RTest">
+    <configuration name="GUILauncher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUILauncher" />
       <module name="weka.plus" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PropsUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="sensetivity.PropsUtils" />
+    <configuration name="L2AttributeEvalMethod" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="sensetivity.l2.L2AttributeEvalMethod" />
       <module name="weka.plus" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="sensetivity.*" />
+          <option name="PATTERN" value="sensetivity.l2.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -190,27 +134,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Story" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="sensetivity.Story" />
+    <configuration name="L2RTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="sensetivity.l2.L2RTest" />
       <module name="weka.plus" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="sensetivity.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="StoryDriverL2Unbalanced" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="sensetivity.StoryDriverL2Unbalanced" />
-      <module name="weka.plus" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="sensetivity.*" />
+          <option name="PATTERN" value="sensetivity.l2.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -238,6 +168,23 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="StoryTest.copy" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="weka.plus" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="sensetivity.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="sensetivity" />
+      <option name="MAIN_CLASS_NAME" value="sensetivity.StoryTest" />
+      <option name="METHOD_NAME" value="copy" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="TEST_OBJECT" value="class" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
@@ -255,19 +202,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.AppLauncher" />
-      <item itemvalue="Application.PropsUtils" />
-      <item itemvalue="Application.StoryDriverL2Unbalanced" />
-      <item itemvalue="Application.Story" />
       <item itemvalue="Application.StoryDriverL2UnbalancedVariance" />
+      <item itemvalue="Application.GUILauncher" />
+      <item itemvalue="JUnit.StoryTest.copy" />
+      <item itemvalue="Application.L2AttributeEvalMethod" />
+      <item itemvalue="Application.L2RTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.L2RTest" />
+        <item itemvalue="Application.L2AttributeEvalMethod" />
+        <item itemvalue="JUnit.StoryTest.copy" />
+        <item itemvalue="Application.GUILauncher" />
         <item itemvalue="Application.StoryDriverL2UnbalancedVariance" />
-        <item itemvalue="Application.Story" />
-        <item itemvalue="Application.PropsUtils" />
-        <item itemvalue="Application.StoryDriverL2Unbalanced" />
-        <item itemvalue="Application.AppLauncher" />
       </list>
     </recent_temporary>
   </component>
@@ -376,11 +323,6 @@
           <url>file://$PROJECT_DIR$/src/weka/attributeSelection/pas/PasUtils.java</url>
           <line>98</line>
           <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/sensetivity/StoryUtils.java</url>
-          <line>40</line>
-          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

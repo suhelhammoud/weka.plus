@@ -91,13 +91,12 @@ public class StoryUtils {
     if (numAttributes == numToSelect) {
       return new Instances(data);
     } else {
-
       AttributeSelection attEval = getAttributeSelection(story);
       attEval.setInputFormat(data);
-
       return Filter.useFilter(data, attEval);
     }
   }
+
 
   public static Story applyCrossValidation(
           Instances train,
@@ -115,6 +114,10 @@ public class StoryUtils {
     result.set(StoryKey.precision, eval.weightedPrecision());
     result.set(StoryKey.recall, eval.weightedRecall());
     result.set(StoryKey.fMeasure, eval.weightedFMeasure());
+    //added for the autism dataset test updates
+    result.set(StoryKey.areaUnderROC0, eval.areaUnderROC(0));//
+    result.set(StoryKey.areaUnderROC1, eval.areaUnderROC(1));//
+    result.set(StoryKey.weightedAreaUnderROC, eval.weightedAreaUnderROC());
     return result;
   }
 
@@ -122,13 +125,8 @@ public class StoryUtils {
                                 Instances data,
                                 boolean withEntropy) {
 //        Story result = story.copy(StoryKey.dataset, data.relationName());
-
     Story result = story; //mutual data structure
-
-
     try {
-
-
       Instances dataFiltered = applyFilter(story, data);
       assert (int) result.get(StoryKey.numAttributesToSelect) == dataFiltered.numAttributes() - 1;
 
@@ -143,18 +141,15 @@ public class StoryUtils {
         result.set(StoryKey.huffman, huffman);
         result.set(StoryKey.variablesThreshold, variableNumThreshold);
       }
-
       Classifier classifier = getClassifier(story);
-
       Story cvStory = applyCrossValidation(dataFiltered, classifier);
-
       result.update(cvStory);
     } catch (Exception e) {
       e.printStackTrace();
     }
-
     return result;
   }
+
 
 //    public static Story playStoryL2Class(Story story,
 //                                  Instances data) {
@@ -193,9 +188,7 @@ public class StoryUtils {
             .set(StoryKey.evalMethod, eval)
             .set(StoryKey.classifier, classifier);
     List<Story> storiesNumSelect = propStoriesNumAttSelected(bs);
-
     List<Story> evalStories = new ArrayList<>();
-
     switch (eval) {
       case PAS:
         for (Story numStory : storiesNumSelect) {

@@ -42,7 +42,6 @@ public enum TEvaluator {
       default:
         return get();
     }
-
   }
 
 }

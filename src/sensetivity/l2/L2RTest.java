@@ -183,8 +183,10 @@ public class L2RTest {
   }
 
   public static void runAllTests(String outfile) throws Exception {
-    String[] datasets = {"anneal"};
+    String[] datasets = {"autism", "cleved", "colic", "credit-a",
+            "credit-g", "diabetes", "hepatitis"};
 
+    datasets = new String[]{"cleved"};
 
 // String[] datasets = {"anneal", "arrhythmia", "audiology", "autos",
 //            "breast-cancer", "car", "cleved", "cmc", "colic", "credit-a",
@@ -199,16 +201,18 @@ public class L2RTest {
 
     for (String dataset : datasets) {
       System.out.println("running on dataset: " + dataset);
-      List<String> dsResults = oneTest(dataset);
+//      List<String> dsResults = oneTest(dataset);
+      List<String> dsResults = new ArrayList<>();
       result.addAll(dsResults);
     }
     System.out.println("total results : " + (result.size() - 1));
+    System.out.println("Paths.get(outfile).toAbsolutePath() = " + Paths.get(outfile).toAbsolutePath());
     Files.write(Paths.get(outfile), result);
   }
 
   public static void main(String[] args) throws Exception {
 
-    runAllTests("data/out/out.csv");
+    runAllTests("data/out/out7.csv");
   }
 
 }

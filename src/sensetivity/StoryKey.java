@@ -30,7 +30,12 @@ public enum StoryKey {
   errorRate,
   precision,
   recall,
-  fMeasure;
+  fMeasure,
+
+  /*ROC */
+  weightedAreaUnderROC,
+  areaUnderROC0,
+  areaUnderROC1;
 
 
   public static String csvHeaders(StoryKey... keys) {

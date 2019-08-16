@@ -25,6 +25,11 @@ public class Story {
     data = new HashMap<>(StoryKey.values().length);
   }
 
+  public int size() {
+    return data.size();
+  }
+
+
   private Story() {
     this(ID.getAndIncrement());
   }
@@ -77,7 +82,7 @@ public class Story {
    */
   public Story copy(Object... args) {
     if (args.length % 2 != 0) {
-      logger.error("story id = {} copy error", this.id);
+      logger.warn("story id = {} copy error", this.id);
       return NONE;
     }
     Story result = new Story();
@@ -93,11 +98,9 @@ public class Story {
     return new Story();
   }
 
-
   public Object get(StoryKey key) {
     return data.get(key);
   }
-
 
   public Story set(StoryKey key, Object value) {
     data.put(key, value);
@@ -134,5 +137,4 @@ public class Story {
     Story result = Story.of(a, b);
     System.out.println(result.stringValues());
   }
-
 }

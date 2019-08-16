@@ -31,14 +31,12 @@ public class FilesUtils {
             .map(s -> s.stringValues(keys))
             .collect(Collectors.toList()));
     return writeToFile(outDir, filename, content);
-
   }
 
   public static boolean writeToFile(Path outDir,
                                     String filename,
                                     List<String> content) {
     Path path = Paths.get(outDir.toString(), filename);
-
     try {
       Files.write(path, content);
       return true;
