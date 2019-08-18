@@ -8,6 +8,7 @@
 
 ## Sensitivity Tests
 * L2
+* Unbalanced class labels
 * Entropy : //TODO
 
 ## Classifiers
