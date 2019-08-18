@@ -25,9 +25,9 @@ import java.util.stream.IntStream;
 import static sensetivity.StoryUtils.getASEvaluation;
 import static sensetivity.TClassifier.NB;
 
-public class StoryDriverL2UnbalancedVariance {
+public class StoryDriverAutism {
 
-  static Logger logger = LoggerFactory.getLogger(StoryDriverL2UnbalancedVariance.class.getName());
+  static Logger logger = LoggerFactory.getLogger(StoryDriverAutism.class.getName());
 
 
   public static Instances applyFilter(Story story, Instances data) {
@@ -39,7 +39,7 @@ public class StoryDriverL2UnbalancedVariance {
       return new Instances(data);
     } else {
 
-      AttributeSelection attEval = getAttributeSelection(story);
+      AttributeSelection attEval = getAttributeSelectionFilter(story);
       try {
         attEval.setInputFormat(data);
 
@@ -52,7 +52,7 @@ public class StoryDriverL2UnbalancedVariance {
     }
   }
 
-  public static AttributeSelection getAttributeSelection(Story story) {
+  public static AttributeSelection getAttributeSelectionFilter(Story story) {
 
     int numToSelect = (int) story.get(StoryKey.numAttributesToSelect);
 

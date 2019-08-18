@@ -21,7 +21,6 @@ import java.util.stream.IntStream;
 
 import static sensetivity.StoryUtils.getASEvaluation;
 import static sensetivity.TClassifier.NB;
-import static sensetivity.TEvaluator.L2;
 
 public class StoryDriverL2Unbalanced {
 
@@ -123,12 +122,12 @@ public class StoryDriverL2Unbalanced {
             .set(StoryKey.dataset, relationName)
             .set(StoryKey.numInstances, numInstances)
             .set(StoryKey.numAttributes, numAttributes)
-            .set(StoryKey.evalMethod, eval)
+            .set(StoryKey.attEvalMethod, eval)
             .set(StoryKey.classifier, classifier)
             .set(StoryKey.l2ResampleSizeRatio, resampleSizeRatio)
             .set(StoryKey.l2ClassRatio, classRatio)
             .set(StoryKey.l2ClassRepeat, repeat)
-            .set(StoryKey.evalMethod, eval);
+            .set(StoryKey.attEvalMethod, eval);
 
     bs.set(StoryKey.l2ClassExperimentID, bs.id);
     return propStoriesNumAttSelected(bs);
@@ -253,7 +252,7 @@ public class StoryDriverL2Unbalanced {
             StoryKey.dataset,
             StoryKey.numInstances,
             StoryKey.numAttributes,
-            StoryKey.evalMethod,
+            StoryKey.attEvalMethod,
             StoryKey.classifier,
             StoryKey.l2ClassRepeat,
             StoryKey.l2ResampleSizeRatio,

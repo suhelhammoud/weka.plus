@@ -134,7 +134,6 @@ public class PropsUtils extends Properties {
     return outDir;
   }
 
-
   private Stream<String> getStream(String property) {
     return getStream(property, "");
   }
@@ -148,7 +147,6 @@ public class PropsUtils extends Properties {
 
 
   private void init() {
-
     evaluatorMethods = getStream("eval.methods")
             .map(s -> TEvaluator.valueOf(s.toUpperCase()))
             .collect(Collectors.toList());

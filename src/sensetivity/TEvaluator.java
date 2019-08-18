@@ -44,7 +44,22 @@ public enum TEvaluator {
     }
   }
 
+  public String className() throws IllegalAccessException {
+    switch (this) { //IG, CHI, L2, PAS
+      case IG:
+        InfoGainAttributeEval.class.getName();
+      case CHI:
+        return ChiSquaredAttributeEval.class.getName();
+      case L2:
+        return L2AttributeEval.class.getName();
+      case PAS:
+        return PasAttributeEval.class.getName();
+    }
+    throw new IllegalAccessException("");
+  }
 }
+
+
 
 
 

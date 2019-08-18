@@ -2,6 +2,7 @@ package sensetivity.l2;
 
 import weka.attributeSelection.ChiSquaredAttributeEval;
 import weka.attributeSelection.InfoGainAttributeEval;
+import weka.attributeSelection.L2AttributeEval;
 import weka.classifiers.bayes.NaiveBayes;
 
 enum L2AttributeEvalMethod {
@@ -10,12 +11,12 @@ enum L2AttributeEvalMethod {
   public String className() {
     switch (this) {
       case L2:
-        return InfoGainAttributeEval.class.getName();
-      case IG:
+        return L2AttributeEval.class.getName();
       case CHI:
         return ChiSquaredAttributeEval.class.getName();
+      default: // case IG:
+        return InfoGainAttributeEval.class.getName();
     }
-    return "error";
   }
 
   public static void main(String[] args) {

@@ -8,7 +8,7 @@ public enum StoryKey {
   dataset, //relation name, or dataset filename
   numInstances,
   numAttributes,// excluding the label class attribute
-  evalMethod, //PAS, L2, CHI, ..etc
+  attEvalMethod, //PAS, L2, CHI, ..etc
   pasMethod, //rules, rules1st, and items,
   evalSupport,// for PAS attribute selector only
   evalConfidence, // for PAS attribute selector only
@@ -37,10 +37,8 @@ public enum StoryKey {
   areaUnderROC0,
   areaUnderROC1;
 
-
   public static String csvHeaders(StoryKey... keys) {
-    return Arrays.stream(keys.length > 0 ?
-            keys : StoryKey.values())
+    return Arrays.stream(keys.length > 0 ? keys : StoryKey.values())
             .map(key -> key.toString())
             .collect(Collectors.joining(", "));
   }

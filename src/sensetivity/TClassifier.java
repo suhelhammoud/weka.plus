@@ -35,4 +35,15 @@ public enum TClassifier {
         return get();
     }
   }
+
+  public String className() {
+    switch (this) {
+      case NB:
+        return NaiveBayes.class.getName();
+      case MEDRI:
+        return MeDRI.class.getName();
+      default:
+        return "error class name for "+ this;
+    }
+  }
 }

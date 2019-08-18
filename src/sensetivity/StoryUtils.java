@@ -12,15 +12,12 @@ import weka.classifiers.Evaluation;
 import weka.core.Instances;
 import weka.filters.Filter;
 import weka.filters.supervised.attribute.AttributeSelection;
-import weka.filters.supervised.instance.UnbalancedClassSampler;
 
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static sensetivity.TClassifier.MEDRI;
-import static sensetivity.TClassifier.NB;
-import static sensetivity.TEvaluator.L2;
 import static sensetivity.TEvaluator.PAS;
 
 public class StoryUtils {
@@ -29,47 +26,36 @@ public class StoryUtils {
 
 
   public static <T extends ASEvaluation & AttributeEvaluator> T getASEvaluation(Story story) {
-    TEvaluator tEvaluator = (TEvaluator) story.get(StoryKey.evalMethod);
-
-
+    TEvaluator tEvaluator = (TEvaluator) story.get(StoryKey.attEvalMethod);
     switch (tEvaluator) {
       case PAS:
         double evalSupport = (double) story.get(StoryKey.evalSupport);
         double evalConfidence = (double) story.get(StoryKey.evalConfidence);
         double cutoffThreshold = (double) story.get(StoryKey.cutoffThreshold);
-
         PasMethod pasmethod = (PasMethod) story.get(StoryKey.pasMethod);
-
 
         return (T) PAS.getWith(evalSupport,
                 evalConfidence,
                 pasmethod,
                 cutoffThreshold);
-//            case CHI:
-//                // ChiSquaredAttributeEval settings
-//                break;
       default:
         return (T) tEvaluator.get();
     }
   }
 
   public static AttributeSelection getAttributeSelection(Story story) {
-
     int numToSelect = (int) story.get(StoryKey.numAttributesToSelect);
-
     Ranker search = new Ranker();
     search.setNumToSelect(numToSelect);
-
     ASEvaluation evaluator = getASEvaluation(story);
-
     AttributeSelection result = new AttributeSelection();
     result.setEvaluator(evaluator);
     result.setSearch(search);
     return result;
   }
 
-  public static Classifier getClassifier(Story story) {
 
+  public static Classifier getClassifier(Story story) {
     TClassifier tClassifier = (TClassifier) story.get(StoryKey.classifier);
     switch (tClassifier) {
       case MEDRI:
@@ -102,7 +88,6 @@ public class StoryUtils {
           Instances train,
           Classifier classifier)
           throws Exception {
-
     train.setClassIndex(train.numAttributes() - 1);
     Story result = Story.get();
 
@@ -120,6 +105,7 @@ public class StoryUtils {
     result.set(StoryKey.weightedAreaUnderROC, eval.weightedAreaUnderROC());
     return result;
   }
+
 
   public static Story playStory(Story story,
                                 Instances data,
@@ -151,32 +137,6 @@ public class StoryUtils {
   }
 
 
-//    public static Story playStoryL2Class(Story story,
-//                                  Instances data) {
-////        Story result = story.copy(StoryKey.dataset, data.relationName());
-//
-//        Story result = story; //mutual data structure
-//
-//
-//        try {
-//
-//
-//            Instances dataFiltered = applyFilter(story, data);
-//            assert (int) result.get(StoryKey.numAttributesToSelect) == dataFiltered.numAttributes() - 1;
-//
-//            Classifier classifier = getClassifier(story);
-//
-//            Story cvStory = applyCrossValidation(dataFiltered, classifier);
-//
-//            result.update(cvStory);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        return result;
-//    }
-
-
   public static List<Story> generate(Story story,
                                      PropsUtils props,
                                      TEvaluator eval,
@@ -185,7 +145,7 @@ public class StoryUtils {
     List<Story> result = new ArrayList<>();
     //set evalMethod and classifier
     Story bs = story.copy()
-            .set(StoryKey.evalMethod, eval)
+            .set(StoryKey.attEvalMethod, eval)
             .set(StoryKey.classifier, classifier);
     List<Story> storiesNumSelect = propStoriesNumAttSelected(bs);
     List<Story> evalStories = new ArrayList<>();
@@ -209,10 +169,8 @@ public class StoryUtils {
           }
         }
         break;
-
       default:
         evalStories.addAll(storiesNumSelect);
-
     }
 
     switch (classifier) {
@@ -232,8 +190,8 @@ public class StoryUtils {
 
     }
     return result;
-
   }
+
 
   public static List<Story> generateSami(Story story,
                                          PropsUtils props,
@@ -245,7 +203,7 @@ public class StoryUtils {
     final int numAttributes = (int) story.get(StoryKey.numAttributes);
 
     Story bs = story.copy()
-            .set(StoryKey.evalMethod, eval)
+            .set(StoryKey.attEvalMethod, eval)
             .set(StoryKey.classifier, classifier)
             .set(StoryKey.numAttributesToSelect, numAttributes);
 
@@ -277,9 +235,7 @@ public class StoryUtils {
 
       default:
         evalStories.addAll(storiesNumSelect);
-
     }
-
     switch (classifier) {
       case MEDRI:
         for (Story evalStory : evalStories) {
@@ -297,7 +253,6 @@ public class StoryUtils {
 
     }
     return result;
-
   }
 
 
@@ -344,7 +299,6 @@ public class StoryUtils {
             .set(StoryKey.numAttributes, data.numAttributes() - 1)
             .set(StoryKey.cutoffThreshold, props.getCutoffThreshold());
 
-
     for (TEvaluator eval : props.getEvaluatorMethods()) {
       for (TClassifier classifier : props.getClassifiers()) {
         List<Story> gStories = generate(bs, props, eval, classifier);
@@ -361,6 +315,7 @@ public class StoryUtils {
     return result;
   }
 
+
   /**
    * generate all test stories related to one dataset
    *
@@ -370,13 +325,11 @@ public class StoryUtils {
    */
   public static List<Story> generateStoriesSami(PropsUtils props, Instances data) {
     List<Story> result = new ArrayList<>();
-
     Story bs = Story.get()
             .set(StoryKey.dataset, data.relationName())
             .set(StoryKey.numInstances, data.numInstances())
             .set(StoryKey.numAttributes, data.numAttributes() - 1)
             .set(StoryKey.cutoffThreshold, props.getCutoffThreshold());
-
 
     for (TEvaluator eval : props.getEvaluatorMethods()) {
       for (TClassifier classifier : props.getClassifiers()) {
@@ -384,7 +337,6 @@ public class StoryUtils {
         result.addAll(gStories);
       }
     }
-
     int expectedNum = (int) bs.get(StoryKey.numAttributes)
             * calculateEvalClassifier(props);
     if (expectedNum != result.size()) {
@@ -404,8 +356,6 @@ public class StoryUtils {
   public static int calculateEvalClassifier(PropsUtils props) {
 
     int result = 0; //non PAS nor MEDRI
-
-
     int pasProduct = props.getEvalSupports().size()
             * props.getEvalConfidences().size()
             * props.getPasMethods().size();
@@ -446,13 +396,6 @@ public class StoryUtils {
             .collect(Collectors.toList());
   }
 
-//    public static List<Story> propStories(Story story,
-//                                          StoryKey skey,
-//                                          List<Double> skeyValues) {
-//        return skeyValues.stream()
-//                .map(s -> story.copy(skey, s))
-//                .collect(Collectors.toList());
-//    }
 
   public static List<Story> propStoriesNumAttSelected(Story story) {
     final int numAttributes = (int) story.get(StoryKey.numAttributes);
@@ -466,5 +409,4 @@ public class StoryUtils {
 //        runDemo("data/demo1.properties");
 //        experiment1("data/conf.properties");
   }
-
 }

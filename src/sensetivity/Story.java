@@ -118,23 +118,8 @@ public class Story {
             .collect(Collectors.joining(", "));
   }
 
-  @Override
-  public String toString() {
-    return stringValues();
+  public String toString(StoryKey... keys) {
+    return stringValues(keys);
   }
 
-  public static void main(String[] args) {
-    System.out.println(StoryKey.csvHeaders());
-
-    Story a = Story.get()
-            .set(StoryKey.dataset, "irirs")
-            .set(StoryKey.evalMethod, TEvaluator.IG);
-
-    Story b = Story.get()
-            .set(StoryKey.dataset, "irirsb")
-            .set(StoryKey.errorRate, 0);
-
-    Story result = Story.of(a, b);
-    System.out.println(result.stringValues());
-  }
 }

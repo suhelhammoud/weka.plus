@@ -1,14 +1,24 @@
 package sensetivity;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class StoryTest {
 
-  @BeforeEach
-  void setUp() {
+  @Test
+  void of() {
+    Story a = Story.get()
+            .set(StoryKey.dataset, "ds1")
+            .set(StoryKey.attEvalMethod, TEvaluator.IG);
+
+    Story b = Story.get()
+            .set(StoryKey.dataset, "ds2")
+            .set(StoryKey.errorRate, 0);
+
+    Story result = Story.of(a, b);
+    assertEquals(3, result.size());
+    assertEquals("ds2", result.get(StoryKey.dataset));
   }
 
   @Test
@@ -26,10 +36,5 @@ class StoryTest {
     assertEquals(2, s2.size());
     s3 = s.copy(StoryKey.errorRate, 3.00);
     assertEquals(3, s3.size());
-
-    System.out.println("s3.stringValues() = " + s3.stringValues());
-
-
-
   }
 }

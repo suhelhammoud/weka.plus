@@ -46,24 +46,21 @@ public class FilesUtils {
     return false;
   }
 
-  public static Path createOutDir(String outDir) {
-    if (Paths.get(outDir).toFile().exists()) {
-      for (int dirNum = 0; dirNum < 1000000; dirNum++) {
-        //TODO add limit
-        Path cPath = Paths.get(outDir, "" + dirNum);
-        if (!cPath.toFile().exists()) {
-          cPath.toFile().mkdirs();
-          return cPath.toAbsolutePath();
-        }
+  private static String suggestName(String outDir) {
+    for (int i = 0; i < 1000000; i++) {
+      Path path = Paths.get(outDir, "_" + i);
+      if (!path.toFile().exists()) {
+        return path.toAbsolutePath().toString();
       }
-    } else {
-      Path result = Paths.get(outDir, "0");
-      result.toFile().mkdirs();
-      return result.toAbsolutePath();
     }
-
     logger.error("Could not generate outpath from {}", outDir);
-    return null; //never reached TODO
+    return "/tmp/" + outDir + System.nanoTime(); //never reached TODO
+  }
+
+  public static Path createOutDir(String outDir) {
+    Path outPath = Paths.get(suggestName(outDir));
+    outPath.toFile().mkdirs();
+    return outPath.toAbsolutePath();
   }
 
 
