@@ -3,6 +3,7 @@ package sensetivity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import weka.attributeSelection.ASEvaluation;
+import weka.attributeSelection.ASSearch;
 import weka.attributeSelection.Ranker;
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
@@ -40,16 +41,33 @@ public class StoryDriverAutism {
     } else {
 
       AttributeSelection attEval = getAttributeSelectionFilter(story);
+
       try {
         attEval.setInputFormat(data);
-
         return Filter.useFilter(data, attEval);
       } catch (Exception e) {
         e.printStackTrace();
         logger.error("exception in numAttributesToSelect filter");
       }
-      return new Instances(data);//this line should be never reached
+      return new Instances(data);//TODO , never reached
     }
+  }
+
+  public static Instances applyAttSelectionFilter(
+          AttributeSelection attEval, Instances data) {
+    int numAttributes = data.numAttributes() - 1;//minus class attribute
+    int numToSelect = ((Ranker) attEval.getSearch()).getNumToSelect();
+
+    if (numAttributes <= numToSelect)
+      return new Instances(data);
+    try {
+      attEval.setInputFormat(data);
+      return Filter.useFilter(data, attEval);
+    } catch (Exception e) {
+      e.printStackTrace();
+      logger.error("exception in numAttributesToSelect filter");
+    }
+    return null;//TODO , change to throw exception
   }
 
   public static AttributeSelection getAttributeSelectionFilter(Story story) {
@@ -139,8 +157,8 @@ public class StoryDriverAutism {
   public static List<Story> setRepeat(List<Story> stories, int iteration) {
     return stories.stream()
             .map(s -> s.copy()
-                            .set(StoryKey.l2ClassExperimentIteration, iteration + 1)
-//                        .set(StoryKey.l2ClassExperimentID, s.id)
+                    .set(StoryKey.l2ClassExperimentIteration, iteration + 1)
+                    .set(StoryKey.l2ClassExperimentID, s.id)
             ).collect(Collectors.toList());
   }
 
@@ -155,11 +173,16 @@ public class StoryDriverAutism {
     Evaluation eval = new Evaluation(train);
     //TODO change seed selection method
     eval.crossValidateModel(classifier, train, 10, new Random(1)); //TODO check random seed
-//        result.set(StoryKey.classifier, TClassifier.NB);
+    //result.set(StoryKey.classifier, TClassifier.NB);
     result.set(StoryKey.errorRate, eval.errorRate());
     result.set(StoryKey.precision, eval.weightedPrecision());
     result.set(StoryKey.recall, eval.weightedRecall());
     result.set(StoryKey.fMeasure, eval.weightedFMeasure());
+    //added for the autism dataset test updates
+    result.set(StoryKey.areaUnderROC0, eval.areaUnderROC(0));//
+    result.set(StoryKey.areaUnderROC1, eval.areaUnderROC(1));//
+    result.set(StoryKey.weightedAreaUnderROC, eval.weightedAreaUnderROC());
+
     return result;
   }
 
@@ -168,7 +191,7 @@ public class StoryDriverAutism {
     Random rnd = new Random(0);
     StoryKey[] headers = getStorykeysHeaders();
 
-    String confName = args.length > 0 ? args[0] : "data/experimentL2Unbalanced.properties";
+    String confName = args.length > 0 ? args[0] : "data/conf_l2_aut.properties";
     PropsUtils params = PropsUtils.of(confName);
 
     Path confPath = Paths.get(confName);
@@ -178,7 +201,8 @@ public class StoryDriverAutism {
 
     //copy config file to output
     Files.copy(confPath,
-            resultDir.getParent().resolve(resultDir.getFileName() + ".properties"));
+            resultDir.getParent().resolve(resultDir.getFileName() + "_" + confPath.getFileName()));
+//            resultDir.getParent().resolve(resultDir.getFileName() + ".properties"));
 
     List<String> dataSetsNames = params.getDatasets();
 
@@ -216,8 +240,6 @@ public class StoryDriverAutism {
                 eval);
 
         for (int iteration = 0; iteration < repeat; iteration++) {
-
-
           Instances unbalancedData = applyResampleClassFilter(data,
                   resampleSize,
                   classRatios.get(ratioIndex),
@@ -226,12 +248,10 @@ public class StoryDriverAutism {
 
           unbalancedData.setRelationName(data.relationName());
           List<Story> iterStories = setRepeat(expStories, iteration);
-
           iterStories.parallelStream()
                   .forEach(
                           s -> playStory(s, unbalancedData)
                   );
-
           stories.addAll(iterStories);
         }
       }
@@ -259,15 +279,17 @@ public class StoryDriverAutism {
             StoryKey.l2ClassRepeat,
             StoryKey.l2ResampleSizeRatio,
             StoryKey.numAttributesToSelect,
+            StoryKey.l2ClassExperimentID,
             StoryKey.l2ClassRatio,
             StoryKey.errorRate,
             StoryKey.precision,
             StoryKey.recall,
-            StoryKey.fMeasure
+            StoryKey.fMeasure,
+            StoryKey.weightedAreaUnderROC,
+            StoryKey.areaUnderROC0,
+            StoryKey.areaUnderROC1
     };
   }
-
-  ;
 
   public static List<Story> storiesWithAvg(List<Story> stories, StoryKey... keys) {
     List<Story> result = new ArrayList<>();
@@ -296,7 +318,9 @@ public class StoryDriverAutism {
 
   public static void playStory(Story story, Instances data) {
 //        if(true) return;
-    Instances dataFiltered = applyFilter(story, data);
+    AttributeSelection attSelectionFilter = getAttributeSelectionFilter(story);
+    Instances dataFiltered = applyAttSelectionFilter(attSelectionFilter, data);
+//    Instances dataFiltered = applyFilter(story, data);
     assert (int) story.get(StoryKey.numAttributesToSelect) == dataFiltered.numAttributes() - 1;
     Classifier classifier = NB.get(); //Can initiate it dynamically from story
 
@@ -310,7 +334,7 @@ public class StoryDriverAutism {
   }
 
   public static void main(String[] args) throws IOException {
-    experimentL2Unbalanced("data/conf_l2_unbalanced_variance.properties");
+    experimentL2Unbalanced("data/conf_l2_aut.properties");
   }
 
 }

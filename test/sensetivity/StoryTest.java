@@ -37,4 +37,24 @@ class StoryTest {
     s3 = s.copy(StoryKey.errorRate, 3.00);
     assertEquals(3, s3.size());
   }
+
+  @Test
+  void equalsOn() {
+    StoryKey[] keys = {StoryKey.numAttributes,
+            StoryKey.numInstances,
+            StoryKey.confidence};
+
+    Story s1 = Story.get()
+            .set(StoryKey.numAttributes, 10)
+            .set(StoryKey.numInstances, 100)
+            .set(StoryKey.confidence, .112233);
+    Story s2 = Story.get()
+            .set(StoryKey.numAttributes, 10)
+            .set(StoryKey.numInstances, 100)
+            .set(StoryKey.confidence, .112233);
+    assertTrue(s1.equalsOn(s2, keys));
+
+    s2.set(StoryKey.confidence, .112233 + 1e-8);
+    assertFalse(s1.equalsOn(s2, keys));
+  }
 }

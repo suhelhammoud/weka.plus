@@ -7,19 +7,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b4ffecf-fd2d-4ac9-8d65-3aedb6a8be09" name="Default" comment="Initial commit">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/conf_l2_unbalanced_variance.properties" beforeDir="false" afterPath="$PROJECT_DIR$/data/conf_l2_unbalanced_variance.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/conf_l2_aut.properties" beforeDir="false" afterPath="$PROJECT_DIR$/data/conf_l2_aut.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sensetivity/FilesUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/FilesUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/PropsUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/PropsUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/RStoryDriver.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sensetivity/Story.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/Story.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryDriverL2Unbalanced.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryDriverL2Unbalanced.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryDriverL2UnbalancedVariance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryDriverL2UnbalancedVariance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryDriverAutism.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryDriverAutism.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryKey.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/TClassifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/TClassifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/TEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/TEvaluator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/l2/RTags.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/l2/RTags.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/sensetivity/StoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/sensetivity/StoryTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -112,7 +106,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.FilesUtilsTest.createOutDir">
+  <component name="RunManager" selected="JUnit.StoryTest.equalsOn">
     <configuration name="L2AttributeEvalMethod" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="sensetivity.l2.L2AttributeEvalMethod" />
       <module name="weka.plus" />
@@ -127,13 +121,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="L2RTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="sensetivity.l2.L2RTest" />
+    <configuration name="StoryDriverAutism" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="sensetivity.StoryDriverAutism" />
       <module name="weka.plus" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="sensetivity.l2.*" />
+          <option name="PATTERN" value="sensetivity.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -143,6 +137,22 @@
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FilesUtilsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="weka.plus" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="sensetivity.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="sensetivity" />
+      <option name="MAIN_CLASS_NAME" value="sensetivity.FilesUtilsTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -164,7 +174,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StoryTest.copy" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="StoryTest.equalsOn" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="weka.plus" />
       <extension name="coverage">
         <pattern>
@@ -174,24 +184,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="sensetivity" />
       <option name="MAIN_CLASS_NAME" value="sensetivity.StoryTest" />
-      <option name="METHOD_NAME" value="copy" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="StoryTest.of" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="weka.plus" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="sensetivity.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="sensetivity" />
-      <option name="MAIN_CLASS_NAME" value="sensetivity.StoryTest" />
-      <option name="METHOD_NAME" value="of" />
+      <option name="METHOD_NAME" value="equalsOn" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
       <method v="2">
@@ -216,18 +209,18 @@
     </configuration>
     <list>
       <item itemvalue="Application.L2AttributeEvalMethod" />
-      <item itemvalue="Application.L2RTest" />
-      <item itemvalue="JUnit.StoryTest.copy" />
-      <item itemvalue="JUnit.StoryTest.of" />
       <item itemvalue="JUnit.FilesUtilsTest.createOutDir" />
+      <item itemvalue="JUnit.FilesUtilsTest" />
+      <item itemvalue="Application.StoryDriverAutism" />
+      <item itemvalue="JUnit.StoryTest.equalsOn" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.StoryTest.equalsOn" />
+        <item itemvalue="Application.StoryDriverAutism" />
+        <item itemvalue="JUnit.FilesUtilsTest" />
         <item itemvalue="JUnit.FilesUtilsTest.createOutDir" />
         <item itemvalue="Application.L2AttributeEvalMethod" />
-        <item itemvalue="JUnit.StoryTest.of" />
-        <item itemvalue="Application.L2RTest" />
-        <item itemvalue="JUnit.StoryTest.copy" />
       </list>
     </recent_temporary>
   </component>

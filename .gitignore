@@ -6,6 +6,7 @@ downloads/
 # experiments
 data/out
 data/resuls
+data/results/*
 
 # CMake
 cmake-build-debug/

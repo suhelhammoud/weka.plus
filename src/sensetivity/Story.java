@@ -14,6 +14,27 @@ public class Story {
   static Logger logger = LoggerFactory.getLogger(Story.class.getName());
 
   private final static AtomicLong ID = new AtomicLong();
+
+  private static boolean compareTwo(StoryKey.KeyType type, Object o1, Object o2) {
+    switch (type) {
+      case DOUBLE:
+        return Double.compare((Double) o1, (Double) o2) == 0;
+      case INT:
+        return (Integer) o1 == (Integer) o2;
+      default:
+        return o1.equals(o2);
+    }
+  }
+
+  public static boolean equalsOn(Story s1, Story s2, StoryKey... keys) {
+    return Arrays.stream(keys)
+            .allMatch(key -> compareTwo(key.keyType, s1.get(key), s2.get(key)));
+  }
+
+  public boolean equalsOn(Story that, StoryKey... keys) {
+    return equalsOn(this, that, keys);
+  }
+
   public static Story NONE = new Story(-1l);
 
   public final long id;
@@ -29,6 +50,12 @@ public class Story {
     return data.size();
   }
 
+//  public boolean equalsOn(Story that, StoryKey... keys) {
+//    return Arrays.stream(keys)
+//            .allMatch(storyKey -> {
+//
+//            })
+//  }
 
   private Story() {
     this(ID.getAndIncrement());

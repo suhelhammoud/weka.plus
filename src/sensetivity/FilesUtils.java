@@ -48,7 +48,7 @@ public class FilesUtils {
 
   private static String suggestName(String outDir) {
     for (int i = 0; i < 1000000; i++) {
-      Path path = Paths.get(outDir, "_" + i);
+      Path path = Paths.get(outDir, String.valueOf(i));
       if (!path.toFile().exists()) {
         return path.toAbsolutePath().toString();
       }
