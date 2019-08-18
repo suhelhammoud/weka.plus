@@ -1,4 +1,4 @@
-@relation Autism_Data_Adult_Version-2-weka.filters.unsupervised.attribute.NumericToNominal-Rfirst-last
+@relation autism
 
 @attribute A1 {0,1}
 @attribute A2 {0,1}

@@ -88,7 +88,7 @@ public class StoryDriverL2Unbalanced {
     final int numAttributes = (int) story.get(StoryKey.numAttributes);
     return IntStream.rangeClosed(1, numAttributes)
             .mapToObj(i -> story.copy(StoryKey.numAttributesToSelect, i))
-            .map(s -> s.set(StoryKey.l2ClassExperimentID, s.id))
+            .map(s -> s.set(StoryKey.experimentID, s.id))
             .collect(Collectors.toList());
   }
 
@@ -129,7 +129,7 @@ public class StoryDriverL2Unbalanced {
             .set(StoryKey.l2ClassRepeat, repeat)
             .set(StoryKey.attEvalMethod, eval);
 
-    bs.set(StoryKey.l2ClassExperimentID, bs.id);
+    bs.set(StoryKey.experimentID, bs.id);
     return propStoriesNumAttSelected(bs);
   }
 
@@ -271,7 +271,7 @@ public class StoryDriverL2Unbalanced {
     List<Story> result = new ArrayList<>();
 
     Map<Long, List<Story>> mappedStories = stories.stream()
-            .collect(Collectors.groupingBy(item -> (Long) item.get(StoryKey.l2ClassExperimentID)));
+            .collect(Collectors.groupingBy(item -> (Long) item.get(StoryKey.experimentID)));
 
     for (List<Story> subStories : mappedStories.values()) {
       Story outStory = subStories.get(0).copy();

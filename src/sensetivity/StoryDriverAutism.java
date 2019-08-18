@@ -3,7 +3,6 @@ package sensetivity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import weka.attributeSelection.ASEvaluation;
-import weka.attributeSelection.ASSearch;
 import weka.attributeSelection.Ranker;
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
@@ -16,10 +15,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -109,7 +105,7 @@ public class StoryDriverAutism {
     final int numAttributes = (int) story.get(StoryKey.numAttributes);
     return IntStream.rangeClosed(1, numAttributes)
             .mapToObj(i -> story.copy(StoryKey.numAttributesToSelect, i))
-            .map(s -> s.set(StoryKey.l2ClassExperimentID, s.id))
+            .map(s -> s.set(StoryKey.experimentID, s.id))
             .collect(Collectors.toList());
   }
 
@@ -150,7 +146,7 @@ public class StoryDriverAutism {
             .set(StoryKey.l2ClassRepeat, repeat)
             .set(StoryKey.attEvalMethod, eval);
 
-    bs.set(StoryKey.l2ClassExperimentID, bs.id);
+    bs.set(StoryKey.experimentID, bs.id);
     return propStoriesNumAttSelected(bs);
   }
 
@@ -158,7 +154,7 @@ public class StoryDriverAutism {
     return stories.stream()
             .map(s -> s.copy()
                     .set(StoryKey.l2ClassExperimentIteration, iteration + 1)
-                    .set(StoryKey.l2ClassExperimentID, s.id)
+                    .set(StoryKey.experimentID, s.id)
             ).collect(Collectors.toList());
   }
 
@@ -256,12 +252,15 @@ public class StoryDriverAutism {
         }
       }
 
-      List<Story> avgStories = stories;
-//            List<Story> avgStories = storiesWithAvg(stories,
-//                    StoryKey.errorRate,
-//                    StoryKey.precision,
-//                    StoryKey.recall,
-//                    StoryKey.fMeasure);
+//      List<Story> avgStories = stories;
+      List<Story> avgStories = storiesWithAvg(stories,
+              StoryKey.errorRate,
+              StoryKey.precision,
+              StoryKey.recall,
+              StoryKey.fMeasure,
+              StoryKey.weightedAreaUnderROC,
+              StoryKey.areaUnderROC0,
+              StoryKey.areaUnderROC1);
 
       FilesUtils.writeStoriesToFile(resultDir,
               datasetPath.getFileName().toString() + ".csv"
@@ -279,42 +278,59 @@ public class StoryDriverAutism {
             StoryKey.l2ClassRepeat,
             StoryKey.l2ResampleSizeRatio,
             StoryKey.numAttributesToSelect,
-            StoryKey.l2ClassExperimentID,
+            StoryKey.experimentID,
             StoryKey.l2ClassRatio,
             StoryKey.errorRate,
+            StoryKey.errorRateVariance,
             StoryKey.precision,
+            StoryKey.precisionVariance,
             StoryKey.recall,
+            StoryKey.recallVariance,
             StoryKey.fMeasure,
+            StoryKey.fMeasureVariance,
             StoryKey.weightedAreaUnderROC,
+            StoryKey.weightedAreaUnderROCVariance,
             StoryKey.areaUnderROC0,
-            StoryKey.areaUnderROC1
+            StoryKey.areaUnderROC0Variance,
+            StoryKey.areaUnderROC1,
+            StoryKey.areaUnderROC1Variance,
     };
   }
 
-  public static List<Story> storiesWithAvg(List<Story> stories, StoryKey... keys) {
-    List<Story> result = new ArrayList<>();
 
-    Map<Long, List<Story>> mappedStories = stories.stream()
-            .collect(Collectors.groupingBy(item -> (Long) item.get(StoryKey.l2ClassExperimentID)));
+  private static Story storyWithAvgVar(List<Story> subStories, StoryKey... keys) {
+    Story outStory = subStories.get(0).copy();
 
-    for (List<Story> subStories : mappedStories.values()) {
-      Story outStory = subStories.get(0).copy();
+    //calc Average
+    for (StoryKey key : keys) {
+      double avg = subStories.stream()
+              .mapToDouble(s -> (Double) s.get(key))
+              .average()
+              .getAsDouble();
+      outStory.set(key, avg);
 
-      for (StoryKey key : keys) {
-        double dbl = subStories.stream()
-                .mapToDouble(s -> (Double) s.get(key))
-                .average()
-                .getAsDouble();
-        outStory.set(key, dbl);
+      if (StoryKey.contains(key.name() + "Variance")) {
+        double variance = subStories.stream()
+                .mapToDouble(s -> Math.pow((Double) s.get(key) - avg, 2))
+                .sum() / subStories.size();
+
+        StoryKey keyVar = StoryKey.valueOf(key.name() + "Variance");
+        outStory.set(keyVar, variance);
       }
-
-      result.add(outStory);
     }
-
-    return result;
+    return outStory;
   }
 
-  ;
+  public static List<Story> storiesWithAvg(List<Story> stories, StoryKey... keys) {
+
+    Map<Long, List<Story>> mappedStories = stories.stream()
+            .collect(Collectors.groupingBy(item -> (Long) item.get(StoryKey.experimentID)));
+
+    return mappedStories.values().stream()
+            .parallel()
+            .map(stories1 -> storyWithAvgVar(stories1, keys))
+            .collect(Collectors.toList());
+  }
 
   public static void playStory(Story story, Instances data) {
 //        if(true) return;
@@ -323,11 +339,9 @@ public class StoryDriverAutism {
 //    Instances dataFiltered = applyFilter(story, data);
     assert (int) story.get(StoryKey.numAttributesToSelect) == dataFiltered.numAttributes() - 1;
     Classifier classifier = NB.get(); //Can initiate it dynamically from story
-
     try {
       Story cvStory = applyCrossValidation(dataFiltered, classifier);
       story.update(cvStory);
-
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -336,5 +350,4 @@ public class StoryDriverAutism {
   public static void main(String[] args) throws IOException {
     experimentL2Unbalanced("data/conf_l2_aut.properties");
   }
-
 }

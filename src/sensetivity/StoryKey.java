@@ -26,29 +26,35 @@ public enum StoryKey {
   l2ResampleSizeRatio(DOUBLE), // compared to original numInstances
   l2ClassRatio(DOUBLE), // for binary class labels only
   l2ClassRepeat(INT),
-  l2ClassExperimentID(INT),
+  experimentID(INT),
   l2ClassExperimentIteration(INT),
 
   /* Classification results */
-  errorRate(DOUBLE),
-  precision(DOUBLE),
-  recall(DOUBLE),
-  fMeasure(DOUBLE),
+  errorRate(DOUBLE), errorRateVariance(DOUBLE),
+  precision(DOUBLE), precisionVariance(DOUBLE),
+  recall(DOUBLE), recallVariance(DOUBLE),
+  fMeasure(DOUBLE), fMeasureVariance(DOUBLE),
 
   /*ROC */
-  weightedAreaUnderROC(DOUBLE),
-  areaUnderROC0(DOUBLE),
-  areaUnderROC1(DOUBLE);
+  weightedAreaUnderROC(DOUBLE), weightedAreaUnderROCVariance(DOUBLE),
+  areaUnderROC0(DOUBLE), areaUnderROC0Variance(DOUBLE),
+  areaUnderROC1(DOUBLE), areaUnderROC1Variance(DOUBLE);
 
   StoryKey(KeyType keyType) {
     this.keyType = keyType;
   }
 
-  public static enum KeyType{
+  public static enum KeyType {
     DOUBLE, STRING, INT, OBJECT, BOOLEAN, ENUM
   }
+
   public final KeyType keyType;
 
+
+  public static boolean contains(String keyName){
+    return Arrays.stream(values())
+            .anyMatch(storyKey -> storyKey.name().equals(keyName));
+  }
 
   public static String csvHeaders(StoryKey... keys) {
     return Arrays.stream(keys.length > 0 ? keys : StoryKey.values())
