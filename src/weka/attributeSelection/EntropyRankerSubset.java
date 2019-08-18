@@ -66,262 +66,262 @@ public class EntropyRankerSubset
 //        extends ASSearch implements RankedOutputSearch,StartSetHandler, OptionHandler {
 
 
-    /**
-     * for serialization
-     */
-    static final long serialVersionUID = -9186714847510751934L;
+  /**
+   * for serialization
+   */
+  static final long serialVersionUID = -9186714847510751934L;
 
-    private int m_numMoreAttributes = 0;
-    private double[] ranksNormalized = null;
+  private int m_numMoreAttributes = 0;
+  private double[] ranksNormalized = null;
 
-    public int getNumMoreAttributes() {
-        return m_numMoreAttributes;
-    }
+  public int getNumMoreAttributes() {
+    return m_numMoreAttributes;
+  }
 
-    public void setNumMoreAttributes(int moreAttributesToInclude) {
-        m_numMoreAttributes = moreAttributesToInclude;
-    }
+  public void setNumMoreAttributes(int moreAttributesToInclude) {
+    m_numMoreAttributes = moreAttributesToInclude;
+  }
 
-    public String numMoreAttributesTipText() {
-        return "How many more attributes to include to the entropy subset?";
-    }
+  public String numMoreAttributesTipText() {
+    return "How many more attributes to include to the entropy subset?";
+  }
 
 
-    private int m_entropySubset;
+  private int m_entropySubset;
 
-    private double numAttsToSelect = 0;
-    /**
-     * Holds the starting set as an array of attributes
-     */
-    private int[] m_starting;
+  private double numAttsToSelect = 0;
+  /**
+   * Holds the starting set as an array of attributes
+   */
+  private int[] m_starting;
 
-    /**
-     * Holds the start set for the search as a range
-     */
-    private Range m_startRange;
+  /**
+   * Holds the start set for the search as a range
+   */
+  private Range m_startRange;
 
-    /**
-     * Holds the ordered list of attributes
-     */
-    private int[] m_attributeList;
+  /**
+   * Holds the ordered list of attributes
+   */
+  private int[] m_attributeList;
 
-    /**
-     * Holds the list of attribute merit scores
-     */
-    private double[] m_attributeMerit;
+  /**
+   * Holds the list of attribute merit scores
+   */
+  private double[] m_attributeMerit;
 
-    /**
-     * Data has class attribute---if unsupervised evaluator then no class
-     */
-    private boolean m_hasClass;
+  /**
+   * Data has class attribute---if unsupervised evaluator then no class
+   */
+  private boolean m_hasClass;
 
-    /**
-     * Class index of the dataset if supervised evaluator
-     */
-    private int m_classIndex;
+  /**
+   * Class index of the dataset if supervised evaluator
+   */
+  private int m_classIndex;
 
-    /**
-     * The number of attribtes
-     */
-    private int m_numAttribs;
+  /**
+   * The number of attribtes
+   */
+  private int m_numAttribs;
 
-    /**
-     * A threshold by which to discard attributes---used by the AttributeSelection
-     * module
-     */
-    private double m_frequencyThreshold;
+  /**
+   * A threshold by which to discard attributes---used by the AttributeSelection
+   * module
+   */
+  private double m_frequencyThreshold;
 
-    /**
-     * The number of attributes to select. -1 indicates that all attributes are to
-     * be retained. Has precedence over m_frequencyThreshold
-     */
-    private int m_numToSelect = -1;
+  /**
+   * The number of attributes to select. -1 indicates that all attributes are to
+   * be retained. Has precedence over m_frequencyThreshold
+   */
+  private int m_numToSelect = -1;
 
-    /**
-     * Used to compute the number to select
-     */
-    private int m_calculatedNumToSelect = -1;
+  /**
+   * Used to compute the number to select
+   */
+  private int m_calculatedNumToSelect = -1;
 
-    /**
-     * Returns a string describing this search method
-     *
-     * @return a description of the search suitable for displaying in the
-     * explorer/experimenter gui
-     */
-    public String globalInfo() {
-        return "EntropySubSet : \n\nRanks attributes by their individual evaluations. "
-                + "Use in conjunction with attribute evaluators (ReliefF, GainRatio, "
-                + "Entropy etc).\n";
-    }
+  /**
+   * Returns a string describing this search method
+   *
+   * @return a description of the search suitable for displaying in the
+   * explorer/experimenter gui
+   */
+  public String globalInfo() {
+    return "EntropySubSet : \n\nRanks attributes by their individual evaluations. "
+            + "Use in conjunction with attribute evaluators (ReliefF, GainRatio, "
+            + "Entropy etc).\n";
+  }
 
-    /**
-     * Constructor
-     */
-    public EntropyRankerSubset() {
-        resetOptions();
-    }
+  /**
+   * Constructor
+   */
+  public EntropyRankerSubset() {
+    resetOptions();
+  }
 
-    /**
-     * Returns the tip text for this property
-     *
-     * @return tip text for this property suitable for displaying in the
-     * explorer/experimenter gui
-     */
-    public String numToSelectTipText() {
-        return "Specify the number of attributes to retain. The default value "
-                + "(-1) indicates that all attributes are to be retained. Use either "
-                + "this option or a threshold to reduce the attribute set.";
-    }
+  /**
+   * Returns the tip text for this property
+   *
+   * @return tip text for this property suitable for displaying in the
+   * explorer/experimenter gui
+   */
+  public String numToSelectTipText() {
+    return "Specify the number of attributes to retain. The default value "
+            + "(-1) indicates that all attributes are to be retained. Use either "
+            + "this option or a threshold to reduce the attribute set.";
+  }
 
-    /**
-     * Specify the number of attributes to select from the ranked list. -1
-     * indicates that all attributes are to be retained.
-     *
-     * @param n the number of attributes to retain
-     */
-    @Override
-    public void setNumToSelect(int n) {
-        //TODO diabled by suhel, to be deleted later
+  /**
+   * Specify the number of attributes to select from the ranked list. -1
+   * indicates that all attributes are to be retained.
+   *
+   * @param n the number of attributes to retain
+   */
+  @Override
+  public void setNumToSelect(int n) {
+    //TODO diabled by suhel, to be deleted later
 //        m_numToSelect = n;
+  }
+
+  /**
+   * Gets the number of attributes to be retained.
+   *
+   * @return the number of attributes to retain
+   */
+  @Override
+  public int getNumToSelect() {
+    return m_numToSelect;
+  }
+
+  /**
+   * Gets the calculated number to select. This might be computed from a
+   * threshold, or if < 0 is set as the number to select then it is set to the
+   * number of attributes in the (transformed) dataset.
+   *
+   * @return the calculated number of attributes to select
+   */
+  @Override
+  public int getCalculatedNumToSelect() {
+    if (m_numToSelect >= 0) {
+      m_calculatedNumToSelect =
+              m_numToSelect > m_attributeMerit.length ? m_attributeMerit.length
+                      : m_numToSelect;
     }
+    return m_calculatedNumToSelect;
+  }
 
-    /**
-     * Gets the number of attributes to be retained.
-     *
-     * @return the number of attributes to retain
-     */
-    @Override
-    public int getNumToSelect() {
-        return m_numToSelect;
-    }
+  /**
+   * Returns the tip text for this property
+   *
+   * @return tip text for this property suitable for displaying in the
+   * explorer/experimenter gui
+   */
+  public String thresholdTipText() {
+    return "Set frequency threshold by which attributes can be discarded. Default value = .50 (frequencyThreshold)"
+            + "results in no attributes being discarded. Use either this option or "
+            + "numToSelect to reduce the attribute set.";
+  }
 
-    /**
-     * Gets the calculated number to select. This might be computed from a
-     * threshold, or if < 0 is set as the number to select then it is set to the
-     * number of attributes in the (transformed) dataset.
-     *
-     * @return the calculated number of attributes to select
-     */
-    @Override
-    public int getCalculatedNumToSelect() {
-        if (m_numToSelect >= 0) {
-            m_calculatedNumToSelect =
-                    m_numToSelect > m_attributeMerit.length ? m_attributeMerit.length
-                            : m_numToSelect;
-        }
-        return m_calculatedNumToSelect;
-    }
+  /**
+   * Set the frequency threshold by which the AttributeSelection module can discard
+   * attributes.
+   *
+   * @param threshold the threshold.
+   */
+  @Override
+  public void setThreshold(double threshold) {
+    m_frequencyThreshold = threshold;
+  }
 
-    /**
-     * Returns the tip text for this property
-     *
-     * @return tip text for this property suitable for displaying in the
-     * explorer/experimenter gui
-     */
-    public String thresholdTipText() {
-        return "Set frequency threshold by which attributes can be discarded. Default value = .50 (frequencyThreshold)"
-                + "results in no attributes being discarded. Use either this option or "
-                + "numToSelect to reduce the attribute set.";
-    }
+  /**
+   * Returns the frequency threshold so that the AttributeSelection module can discard
+   * attributes from the ranking.
+   */
+  @Override
+  public double getThreshold() {
+    return m_frequencyThreshold;
+  }
 
-    /**
-     * Set the frequency threshold by which the AttributeSelection module can discard
-     * attributes.
-     *
-     * @param threshold the threshold.
-     */
-    @Override
-    public void setThreshold(double threshold) {
-        m_frequencyThreshold = threshold;
-    }
+  /**
+   * Returns the tip text for this property
+   *
+   * @return tip text for this property suitable for displaying in the
+   * explorer/experimenter gui
+   */
+  public String generateRankingTipText() {
+    return "A constant option. Ranker is only capable of generating "
+            + " attribute rankings.";
+  }
 
-    /**
-     * Returns the frequency threshold so that the AttributeSelection module can discard
-     * attributes from the ranking.
-     */
-    @Override
-    public double getThreshold() {
-        return m_frequencyThreshold;
-    }
+  /**
+   * This is a dummy set method---Ranker is ONLY capable of producing a ranked
+   * list of attributes for attribute evaluators.
+   *
+   * @param doRank this parameter is N/A and is ignored
+   */
+  @Override
+  public void setGenerateRanking(boolean doRank) {
 
-    /**
-     * Returns the tip text for this property
-     *
-     * @return tip text for this property suitable for displaying in the
-     * explorer/experimenter gui
-     */
-    public String generateRankingTipText() {
-        return "A constant option. Ranker is only capable of generating "
-                + " attribute rankings.";
-    }
+  }
 
-    /**
-     * This is a dummy set method---Ranker is ONLY capable of producing a ranked
-     * list of attributes for attribute evaluators.
-     *
-     * @param doRank this parameter is N/A and is ignored
-     */
-    @Override
-    public void setGenerateRanking(boolean doRank) {
+  /**
+   * This is a dummy method. Ranker can ONLY be used with attribute evaluators
+   * and as such can only produce a ranked list of attributes
+   *
+   * @return true all the time.
+   */
+  @Override
+  public boolean getGenerateRanking() {
+    return true;
+  }
 
-    }
+  /**
+   * Returns the tip text for this property
+   *
+   * @return tip text for this property suitable for displaying in the
+   * explorer/experimenter gui
+   */
+  public String startSetTipText() {
+    return "Specify a set of attributes to ignore. "
+            + " When generating the ranking, L2AboveFrequencySubset will not evaluate the attributes "
+            + " in this list. " + "This is specified as a comma "
+            + "seperated list off attribute indexes starting at 1. It can include "
+            + "ranges. Eg. 1,2,5-9,17.";
+  }
 
-    /**
-     * This is a dummy method. Ranker can ONLY be used with attribute evaluators
-     * and as such can only produce a ranked list of attributes
-     *
-     * @return true all the time.
-     */
-    @Override
-    public boolean getGenerateRanking() {
-        return true;
-    }
+  /**
+   * Sets a starting set of attributes for the search. It is the search method's
+   * responsibility to report this start set (if any) in its toString() method.
+   *
+   * @param startSet a string containing a list of attributes (and or ranges),
+   *                 eg. 1,2,6,10-15.
+   * @throws Exception if start set can't be set.
+   */
+  @Override
+  public void setStartSet(String startSet) throws Exception {
+    m_startRange.setRanges(startSet);
+  }
 
-    /**
-     * Returns the tip text for this property
-     *
-     * @return tip text for this property suitable for displaying in the
-     * explorer/experimenter gui
-     */
-    public String startSetTipText() {
-        return "Specify a set of attributes to ignore. "
-                + " When generating the ranking, L2AboveFrequencySubset will not evaluate the attributes "
-                + " in this list. " + "This is specified as a comma "
-                + "seperated list off attribute indexes starting at 1. It can include "
-                + "ranges. Eg. 1,2,5-9,17.";
-    }
+  /**
+   * Returns a list of attributes (and or attribute ranges) as a String
+   *
+   * @return a list of attributes (and or attribute ranges)
+   */
+  @Override
+  public String getStartSet() {
+    return m_startRange.getRanges();
+  }
 
-    /**
-     * Sets a starting set of attributes for the search. It is the search method's
-     * responsibility to report this start set (if any) in its toString() method.
-     *
-     * @param startSet a string containing a list of attributes (and or ranges),
-     *                 eg. 1,2,6,10-15.
-     * @throws Exception if start set can't be set.
-     */
-    @Override
-    public void setStartSet(String startSet) throws Exception {
-        m_startRange.setRanges(startSet);
-    }
-
-    /**
-     * Returns a list of attributes (and or attribute ranges) as a String
-     *
-     * @return a list of attributes (and or attribute ranges)
-     */
-    @Override
-    public String getStartSet() {
-        return m_startRange.getRanges();
-    }
-
-    /**
-     * Returns an enumeration describing the available options.
-     *
-     * @return an enumeration of all the available options.
-     **/
-    @Override
-    public Enumeration<Option> listOptions() {
-        Vector<Option> newVector = new Vector<Option>(4);
+  /**
+   * Returns an enumeration describing the available options.
+   *
+   * @return an enumeration of all the available options.
+   **/
+  @Override
+  public Enumeration<Option> listOptions() {
+    Vector<Option> newVector = new Vector<Option>(4);
 
 //    newVector.addElement(new Option("\tSpecify a starting set of attributes.\n"
 //            + "\tEg. 1,3,5-7.\n" + "\tAny starting attributes specified are\n"
@@ -333,82 +333,82 @@ public class EntropyRankerSubset
 //    newVector.addElement(new Option("\tSpecify number of attributes to select",
 //            "N", 1, "-N <num to select>"));
 
-        newVector.addElement(new Option("\tHow many more attributes to add to the entropy subset?",
-                "M", 1, "-M <num to add>"));
+    newVector.addElement(new Option("\tHow many more attributes to add to the entropy subset?",
+            "M", 1, "-M <num to add>"));
 
-        return newVector.elements();
+    return newVector.elements();
 
+  }
+
+  /**
+   * Parses a given list of options.
+   * <p/>
+   * <p>
+   * <!-- options-start --> Valid options are:
+   * <p/>
+   * <p>
+   * <pre>
+   * -P &lt;start set&gt;
+   *  Specify a starting set of attributes.
+   *  Eg. 1,3,5-7.
+   *  Any starting attributes specified are
+   *  ignored during the ranking.
+   * </pre>
+   * <p>
+   * <pre>
+   * -T &lt;frequency threshold&gt;
+   *  Specify a theshold by which attributes
+   *  may be discarded from the ranking.
+   * </pre>
+   * <p>
+   * <pre>
+   * -N &lt;num to select&gt;
+   *  Specify number of attributes to select
+   * </pre>
+   * <p>
+   * <!-- options-end -->
+   *
+   * @param options the list of options as an array of strings
+   * @throws Exception if an option is not supported
+   */
+  @Override
+  public void setOptions(String[] options) throws Exception {
+    String optionString;
+    resetOptions();
+
+    optionString = Utils.getOption('P', options);
+    if (optionString.length() != 0) {
+      setStartSet(optionString);
     }
 
-    /**
-     * Parses a given list of options.
-     * <p/>
-     * <p>
-     * <!-- options-start --> Valid options are:
-     * <p/>
-     * <p>
-     * <pre>
-     * -P &lt;start set&gt;
-     *  Specify a starting set of attributes.
-     *  Eg. 1,3,5-7.
-     *  Any starting attributes specified are
-     *  ignored during the ranking.
-     * </pre>
-     * <p>
-     * <pre>
-     * -T &lt;frequency threshold&gt;
-     *  Specify a theshold by which attributes
-     *  may be discarded from the ranking.
-     * </pre>
-     * <p>
-     * <pre>
-     * -N &lt;num to select&gt;
-     *  Specify number of attributes to select
-     * </pre>
-     * <p>
-     * <!-- options-end -->
-     *
-     * @param options the list of options as an array of strings
-     * @throws Exception if an option is not supported
-     */
-    @Override
-    public void setOptions(String[] options) throws Exception {
-        String optionString;
-        resetOptions();
-
-        optionString = Utils.getOption('P', options);
-        if (optionString.length() != 0) {
-            setStartSet(optionString);
-        }
-
-        optionString = Utils.getOption('T', options);
-        if (optionString.length() != 0) {
-            Double temp;
-            temp = Double.valueOf(optionString);
-            setThreshold(temp.doubleValue());
-        }
-
-        optionString = Utils.getOption('N', options);
-        if (optionString.length() != 0) {
-            setNumToSelect(Integer.parseInt(optionString));
-        }
-
-        optionString = Utils.getOption('M', options);
-        if (optionString.length() != 0) {
-            setNumMoreAttributes(Integer.parseInt(optionString));
-        }
-
+    optionString = Utils.getOption('T', options);
+    if (optionString.length() != 0) {
+      Double temp;
+      temp = Double.valueOf(optionString);
+      setThreshold(temp.doubleValue());
     }
 
-    /**
-     * Gets the current settings of ReliefFAttributeEval.
-     *
-     * @return an array of strings suitable for passing to setOptions()
-     */
-    @Override
-    public String[] getOptions() {
+    optionString = Utils.getOption('N', options);
+    if (optionString.length() != 0) {
+      setNumToSelect(Integer.parseInt(optionString));
+    }
 
-        Vector<String> options = new Vector<String>();
+    optionString = Utils.getOption('M', options);
+    if (optionString.length() != 0) {
+      setNumMoreAttributes(Integer.parseInt(optionString));
+    }
+
+  }
+
+  /**
+   * Gets the current settings of ReliefFAttributeEval.
+   *
+   * @return an array of strings suitable for passing to setOptions()
+   */
+  @Override
+  public String[] getOptions() {
+
+    Vector<String> options = new Vector<String>();
 //
 //    if (!(getStartSet().equals(""))) {
 //      options.add("-P");
@@ -421,200 +421,200 @@ public class EntropyRankerSubset
 //    options.add("-N");
 //    options.add("" + getNumToSelect());
 
-        options.add("-M");
-        options.add("" + getNumMoreAttributes());
+    options.add("-M");
+    options.add("" + getNumMoreAttributes());
 
-        return options.toArray(new String[0]);
+    return options.toArray(new String[0]);
+  }
+
+  /**
+   * converts the array of starting attributes to a string. This is used by
+   * getOptions to return the actual attributes specified as the starting set.
+   * This is better than using m_startRanges.getRanges() as the same start set
+   * can be specified in different ways from the command line---eg 1,2,3 == 1-3.
+   * This is to ensure that stuff that is stored in a database is comparable.
+   *
+   * @return a comma seperated list of individual attribute numbers as a String
+   */
+  private String startSetToString() {
+    StringBuffer FString = new StringBuffer();
+    boolean didPrint;
+
+    if (m_starting == null) {
+      return getStartSet();
     }
 
-    /**
-     * converts the array of starting attributes to a string. This is used by
-     * getOptions to return the actual attributes specified as the starting set.
-     * This is better than using m_startRanges.getRanges() as the same start set
-     * can be specified in different ways from the command line---eg 1,2,3 == 1-3.
-     * This is to ensure that stuff that is stored in a database is comparable.
-     *
-     * @return a comma seperated list of individual attribute numbers as a String
+    for (int i = 0; i < m_starting.length; i++) {
+      didPrint = false;
+
+      if ((m_hasClass == false) || (m_hasClass == true && i != m_classIndex)) {
+        FString.append((m_starting[i] + 1));
+        didPrint = true;
+      }
+
+      if (i == (m_starting.length - 1)) {
+        FString.append("");
+      } else {
+        if (didPrint) {
+          FString.append(",");
+        }
+      }
+    }
+
+    return FString.toString();
+  }
+
+  /**
+   * Kind of a dummy search algorithm. Calls a Attribute evaluator to evaluate
+   * each attribute not included in the startSet and then sorts them to produce
+   * a ranked list of attributes.
+   *
+   * @param ASEval the attribute evaluator to guide the search
+   * @param data   the training instances.
+   * @return an array (not necessarily ordered) of selected attribute indexes
+   * @throws Exception if the search can't be completed
+   */
+  @Override
+  public int[] search(ASEvaluation ASEval, Instances data) throws Exception {
+    int i, j;
+
+    if (!(ASEval instanceof AttributeEvaluator)) {
+      throw new Exception(ASEval.getClass().getName() + " is not a"
+              + "Attribute evaluator!");
+    }
+
+    m_numAttribs = data.numAttributes();
+
+    if (ASEval instanceof UnsupervisedAttributeEvaluator) {
+      m_hasClass = false;
+    } else {
+      m_classIndex = data.classIndex();
+      if (m_classIndex >= 0) {
+        m_hasClass = true;
+      } else {
+        m_hasClass = false;
+      }
+    }
+
+    // get the transformed dataset and check to see if the transformer
+    // preserves a class index
+    if (ASEval instanceof AttributeTransformer) {
+      data = ((AttributeTransformer) ASEval).transformedHeader();
+      if (m_classIndex >= 0 && data.classIndex() >= 0) {
+        m_classIndex = data.classIndex();
+        m_hasClass = true;
+      }
+    }
+
+    m_startRange.setUpper(m_numAttribs - 1);
+    if (!(getStartSet().equals(""))) {
+      m_starting = m_startRange.getSelection();
+    }
+
+    int sl = 0;
+    if (m_starting != null) {
+      sl = m_starting.length;
+    }
+    if ((m_starting != null) && (m_hasClass == true)) {
+      // see if the supplied list contains the class index
+      boolean ok = false;
+      for (i = 0; i < sl; i++) {
+        if (m_starting[i] == m_classIndex) {
+          ok = true;
+          break;
+        }
+      }
+
+      if (ok == false) {
+        sl++;
+      }
+    } else {
+      if (m_hasClass == true) {
+        sl++;
+      }
+    }
+
+    m_attributeList = new int[m_numAttribs - sl];
+    m_attributeMerit = new double[m_numAttribs - sl];
+
+    // add in those attributes not in the starting (omit list)
+    for (i = 0, j = 0; i < m_numAttribs; i++) {
+      if (!inStarting(i)) {
+        m_attributeList[j++] = i;
+      }
+    }
+
+    AttributeEvaluator ASEvaluator = (AttributeEvaluator) ASEval;
+
+    for (i = 0; i < m_attributeList.length; i++) {
+      m_attributeMerit[i] = ASEvaluator.evaluateAttribute(m_attributeList[i]);
+    }
+
+    double[][] tempRanked = rankedAttributes();
+    int[] rankedAttributes = new int[m_attributeList.length];
+
+    for (i = 0; i < m_attributeList.length; i++) {
+      rankedAttributes[i] = (int) tempRanked[i][0];
+    }
+
+    return rankedAttributes;
+  }
+
+  /**
+   * Sorts the evaluated attribute list
+   *
+   * @return an array of sorted (highest eval to lowest) attribute indexes
+   * @throws Exception of sorting can't be done.
+   */
+  @Override
+  public double[][] rankedAttributes() throws Exception {
+    int i, j;
+
+    if (m_attributeList == null || m_attributeMerit == null) {
+      throw new Exception("Search must be performed before a ranked "
+              + "attribute list can be obtained");
+    }
+
+    int[] ranked = Utils.sort(m_attributeMerit);
+    // reverse the order of the ranked indexes
+    double[][] bestToWorst = new double[ranked.length][2];
+
+    for (i = ranked.length - 1, j = 0; i >= 0; i--) {
+      bestToWorst[j++][0] = ranked[i];
+    }
+
+    // convert the indexes to attribute indexes
+    for (i = 0; i < bestToWorst.length; i++) {
+      int temp = ((int) bestToWorst[i][0]);
+      bestToWorst[i][0] = m_attributeList[temp];
+      bestToWorst[i][1] = m_attributeMerit[temp];
+    }
+
+    // if (m_numToSelect > bestToWorst.length) {
+    // throw new Exception("More attributes requested than exist in the dataset");
+    // }
+
+    if (m_numToSelect <= 0) {
+      if (m_frequencyThreshold == -Double.MAX_VALUE) {
+        m_calculatedNumToSelect = bestToWorst.length;
+      } else {
+        determineNumToSelectFromFrequencyThreshold(bestToWorst);
+      }
+    }
+    /*
+     * if (m_numToSelect > 0) { determineThreshFromNumToSelect(bestToWorst); }
      */
-    private String startSetToString() {
-        StringBuffer FString = new StringBuffer();
-        boolean didPrint;
 
-        if (m_starting == null) {
-            return getStartSet();
-        }
+    return bestToWorst;
+  }
 
-        for (int i = 0; i < m_starting.length; i++) {
-            didPrint = false;
+  private static double entropyValue(double p) {
+    if (p < 1e-6 || p > (1 - 1e-6))
+      return 0;
+    return -p * Math.log(p) / Math.log(2);
+  }
 
-            if ((m_hasClass == false) || (m_hasClass == true && i != m_classIndex)) {
-                FString.append((m_starting[i] + 1));
-                didPrint = true;
-            }
-
-            if (i == (m_starting.length - 1)) {
-                FString.append("");
-            } else {
-                if (didPrint) {
-                    FString.append(",");
-                }
-            }
-        }
-
-        return FString.toString();
-    }
-
-    /**
-     * Kind of a dummy search algorithm. Calls a Attribute evaluator to evaluate
-     * each attribute not included in the startSet and then sorts them to produce
-     * a ranked list of attributes.
-     *
-     * @param ASEval the attribute evaluator to guide the search
-     * @param data   the training instances.
-     * @return an array (not necessarily ordered) of selected attribute indexes
-     * @throws Exception if the search can't be completed
-     */
-    @Override
-    public int[] search(ASEvaluation ASEval, Instances data) throws Exception {
-        int i, j;
-
-        if (!(ASEval instanceof AttributeEvaluator)) {
-            throw new Exception(ASEval.getClass().getName() + " is not a"
-                    + "Attribute evaluator!");
-        }
-
-        m_numAttribs = data.numAttributes();
-
-        if (ASEval instanceof UnsupervisedAttributeEvaluator) {
-            m_hasClass = false;
-        } else {
-            m_classIndex = data.classIndex();
-            if (m_classIndex >= 0) {
-                m_hasClass = true;
-            } else {
-                m_hasClass = false;
-            }
-        }
-
-        // get the transformed dataset and check to see if the transformer
-        // preserves a class index
-        if (ASEval instanceof AttributeTransformer) {
-            data = ((AttributeTransformer) ASEval).transformedHeader();
-            if (m_classIndex >= 0 && data.classIndex() >= 0) {
-                m_classIndex = data.classIndex();
-                m_hasClass = true;
-            }
-        }
-
-        m_startRange.setUpper(m_numAttribs - 1);
-        if (!(getStartSet().equals(""))) {
-            m_starting = m_startRange.getSelection();
-        }
-
-        int sl = 0;
-        if (m_starting != null) {
-            sl = m_starting.length;
-        }
-        if ((m_starting != null) && (m_hasClass == true)) {
-            // see if the supplied list contains the class index
-            boolean ok = false;
-            for (i = 0; i < sl; i++) {
-                if (m_starting[i] == m_classIndex) {
-                    ok = true;
-                    break;
-                }
-            }
-
-            if (ok == false) {
-                sl++;
-            }
-        } else {
-            if (m_hasClass == true) {
-                sl++;
-            }
-        }
-
-        m_attributeList = new int[m_numAttribs - sl];
-        m_attributeMerit = new double[m_numAttribs - sl];
-
-        // add in those attributes not in the starting (omit list)
-        for (i = 0, j = 0; i < m_numAttribs; i++) {
-            if (!inStarting(i)) {
-                m_attributeList[j++] = i;
-            }
-        }
-
-        AttributeEvaluator ASEvaluator = (AttributeEvaluator) ASEval;
-
-        for (i = 0; i < m_attributeList.length; i++) {
-            m_attributeMerit[i] = ASEvaluator.evaluateAttribute(m_attributeList[i]);
-        }
-
-        double[][] tempRanked = rankedAttributes();
-        int[] rankedAttributes = new int[m_attributeList.length];
-
-        for (i = 0; i < m_attributeList.length; i++) {
-            rankedAttributes[i] = (int) tempRanked[i][0];
-        }
-
-        return rankedAttributes;
-    }
-
-    /**
-     * Sorts the evaluated attribute list
-     *
-     * @return an array of sorted (highest eval to lowest) attribute indexes
-     * @throws Exception of sorting can't be done.
-     */
-    @Override
-    public double[][] rankedAttributes() throws Exception {
-        int i, j;
-
-        if (m_attributeList == null || m_attributeMerit == null) {
-            throw new Exception("Search must be performed before a ranked "
-                    + "attribute list can be obtained");
-        }
-
-        int[] ranked = Utils.sort(m_attributeMerit);
-        // reverse the order of the ranked indexes
-        double[][] bestToWorst = new double[ranked.length][2];
-
-        for (i = ranked.length - 1, j = 0; i >= 0; i--) {
-            bestToWorst[j++][0] = ranked[i];
-        }
-
-        // convert the indexes to attribute indexes
-        for (i = 0; i < bestToWorst.length; i++) {
-            int temp = ((int) bestToWorst[i][0]);
-            bestToWorst[i][0] = m_attributeList[temp];
-            bestToWorst[i][1] = m_attributeMerit[temp];
-        }
-
-        // if (m_numToSelect > bestToWorst.length) {
-        // throw new Exception("More attributes requested than exist in the dataset");
-        // }
-
-        if (m_numToSelect <= 0) {
-            if (m_frequencyThreshold == -Double.MAX_VALUE) {
-                m_calculatedNumToSelect = bestToWorst.length;
-            } else {
-                determineNumToSelectFromFrequencyThreshold(bestToWorst);
-            }
-        }
-        /*
-         * if (m_numToSelect > 0) { determineThreshFromNumToSelect(bestToWorst); }
-         */
-
-        return bestToWorst;
-    }
-
-    private static double entropyValue(double p) {
-        if (p < 1e-6 || p > (1 - 1e-6))
-            return 0;
-        return -p * Math.log(p) / Math.log(2);
-    }
-
-    private void determineNumToSelectFromFrequencyThreshold(double[][] ranking) {
+  private void determineNumToSelectFromFrequencyThreshold(double[][] ranking) {
 //        int count = 0;
 //        for (double[] element : ranking) {
 //            if (element[1] > m_frequencyThreshold) {
@@ -622,101 +622,101 @@ public class EntropyRankerSubset
 //            }
 //        }
 //        m_calculatedNumToSelect = count;
-        double[] values = Arrays.stream(ranking)
-                .mapToDouble(i -> i[1])
-                .toArray();
+    double[] values = Arrays.stream(ranking)
+            .mapToDouble(i -> i[1])
+            .toArray();
 
-        //normalize dataset
-        final double sumValue = Arrays.stream(values).sum();
-        if (sumValue == 0) throw new NullPointerException("Max Rank Can not be Zero !!");
-        ranksNormalized = Arrays.stream(values)
-                .map(v -> v / sumValue)
-                .toArray();
+    //normalize dataset
+    final double sumValue = Arrays.stream(values).sum();
+    if (sumValue == 0) throw new NullPointerException("Max Rank Can not be Zero !!");
+    ranksNormalized = Arrays.stream(values)
+            .map(v -> v / sumValue)
+            .toArray();
 
-        double hV = Arrays.stream(ranksNormalized)
-                .map(EntropyRankerSubset::entropyValue)
-                .sum();
-        numAttsToSelect = Math.pow(2, hV);
+    double hV = Arrays.stream(ranksNormalized)
+            .map(EntropyRankerSubset::entropyValue)
+            .sum();
+    numAttsToSelect = Math.pow(2, hV);
 
-        int num2select = (int) Math.ceil(numAttsToSelect);
-        m_entropySubset = num2select;
+    int num2select = (int) Math.ceil(numAttsToSelect);
+    m_entropySubset = num2select;
 
 //        double frequencyThreshold = frequencyThreshold(values, m_frequencyThreshold);
-        m_calculatedNumToSelect = Math.min(num2select + m_numMoreAttributes, values.length);
+    m_calculatedNumToSelect = Math.min(num2select + m_numMoreAttributes, values.length);
+  }
+
+
+  /**
+   * returns a description of the search as a String
+   *
+   * @return a description of the search
+   */
+  @Override
+  public String toString() {
+    StringBuffer sb = new StringBuffer();
+    sb.append("\tEntropy Based Attribute Ranking.\n");
+
+    if (m_starting != null) {
+      sb.append("\tIgnored attributes: ");
+
+      sb.append(startSetToString());
+      sb.append("\n");
     }
 
-
-    /**
-     * returns a description of the search as a String
-     *
-     * @return a description of the search
-     */
-    @Override
-    public String toString() {
-        StringBuffer sb = new StringBuffer();
-        sb.append("\tEntropy Based Attribute Ranking.\n");
-
-        if (m_starting != null) {
-            sb.append("\tIgnored attributes: ");
-
-            sb.append(startSetToString());
-            sb.append("\n");
-        }
-
-        sb.append(String.format("\n\tNumber of attributes to be selected : %2.2f\n\n", numAttsToSelect));
-        if (ranksNormalized != null) {
-            sb.append("\nNormalized ranks:\n");
-            for (int i = 0; i < ranksNormalized.length; i++) {
-                sb.append(String.format("\n%4d\t%1.3f", i + 1, ranksNormalized[i]));
-            }
-        }
-
-        if (m_entropySubset > 0) {
-            sb.append("\n\n\tSubset size based on entropy: "
-                    + Utils.doubleToString(m_entropySubset, 8, 4) + "\n");
-        }
-
-        return sb.toString();
+    sb.append(String.format("\n\tNumber of attributes to be selected : %2.2f\n\n", numAttsToSelect));
+    if (ranksNormalized != null) {
+      sb.append("\nNormalized ranks:\n");
+      for (int i = 0; i < ranksNormalized.length; i++) {
+        sb.append(String.format("\n%4d\t%1.3f", i + 1, ranksNormalized[i]));
+      }
     }
 
-    /**
-     * Resets stuff to default values
-     */
-    protected void resetOptions() {
-        m_starting = null;
-        m_startRange = new Range();
-        m_attributeList = null;
-        m_attributeMerit = null;
-        m_frequencyThreshold = 0.5;
-        m_numMoreAttributes = 0;
+    if (m_entropySubset > 0) {
+      sb.append("\n\n\tSubset size based on entropy: "
+              + Utils.doubleToString(m_entropySubset, 8, 4) + "\n");
     }
 
-    private boolean inStarting(int feat) {
-        // omit the class from the evaluation
-        if ((m_hasClass == true) && (feat == m_classIndex)) {
-            return true;
-        }
+    return sb.toString();
+  }
 
-        if (m_starting == null) {
-            return false;
-        }
+  /**
+   * Resets stuff to default values
+   */
+  protected void resetOptions() {
+    m_starting = null;
+    m_startRange = new Range();
+    m_attributeList = null;
+    m_attributeMerit = null;
+    m_frequencyThreshold = 0.5;
+    m_numMoreAttributes = 0;
+  }
 
-        for (int element : m_starting) {
-            if (element == feat) {
-                return true;
-            }
-        }
-
-        return false;
+  private boolean inStarting(int feat) {
+    // omit the class from the evaluation
+    if ((m_hasClass == true) && (feat == m_classIndex)) {
+      return true;
     }
 
-    /**
-     * Returns the revision string.
-     *
-     * @return the revision
-     */
-    @Override
-    public String getRevision() {
-        return RevisionUtils.extract("$Revision: 11215 $");
+    if (m_starting == null) {
+      return false;
     }
+
+    for (int element : m_starting) {
+      if (element == feat) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  /**
+   * Returns the revision string.
+   *
+   * @return the revision
+   */
+  @Override
+  public String getRevision() {
+    return RevisionUtils.extract("$Revision: 11215 $");
+  }
 }

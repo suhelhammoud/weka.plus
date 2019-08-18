@@ -7,12 +7,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b4ffecf-fd2d-4ac9-8d65-3aedb6a8be09" name="Default" comment="Initial commit">
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sensentivity/l2/L2RLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/l2/L2RLine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sensentivity/l2/L2RTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/l2/L2RTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sensentivity/l2/RTags.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/l2/RTags.java" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/arff/dsets03/autism.arff" beforeDir="false" afterPath="$PROJECT_DIR$/data/arff/dsets03/autism.arff" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/conf_l2_aut.properties" beforeDir="false" afterPath="$PROJECT_DIR$/data/conf_l2_aut.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryDriverAutism.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryDriverAutism.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryDriverL2Unbalanced.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryDriverL2Unbalanced.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryDriverL2UnbalancedVariance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryDriverL2UnbalancedVariance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryKey.java" afterDir="false" />
+>>>>>>> refactored_tests
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,42 +38,9 @@
       <list>
         <option value="Enum" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>evalu</find>
-      <find>evaluateAtt</find>
-      <find>buildEvaluatorRules1</find>
-      <find>entropy</find>
-      <find>resetn</find>
-      <find>selectetA</find>
-      <find>Attributes Ranks:</find>
-      <find>Ranked attributes:</find>
-      <find>playStor</find>
-      <find>missing</find>
-      <find>listOpt</find>
-      <find>ListOpt</find>
-      <find>Options</find>
-      <find>lymp</find>
-      <find>iono</find>
-      <find>get</find>
-      <find>print</find>
-      <find>german</find>
-      <find>horse</find>
-      <find>diab</find>
-      <find>playsto</find>
-      <find>sami</find>
-      <find>Log</find>
-      <find>Logg</find>
-      <find>classPerce</find>
-      <find>100</find>
-      <find>revision</find>
-      <find>sampleClass</find>
-      <find>tipText</find>
-      <find>percent</find>
-    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
@@ -80,6 +57,7 @@
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
+<<<<<<< HEAD
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="1920" />
@@ -89,31 +67,57 @@
   </component>
   <component name="ProjectId" id="1PRx3s6WYxMDJH9rt6fA5jauLRK" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+=======
+  </component>
+  <component name="ProjectId" id="1PSEWL7AzW6gpuWGM2sXyPBjsuS" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+>>>>>>> refactored_tests
   <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="true" />
     <property name="GenerateAntBuildDialog.backupFiles" value="true" />
     <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
     <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="weka.plus" />
+<<<<<<< HEAD
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="add_unversioned_files" value="true&#10;/home/suhel/workspace/java/weka.plus/data/out/out.csv&#10;/home/suhel/workspace/java/weka.plus/data/results/0.properties" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+=======
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="add_unversioned_files" value="true" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/data" />
+>>>>>>> refactored_tests
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="sensetivity" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="sensetivity" />
       <recent name="weka.attributeSelection.pas" />
       <recent name="weka.classifiers.rules.medri" />
       <recent name="weka.attributeSelection" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/data" />
+      <recent name="$PROJECT_DIR$/data/arff/dsets03" />
+      <recent name="$PROJECT_DIR$/data/aut" />
       <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/lib" />
-      <recent name="$PROJECT_DIR$/src/weka/classifiers" />
-      <recent name="$PROJECT_DIR$/data/arff" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -128,22 +132,14 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.AppLauncher">
-    <configuration name="AppLauncher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="AppLauncher" />
-      <module name="weka.plus" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CutOffPoint" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="weka.attributeSelection.pas.CutOffPoint" />
+  <component name="RunManager" selected="Application.StoryDriverAutism">
+    <configuration name="L2AttributeEvalMethod" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="sensetivity.l2.L2AttributeEvalMethod" />
       <module name="weka.plus" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="weka.attributeSelection.pas.*" />
+          <option name="PATTERN" value="sensetivity.l2.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -151,30 +147,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GUILauncher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUILauncher" />
-      <module name="weka.plus" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PropsUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="sensetivity.PropsUtils" />
-      <module name="weka.plus" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="sensetivity.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="StoryDriver" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="sensetivity.StoryDriver" />
+    <configuration name="StoryDriverAutism" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="sensetivity.StoryDriverAutism" />
       <module name="weka.plus" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
@@ -189,6 +163,56 @@
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FilesUtilsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="weka.plus" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="sensetivity.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="sensetivity" />
+      <option name="MAIN_CLASS_NAME" value="sensetivity.FilesUtilsTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FilesUtilsTest.createOutDir" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="weka.plus" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="sensetivity.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="sensetivity" />
+      <option name="MAIN_CLASS_NAME" value="sensetivity.FilesUtilsTest" />
+      <option name="METHOD_NAME" value="createOutDir" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StoryTest.equalsOn" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="weka.plus" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="sensetivity.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="sensetivity" />
+      <option name="MAIN_CLASS_NAME" value="sensetivity.StoryTest" />
+      <option name="METHOD_NAME" value="equalsOn" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -210,19 +234,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.AppLauncher" />
-      <item itemvalue="Application.StoryDriver" />
-      <item itemvalue="Application.CutOffPoint" />
-      <item itemvalue="Application.PropsUtils" />
-      <item itemvalue="Application.GUILauncher" />
+      <item itemvalue="Application.L2AttributeEvalMethod" />
+      <item itemvalue="JUnit.FilesUtilsTest.createOutDir" />
+      <item itemvalue="JUnit.FilesUtilsTest" />
+      <item itemvalue="Application.StoryDriverAutism" />
+      <item itemvalue="JUnit.StoryTest.equalsOn" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.AppLauncher" />
-        <item itemvalue="Application.GUILauncher" />
-        <item itemvalue="Application.StoryDriver" />
-        <item itemvalue="Application.PropsUtils" />
-        <item itemvalue="Application.CutOffPoint" />
+        <item itemvalue="Application.StoryDriverAutism" />
+        <item itemvalue="JUnit.StoryTest.equalsOn" />
+        <item itemvalue="JUnit.FilesUtilsTest" />
+        <item itemvalue="JUnit.FilesUtilsTest.createOutDir" />
+        <item itemvalue="Application.L2AttributeEvalMethod" />
       </list>
     </recent_temporary>
   </component>
@@ -272,6 +296,20 @@
         <entry key="MAIN">
           <value>
             <State>
+<<<<<<< HEAD
+=======
+              <option name="FILTERS">
+                <map>
+                  <entry key="text">
+                    <value>
+                      <list>
+                        <option value="sensitivity" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+>>>>>>> refactored_tests
               <option name="COLUMN_ORDER" />
             </State>
           </value>
@@ -321,11 +359,14 @@
           <line>98</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
+<<<<<<< HEAD
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/sensetivity/StoryUtils.java</url>
           <line>37</line>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
+=======
+>>>>>>> refactored_tests
       </breakpoints>
     </breakpoint-manager>
   </component>

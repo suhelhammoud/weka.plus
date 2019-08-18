@@ -76,8 +76,7 @@ public class L2RLine {
     return Arrays.stream(L2KEYS.values())
             .map(key -> values.containsKey(key) ?
                     values.get(key).toString() :
-                    ""
-            )
+                    "")
             .collect(Collectors.joining(", "));
   }
 

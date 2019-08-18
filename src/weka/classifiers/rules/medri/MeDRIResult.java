@@ -7,22 +7,22 @@ import java.util.List;
  */
 public class MeDRIResult {
 
-    private long scannedInstances = 0;
-    private List<IRule> rules;
+  private long scannedInstances = 0;
+  private List<IRule> rules;
 
-    public void setScannedInstances(long scannedInstances) {
-        this.scannedInstances = scannedInstances;
-    }
+  public void setScannedInstances(long scannedInstances) {
+    this.scannedInstances = scannedInstances;
+  }
 
-    public long getScannedInstances() {
-        return scannedInstances;
-    }
+  public long getScannedInstances() {
+    return scannedInstances;
+  }
 
-    public List<IRule> getRules() {
-        return rules;
-    }
+  public List<IRule> getRules() {
+    return rules;
+  }
 
-    public void setRules(List<IRule> rules) {
-        this.rules = rules;
-    }
+  public void setRules(List<IRule> rules) {
+    this.rules = rules;
+  }
 }

@@ -3,6 +3,7 @@ package weka.classifiers.rules.medri;
 /**
  * Created by suhel on 23/03/16.
  */
+
 /**
  * Helper class
  *
@@ -10,11 +11,11 @@ package weka.classifiers.rules.medri;
  * @param <V> value
  */
 public class Pair<K, V> {
-    final public K key;
-    final public V value;
+  final public K key;
+  final public V value;
 
-    public Pair(K key, V value) {
-        this.key = key;
-        this.value = value;
-    }
+  public Pair(K key, V value) {
+    this.key = key;
+    this.value = value;
+  }
 }

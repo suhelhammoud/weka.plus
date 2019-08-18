@@ -105,7 +105,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @see Discretize
  */
 public class VaCfsEval extends ASEvaluation implements SubsetEvaluator,
-    ThreadSafe, OptionHandler, TechnicalInformationHandler {
+        ThreadSafe, OptionHandler, TechnicalInformationHandler {
 
   //TODO needs revising to prune all unnecessary base code taken from GreedyStepwise source
   /**
@@ -217,11 +217,11 @@ public class VaCfsEval extends ASEvaluation implements SubsetEvaluator,
    */
   public String globalInfo() {
     return "CfsSubsetEval :\n\nEvaluates the worth of a subset of attributes "
-        + "by considering the individual predictive ability of each feature "
-        + "along with the degree of redundancy between them.\n\n"
-        + "Subsets of features that are highly correlated with the class "
-        + "while having low intercorrelation are preferred.\n\n"
-        + "For more information see:\n\n" + getTechnicalInformation().toString();
+            + "by considering the individual predictive ability of each feature "
+            + "along with the degree of redundancy between them.\n\n"
+            + "Subsets of features that are highly correlated with the class "
+            + "while having low intercorrelation are preferred.\n\n"
+            + "For more information see:\n\n" + getTechnicalInformation().toString();
   }
 
   /**
@@ -264,24 +264,24 @@ public class VaCfsEval extends ASEvaluation implements SubsetEvaluator,
   public Enumeration<Option> listOptions() {
     Vector<Option> newVector = new Vector<Option>(8);
     newVector.addElement(new Option("\tTreat missing values as a separate "
-        + "value.", "M", 0, "-M"));
+            + "value.", "M", 0, "-M"));
     newVector.addElement(new Option(
-        "\tDon't include locally predictive attributes" + ".", "L", 0, "-L"));
+            "\tDon't include locally predictive attributes" + ".", "L", 0, "-L"));
 
     newVector.addElement(new Option(
-        "\t" + preComputeCorrelationMatrixTipText(), "Z", 0, "-Z"));
+            "\t" + preComputeCorrelationMatrixTipText(), "Z", 0, "-Z"));
     newVector.addElement(new Option(
-        "\t Va Threshold", "T", 0, "-T"));
+            "\t Va Threshold", "T", 0, "-T"));
 
     newVector.addElement(new Option(
-        "\t" + poolSizeTipText() + " (default 1)\n", "P", 1, "-P <int>"));
+            "\t" + poolSizeTipText() + " (default 1)\n", "P", 1, "-P <int>"));
     newVector.addElement(new Option("\t" + numThreadsTipText()
-        + " (default 1)\n", "E", 1, "-E <int>"));
+            + " (default 1)\n", "E", 1, "-E <int>"));
     newVector.addElement(new Option("\tOutput debugging info" + ".", "D", 0,
-        "-D"));
+            "-D"));
     newVector.addElement(new Option(
-        "\tWether to use 0=Firuz/1=Suhel formula. (default 0=Firuz)",
-        "F", 1, "-F < Firuz | Suhel >"));
+            "\tWether to use 0=Firuz/1=Suhel formula. (default 0=Firuz)",
+            "F", 1, "-F < Firuz | Suhel >"));
     return newVector.elements();
   }
 
@@ -375,9 +375,9 @@ public class VaCfsEval extends ASEvaluation implements SubsetEvaluator,
    */
   public String preComputeCorrelationMatrixTipText() {
     return "Precompute the full correlation matrix at the outset, "
-        + "rather than compute correlations lazily (as needed) "
-        + "during the search. Use this in conjuction with "
-        + "parallel processing in order to speed up a backward " + "search.";
+            + "rather than compute correlations lazily (as needed) "
+            + "during the search. Use this in conjuction with "
+            + "parallel processing in order to speed up a backward " + "search.";
   }
 
   /**
@@ -470,9 +470,9 @@ public class VaCfsEval extends ASEvaluation implements SubsetEvaluator,
    */
   public String locallyPredictiveTipText() {
     return "Identify locally predictive attributes. Iteratively adds "
-        + "attributes with the highest correlation with the class as long "
-        + "as there is not already an attribute in the subset that has a "
-        + "higher correlation with the attribute in question";
+            + "attributes with the highest correlation with the class as long "
+            + "as there is not already an attribute in the subset that has a "
+            + "higher correlation with the attribute in question";
   }
 
   /**
@@ -501,8 +501,8 @@ public class VaCfsEval extends ASEvaluation implements SubsetEvaluator,
    */
   public String missingSeparateTipText() {
     return "Treat missing as a separate value. Otherwise, counts for missing "
-        + "values are distributed across other values in proportion to their "
-        + "frequency.";
+            + "values are distributed across other values in proportion to their "
+            + "frequency.";
   }
 
   /**
@@ -698,7 +698,7 @@ public class VaCfsEval extends ASEvaluation implements SubsetEvaluator,
         for (int j = 0; j < m_corr_matrix[i].length; j++) {
           count++;
           if (count == numEntriesPerThread
-              || (i == m_corr_matrix.length - 1 && j == m_corr_matrix[i].length - 1)) {
+                  || (i == m_corr_matrix.length - 1 && j == m_corr_matrix[i].length - 1)) {
             final int sR = startRow;
             final int sC = startCol;
             final int eR = i;
@@ -713,11 +713,11 @@ public class VaCfsEval extends ASEvaluation implements SubsetEvaluator,
               public Void call() throws Exception {
                 if (m_debug) {
                   System.err
-                      .println("Starting correlation computation task...");
+                          .println("Starting correlation computation task...");
                 }
                 for (int i = sR; i <= eR; i++) {
                   for (int j = (i == sR ? sC : 0); j < (i == eR ? eC
-                      : m_corr_matrix[i].length); j++) {
+                          : m_corr_matrix[i].length); j++) {
                     if (m_corr_matrix[i][j] == -999) {
                       float corr = correlate(i, j);
                       m_corr_matrix[i][j] = corr;
@@ -726,9 +726,9 @@ public class VaCfsEval extends ASEvaluation implements SubsetEvaluator,
                 }
                 if (m_debug) {
                   System.err
-                      .println("Percentage of correlation matrix computed: "
-                          + Utils.doubleToString(((double) m_numFilled.get()
-                          / m_numEntries * 100.0), 2) + "%");
+                          .println("Percentage of correlation matrix computed: "
+                                  + Utils.doubleToString(((double) m_numFilled.get()
+                                  / m_numEntries * 100.0), 2) + "%");
                 }
 
                 return null;
@@ -801,7 +801,7 @@ public class VaCfsEval extends ASEvaluation implements SubsetEvaluator,
                 denom += (2.0 * m_std_devs[i] * m_std_devs[j] * corr);
               } else {
                 denom +=
-                    (2.0 * m_std_devs[i] * m_std_devs[j] * m_corr_matrix[i][j]);
+                        (2.0 * m_std_devs[i] * m_std_devs[j] * m_corr_matrix[i][j]);
               }
             }
           }
@@ -922,7 +922,7 @@ public class VaCfsEval extends ASEvaluation implements SubsetEvaluator,
 
     // distribute missing counts
     if (!m_missingSeparate && (sumi[ni - 1] < m_numInstances)
-        && (sumj[nj - 1] < m_numInstances)) {
+            && (sumj[nj - 1] < m_numInstances)) {
       double[] i_copy = new double[sumi.length];
       double[] j_copy = new double[sumj.length];
       double[][] counts_copy = new double[sumi.length][sumj.length];
@@ -934,7 +934,7 @@ public class VaCfsEval extends ASEvaluation implements SubsetEvaluator,
       System.arraycopy(sumi, 0, i_copy, 0, sumi.length);
       System.arraycopy(sumj, 0, j_copy, 0, sumj.length);
       double total_missing =
-          (sumi[ni - 1] + sumj[nj - 1] - counts[ni - 1][nj - 1]);
+              (sumi[ni - 1] + sumj[nj - 1] - counts[ni - 1][nj - 1]);
 
       // do the missing i's
       if (sumi[ni - 1] > 0.0) {
@@ -975,8 +975,8 @@ public class VaCfsEval extends ASEvaluation implements SubsetEvaluator,
         for (i = 0; i < ni - 1; i++) {
           for (j = 0; j < nj - 1; j++) {
             temp =
-                (counts_copy[i][j] / (sum - total_missing))
-                    * counts_copy[ni - 1][nj - 1];
+                    (counts_copy[i][j] / (sum - total_missing))
+                            * counts_copy[ni - 1][nj - 1];
 
             counts[i][j] += temp;
             sumi[i] += temp;
@@ -1046,14 +1046,14 @@ public class VaCfsEval extends ASEvaluation implements SubsetEvaluator,
     double temp;
     Instance inst;
     int mx =
-        (int) m_trainInstances.meanOrMode(m_trainInstances.attribute(att1));
+            (int) m_trainInstances.meanOrMode(m_trainInstances.attribute(att1));
     double my = m_trainInstances.meanOrMode(m_trainInstances.attribute(att2));
     double stdv_num = 0.0;
     double diff1, diff2;
     double r = 0.0, rr;
     int nx =
-        (!m_missingSeparate) ? m_trainInstances.attribute(att1).numValues()
-            : m_trainInstances.attribute(att1).numValues() + 1;
+            (!m_missingSeparate) ? m_trainInstances.attribute(att1).numValues()
+                    : m_trainInstances.attribute(att1).numValues() + 1;
 
     double[] prior_nom = new double[nx];
     double[] stdvs_nom = new double[nx];
@@ -1110,7 +1110,7 @@ public class VaCfsEval extends ASEvaluation implements SubsetEvaluator,
     for (i = 0, temp = 0.0; i < nx; i++) {
       // calculate the weighted variance of the nominal
       temp +=
-          ((prior_nom[i] / m_numInstances) * (stdvs_nom[i] / m_numInstances));
+              ((prior_nom[i] / m_numInstances) * (stdvs_nom[i] / m_numInstances));
 
       if ((stdvs_nom[i] * stdv_num) > 0.0) {
         // System.out.println("Stdv :"+stdvs_nom[i]);
@@ -1163,18 +1163,18 @@ public class VaCfsEval extends ASEvaluation implements SubsetEvaluator,
     double temp1, temp2;
     Instance inst;
     int mx =
-        (int) m_trainInstances.meanOrMode(m_trainInstances.attribute(att1));
+            (int) m_trainInstances.meanOrMode(m_trainInstances.attribute(att1));
     int my =
-        (int) m_trainInstances.meanOrMode(m_trainInstances.attribute(att2));
+            (int) m_trainInstances.meanOrMode(m_trainInstances.attribute(att2));
     double diff1, diff2;
     double r = 0.0, rr;
     int nx =
-        (!m_missingSeparate) ? m_trainInstances.attribute(att1).numValues()
-            : m_trainInstances.attribute(att1).numValues() + 1;
+            (!m_missingSeparate) ? m_trainInstances.attribute(att1).numValues()
+                    : m_trainInstances.attribute(att1).numValues() + 1;
 
     int ny =
-        (!m_missingSeparate) ? m_trainInstances.attribute(att2).numValues()
-            : m_trainInstances.attribute(att2).numValues() + 1;
+            (!m_missingSeparate) ? m_trainInstances.attribute(att2).numValues()
+                    : m_trainInstances.attribute(att2).numValues() + 1;
 
     double[][] prior_nom = new double[nx][ny];
     double[] sumx = new double[nx];
@@ -1456,12 +1456,12 @@ public class VaCfsEval extends ASEvaluation implements SubsetEvaluator,
     int[] bestAttrs = postProcessLocal(attributeSet);
 
     double maxVrank = Arrays.stream(bestAttrs)
-        .mapToDouble(i -> vaRanks[i])
-        .max()
-        .getAsDouble();
+            .mapToDouble(i -> vaRanks[i])
+            .max()
+            .getAsDouble();
     int[] filterdBestAttrs = Arrays.stream(bestAttrs)
-        .filter(i -> vaRanks[i] / maxVrank >= m_vaThreshold)
-        .toArray();
+            .filter(i -> vaRanks[i] / maxVrank >= m_vaThreshold)
+            .toArray();
     return filterdBestAttrs;
   }
 
@@ -1469,9 +1469,9 @@ public class VaCfsEval extends ASEvaluation implements SubsetEvaluator,
 
     if (m_debug) {
       System.err.println("Percentage of correlation matrix computed "
-          + "over the search: "
-          + Utils.doubleToString(
-          ((double) m_numFilled.get() / m_numEntries * 100.0), 2) + "%");
+              + "over the search: "
+              + Utils.doubleToString(
+              ((double) m_numFilled.get() / m_numEntries * 100.0), 2) + "%");
     }
 
     int j = 0;

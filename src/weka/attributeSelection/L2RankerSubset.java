@@ -148,8 +148,8 @@ public class L2RankerSubset extends Ranker {
    */
   public String globalInfo() {
     return "L2RankerSubset : \n\nRanks attributes by their individual evaluations. "
-        + "Use in conjunction with attribute evaluators (ReliefF, GainRatio, "
-        + "L2 etc).\n";
+            + "Use in conjunction with attribute evaluators (ReliefF, GainRatio, "
+            + "L2 etc).\n";
   }
 
   /**
@@ -167,8 +167,8 @@ public class L2RankerSubset extends Ranker {
    */
   public String numToSelectTipText() {
     return "(deprecated, disabled) Specify the number of attributes to retain. The default value "
-        + "(-1) indicates that all attributes are to be retained. Use either "
-        + "this option or a threshold to reduce the attribute set.";
+            + "(-1) indicates that all attributes are to be retained. Use either "
+            + "this option or a threshold to reduce the attribute set.";
   }
 
   /**
@@ -204,9 +204,9 @@ public class L2RankerSubset extends Ranker {
   public int getCalculatedNumToSelect() {
     if (m_numToSelect >= 0) {
       m_calculatedNumToSelect =
-          m_numToSelect > m_attributeMerit.length ?
-              m_attributeMerit.length :
-              m_numToSelect;
+              m_numToSelect > m_attributeMerit.length ?
+                      m_attributeMerit.length :
+                      m_numToSelect;
     }
     return m_calculatedNumToSelect;
   }
@@ -219,8 +219,8 @@ public class L2RankerSubset extends Ranker {
    */
   public String thresholdTipText() {
     return "Set frequency threshold by which attributes can be discarded. Default value = .50 (frequencyThreshold)"
-        + "results in no attributes being discarded. Use either this option or "
-        + "numToSelect to reduce the attribute set.";
+            + "results in no attributes being discarded. Use either this option or "
+            + "numToSelect to reduce the attribute set.";
   }
 
   /**
@@ -251,7 +251,7 @@ public class L2RankerSubset extends Ranker {
    */
   public String generateRankingTipText() {
     return "A constant option. Ranker is only capable of generating "
-        + " attribute rankings.";
+            + " attribute rankings.";
   }
 
   /**
@@ -284,10 +284,10 @@ public class L2RankerSubset extends Ranker {
    */
   public String startSetTipText() {
     return "(deprecated) Specify a set of attributes to ignore. "
-        + " When generating the ranking, L2RankerSubset will not evaluate the attributes "
-        + " in this list. " + "This is specified as a comma "
-        + "seperated list off attribute indexes starting at 1. It can include "
-        + "ranges. Eg. 1,2,5-9,17.";
+            + " When generating the ranking, L2RankerSubset will not evaluate the attributes "
+            + " in this list. " + "This is specified as a comma "
+            + "seperated list off attribute indexes starting at 1. It can include "
+            + "ranges. Eg. 1,2,5-9,17.";
   }
 
   /**
@@ -324,14 +324,14 @@ public class L2RankerSubset extends Ranker {
     Vector<Option> newVector = new Vector<Option>(3);
 
     newVector.addElement(new Option("\tSpecify a starting set of attributes.\n"
-        + "\tEg. 1,3,5-7.\n" + "\tAny starting attributes specified are\n"
-        + "\tignored during the ranking.", "P", 1, "-P <start set>"));
+            + "\tEg. 1,3,5-7.\n" + "\tAny starting attributes specified are\n"
+            + "\tignored during the ranking.", "P", 1, "-P <start set>"));
     newVector.addElement(new Option(
-        "\tSpecify a frequency threshold by which attributes\n"
-            + "\tmay be discarded from the ranking.", "T", 1, "-T <frequencyThreshold>"));
+            "\tSpecify a frequency threshold by which attributes\n"
+                    + "\tmay be discarded from the ranking.", "T", 1, "-T <frequencyThreshold>"));
 
     newVector.addElement(new Option("\tSpecify number of attributes to select",
-        "N", 1, "-N <num to select>"));
+            "N", 1, "-N <num to select>"));
 
     return newVector.elements();
 
@@ -436,7 +436,7 @@ public class L2RankerSubset extends Ranker {
       didPrint = false;
 
       if ((m_hasClass == false)
-          || (m_hasClass == true && i != m_classIndex)) {
+              || (m_hasClass == true && i != m_classIndex)) {
         result.append((m_starting[i] + 1));
         didPrint = true;
       }
@@ -469,7 +469,7 @@ public class L2RankerSubset extends Ranker {
 
     if (!(ASEval instanceof AttributeEvaluator)) {
       throw new Exception(ASEval.getClass().getName() + " is not a"
-          + "Attribute evaluator!");
+              + "Attribute evaluator!");
     }
 
     m_numAttribs = data.numAttributes();
@@ -561,7 +561,7 @@ public class L2RankerSubset extends Ranker {
 
     if (m_attributeList == null || m_attributeMerit == null) {
       throw new Exception("Search must be performed before a ranked "
-          + "attribute list can be obtained");
+              + "attribute list can be obtained");
     }
 
     int[] ranked = Utils.sort(m_attributeMerit);
@@ -599,11 +599,11 @@ public class L2RankerSubset extends Ranker {
 
   private void determineNumToSelectFromFrequencyThreshold(double[][] ranking) {
     double[] values = Arrays.stream(ranking)
-        .mapToDouble(i -> i[1])
-        .toArray();
+            .mapToDouble(i -> i[1])
+            .toArray();
     m_calculatedNumToSelect = aboveFrequencyThresholdIndexes(values,
-        m_frequencyThreshold)
-        .length;
+            m_frequencyThreshold)
+            .length;
   }
 
   private static double frequencyThreshold(double[] values, double ratio) {
@@ -618,15 +618,15 @@ public class L2RankerSubset extends Ranker {
 //    System.out.println("ratio = " + ratio);
     /* threshold cuts  */
     return part - floor < 1.0E-14 ?
-        (a[floor] + a[floor - 1]) / 2 :
-        a[floor];
+            (a[floor] + a[floor - 1]) / 2 :
+            a[floor];
   }
 
   private static int[] aboveFrequencyThresholdIndexes(double[] values, double ratio) {
     double frequencyThrshld = frequencyThreshold(values, ratio);
     return IntStream.range(0, values.length)
-        .filter(i -> values[i] >= frequencyThrshld)
-        .toArray();
+            .filter(i -> values[i] >= frequencyThrshld)
+            .toArray();
   }
 
 
@@ -649,7 +649,7 @@ public class L2RankerSubset extends Ranker {
 
     if (m_frequencyThreshold != -Double.MAX_VALUE) {
       result.append("\tFrequency Threshold for discarding attributes: "
-          + Utils.doubleToString(m_frequencyThreshold, 8, 4) + "\n");
+              + Utils.doubleToString(m_frequencyThreshold, 8, 4) + "\n");
     }
 
     return result.toString();

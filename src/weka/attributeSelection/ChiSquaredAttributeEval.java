@@ -37,52 +37,60 @@ import java.util.Vector;
  * statistic with respect to the class.<br/>
  * <p/>
  * <!-- globalinfo-end -->
- * 
+ * <p>
  * <!-- options-start --> Valid options are:
  * <p/>
- * 
+ *
  * <pre>
  * -M
  *  treat missing values as a seperate value.
  * </pre>
- * 
+ *
  * <pre>
  * -B
- *  just binarize numeric attributes instead 
+ *  just binarize numeric attributes instead
  *  of properly discretizing them.
  * </pre>
- * 
+ * <p>
  * <!-- options-end -->
- * 
+ *
  * @author Eibe Frank (eibe@cs.waikato.ac.nz)
  * @version $Revision: 10330 $
  * @see Discretize
  * @see NumericToBinary
  */
 public class ChiSquaredAttributeEval extends ASEvaluation implements
-  AttributeEvaluator, OptionHandler {
+        AttributeEvaluator, OptionHandler {
 
-  /** for serialization */
+  /**
+   * for serialization
+   */
   static final long serialVersionUID = -8316857822521717692L;
 
-  /** Treat missing values as a seperate value */
+  /**
+   * Treat missing values as a seperate value
+   */
   private boolean m_missing_merge;
 
-  /** Just binarize numeric attributes */
+  /**
+   * Just binarize numeric attributes
+   */
   private boolean m_Binarize;
 
-  /** The chi-squared value for each attribute */
+  /**
+   * The chi-squared value for each attribute
+   */
   private double[] m_ChiSquareds;
 
   /**
    * Returns a string describing this attribute evaluator
-   * 
+   *
    * @return a description of the evaluator suitable for displaying in the
-   *         explorer/experimenter gui
+   * explorer/experimenter gui
    */
   public String globalInfo() {
     return "ChiSquaredAttributeEval :\n\nEvaluates the worth of an attribute "
-      + "by computing the value of the chi-squared statistic with respect to the class.\n";
+            + "by computing the value of the chi-squared statistic with respect to the class.\n";
   }
 
   /**
@@ -94,40 +102,40 @@ public class ChiSquaredAttributeEval extends ASEvaluation implements
 
   /**
    * Returns an enumeration describing the available options
-   * 
+   *
    * @return an enumeration of all the available options
    **/
   @Override
   public Enumeration<Option> listOptions() {
     Vector<Option> newVector = new Vector<Option>(2);
     newVector.addElement(new Option("\ttreat missing values as a seperate "
-      + "value.", "M", 0, "-M"));
+            + "value.", "M", 0, "-M"));
     newVector.addElement(new Option(
-      "\tjust binarize numeric attributes instead \n"
-        + "\tof properly discretizing them.", "B", 0, "-B"));
+            "\tjust binarize numeric attributes instead \n"
+                    + "\tof properly discretizing them.", "B", 0, "-B"));
     return newVector.elements();
   }
 
   /**
    * Parses a given list of options.
    * <p/>
-   * 
+   * <p>
    * <!-- options-start --> Valid options are:
    * <p/>
-   * 
+   *
    * <pre>
    * -M
    *  treat missing values as a seperate value.
    * </pre>
-   * 
+   *
    * <pre>
    * -B
-   *  just binarize numeric attributes instead 
+   *  just binarize numeric attributes instead
    *  of properly discretizing them.
    * </pre>
-   * 
+   * <p>
    * <!-- options-end -->
-   * 
+   *
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
@@ -143,7 +151,7 @@ public class ChiSquaredAttributeEval extends ASEvaluation implements
 
   /**
    * Gets the current settings.
-   * 
+   *
    * @return an array of strings suitable for passing to setOptions()
    */
   @Override
@@ -163,9 +171,9 @@ public class ChiSquaredAttributeEval extends ASEvaluation implements
 
   /**
    * Returns the tip text for this property
-   * 
+   *
    * @return tip text for this property suitable for displaying in the
-   *         explorer/experimenter gui
+   * explorer/experimenter gui
    */
   public String binarizeNumericAttributesTipText() {
     return "Just binarize numeric attributes instead of properly discretizing them.";
@@ -173,7 +181,7 @@ public class ChiSquaredAttributeEval extends ASEvaluation implements
 
   /**
    * Binarize numeric attributes.
-   * 
+   *
    * @param b true=binarize numeric attributes
    */
   public void setBinarizeNumericAttributes(boolean b) {
@@ -182,7 +190,7 @@ public class ChiSquaredAttributeEval extends ASEvaluation implements
 
   /**
    * get whether numeric attributes are just being binarized.
-   * 
+   *
    * @return true if missing values are being distributed.
    */
   public boolean getBinarizeNumericAttributes() {
@@ -191,19 +199,19 @@ public class ChiSquaredAttributeEval extends ASEvaluation implements
 
   /**
    * Returns the tip text for this property
-   * 
+   *
    * @return tip text for this property suitable for displaying in the
-   *         explorer/experimenter gui
+   * explorer/experimenter gui
    */
   public String missingMergeTipText() {
     return "Distribute counts for missing values. Counts are distributed "
-      + "across other values in proportion to their frequency. Otherwise, "
-      + "missing is treated as a separate value.";
+            + "across other values in proportion to their frequency. Otherwise, "
+            + "missing is treated as a separate value.";
   }
 
   /**
    * distribute the counts for missing values across observed values
-   * 
+   *
    * @param b true=distribute missing values.
    */
   public void setMissingMerge(boolean b) {
@@ -212,7 +220,7 @@ public class ChiSquaredAttributeEval extends ASEvaluation implements
 
   /**
    * get whether missing values are being distributed or not
-   * 
+   *
    * @return true if missing values are being distributed.
    */
   public boolean getMissingMerge() {
@@ -221,7 +229,7 @@ public class ChiSquaredAttributeEval extends ASEvaluation implements
 
   /**
    * Returns the capabilities of this evaluator.
-   * 
+   *
    * @return the capabilities of this evaluator
    * @see Capabilities
    */
@@ -246,7 +254,7 @@ public class ChiSquaredAttributeEval extends ASEvaluation implements
   /**
    * Initializes a chi-squared attribute evaluator. Discretizes all attributes
    * that are numeric.
-   * 
+   *
    * @param data set of instances serving as training dataset
    * @throws Exception if the evaluator has not been generated successfully
    */
@@ -306,21 +314,21 @@ public class ChiSquaredAttributeEval extends ASEvaluation implements
           if (inst.isMissingSparse(i) || inst.classIsMissing()) {
             if (!inst.isMissingSparse(i)) {
               counts[inst.index(i)][(int) inst.valueSparse(i)][numClasses] += inst
-                .weight();
+                      .weight();
               counts[inst.index(i)][0][numClasses] -= inst.weight();
             } else if (!inst.classIsMissing()) {
               counts[inst.index(i)][data.attribute(inst.index(i)).numValues()][(int) inst
-                .classValue()] += inst.weight();
+                      .classValue()] += inst.weight();
               counts[inst.index(i)][0][(int) inst.classValue()] -= inst
-                .weight();
+                      .weight();
             } else {
               counts[inst.index(i)][data.attribute(inst.index(i)).numValues()][numClasses] += inst
-                .weight();
+                      .weight();
               counts[inst.index(i)][0][numClasses] -= inst.weight();
             }
           } else {
             counts[inst.index(i)][(int) inst.valueSparse(i)][(int) inst
-              .classValue()] += inst.weight();
+                    .classValue()] += inst.weight();
             counts[inst.index(i)][0][(int) inst.classValue()] -= inst.weight();
           }
         }
@@ -360,7 +368,7 @@ public class ChiSquaredAttributeEval extends ASEvaluation implements
             for (int i = 0; i < numClasses; i++) {
               for (int j = 0; j < numValues; j++) {
                 additions[j][i] += (columnSums[i] / sum)
-                  * counts[k][j][numClasses];
+                        * counts[k][j][numClasses];
               }
             }
 
@@ -368,7 +376,7 @@ public class ChiSquaredAttributeEval extends ASEvaluation implements
             for (int i = 0; i < numClasses; i++) {
               for (int j = 0; j < numValues; j++) {
                 additions[j][i] += (counts[k][j][i] / sum)
-                  * counts[k][numValues][numClasses];
+                        * counts[k][numValues][numClasses];
               }
             }
 
@@ -390,7 +398,7 @@ public class ChiSquaredAttributeEval extends ASEvaluation implements
     for (int i = 0; i < data.numAttributes(); i++) {
       if (i != classIndex) {
         m_ChiSquareds[i] = ContingencyTables.chiVal(
-          ContingencyTables.reduceMatrix(counts[i]), false);
+                ContingencyTables.reduceMatrix(counts[i]), false);
       }
     }
   }
@@ -406,7 +414,7 @@ public class ChiSquaredAttributeEval extends ASEvaluation implements
 
   /**
    * evaluates an individual attribute by measuring its chi-squared value.
-   * 
+   *
    * @param attribute the index of the attribute to be evaluated
    * @return the chi-squared value
    * @throws Exception if the attribute could not be evaluated
@@ -419,7 +427,7 @@ public class ChiSquaredAttributeEval extends ASEvaluation implements
 
   /**
    * Describe the attribute evaluator
-   * 
+   *
    * @return a description of the attribute evaluator as a string
    */
   @Override
@@ -444,7 +452,7 @@ public class ChiSquaredAttributeEval extends ASEvaluation implements
 
   /**
    * Returns the revision string.
-   * 
+   *
    * @return the revision
    */
   @Override
@@ -454,7 +462,7 @@ public class ChiSquaredAttributeEval extends ASEvaluation implements
 
   /**
    * Main method.
-   * 
+   *
    * @param args the options
    */
   public static void main(String[] args) {

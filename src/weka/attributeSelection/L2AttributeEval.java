@@ -61,7 +61,7 @@ import java.util.stream.Collectors;
  * @see NumericToBinary
  */
 public class L2AttributeEval extends ASEvaluation implements
-    AttributeEvaluator, OptionHandler {
+        AttributeEvaluator, OptionHandler {
 
   /**
    * for serialization
@@ -91,7 +91,7 @@ public class L2AttributeEval extends ASEvaluation implements
    */
   public String globalInfo() {
     return "L2AttributeEval :\n\nEvaluates the worth of an attribute "
-        + "by computing the value of the L2 statistic with respect to the class.\n";
+            + "by computing the value of the L2 statistic with respect to the class.\n";
   }
 
   /**
@@ -110,10 +110,10 @@ public class L2AttributeEval extends ASEvaluation implements
   public Enumeration<Option> listOptions() {
     Vector<Option> newVector = new Vector<Option>(2);
     newVector.addElement(new Option("\ttreat missing values as a seperate "
-        + "value.", "M", 0, "-M"));
+            + "value.", "M", 0, "-M"));
     newVector.addElement(new Option(
-        "\tjust binarize numeric attributes instead \n"
-            + "\tof properly discretizing them.", "B", 0, "-B"));
+            "\tjust binarize numeric attributes instead \n"
+                    + "\tof properly discretizing them.", "B", 0, "-B"));
     return newVector.elements();
   }
 
@@ -202,8 +202,8 @@ public class L2AttributeEval extends ASEvaluation implements
    */
   public String missingMergeTipText() {
     return "Distribute counts for missing values. Counts are distributed "
-        + "across other values in proportion to their frequency. Otherwise, "
-        + "missing is treated as a separate value.";
+            + "across other values in proportion to their frequency. Otherwise, "
+            + "missing is treated as a separate value.";
   }
 
   /**
@@ -311,21 +311,21 @@ public class L2AttributeEval extends ASEvaluation implements
           if (inst.isMissingSparse(i) || inst.classIsMissing()) {
             if (!inst.isMissingSparse(i)) {
               counts[inst.index(i)][(int) inst.valueSparse(i)][numClasses] += inst
-                  .weight();
+                      .weight();
               counts[inst.index(i)][0][numClasses] -= inst.weight();
             } else if (!inst.classIsMissing()) {
               counts[inst.index(i)][data.attribute(inst.index(i)).numValues()][(int) inst
-                  .classValue()] += inst.weight();
+                      .classValue()] += inst.weight();
               counts[inst.index(i)][0][(int) inst.classValue()] -= inst
-                  .weight();
+                      .weight();
             } else {
               counts[inst.index(i)][data.attribute(inst.index(i)).numValues()][numClasses] += inst
-                  .weight();
+                      .weight();
               counts[inst.index(i)][0][numClasses] -= inst.weight();
             }
           } else {
             counts[inst.index(i)][(int) inst.valueSparse(i)][(int) inst
-                .classValue()] += inst.weight();
+                    .classValue()] += inst.weight();
             counts[inst.index(i)][0][(int) inst.classValue()] -= inst.weight();
           }
         }
@@ -373,7 +373,7 @@ public class L2AttributeEval extends ASEvaluation implements
             for (int i = 0; i < numClasses; i++) {
               for (int j = 0; j < numValues; j++) {
                 additions[j][i] += (columnSums[i] / sum)
-                    * counts[k][j][numClasses];
+                        * counts[k][j][numClasses];
               }
             }
 
@@ -381,7 +381,7 @@ public class L2AttributeEval extends ASEvaluation implements
             for (int i = 0; i < numClasses; i++) {
               for (int j = 0; j < numValues; j++) {
                 additions[j][i] += (counts[k][j][i] / sum)
-                    * counts[k][numValues][numClasses];
+                        * counts[k][numValues][numClasses];
               }
             }
 
@@ -417,14 +417,14 @@ public class L2AttributeEval extends ASEvaluation implements
   private String printContingencyTable(double[][] ct) {
 
     int[][] intCt = Arrays.stream(ct)
-        .map(v -> (Arrays.stream(v).mapToInt(i -> (int) i).toArray()))
-        .toArray(int[][]::new);
+            .map(v -> (Arrays.stream(v).mapToInt(i -> (int) i).toArray()))
+            .toArray(int[][]::new);
 
     return Arrays.stream(intCt)
-        .map(v -> Arrays.stream(v)
-            .mapToObj(String::valueOf)
-            .collect(Collectors.joining(",")))
-        .collect(Collectors.joining(System.lineSeparator()));
+            .map(v -> Arrays.stream(v)
+                    .mapToObj(String::valueOf)
+                    .collect(Collectors.joining(",")))
+            .collect(Collectors.joining(System.lineSeparator()));
   }
 
   /**

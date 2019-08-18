@@ -13,166 +13,223 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class PropsUtils extends Properties {
-    static Logger logger = LoggerFactory.getLogger(PropsUtils.class.getName());
+  static Logger logger = LoggerFactory.getLogger(PropsUtils.class.getName());
 
-    public static PropsUtils of(String fileName) throws IOException {
-        PropsUtils result = new PropsUtils();
-        result.load(new FileReader(fileName));
-        result.init();
-        return result;
-    }
+  public static PropsUtils of(String fileName) throws IOException {
+    PropsUtils result = new PropsUtils();
+    result.load(new FileReader(fileName));
+    result.init();
+    return result;
+  }
 
-    private List<TEvaluator> evaluatorMethods;
-    private List<TClassifier> classifiers;
+  private List<TEvaluator> evaluatorMethods;
+  private List<TClassifier> classifiers;
 
-    private List<Double> evalSupports;
-    private List<Double> evalConfidences;
+  private List<Double> evalSupports;
+  private List<Double> evalConfidences;
 
-    private List<Double> supports;
-    private List<Double> confidences;
-    private double cutoffThreshold;
+  private List<Double> supports;
+  private List<Double> confidences;
+  private double cutoffThreshold;
 
+  private double l2ClassResampleSize;
+  private List<Double> l2ClassRatios;
+  private int l2ClassRepeat;
+  private boolean l2ClassRandomSeed;
 
-    private String arffDir;
-    private List<String> datasets;
-    private String outDir;
+  private String arffDir;
+  private List<String> datasets;
+  private String outDir;
 
-    private boolean printRanks;
+  private boolean printRanks;
 
-    private List<PasMethod> pasMethods;
+  private List<PasMethod> pasMethods;
 
-    public List<PasMethod> getPasMethods() {
-        return pasMethods;
-    }
+  public double getL2ClassResampleSize() {
+    return l2ClassResampleSize;
+  }
 
-    public void setPrintRanks(boolean printRanks) {
-        this.printRanks = printRanks;
-    }
+  public void setL2ClassResampleSize(double l2ClassResampleSize) {
+    this.l2ClassResampleSize = l2ClassResampleSize;
+  }
 
-    public boolean getPrintRanks() {
-        return printRanks;
-    }
+  public boolean isL2ClassRandomSeed() {
+    return l2ClassRandomSeed;
+  }
 
-    public List<Double> getEvalSupports() {
-        return evalSupports;
-    }
-
-    public List<Double> getEvalConfidences() {
-        return evalConfidences;
-    }
-
-    public List<String> getDatasets() {
-        return datasets;
-    }
-
-    public String getArffDir() {
-        return arffDir;
-    }
-
-    public List<TEvaluator> getEvaluatorMethods() {
-        return evaluatorMethods;
-    }
-
-    public List<TClassifier> getClassifiers() {
-        return classifiers;
-    }
-
-    public List<Double> getSupports() {
-        return supports;
-    }
-
-    public List<Double> getConfidences() {
-        return confidences;
-    }
-
-    public double getCutoffThreshold() {
-        return cutoffThreshold;
-    }
+  public void setL2ClassRandomSeed(boolean l2ClassRandomSeed) {
+    this.l2ClassRandomSeed = l2ClassRandomSeed;
+  }
 
 
-    public String getOutDir() {
-        return outDir;
-    }
+  public List<PasMethod> getPasMethods() {
+    return pasMethods;
+  }
+
+  public void setPrintRanks(boolean printRanks) {
+    this.printRanks = printRanks;
+  }
+
+  public boolean getPrintRanks() {
+    return printRanks;
+  }
+
+  public List<Double> getEvalSupports() {
+    return evalSupports;
+  }
+
+  public List<Double> getEvalConfidences() {
+    return evalConfidences;
+  }
+
+  public List<String> getDatasets() {
+    return datasets;
+  }
+
+  public String getArffDir() {
+    return arffDir;
+  }
+
+  public List<TEvaluator> getEvaluatorMethods() {
+    return evaluatorMethods;
+  }
+
+  public List<TClassifier> getClassifiers() {
+    return classifiers;
+  }
+
+  public List<Double> getSupports() {
+    return supports;
+  }
+
+  public List<Double> getConfidences() {
+    return confidences;
+  }
+
+  public double getCutoffThreshold() {
+    return cutoffThreshold;
+  }
+
+  public int getL2ClassRepeat() {
+    return l2ClassRepeat;
+  }
+
+  public void setL2ClassRepeat(int l2ClassRepeat) {
+    this.l2ClassRepeat = l2ClassRepeat;
+  }
+
+  public List<Double> getL2ClassRatios() {
+    return l2ClassRatios;
+  }
+
+  public void setL2ClassRatios(List<Double> l2ClassRatios) {
+    this.l2ClassRatios = l2ClassRatios;
+  }
+
+  public void setL2ClassRatios(double... ratios) {
+    this.l2ClassRatios = Arrays.stream(ratios).boxed().collect(Collectors.toList());
+  }
+
+  public String getOutDir() {
+    return outDir;
+  }
+
+  private Stream<String> getStream(String property) {
+    return getStream(property, "");
+  }
+
+  private Stream<String> getStream(String property, String defaultValue) {
+    return Arrays.stream(getProperty(property, defaultValue)
+            .trim().split("\\s+"))
+            .map(s -> s.trim())
+            .filter(s -> s.length() > 0);
+  }
 
 
-    private Stream<String> getStream(String property) {
-        return getStream(property, "");
-    }
+  private void init() {
+    evaluatorMethods = getStream("eval.methods")
+            .map(s -> TEvaluator.valueOf(s.toUpperCase()))
+            .collect(Collectors.toList());
 
-    private Stream<String> getStream(String property, String defaultValue) {
-        return Arrays.stream(getProperty(property, defaultValue)
-                .trim().split("\\s+"))
-                .map(s -> s.trim())
-                .filter(s -> s.length() > 0);
-    }
+    classifiers = getStream("classifiers")
+            .map(s -> TClassifier.valueOf(s.toUpperCase()))
+            .collect(Collectors.toList());
 
+    logger.debug("classifiers : {}", classifiers);
 
-    private void init() {
+    evalSupports = getStream("eval.supports")
+            .mapToDouble(i -> Double.valueOf(i))
+            .boxed()
+            .collect(Collectors.toList());
 
-        evaluatorMethods = getStream("eval.methods")
-                .map(s -> TEvaluator.valueOf(s.toUpperCase()))
-                .collect(Collectors.toList());
+    evalConfidences = getStream("eval.confidences")
+            .mapToDouble(i -> Double.valueOf(i))
+            .boxed()
+            .collect(Collectors.toList());
 
-        classifiers = getStream("classifiers")
-                .map(s -> TClassifier.valueOf(s.toUpperCase()))
-                .collect(Collectors.toList());
+    cutoffThreshold = Double.parseDouble(getProperty("cutoff.threshold", "0.5"));
 
-        logger.debug("classifiers : {}", classifiers);
-
-        evalSupports = getStream("eval.supports")
-                .mapToDouble(i -> Double.valueOf(i))
-                .boxed()
-                .collect(Collectors.toList());
-
-        evalConfidences = getStream("eval.confidences")
-                .mapToDouble(i -> Double.valueOf(i))
-                .boxed()
-                .collect(Collectors.toList());
-
-        cutoffThreshold = Double.parseDouble(getProperty("cutoff.threshold", "0.5"));
-
-        pasMethods = getStream("pas.methods",
-                PasMethod.items.name())
-                .map(m -> PasMethod.of(m))
-                .collect(Collectors.toList());
+    pasMethods = getStream("pas.methods",
+            PasMethod.items.name())
+            .map(m -> PasMethod.of(m))
+            .collect(Collectors.toList());
 
 
-        supports = getStream("supports")
-                .mapToDouble(i -> Double.valueOf(i))
-                .boxed()
-                .collect(Collectors.toList());
+    supports = getStream("supports")
+            .mapToDouble(i -> Double.valueOf(i))
+            .boxed()
+            .collect(Collectors.toList());
 
-        confidences = getStream("confidences")
-                .mapToDouble(i -> Double.valueOf(i))
-                .boxed()
-                .collect(Collectors.toList());
+    confidences = getStream("confidences")
+            .mapToDouble(i -> Double.valueOf(i))
+            .boxed()
+            .collect(Collectors.toList());
 
-        arffDir = getProperty("arff.dir").trim();
+    l2ClassResampleSize = Double.parseDouble(
+            getProperty("l2.class.resample.size", "1.0"));
+    logger.debug("l2.class.resample.size = {}", l2ClassResampleSize);
 
-        datasets = Arrays.asList(getProperty("datasets", "")
-                .trim().split("\\s+"));
+    l2ClassRatios = getStream("l2.class.ratios")
+            .mapToDouble(i -> Double.valueOf(i))
+            .boxed()
+            .collect(Collectors.toList());
+    logger.debug("l2.class.ratios : {}", getL2ClassRatios());
 
-        outDir = getProperty("out.dir", "data/results");
+    l2ClassRepeat = Integer.parseInt(getProperty("l2.class.repeat"), 10);
+    logger.debug("l2.class.repeat : {}", getL2ClassRepeat());
 
-        printRanks = Boolean.valueOf(getProperty("print.ranks", "false"));
+    l2ClassRandomSeed = Boolean.parseBoolean(getProperty("l2.class.random.seed", "False"));
+    logger.debug("l2.class.random.seed : {}", l2ClassRandomSeed);
 
+    arffDir = getProperty("arff.dir").trim();
 
-    }
+    datasets = Arrays.asList(getProperty("datasets", "")
+            .trim().split("\\s+"));
 
-    public static void main(String[] args)
-            throws IOException {
-        PropsUtils params = PropsUtils.of("data/sami.final.properties");
+    outDir = getProperty("out.dir", "data/results");
 
-        System.out.println("params.getPasMethods() = " + params.getPasMethods());
-        System.out.println("evalSupports = " + params.getEvalSupports());
+    printRanks = Boolean.valueOf(getProperty("print.ranks", "false"));
+  }
 
-        System.out.println("evalConfidences = " + params.getEvalConfidences());
-        System.out.println("arff.dir = " + params.getArffDir());
-        System.out.println("datasets = " + params.getDatasets());
-        System.out.println("params.getEvaluatorMethods() = "
-                + params.getEvaluatorMethods());
-        System.out.println("params.getClassifiers() = "
-                + params.getClassifiers());
-        System.out.println("params.getCutoffThreshold() = " + params.getCutoffThreshold());
-    }
+  public static void main(String[] args)
+          throws IOException {
+    PropsUtils params = PropsUtils.of("data/conf_l2_unbalanced.properties");
+
+    System.out.println("params.getPasMethods() = " + params.getPasMethods());
+    System.out.println("evalSupports = " + params.getEvalSupports());
+
+    System.out.println("evalConfidences = " + params.getEvalConfidences());
+    System.out.println("arff.dir = " + params.getArffDir());
+    System.out.println("datasets = " + params.getDatasets());
+    System.out.println("params.getEvaluatorMethods() = "
+            + params.getEvaluatorMethods());
+    System.out.println("params.getClassifiers() = "
+            + params.getClassifiers());
+    System.out.println("params.getCutoffThreshold() = " + params.getCutoffThreshold());
+
+    logger.info("l2.class.repeat = {}", params.getL2ClassRepeat());
+    logger.info("l2.class.ratios = {}", params.getL2ClassRatios());
+    logger.info("l2.class.random.seed = {}", params.isL2ClassRandomSeed());
+    logger.info("l2.class.resample.size = {}", params.getL2ClassResampleSize());
+  }
 }

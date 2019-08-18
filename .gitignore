@@ -1,12 +1,12 @@
 ### By Suhel
-
 out/
-
+data/results
+downloads/
 
 # experiments
 data/out
 data/resuls
-
+data/results/*
 
 # CMake
 cmake-build-debug/
@@ -15,5 +15,4 @@ cmake-build-release/
 # Cursive Clojure plugin
 .idea/replstate.xml
 
-data/results
-downloads/
+.attach_*
