@@ -14,7 +14,6 @@
 @attribute Sex {f,m}
 @attribute Ethnicity {white,black,aboriginal,latino,'middle eastern','others ',asian,'south asians',hispanic}
 @attribute 'Jaundice ' {no,yes}
-@attribute Family_ASD {no,yes}
 @attribute Class {NO, YES}
 
 @data
@@ -32,7 +31,8 @@
 1,0,1,0,0,1,0,1,0,1,18,m,white,yes,no,NO
 1,0,1,1,1,0,0,0,0,0,31,f,'middle eastern',no,no,NO
 0,1,1,1,0,0,0,0,0,0,33,m,'middle eastern',yes,no,NO
-1,1,0,0,0,0,0,0,0,0,32,f,'middle eastern',yes,no,NO
+1,1,0,0,0,0,0,0,0,0,32,f,'middle eastern',yes,no,NO@attribute Family_ASD {no,yes}
+
 1,0,0,0,0,0,1,0,0,1,30,m,'middle eastern',yes,no,NO
 0,0,0,0,0,0,0,0,0,1,33,f,'middle eastern',no,no,NO
 1,1,1,1,1,1,1,1,1,1,30,f,white,no,yes,YES
