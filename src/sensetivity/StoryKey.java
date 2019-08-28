@@ -35,8 +35,15 @@ public enum StoryKey {
   recall(DOUBLE), recallVariance(DOUBLE),
   fMeasure(DOUBLE), fMeasureVariance(DOUBLE),
 
-  /*ROC */
   weightedAreaUnderROC(DOUBLE), weightedAreaUnderROCVariance(DOUBLE),
+
+  /*ROC */
+  /* ( True | False) Rate, (Positive | Negative) Rate */
+//  tpr(DOUBLE),tnr(DOUBLE), fpr(DOUBLE), fnr(DOUBLE),
+//
+//  /* Weighted ( True | False) Rate , Weighted (Positive | Negative) Rate */,
+//  wtpr(DOUBLE),wtnr(DOUBLE), wfpr(DOUBLE), wfnr(DOUBLE),
+
   areaUnderROC0(DOUBLE), areaUnderROC0Variance(DOUBLE),
   areaUnderROC1(DOUBLE), areaUnderROC1Variance(DOUBLE);
 

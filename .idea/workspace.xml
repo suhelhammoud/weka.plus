@@ -7,13 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b4ffecf-fd2d-4ac9-8d65-3aedb6a8be09" name="Default" comment="Initial commit">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/arff/dsets03/autism.arff" beforeDir="false" afterPath="$PROJECT_DIR$/data/arff/dsets03/autism.arff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/conf_l2_aut.properties" beforeDir="false" afterPath="$PROJECT_DIR$/data/conf_l2_aut.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryDriverAutism.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryDriverAutism.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryDriverL2Unbalanced.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryDriverL2Unbalanced.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryDriverL2UnbalancedVariance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryDriverL2UnbalancedVariance.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryKey.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -203,10 +199,10 @@
     </configuration>
     <list>
       <item itemvalue="Application.StoryDriverAutism" />
+      <item itemvalue="Application.AppLauncher" />
       <item itemvalue="JUnit.FilesUtilsTest.createOutDir" />
       <item itemvalue="JUnit.FilesUtilsTest" />
       <item itemvalue="JUnit.StoryTest.equalsOn" />
-      <item itemvalue="Application.AppLauncher" />
     </list>
     <recent_temporary>
       <list>
