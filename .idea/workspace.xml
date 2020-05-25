@@ -5,14 +5,34 @@
       <artifact name="weka.pas_1" />
     </artifacts-to-build>
   </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:master" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="4b4ffecf-fd2d-4ac9-8d65-3aedb6a8be09" name="Default" comment="Initial commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/arff/dsets03/autism.arff" beforeDir="false" afterPath="$PROJECT_DIR$/data/arff/dsets03/autism.arff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryDriverAutism.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryDriverAutism.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryKey.java" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -90,21 +110,17 @@
       <recent name="$PROJECT_DIR$/lib" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
-  <component name="RunManager" selected="Application.AppLauncher">
+  <component name="RunManager" selected="Application.GUILauncher">
     <configuration name="AppLauncher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="AppLauncher" />
+      <module name="weka.plus" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GUILauncher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUILauncher" />
       <module name="weka.plus" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <method v="2">
@@ -145,23 +161,7 @@
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
       <method v="2">
         <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="FilesUtilsTest.createOutDir" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="weka.plus" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="sensetivity.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="sensetivity" />
-      <option name="MAIN_CLASS_NAME" value="sensetivity.FilesUtilsTest" />
-      <option name="METHOD_NAME" value="createOutDir" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <method v="2">
-        <option name="Make" enabled="true" />
+        <option name="BSP.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="StoryTest.equalsOn" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
@@ -200,17 +200,17 @@
     <list>
       <item itemvalue="Application.StoryDriverAutism" />
       <item itemvalue="Application.AppLauncher" />
-      <item itemvalue="JUnit.FilesUtilsTest.createOutDir" />
       <item itemvalue="JUnit.FilesUtilsTest" />
       <item itemvalue="JUnit.StoryTest.equalsOn" />
+      <item itemvalue="Application.GUILauncher" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.GUILauncher" />
         <item itemvalue="Application.AppLauncher" />
         <item itemvalue="Application.StoryDriverAutism" />
         <item itemvalue="JUnit.StoryTest.equalsOn" />
         <item itemvalue="JUnit.FilesUtilsTest" />
-        <item itemvalue="JUnit.FilesUtilsTest.createOutDir" />
       </list>
     </recent_temporary>
   </component>
@@ -262,6 +262,13 @@
             <State>
               <option name="FILTERS">
                 <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
                   <entry key="text">
                     <value>
                       <list>
@@ -271,7 +278,6 @@
                   </entry>
                 </map>
               </option>
-              <option name="COLUMN_ORDER" />
             </State>
           </value>
         </entry>
@@ -291,11 +297,22 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial Commit" />
     <MESSAGE value="Initial commit" />
     <option name="LAST_COMMIT_MESSAGE" value="Initial commit" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="172" y="127" width="1648" height="853" key="DiffContextDialog" timestamp="1590389790190">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="172" y="127" width="1648" height="853" key="DiffContextDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1590389790190" />
+    <state x="485" y="188" width="1022" height="737" key="SettingsEditor" timestamp="1590389789831">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="485" y="188" width="1022" height="737" key="SettingsEditor/72.27.1848.1053@72.27.1848.1053" timestamp="1590389789831" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
