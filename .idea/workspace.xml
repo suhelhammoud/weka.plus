@@ -70,6 +70,10 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="Downloaded.Files.Path.Enabled" value="true" />
     <property name="GenerateAntBuildDialog.backupFiles" value="true" />
@@ -83,7 +87,7 @@
     <property name="add_unversioned_files" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/data" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/weka/classifiers/rules/early" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -93,21 +97,22 @@
     <key name="CreateTestDialog.RecentsKey">
       <recent name="sensetivity" />
     </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="sensetivity" />
-      <recent name="weka.attributeSelection.pas" />
-      <recent name="weka.classifiers.rules.medri" />
-      <recent name="weka.attributeSelection" />
-    </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="weka.classifiers.rules.early" />
+      <recent name="weka.classifiers.rules" />
+      <recent name="sensetivity" />
+      <recent name="weka.attributeSelection.pas" />
+      <recent name="weka.classifiers.rules.medri" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/weka/classifiers/rules/early" />
       <recent name="$PROJECT_DIR$/data" />
       <recent name="$PROJECT_DIR$/data/arff/dsets03" />
       <recent name="$PROJECT_DIR$/data/aut" />
       <recent name="$PROJECT_DIR$/src" />
-      <recent name="$PROJECT_DIR$/lib" />
     </key>
   </component>
   <component name="RunManager" selected="Application.GUILauncher">
@@ -200,9 +205,9 @@
     <list>
       <item itemvalue="Application.StoryDriverAutism" />
       <item itemvalue="Application.AppLauncher" />
+      <item itemvalue="Application.GUILauncher" />
       <item itemvalue="JUnit.FilesUtilsTest" />
       <item itemvalue="JUnit.StoryTest.equalsOn" />
-      <item itemvalue="Application.GUILauncher" />
     </list>
     <recent_temporary>
       <list>
@@ -305,6 +310,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="Initial commit" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="1976" y="85" width="1374" height="900" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1593155305223">
+      <screen x="1920" y="85" width="1440" height="900" />
+    </state>
+    <state x="1976" y="85" width="1374" height="900" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/72.27.1848.1053/1920.85.1440.900@1920.85.1440.900" timestamp="1593155305223" />
     <state x="172" y="127" width="1648" height="853" key="DiffContextDialog" timestamp="1590389790190">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
@@ -313,6 +322,14 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="485" y="188" width="1022" height="737" key="SettingsEditor/72.27.1848.1053@72.27.1848.1053" timestamp="1590389789831" />
+    <state width="512" height="446" key="SwitcherDM" timestamp="1593155859379">
+      <screen x="1920" y="85" width="1440" height="900" />
+    </state>
+    <state width="512" height="446" key="SwitcherDM/72.27.1848.1053/1920.85.1440.900@1920.85.1440.900" timestamp="1593155859379" />
+    <state x="2303" y="279" width="672" height="678" key="search.everywhere.popup" timestamp="1593156290746">
+      <screen x="1920" y="85" width="1440" height="900" />
+    </state>
+    <state x="2303" y="279" width="672" height="678" key="search.everywhere.popup/72.27.1848.1053/1920.85.1440.900@1920.85.1440.900" timestamp="1593156290746" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
