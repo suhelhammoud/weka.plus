@@ -18,7 +18,6 @@ public class ORule implements Serializable {
 
   public final static int EMPTY = -1;
   public final int label;
-  //TODO what about using List ??, check the update to read ratio and measure performance to decide
   protected int[] attIndexes;
   protected int[] attValues;
 
@@ -51,11 +50,6 @@ public class ORule implements Serializable {
     return attIndexes.length;
   }
 
-  private void resetCounters() {
-    this.correct = 0;
-    this.errors = 0;
-    this.covers = 0;
-  }
 
   public ORule(int label, int correct, int covers) {
     this(label);
@@ -107,17 +101,10 @@ public class ORule implements Serializable {
     return true;
   }
 
-  public void updateWith(OMaxIndex maxIndex) {
+  public void updateErrorsWith(OMaxIndex maxIndex) {
     assert this.label == maxIndex.getLabel();
     this.correct = maxIndex.getBestCorrect();
     this.covers = maxIndex.getBestCover();
-    this.errors = covers - correct;
-  }
-
-  public void updateWith(PasMax pasIndex) {
-    assert this.label == pasIndex.getLabel();
-    this.correct = pasIndex.getBestCorrect();
-    this.covers = pasIndex.getBestCover();
     this.errors = covers - correct;
   }
 

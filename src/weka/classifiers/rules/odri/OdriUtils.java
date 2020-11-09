@@ -5,7 +5,6 @@ package weka.classifiers.rules.odri;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import weka.classifiers.rules.edri.EDRIUtils;
-import weka.core.Attribute;
 import weka.core.Instance;
 import weka.core.Instances;
 
@@ -13,11 +12,9 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 /**
- * Created by suhel on 17/03/16.
+ * Created by Suhel on 09/11/2020.
  */
 public class OdriUtils {
 
@@ -60,6 +57,20 @@ public class OdriUtils {
             .forEach(index -> labelsCount[index]++);
 
     return new Pair(lineData, labelsCount);
+  }
+
+  public static int[][] mapIdataAndLabelsToArrays(Instances data) {
+    assert data.classIndex() == data.numAttributes() - 1;
+    int numAttributes = data.numAttributes();
+    int numInstances = data.numInstances();
+    int[][] result = new int[numAttributes][numInstances];
+    for (int line = 0; line < numInstances; line++) {
+      Instance instance = data.instance(line);
+      for (int attIndex = 0; attIndex < numAttributes; attIndex++) {
+        result[attIndex][line] = (int) instance.value(attIndex);
+      }
+    }
+    return result;
   }
 
   /**
@@ -119,8 +130,8 @@ public class OdriUtils {
 
 
   /**
-   * @param attValues
-   * @param lineData
+   * @param numItems
+   * @param data
    * @param availableAttributes
    * @return counter of frequencies of labels as an array [i][j][k] :
    * i: attribute
@@ -128,28 +139,33 @@ public class OdriUtils {
    * k: label class
    * (att, item, label) -> count
    */
-  public static int[][][] countStep(int[] attValues, Collection<int[]> lineData, int[] availableAttributes) {
+  public static int[][][] countStepOdri(
+          int[] numItems,
+          int[][] data,
+          int[] availableAttributes,
+          int[] availableLines) {
 
-    int labelIndex = attValues.length - 1;
-    int numLabels = attValues[labelIndex];
+    int labelIndex = numItems.length - 1;
+    int numLabels = numItems[labelIndex];
+    int[] labels = data[data.length - 1];
 
     //create array of One attributes, without the class name;
-    int[][][] result = new int[attValues.length][][];
+    int[][][] result = new int[numItems.length][][];
 
-    for (int att : availableAttributes) {
-      result[att] = new int[attValues[att]][numLabels];
+    for (int attIndex : availableAttributes) {
+      result[attIndex] = new int[numItems[attIndex]][numLabels];
     }
-    //fill remaining attributes with empty arrays
+    //fill remaining attributes with empty arrays //TODO check in maxIndex
     for (int i = 0; i < result.length; i++) {
       if (result[i] == null) result[i] = new int[0][0];
     }
 
-    //filling with values
-    for (int[] row : lineData) {
-      int cls = row[labelIndex];
-
-      for (int a : availableAttributes)
-        result[a][row[a]][cls]++;
+    //filling
+    for (int attIndex : availableAttributes) {
+      int[] oneAttributeData = data[attIndex];
+      for (int line : availableLines) {
+        result[attIndex][oneAttributeData[line]][labels[line]]++;
+      }
     }
     return result;
   }
@@ -187,29 +203,6 @@ public class OdriUtils {
     return result;
   }
 
-  /**
-   * Used to tranform java enumeration into java8 stream,
-   * candidate usage in Instances methods :enumerateInstatnces, enumerateAttributes
-   * benefit to do
-   *
-   * @param <T> class type
-   * @param e   enumerateion
-   * @return stream streamOf T type
-   */
-  public static <T> Stream<T> enum2Stream(Enumeration<T> e) {
-    return StreamSupport.stream(
-            Spliterators.spliteratorUnknownSize(
-                    new Iterator<T>() {
-                      public T next() {
-                        return e.nextElement();
-                      }
-
-                      public boolean hasNext() {
-                        return e.hasMoreElements();
-                      }
-                    },
-                    Spliterator.ORDERED), false); //TODO: parallel flag to true later!
-  }
 
   public static int[] intsToArray(Set<Integer> set) {
     return set.stream()
@@ -217,97 +210,43 @@ public class OdriUtils {
             .toArray();
   }
 
-  /**
-   * @param iattrs   holds number of item for each attribute including the class attribute
-   * @param lineData line data, pruned at the end to NOT COVERED instances
-   * @param label    label index
-   * @return
-   */
-  public static ORuleLines calcStepPrism(int[] iattrs, Collection<int[]> lineData, final int label) {
+  public static ORuleLines calcStepOdri(int[] numItemsInAtt,
+                                        int[][] data,
+                                        int minOcc,
+                                        int[] lines) {
 
-    int labelIndex = iattrs.length - 1;
-    int numLabels = iattrs[labelIndex];
+    if (lines.length < minOcc) return null;
 
-    /** Start with all attributes, does not include the label attribute*/
-    Set<Integer> avAtts = new LinkedHashSet<>();
-    for (int i = 0; i < labelIndex; i++) avAtts.add(i);
-    ORule rule = new ORule(label);
-
-
-    Collection<int[]> entryLines = lineData;
-    Collection<int[]> notCoveredLines = new ArrayList<>(lineData.size());
-
-    long scannedInstances = 0L;
-    do {
-
-      scannedInstances += 2 * entryLines.size();
-
-      int[][][] stepCount = countStep(iattrs, entryLines, intsToArray(avAtts));
-      OMaxIndex mx = OMaxIndex.ofOne(stepCount, rule.label);
-
-      assert mx.getLabel() != OMaxIndex.EMPTY;
-      assert mx.getLabel() == label;
-
-
-      avAtts.remove(mx.getBestAtt());
-      rule.addTest(mx.getBestAtt(), mx.getBestItem());
-      rule.updateWith(mx);
-
-      Map<Boolean, List<int[]>> coveredLines = entryLines.stream()
-              .collect(Collectors.partitioningBy(row -> rule.canCoverInstance(row)));
-
-      notCoveredLines.addAll(coveredLines.get(false));
-
-      entryLines = coveredLines.get(true);
-
-    } while (rule.getErrors() > 0 && avAtts.size() > 0);
-
-    return new ORuleLines(rule, notCoveredLines, scannedInstances);
-  }
-
-
-  public static ORuleLines calcStepMeDRI(int[] numItemsInAtt,
-                                         Collection<int[]> lineData,
-                                         int minFreq,
-                                         double minConfidence) {
-
-    if (lineData.size() < minFreq) return null;
-
-//        int labelIndex = countItemsInAttributes.length - 1;
-//        int numLabels = countItemsInAttributes[labelIndex];
 
     /** Start with all attributes, does not include the label attribute*/
     Set<Integer> availableAttributes = IntStream.range(0, numItemsInAtt.length - 1)
             .boxed()
             .collect(Collectors.toSet());
 
-//        Set<Integer> avAtts = new LinkedHashSet<>();
-//        for (int i = 0; i < labelIndex; i++) avAtts.add(i);
+    final int numLabels = numItemsInAtt[numItemsInAtt.length - 1];
 
     ORule rule = null;// null, Does not know the label yet
     OMaxIndex mx = null;
 
-    Collection<int[]> entryLines = lineData; // start with all lines
-    Collection<int[]> notCoveredLines = new ArrayList<>(lineData.size());//none covered
+    int[] entryLines = lines; // start with all lines
 //
-    // TODO delete scannedInstances later, use logging or annotation instead
-    long scannedInstances = 0L; // for statistical measures only,
     do {
-      scannedInstances += 2 * entryLines.size();
 
-      int[][][] stepCount = countStep(numItemsInAtt,
-              entryLines,
-              intsToArray(availableAttributes));
+      int[][][] stepCount = countStepOdri(
+              numItemsInAtt,
+              data,
+              intsToArray(availableAttributes),
+              entryLines);
       if (mx == null) {
         //For the first time
-        mx = OMaxIndex.ofMeDRI(stepCount, minFreq, minConfidence);
+        mx = OMaxIndex.ofOdri(stepCount, minOcc, numLabels);
 
-        if (mx.getLabel() == OMaxIndex.EMPTY) return null;
+        if (mx.getLabel() == OMaxIndex.EMPTY) return null; //should never reach this
         rule = new ORule(mx.getLabel());
       } else {
-        mx = OMaxIndex.ofMeDRI(stepCount,
-                minFreq,
-                minConfidence,
+        mx = OMaxIndex.ofOdri(stepCount,
+                minOcc,
+                numLabels,
                 mx.getLabel());
         if (mx.getLabel() == OMaxIndex.EMPTY) break;
 
@@ -323,292 +262,112 @@ public class OdriUtils {
 
       //refine rule with more attributes conditions
       rule.addTest(mx.getBestAtt(), mx.getBestItem());
-      rule.updateWith(mx);
+      rule.updateErrorsWith(mx);
 
       ORule finalRule = rule;
-      Map<Boolean, List<int[]>> coveredLines = entryLines.stream()
-              .collect(Collectors.partitioningBy(row -> finalRule.canCoverInstance(row)));
 
-      notCoveredLines.addAll(coveredLines.get(false));
+      entryLines = filter(entryLines, data[mx.getBestAtt()], mx.getBestItem());
 
-      entryLines = coveredLines.get(true);
 
     } while (rule.getErrors() > 0
             && availableAttributes.size() > 0
-            && rule.getCorrect() >= minFreq);
+            && rule.getCorrect() >= minOcc
+            && entryLines.length > 0); // TODO check this condition
 
     if (rule.getLength() == 0) {//TODO more inspection is needed here
       return null;
     }
 
-    return new ORuleLines(rule, notCoveredLines, scannedInstances);
+    return new ORuleLines(rule, getNotCovered(lines, entryLines));
   }
 
-  /**
-   * @param iattrs   holds number of items for each attribute including the class attribute
-   * @param lineData line data, pruned at the end to NOT COVERED instances
-   * @param label    label index
-   * @return
-   */
-  public static ORuleLines calcStepEDRI(int[] iattrs, Collection<int[]> lineData, final int label,
-                                        int minFreq, double minConfidence) {
 
-    if (lineData.size() < minFreq) return null;
-
-
-    int labelIndex = iattrs.length - 1;
-    int numLabels = iattrs[labelIndex];
-
-    /** Start with all attributes, does not include the label attribute*/
-    Set<Integer> avAtts = new LinkedHashSet<>();
-    for (int i = 0; i < labelIndex; i++) avAtts.add(i);
-    ORule rule = new ORule(label);
-
-
-    Collection<int[]> entryLines = lineData;
-    Collection<int[]> notCoveredLines = new ArrayList<>(lineData.size());
-
-    long scannedInstances = 0L;
-
-    do {
-
-      scannedInstances += 2 * entryLines.size();
-      int[][][] stepCount = countStep(iattrs, entryLines, intsToArray(avAtts));
-      OMaxIndex mx = OMaxIndex.ofMeDRI(stepCount,
-              minFreq,
-              minConfidence,
-              rule.label);
-
-
-      if (mx.getLabel() == OMaxIndex.EMPTY) {
-        break;
-      }
-
-      assert mx.getLabel() != OMaxIndex.EMPTY;
-      assert mx.getLabel() == label;
-      assert mx.getBestAtt() >= 0;
-      assert mx.getBestItem() >= 0;
-
-      avAtts.remove(mx.getBestAtt());
-      rule.addTest(mx.getBestAtt(), mx.getBestItem());
-      rule.updateWith(mx);
-
-
-      Map<Boolean, List<int[]>> coveredLines = entryLines.stream()
-              .collect(Collectors.partitioningBy(row -> rule.canCoverInstance(row)));
-
-      notCoveredLines.addAll(coveredLines.get(false));
-
-      entryLines = coveredLines.get(true);
-
-    } while (rule.getErrors() > 0 && avAtts.size() > 0 && rule.getCorrect() >= minFreq);
-
-    if (rule.getLength() == 0) {//TODO more inspection is needed here
-      return null;
-    }
-
-    return new ORuleLines(rule, notCoveredLines, scannedInstances);
-  }
-
-  //TODO delete later
-//    public static double[] attribToArray(Attribute att) {
-//        double[] result = new double[att.numValues()];
-//        for (int i = 0; i < result.length; i++) {
-//            result[i] = Double.valueOf(att.value(i));
-//        }
-//        return result;
-//    }
-
-  public static String[] attributeValues(Attribute att) {
-    String[] result = new String[att.numValues()];
-    for (int i = 0; i < result.length; i++) {
-      result[i] = att.value(i);
-    }
-    return result;
-  }
-
-  public static int indexOf(double[] arr, double value) {
-    for (int i = 0; i < arr.length; i++) {
-      if (arr[i] == value) return i;
-    }
-    return -1;
-  }
-
-  public static OdriResult buildClassifierMeDRI(int[] numItems,
-                                                int[] labelsCount,
-                                                Collection<int[]> lineData,
-                                                int minFreq,
-                                                double minConfidence,
+  public static List<ORule> buildClassifierOdri(int[] numItems,
+                                                int[][] data,
+                                                int minOcc,
                                                 boolean addDefaultRule) {
     List<ORule> rules = new ArrayList<>();
-    long scannedInstance = 0L;
-
     int labelIndex = numItems.length - 1;
     int numLabels = numItems[labelIndex];
-    assert numItems[labelIndex] == labelsCount.length;
 
-    int lineDataSize = lineData.size();
+    int numInstances = data[0].length;
+    final int[] allLines = IntStream.range(0, numInstances).toArray();
 
-    Collection<int[]> remainingLines = null;
-
-
-    Collection<int[]> lines = lineData;//new ArrayList<>(lineData);//defensive copy
+    int[] remainingLines = null;
 
 
-    while (lineDataSize > 0) {
+    int[] lines = allLines;//new ArrayList<>(lineData);//defensive copy
 
-      ORuleLines rllns = calcStepMeDRI(numItems, lines, minFreq, minConfidence);
+
+    while (lines.length > 0) {
+
+      ORuleLines rllns = calcStepOdri(numItems, data, minOcc, lines);
       if (rllns == null) break; // stop adding rules for current class. break out to the new class
-      scannedInstance += rllns.scannedInstances;
 
 
       logger.trace("rule {}", rllns.rule);
-      logger.trace("remaining lines={}", rllns.lines.size());
+      logger.trace("remaining lines={}", rllns.lines.length);
 
       lines = rllns.lines;
       remainingLines = lines;
-      lineDataSize -= rllns.rule.getCorrect();
       logger.trace("took {} , remains {} instances",
-              rllns.rule.getCorrect(), lineDataSize);
+              rllns.rule.getCorrect(), lines.length);
 
       rules.add(rllns.rule);
     }
 
     if (addDefaultRule) {
-      if (remainingLines != null && remainingLines.size() > 0) {
-        scannedInstance += remainingLines.size();
-        ORule rule = getDefaultRule(remainingLines, labelIndex, numLabels);
+      if (remainingLines != null && remainingLines.length > 0) {
+//        ORule rule = getDefaultRule(remainingLines, data[labelIndex], numLabels);
+        ORule rule = getDefaultRule(fancyIndex(data[labelIndex], lines), numLabels);
+
         rules.add(rule);
       }
     }
 
     //TODO check to add defaultRule
     assert rules.size() > 0;
-    OdriResult result = new OdriResult();
-    result.setRules(rules);
-    result.setScannedInstances(scannedInstance);
-    return result;
-  }
 
-  public static OdriResult buildClassifierEDRI(int[] iattrs, int[] labelsCount, Collection<int[]> lineData,
-                                               int minFreq, double minConfidence, boolean addDefaultRule) {
-    List<ORule> rules = new ArrayList<>();
-    long scannedInstances = 0L;
-
-    int labelIndex = iattrs.length - 1;
-    int numLabels = iattrs[labelIndex];
-
-    Collection<int[]> remainingLines = null;
-    for (int cls = 0; cls < numLabels; cls++) {
-      logger.trace("****************************************" +
-              "\nfor class = {}", cls);
-      int clsCounter = labelsCount[cls];
-      logger.trace("cls {} count = {}", cls, clsCounter);
-      Collection<int[]> lines = lineData;//new ArrayList<>(lineData);//defensive copy
-
-
-      while (clsCounter > 0) {
-        ORuleLines lnrl = calcStepEDRI(iattrs, lines, cls, minFreq, minConfidence);
-        if (lnrl == null) break; // stop adding rules for current class. break out to the new class
-        scannedInstances += lnrl.scannedInstances;
-
-
-        logger.trace("rule {}", lnrl.rule);
-        logger.trace("remaining lines={}", lnrl.lines.size());
-
-        lines = lnrl.lines;
-        remainingLines = lines;
-        clsCounter -= lnrl.rule.getCorrect();
-        logger.trace("took {} , remains {} instances",
-                lnrl.rule.getCorrect(), clsCounter);
-        rules.add(lnrl.rule);
-      }
-    }
-    if (addDefaultRule) {
-      if (remainingLines != null && remainingLines.size() > 0) {
-        scannedInstances += remainingLines.size();
-        ORule rule = getDefaultRule(remainingLines, labelIndex, numLabels);
-        rules.add(rule);
-      }
-    }
-
-    //TODO check to add defaultRule
-    assert rules.size() > 0;
-    OdriResult result = new OdriResult();
-    result.setRules(rules);
-    result.setScannedInstances(scannedInstances);
-    return result;
+    return rules;
   }
 
 
-  public static OdriResult buildClassifierPrism(int[] iattrs, int[] labelsCount,
-                                                Collection<int[]> lineData, boolean addDefaultRule) {
-    List<ORule> rules = new ArrayList<>();
-    long scannedInstances = 0L;
-    int labelIndex = iattrs.length - 1;
-    int numLabels = iattrs[labelIndex];
-
-    for (int cls = 0; cls < numLabels; cls++) {
-      logger.trace("****************************************" +
-              "\nfor class = {}", cls);
-      int clsCounter = labelsCount[cls];
-      logger.trace("cls {} count = {}", cls, clsCounter);
-      Collection<int[]> lines = lineData;//new ArrayList<>(lineData);//defensive copy
-
-      while (clsCounter > 0) {
-        ORuleLines lnrl = calcStepPrism(iattrs, lines, cls);
-        scannedInstances += lnrl.scannedInstances;
-        logger.trace("rule {}", lnrl.rule);
-        logger.trace("remaining lines={}", lnrl.lines.size());
-
-        lines = lnrl.lines;
-        clsCounter -= lnrl.rule.getCorrect();
-        logger.trace("took {} , remains {} instances",
-                lnrl.rule.getCorrect(), clsCounter);
-        rules.add(lnrl.rule);
-      }
-    }
-
-    if (addDefaultRule) {
-      Collection<int[]> lines = new ArrayList<>();
-      for (int[] line : lineData) {
-        boolean isCovered = false;
-        for (ORule rule : rules) {
-          int cls = rule.classify(line);
-          if (cls != ORule.EMPTY) {
-            isCovered = true;
-            break;
-          }
-        }
-        if (!isCovered) {
-          lines.add(line);
-        }
-      }
-      if (lines.size() > 0) {
-        scannedInstances += lines.size();
-        rules.add(getDefaultRule(lines, labelIndex, numLabels));
-      }
-    }
-//        return rules;
-    OdriResult result = new OdriResult();
-    result.setRules(rules);
-    result.setScannedInstances(scannedInstances);
-    return result;
-    //
+  public static int[] filter(int[] entryLines, int[] att, int item) {
+    return Arrays.stream(entryLines)
+            .filter(line -> att[line] == item)
+            .toArray();
   }
+
 
   /**
-   * Gets the majority class in the labels of the remaining instances, do not check attributes
+   * entrylines is subset of allines
    *
-   * @param lines
-   * @param labelIndex
-   * @param numLabels
+   * @param allLines
+   * @param entryLines
    * @return
    */
-  private static ORule getDefaultRule(Collection<int[]> lines, int labelIndex, int numLabels) {
+  public static int[] getNotCovered(int[] allLines, int[] entryLines) {
+    //assume unique sorted arrays
+    int[] result = new int[allLines.length - entryLines.length];
+    int allIndex = 0;
+    int outIndex = 0;
+    for (int line : entryLines) {
+      while (allLines[allIndex] != line) {
+        result[outIndex++] = allLines[allIndex++];
+      }
+      allIndex++;
+    }
+    while (allIndex < allLines.length)
+      result[outIndex++] = allLines[allIndex++];
+    return result;
+  }
+
+
+
+  private static ORule getDefaultRule(int[] labels, int numLabels) {
     int[] freqs = new int[numLabels];
-    for (int[] line : lines) {
-      freqs[line[labelIndex]]++;
+    for (int lbl : labels) {
+      freqs[lbl]++;
     }
 
     int maxVal = Integer.MIN_VALUE;
@@ -624,23 +383,34 @@ public class OdriUtils {
     return rule;
   }
 
+  public static int[] fancyIndex(int[] all, int[] indices) {
+    int[] result = new int[indices.length];
+    for (int i = 0; i < result.length; i++) {
+      result[i] = all[indices[i]];
+    }
+    return result;
+  }
+
   public static void main(String[] args) throws IOException {
     logger.info("test logger");
 
 //        String inFile = "/media/suhel/workspace/work/wekaprism/data/fadi.arff";
-    String inFile = "/media/suhel/workspace/work/wekaprism/data/cl.arff";
+//    String inFile = "/media/suhel/workspace/work/wekaprism/data/cl.arff";
+    String inFile = "data/arff/contact-lenses.arff";
 
-    Instances data = new Instances(EDRIUtils.readDataFile(inFile));
-    data.setClassIndex(data.numAttributes() - 1);
-    System.out.println(data.numInstances());
-    int[] iattrs = OdriUtils.countItemsInAttributes(data);
+    Instances instances = new Instances(EDRIUtils.readDataFile(inFile));
+    instances.setClassIndex(instances.numAttributes() - 1);
+    System.out.println(instances.numInstances());
+    final int[] numberOfItems = OdriUtils.countItemsInAttributes(instances);
+    final int numOfLabels = numberOfItems[numberOfItems.length - 1];
 
-    Pair<Collection<int[]>, int[]> linesLabels = OdriUtils.mapIdataAndLabels(data);
-    Collection<int[]> lineData = linesLabels.key;
-    int[] labelsCount = linesLabels.value;
+    Pair<Collection<int[]>, int[]> linesLabels = OdriUtils.mapIdataAndLabels(instances);
+    int[][] data = OdriUtils.mapIdataAndLabelsToArrays(instances);
 
-    logger.trace("original lines size = {}", lineData.size());
-    List<ORule> rules = buildClassifierPrism(iattrs, labelsCount, lineData, true).getRules();
+    logger.trace("original lines size = {}", data[0].length);
+
+    List<ORule> rules = buildClassifierOdri(
+            numberOfItems, data, 1, true);
 
     logger.info("rules generated =\n{}",
             rules.stream()

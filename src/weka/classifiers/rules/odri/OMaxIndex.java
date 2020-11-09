@@ -1,21 +1,26 @@
 package weka.classifiers.rules.odri;
-
-
 import java.util.StringJoiner;
 
 /**
- * Created by suhel on 21/03/16.
+ * Created by suhel on 09/11/2020.
  */
 
 public class OMaxIndex {
   public final static int EMPTY = -1;
-  private int bestCorrect = -1;//Should start with negative value
-  private int bestCover = 0;
-  private int bestAtt = EMPTY, bestItem = EMPTY;
+  private double bestRank = Double.MIN_VALUE;
+  private int bestCorrect = EMPTY;//Should start with negative value
+  private int bestCover = EMPTY;
+  private int bestAtt = EMPTY;
+  private int bestItem = EMPTY;
   private int label = EMPTY;
 
-  final public int minFreq;
-  final public double minConfidence;
+  final public int minOcc;
+  final public double numLabels;
+  final public double maxPossibleRank;
+
+  public double getBestRank() {
+    return bestRank;
+  }
 
   public int getBestAtt() {
     return bestAtt;
@@ -37,35 +42,21 @@ public class OMaxIndex {
     return bestCorrect;
   }
 
-  private OMaxIndex(int minFreq, double minConfidence) {
-    this.minFreq = minFreq;
-    this.minConfidence = minConfidence;
+  private OMaxIndex(int minOcc, double numLabels) {
+    this.minOcc = minOcc;
+    this.numLabels = numLabels;
+    this.maxPossibleRank = Math.log(numLabels) / Math.log(2);
   }
 
   public OMaxIndex copy() {
-    OMaxIndex result = new OMaxIndex(this.minFreq, this.minConfidence);
+    OMaxIndex result = new OMaxIndex(this.minOcc, this.numLabels);
+    result.bestRank = this.bestRank;
     result.bestAtt = this.bestAtt;
     result.bestItem = this.bestItem;
     result.label = this.label;
     result.bestCorrect = this.bestCorrect;
     result.bestCover = this.bestCover;
     return result;
-  }
-
-  /**
-   * Find best (att, item, label) based on m_confidence and m_support, no prior label condition
-   *
-   * @param count (att, item, label) -> count
-   * @return MaxIndex instance with values of (att, item, label) that maximize m_confidence/m_support
-   */
-  public static OMaxIndex of(int[][][] count) {
-    OMaxIndex mi = new OMaxIndex(0, 0);
-    for (int at = 0; at < count.length; at++) {
-      for (int itm = 0; itm < count[at].length; itm++) {
-        mi.max(count[at][itm], at, itm);
-      }
-    }
-    return mi;
   }
 
   /**
@@ -123,9 +114,9 @@ public class OMaxIndex {
     int sum = sum(itemLabels);
     for (int i = 0; i < itemLabels.length; i++) {
       int itemCorrect = itemLabels[i];
-      if (itemCorrect < minFreq) continue;
+      if (itemCorrect < minOcc) continue;
 
-      if (minConfidence > (double) itemCorrect / (double) sum) continue;
+      if (numLabels > (double) itemCorrect / (double) sum) continue;
 
       int diff = itemCorrect * bestCover - bestCorrect * sum; //TODO nice to allow plugging in ranking criteria
       if (diff > 0 || diff == 0 && itemCorrect > bestCorrect) {
@@ -139,6 +130,7 @@ public class OMaxIndex {
     }
   }
 
+
   /**
    * @param itemLabels
    * @param attIndex
@@ -147,10 +139,10 @@ public class OMaxIndex {
    */
   private void maxMeDRI(int[] itemLabels, int attIndex, int itemIndex, int label) {
     int itemCorrect = itemLabels[label];
-    if (itemCorrect < minFreq) return;
+    if (itemCorrect < minOcc) return;
     int sum = sum(itemLabels);
 
-    if (minConfidence > (double) itemCorrect / (double) sum) return;
+    if (numLabels > (double) itemCorrect / (double) sum) return;
 
     int diff = itemCorrect * bestCover - bestCorrect * sum;
     if (diff > 0 || diff == 0 && itemCorrect > bestCorrect) {
@@ -162,46 +154,88 @@ public class OMaxIndex {
     }
   }
 
+  double rank(int[] labels) {
+    return rank(labels, maxPossibleRank);
+  }
 
-  public static OMaxIndex ofOne(int[][][] count, int label) {
-    OMaxIndex mi = new OMaxIndex(0, 0);
+
+  public static OMaxIndex ofOdri(int[][][] count,
+                                 int minOcc,
+                                 int numLabels) {
+    OMaxIndex mi = new OMaxIndex(minOcc, numLabels);
     for (int at = 0; at < count.length; at++) {
       for (int itm = 0; itm < count[at].length; itm++) {
-        mi.maxOne(count[at][itm], at, itm, label);
+        mi.maxOdri(count[at][itm], at, itm);
       }
     }
     return mi;
   }
 
 
-  private void maxOne(int[] itemLabels, int attIndex, int itemIndex, int label) {
-    int sum = sum(itemLabels);
-    int diff = itemLabels[label] * bestCover - bestCorrect * sum;
-    if (diff > 0 || diff == 0 && itemLabels[label] > bestCorrect) {
-      this.bestAtt = attIndex;
-      this.bestItem = itemIndex;
-      this.label = label;
-      this.bestCorrect = itemLabels[label];
-      this.bestCover = sum;
+  public static OMaxIndex ofOdri(int[][][] count,
+                                 int minOcc,
+                                 int numLabels,
+                                 int label) {
+    OMaxIndex mi = new OMaxIndex(minOcc, numLabels);
+    for (int at = 0; at < count.length; at++) {
+      for (int itm = 0; itm < count[at].length; itm++) {
+        mi.maxOdri(count[at][itm], at, itm, label);
+      }
     }
+    return mi;
   }
 
 
-  private boolean max(int[] itemLabels, int attIndex, int itemIndex) {
+  private void maxOdri(int[] itemLabels,
+                       int attIndex,
+                       int itemIndex) {
     int sum = sum(itemLabels);
-    boolean changed = false;
-    for (int i = 0; i < itemLabels.length; i++) {
-      int diff = itemLabels[i] * bestCover - bestCorrect * sum;
-      if (diff > 0 || diff == 0 && itemLabels[i] > bestCorrect) {
-        this.bestAtt = attIndex;
-        this.bestItem = itemIndex;
-        this.label = i;
-        this.bestCorrect = itemLabels[i];
-        this.bestCover = sum;
-        changed = true;
-      }
-    }
-    return changed;
+    if (sum < minOcc || sum == 0) return;
+    double tRank = rank(itemLabels);
+
+    if (tRank < this.bestRank) return;
+    if (tRank == this.bestRank && sum < this.bestCover) return;
+
+    /* switch contents (att,item,label, correct, cover) */
+    this.bestRank = tRank;
+    this.bestAtt = attIndex;
+    this.bestItem = itemIndex;
+    //find best label
+    this.label = argMax(itemLabels);
+    this.bestCorrect = itemLabels[this.label];
+    this.bestCover = sum;
+
+  }
+
+  /**
+   * @param itemLabels
+   * @param attIndex
+   * @param itemIndex
+   * @param label
+   */
+  private void maxOdri(int[] itemLabels,
+                       int attIndex,
+                       int itemIndex,
+                       int label) {
+
+    int sum = sum(itemLabels);
+    if (sum < minOcc || sum == 0) return;
+    int mxLabel = argMax(itemLabels);
+
+    if (mxLabel != label) return;
+
+    double tRank = rank(itemLabels);
+
+    if (tRank < this.bestRank) return;
+    if (tRank == this.bestRank && sum < this.bestCover) return;
+
+    /* switch contents (att,item, correct, cover), assert same label */
+    this.bestRank = tRank;
+    this.bestAtt = attIndex;
+    this.bestItem = itemIndex;
+    assert this.label == label;
+    this.bestCorrect = itemLabels[this.label];
+    this.bestCover = sum;
   }
 
 
@@ -209,6 +243,7 @@ public class OMaxIndex {
   public String toString() {
     return new StringJoiner(", ",
             this.getClass().getSimpleName() + "[", "]")
+            .add("bestRank=" + bestRank)
             .add("bestAtt=" + bestAtt)
             .add("bestItem= " + bestItem)
             .add("lbl=" + label)
@@ -222,5 +257,38 @@ public class OMaxIndex {
     int result = 0;
     for (int i : a) result += i;
     return result;
+  }
+
+  public static double rank(int[] data, double maxEntropy) {
+    int sum = sum(data);
+    if (sum == 0) return 0;
+    double result = 0;
+    for (int val : data) {
+      if (val == 0) continue;
+      double p = (double) val / sum;
+      result += p * Math.log(p);//negative value
+    }
+    return maxEntropy + result / Math.log(2);
+  }
+
+  /**
+   * data.length > 0
+   *
+   * @param data
+   * @return
+   */
+  public static int argMax(int[] data) {
+    int result = 0;
+
+    for (int i = 1; i < data.length; i++) {
+      result = data[i] > data[result] ? i : result;
+    }
+    return result;
+  }
+
+  public static void main(String[] args) {
+    int[] data = new int[]{8, 4, 2, 2};
+    double rank = rank(data, 0);
+    System.out.println("rank = " + rank);
   }
 }

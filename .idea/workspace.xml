@@ -31,10 +31,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b4ffecf-fd2d-4ac9-8d65-3aedb6a8be09" name="Default" comment="Initial commit">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/suhel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/suhel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/logback.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logging.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/logging.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OMaxIndex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OMaxIndex.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/ORule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/ORule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/ORuleLines.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/ORuleLines.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OdriResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OdriResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OdriUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OdriUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,14 +114,14 @@
       <recent name="sensetivity" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="weka.classifiers.rules.early" />
       <recent name="weka.classifiers.rules" />
+      <recent name="weka.classifiers.rules.early" />
       <recent name="sensetivity" />
       <recent name="weka.attributeSelection.pas" />
       <recent name="weka.classifiers.rules.medri" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.AppLauncher">
+  <component name="RunManager" selected="Application.OdriUtils">
     <configuration name="AppLauncher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="AppLauncher" />
       <module name="weka.plus" />
@@ -127,21 +130,27 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GUILauncher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUILauncher" />
-      <module name="weka.plus" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="StoryDriverAutism" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="sensetivity.StoryDriverAutism" />
+    <configuration name="OMaxIndex" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="weka.classifiers.rules.odri.OMaxIndex" />
       <module name="weka.plus" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="sensetivity.*" />
+          <option name="PATTERN" value="weka.classifiers.rules.odri.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OdriUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="weka.classifiers.rules.odri.OdriUtils" />
+      <module name="weka.plus" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="weka.classifiers.rules.odri.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -206,18 +215,18 @@
     </configuration>
     <list>
       <item itemvalue="Application.AppLauncher" />
-      <item itemvalue="Application.GUILauncher" />
-      <item itemvalue="Application.StoryDriverAutism" />
+      <item itemvalue="Application.OMaxIndex" />
       <item itemvalue="JUnit.FilesUtilsTest" />
       <item itemvalue="JUnit.StoryTest.equalsOn" />
+      <item itemvalue="Application.OdriUtils" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.OdriUtils" />
+        <item itemvalue="Application.OMaxIndex" />
         <item itemvalue="Application.AppLauncher" />
         <item itemvalue="JUnit.StoryTest.equalsOn" />
         <item itemvalue="JUnit.FilesUtilsTest" />
-        <item itemvalue="Application.StoryDriverAutism" />
-        <item itemvalue="Application.GUILauncher" />
       </list>
     </recent_temporary>
   </component>
