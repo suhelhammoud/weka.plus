@@ -396,7 +396,8 @@ public class OdriUtils {
 
 //        String inFile = "/media/suhel/workspace/work/wekaprism/data/fadi.arff";
 //    String inFile = "/media/suhel/workspace/work/wekaprism/data/cl.arff";
-    String inFile = "data/arff/contact-lenses.arff";
+//    String inFile = "data/arff/contact-lenses.arff";
+    String inFile = "data/arff/tic-tac-toe.arff";
 
     Instances instances = new Instances(EDRIUtils.readDataFile(inFile));
     instances.setClassIndex(instances.numAttributes() - 1);

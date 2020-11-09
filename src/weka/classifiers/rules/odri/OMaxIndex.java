@@ -233,7 +233,7 @@ public class OMaxIndex {
     this.bestRank = tRank;
     this.bestAtt = attIndex;
     this.bestItem = itemIndex;
-    assert this.label == label;
+    this.label = label;
     this.bestCorrect = itemLabels[this.label];
     this.bestCover = sum;
   }

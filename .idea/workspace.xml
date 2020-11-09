@@ -31,12 +31,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b4ffecf-fd2d-4ac9-8d65-3aedb6a8be09" name="Default" comment="Initial commit">
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/suhel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/suhel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OMaxIndex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OMaxIndex.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/ORule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/ORule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/ORuleLines.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/ORuleLines.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OdriResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OdriResult.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OdriUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OdriUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -77,6 +73,7 @@
     <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
@@ -223,8 +220,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.OdriUtils" />
-        <item itemvalue="Application.OMaxIndex" />
         <item itemvalue="Application.AppLauncher" />
+        <item itemvalue="Application.OMaxIndex" />
         <item itemvalue="JUnit.StoryTest.equalsOn" />
         <item itemvalue="JUnit.FilesUtilsTest" />
       </list>
