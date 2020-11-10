@@ -187,6 +187,7 @@ public class ODRI implements Classifier, OptionHandler,
    * @throws Exception if the classifier can't built successfully
    */
   public void buildClassifier(Instances data) throws Exception {
+
     logger.info("build classifier with data ={} of size={}",
             data.relationName(), data.numInstances());
 
@@ -210,6 +211,8 @@ public class ODRI implements Classifier, OptionHandler,
   public List<ORule> buildClassifierOdri(Instances instances,
                                          int minOcc,
                                          boolean addDefaultRule) {
+    options.changeLogLevelRunTime();
+
     logger.debug("buildClassifierOdri with minOcc={}, addDefaultRule={}", minOcc, addDefaultRule);
 
 
@@ -222,8 +225,8 @@ public class ODRI implements Classifier, OptionHandler,
 
     return OdriUtils.buildClassifierOdri(data,
             numberOfItems,
-            1,
-            true);
+            minOcc,
+            addDefaultRule);
   }
 
   public String toString(Instances data, int maxDigit) {
