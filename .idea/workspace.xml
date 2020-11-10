@@ -32,7 +32,8 @@
   <component name="ChangeListManager">
     <list default="true" id="4b4ffecf-fd2d-4ac9-8d65-3aedb6a8be09" name="Default" comment="Initial commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OMaxIndex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OMaxIndex.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/ODRI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/ODRI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OdriOptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OdriOptions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OdriUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OdriUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -118,7 +119,7 @@
       <recent name="weka.classifiers.rules.medri" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.OdriUtils">
+  <component name="RunManager" selected="Application.AppLauncher">
     <configuration name="AppLauncher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="AppLauncher" />
       <module name="weka.plus" />
@@ -213,14 +214,14 @@
     <list>
       <item itemvalue="Application.AppLauncher" />
       <item itemvalue="Application.OMaxIndex" />
+      <item itemvalue="Application.OdriUtils" />
       <item itemvalue="JUnit.FilesUtilsTest" />
       <item itemvalue="JUnit.StoryTest.equalsOn" />
-      <item itemvalue="Application.OdriUtils" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.OdriUtils" />
         <item itemvalue="Application.AppLauncher" />
+        <item itemvalue="Application.OdriUtils" />
         <item itemvalue="Application.OMaxIndex" />
         <item itemvalue="JUnit.StoryTest.equalsOn" />
         <item itemvalue="JUnit.FilesUtilsTest" />
@@ -340,6 +341,26 @@
           <url>file://$PROJECT_DIR$/src/weka/attributeSelection/pas/PasUtils.java</url>
           <line>98</line>
           <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/lib/weka-src.jar!/src/main/java/weka/core/Utils.java</url>
+          <line>1056</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/weka/classifiers/rules/odri/OdriOptions.java</url>
+          <line>106</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/weka/classifiers/rules/odri/OdriOptions.java</url>
+          <line>96</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/weka/classifiers/rules/odri/OdriOptions.java</url>
+          <line>117</line>
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

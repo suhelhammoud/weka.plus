@@ -4,6 +4,7 @@ import ch.qos.logback.classic.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import weka.classifiers.rules.eDRI;
+import weka.classifiers.rules.medri.MedriOptions;
 import weka.core.*;
 
 import java.io.Serializable;
@@ -11,11 +12,11 @@ import java.util.Enumeration;
 import java.util.Vector;
 
 /**
- * Created by suhel on 11/03/16.
+ * Created by suhel on 10/11/2020.
  */
 public class OdriOptions implements OptionHandler, Serializable {
 
-  static final long serialVersionUID = 1310258885025902127L;
+  static final long serialVersionUID = 1010258885025902127L;
   static Logger logger = LoggerFactory.getLogger(OdriOptions.class);
 
   private boolean addDefaultRule = false;
@@ -44,38 +45,16 @@ public class OdriOptions implements OptionHandler, Serializable {
   }
 
 
-  public enum ALGORITHMS {
-    prism, edri, medri;
-
-    public static Tag[] toTags() {
-      ALGORITHMS[] levels = values();
-      Tag[] result = new Tag[levels.length];
-      for (int i = 0; i < levels.length; i++) {
-        result[i] = new Tag(i, levels[i].name(), levels[i].name());
-      }
-      return result;
-    }
-
-    public SelectedTag selectedTag() {
-      return new SelectedTag(this.name(), ALGORITHMS.toTags());
-    }
-
-    public static ALGORITHMS of(String name) {
-      return valueOf(name.toLowerCase());
-    }
-  }
 
   protected String m_debugLevel = LEVELS.info.name();
-  protected String m_algorithm = "medri";
 
 
   public String debugLevel() {
     return m_debugLevel;
   }
 
-  protected double minFrequency = 0.01;
+  protected int minOcc = 1;
 
-  protected double minRuleStrength = 0.5;
 
   protected int maxNumInstances = 0;
 
@@ -89,30 +68,16 @@ public class OdriOptions implements OptionHandler, Serializable {
 
   public SelectedTag getDebugLevel() {
     return new SelectedTag(m_debugLevel, LEVELS.toTags());
-
-  }
-
-  public SelectedTag getAlgorithm() {
-    return new SelectedTag(m_algorithm, ALGORITHMS.toTags());
-
   }
 
 
-  public double getMinFrequency() {
-    return minFrequency;
+
+  public int getMinOcc() {
+    return minOcc;
   }
 
-  public void setMinFrequency(double minFrequency) {
-    this.minFrequency = Math.abs(minFrequency);
-  }
-
-
-  public double getMinRuleStrength() {
-    return minRuleStrength;
-  }
-
-  public void setMinRuleStrength(double minRuleStrength) {
-    this.minRuleStrength = Math.abs(minRuleStrength);
+  public void setMinOcc(int minOcc) {
+    this.minOcc = minOcc;
   }
 
 
@@ -126,35 +91,13 @@ public class OdriOptions implements OptionHandler, Serializable {
     return instances;
   }
 
-  private long scannedInstances = 0;
-
-  public void resetScannedInstances(long init) {
-    scannedInstances = init;
-  }
-
-  public long increaseScannedInstances(long a) {
-    scannedInstances += a;
-    return scannedInstances;
-  }
-
-  public long increaseScannedInstances() {
-    scannedInstances++;
-    return scannedInstances;
-  }
-
-  public long getScannedInstances() {
-    return scannedInstances;
-  }
-
 
   @Override
   public Enumeration listOptions() {
     Vector<Option> result = new Vector<>(1);
     result.addElement(new Option("Add Default Rule?", "R", 0, "-R"));
-    result.addElement(new Option("minimum m_support", "S", 1, "-S <lower bound for minimum m_support >"));
-    result.addElement(new Option("minimum m_confidence", "C", 1, "-C <minimum m_confidence ofOne a rule >"));
-    result.addElement(new Option("descritption", "D", 1, "-D < off | trace | debug | info | warn | error | fatal >"));
-    result.addElement(new Option("descritption", "A", 1, "-A < prism | edri | medri >"));
+    result.addElement(new Option("minimum m_support", "S", 1, "-S <lower bound for minimum minOcc >"));
+    result.addElement(new Option("description", "D", 1, "-D < off | trace | debug | info | warn | error | fatal >"));
     return result.elements();
 
   }
@@ -164,49 +107,29 @@ public class OdriOptions implements OptionHandler, Serializable {
     String optionString = Utils.getOption('D', options);
     m_debugLevel = LEVELS.valueOf(optionString).name();
 
-    String algoString = Utils.getOption('A', options);
-    m_algorithm = ALGORITHMS.valueOf(algoString).name();
-
-
-    String sConfidence = Utils.getOption('C', options);
-    minRuleStrength = Double.parseDouble(sConfidence);
-    String sSupport = Utils.getOption('S', options);
-    minFrequency = Double.parseDouble(sSupport);
+    String minOccString = Utils.getOption('S', options);
+    minOcc = Integer.parseInt(minOccString);
 
     addDefaultRule = Utils.getFlag('R', options);
-
   }
 
   @Override
   public String[] getOptions() {
-    String[] result = new String[9];
+    String[] result = new String[5];
     int currentIndex = 0;
     result[currentIndex++] = "-D";
     result[currentIndex++] = m_debugLevel;
 
-    result[currentIndex++] = "-A";
-    result[currentIndex++] = m_algorithm;
-
     result[currentIndex++] = "-S";
-    result[currentIndex++] = "" + minFrequency;
+    result[currentIndex++] = "" + minOcc;
 
-    result[currentIndex++] = "-C";
-    result[currentIndex++] = "" + minRuleStrength;
-
-    if (addDefaultRule)
-      result[currentIndex++] = "-R";
-    else
-      result[currentIndex++] = "";
+    result[currentIndex++] = addDefaultRule? "-R": "";
 
     return result;
   }
 
   public void setDebugLevel(SelectedTag newMethod) {
     m_debugLevel = newMethod.getSelectedTag().getIDStr();
-  }
-
-  public void setAlgorithm(SelectedTag algo) {
-    m_algorithm = algo.getSelectedTag().getIDStr();
   }
 
 
@@ -217,13 +140,9 @@ public class OdriOptions implements OptionHandler, Serializable {
 
   public static void changeLogLevelRunTime(String logLevel) {
 //        Logger lg = (Logger) LoggerFactory.getLogger(edri.class);
-    ((ch.qos.logback.classic.Logger) LoggerFactory.getLogger(eDRI.class)).setLevel(Level.toLevel(logLevel));
+    ((ch.qos.logback.classic.Logger) LoggerFactory.getLogger(eDRI.class))
+            .setLevel(Level.toLevel(logLevel));
 
-  }
-
-  public String printRunConf() {
-    StringBuilder sb = new StringBuilder();
-    return "";
   }
 
 }

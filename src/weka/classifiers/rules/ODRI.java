@@ -4,22 +4,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import weka.classifiers.Classifier;
 import weka.classifiers.rules.medri.*;
+import weka.classifiers.rules.odri.ORule;
+import weka.classifiers.rules.odri.OdriOptions;
+import weka.classifiers.rules.odri.OdriUtils;
 import weka.core.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Enumeration;
 import java.util.List;
 
 /**
- * Created by suhel on 23/03/16.
+ * Created by suhel on 10/11/2020.
  */
 public class ODRI implements Classifier, OptionHandler,
         CapabilitiesHandler, TechnicalInformationHandler, Serializable {
 
   static Logger logger = LoggerFactory.getLogger(ODRI.class.getName());
-  static final long serialVersionUID = 1310258885525902107L;
+  static final long serialVersionUID = 1310258425525902107L;
 
   private String[] labels;
 
@@ -29,7 +31,7 @@ public class ODRI implements Classifier, OptionHandler,
    * @return the revision
    */
   public String getRevision() {
-    return RevisionUtils.extract("$Revision: 001 $");
+    return RevisionUtils.extract("$Revision: 002 $");
   }
 
   /**
@@ -39,7 +41,7 @@ public class ODRI implements Classifier, OptionHandler,
    * displaying in the explorer/experimenter gui
    */
   public String globalInfo() {
-    return "Class for building and using a medri rule set for classification. "
+    return "Class for building and using a ordi rule set for classification. "
             + "Can only deal with nominal attributes. Can't deal with missing values. "
             + "For more information, see \n\n"
             + getTechnicalInformation().toString();
@@ -56,9 +58,9 @@ public class ODRI implements Classifier, OptionHandler,
     TechnicalInformation result;
 
     result = new TechnicalInformation(TechnicalInformation.Type.ARTICLE);
-    result.setValue(TechnicalInformation.Field.AUTHOR, "F. Thabtah, S. Hammoud");
-    result.setValue(TechnicalInformation.Field.YEAR, "2016");
-    result.setValue(TechnicalInformation.Field.TITLE, "medri: An algorithm for inducing modular rules");
+    result.setValue(TechnicalInformation.Field.AUTHOR, "S. Hammoud,F. Thabtah");
+    result.setValue(TechnicalInformation.Field.YEAR, "2020");
+    result.setValue(TechnicalInformation.Field.TITLE, "odri: An algorithm for ordered induced rules");
     result.setValue(TechnicalInformation.Field.JOURNAL, "Journal");
     result.setValue(TechnicalInformation.Field.VOLUME, "vol");
     result.setValue(TechnicalInformation.Field.NUMBER, "number");
@@ -69,12 +71,12 @@ public class ODRI implements Classifier, OptionHandler,
   /**
    * Holds algorithm configurations and OptionHandler parameters
    */
-  private MedriOptions moptions = new MedriOptions();
+  private OdriOptions options = new OdriOptions();
 
   /**
    * Holds algorithm configurations and MedriOption parameters
    */
-  private List<IRule> m_rules = new ArrayList<>();
+  private List<ORule> m_rules = new ArrayList<>();
 
   /**
    * Classifies a given instance.
@@ -84,8 +86,8 @@ public class ODRI implements Classifier, OptionHandler,
    */
   public double classifyInstance(Instance inst) {
 
-    for (IRule rule : m_rules) {
-      int cls = rule.classify(MedriUtils.toIntArray(inst));
+    for (ORule rule : m_rules) {
+      int cls = rule.classify(OdriUtils.toIntArray(inst));
       if (cls != IRule.EMPTY)
         return cls;
     }
@@ -97,7 +99,7 @@ public class ODRI implements Classifier, OptionHandler,
   //TODO use instead of EMPTY (-1) returned values, later...
   public boolean canClassifyInstance(Instance inst) {
     return m_rules.stream()
-            .anyMatch(r -> r.canCoverInstance(MedriUtils.toIntArray(inst)));
+            .anyMatch(r -> r.canCoverInstance(OdriUtils.toIntArray(inst)));
   }
 
   @Override
@@ -115,60 +117,46 @@ public class ODRI implements Classifier, OptionHandler,
 
   @Override
   public Enumeration listOptions() {
-    return moptions.listOptions();
+    return options.listOptions();
   }
 
   @Override
   public void setOptions(String[] options) throws Exception {
-    moptions.setOptions(options);
+    this.options.setOptions(options);
   }
 
   @Override
   public String[] getOptions() {
-    return moptions.getOptions();
+    return options.getOptions();
   }
 
   public boolean getAddDefaultRule() {
-    return moptions.getAddDefaultRule();
+    return options.getAddDefaultRule();
   }
 
   public void setAddDefaultRule(boolean b) {
-    moptions.setAddDefaultRule(b);
+    options.setAddDefaultRule(b);
   }
 
 
-  public double getMinFrequency() {
-    return moptions.getMinFrequency();
+  public int getMinOccurrence() {
+    return options.getMinOcc();
   }
 
-  public void setMinFrequency(double support) {
-    moptions.setMinFrequency(support);
+  public void setMinOccurrence(int minOcc) {
+    options.setMinOcc(minOcc);
   }
 
-  public double getMinRuleStrength() {
-    return moptions.getMinRuleStrength();
+  public void setDebugLevel(SelectedTag newMethod) {
+    options.setDebugLevel(newMethod);
   }
 
-  public void setMinRuleStrength(double confidence) {
-    moptions.setMinRuleStrength(confidence);
+  public SelectedTag getDebugLevel() {
+    return options.getDebugLevel();
   }
 
 
-  public void setAlgorithm(SelectedTag newMethod) {
-    moptions.setAlgorithm(newMethod);
-  }
 
-  public void setAlgorithm(String algorithm) {
-    MedriOptions.ALGORITHMS.valueOf(algorithm);
-  }
-
-  public SelectedTag getAlgorithm() {
-    return moptions.getAlgorithm();
-  }
-
-  public String algorithmTipText() {
-    return "Which algorithm to use, prism, edri, or medri ?";
-  }
 
   /**
    * Returns default capabilities of the classifier.
@@ -199,154 +187,88 @@ public class ODRI implements Classifier, OptionHandler,
    * @throws Exception if the classifier can't built successfully
    */
   public void buildClassifier(Instances data) throws Exception {
-    logger.info("build classifier with data ={} of size={}", data.relationName(), data.numInstances());
+    logger.info("build classifier with data ={} of size={}",
+            data.relationName(), data.numInstances());
 
     assert data.classIndex() == data.numAttributes() - 1;
 
     data.setClassIndex(data.numAttributes() - 1);
-    this.labels = MedriUtils.attributeValues(data.attribute(data.classIndex()));
+    this.labels = OdriUtils.attributeValues(data.attribute(data.classIndex()));
 
-    moptions.setMaxNumInstances(data.numInstances());
-    moptions.setInstancesCopy(data);
+    options.setMaxNumInstances(data.numInstances());
+    options.setInstancesCopy(data);
 
-    moptions.resetScannedInstances(0);
 
-    MedriOptions.ALGORITHMS algo = MedriOptions.ALGORITHMS.of(
-            moptions.getAlgorithm().toString());
-    switch (algo) {
-      case prism:
-        buildClassifierPrism(data, moptions.getAddDefaultRule());
-        break;
+    m_rules = buildClassifierOdri(data,
+            options.getMinOcc(),
+            options.getAddDefaultRule());
 
-      case edri: {
-        double minSupport = moptions.getMinFrequency();
-        double minConfidence = moptions.getMinRuleStrength();
-        int minFreq = (int) Math.ceil(minSupport * data.numInstances() + 1.e-6);
-        logger.debug("minFreq used = {}", minFreq);
-        buildClassifierEDRI(data, minFreq, minConfidence, moptions.getAddDefaultRule());
-      }
-      break;
-
-      case medri: {
-        double minSupport = moptions.getMinFrequency();
-        double minConfidence = moptions.getMinRuleStrength();
-        int minFreq = (int) Math.ceil(minSupport * data.numInstances() + 1.e-6);
-        logger.debug("minFreq used = {}", minFreq);
-        buildClassifierMeDRI(data, minFreq, minConfidence, moptions.getAddDefaultRule());
-
-      }
-      break;
-
-      default:
-        System.err.println("Algorithm is no listed before");
-
-    }
 
   }
 
 
-  public MeDRIResult buildClassifierMeDRI(Instances data, int minSupport, double minConfidence, boolean addDefaultRule) {
-    logger.debug("buildClassifierMeDRI");
-
-    Pair<Collection<int[]>, int[]> linesLabels = MedriUtils.mapIdataAndLabels(data);
-    Collection<int[]> lineData = linesLabels.key;
-    int[] labelsCount = linesLabels.value;
-//
-    logger.trace("original lines size ={}", lineData.size());
-
-    int[] numItems = MedriUtils.countItemsInAttributes(data);
-    MeDRIResult result = MedriUtils.buildClassifierMeDRI(numItems, labelsCount,
-            lineData, minSupport, minConfidence, addDefaultRule);
-
-    m_rules.clear();
-    m_rules.addAll(result.getRules());
-    moptions.resetScannedInstances(result.getScannedInstances());
-    return result;
-  }
-
-  public MeDRIResult buildClassifierEDRI(Instances data, int minSupport, double minConfidence, boolean addDefaultRule) {
-    int[] iattrs = MedriUtils.countItemsInAttributes(data);
-
-    Pair<Collection<int[]>, int[]> linesLabels = MedriUtils.mapIdataAndLabels(data);
-    Collection<int[]> lineData = linesLabels.key;
-    int[] labelsCount = linesLabels.value;
-
-    logger.trace("original lines size ={}", lineData.size());
-    MeDRIResult result = MedriUtils.buildClassifierEDRI(iattrs, labelsCount,
-            lineData, minSupport, minConfidence, addDefaultRule);
-
-    m_rules.clear();
-    m_rules.addAll(result.getRules());
-    moptions.resetScannedInstances(result.getScannedInstances());
-    return result;
-  }
+  public List<ORule> buildClassifierOdri(Instances instances,
+                                         int minOcc,
+                                         boolean addDefaultRule) {
+    logger.debug("buildClassifierOdri with minOcc={}, addDefaultRule={}", minOcc, addDefaultRule);
 
 
-  public MeDRIResult buildClassifierPrism(Instances data, boolean addDefaultRule) {
+    instances.setClassIndex(instances.numAttributes() - 1);
+    logger.debug("relation= {}, num instances = {}",
+            instances.relationName(),
+            instances.numInstances());
+    final int[] numberOfItems = OdriUtils.countItemsInAttributes(instances);
+    int[][] data = OdriUtils.mapIdataAndLabelsToArrays(instances);
 
-    int[] iattrs = MedriUtils.countItemsInAttributes(data);
-
-    Pair<Collection<int[]>, int[]> linesLabels = MedriUtils.mapIdataAndLabels(data);
-    Collection<int[]> lineData = linesLabels.key;
-    int[] labelsCount = linesLabels.value;
-
-    logger.trace("original lines size ={}", lineData.size());
-    MeDRIResult result = MedriUtils.buildClassifierPrism(iattrs, labelsCount, lineData, addDefaultRule);
-
-    m_rules.clear();
-    m_rules.addAll(result.getRules());
-    moptions.resetScannedInstances(result.getScannedInstances());
-    return result;
+    return OdriUtils.buildClassifierOdri(data,
+            numberOfItems,
+            1,
+            true);
   }
 
   public String toString(Instances data, int maxDigit) {
-    if (m_rules == null) {
-      return getAlgorithm() + "No model built yet.";
-    }
+    if (m_rules == null) return "No model built yet.";
 
     StringBuilder sb = new StringBuilder();
 
-    sb.append(String.format("Classifier = %s , add default rule = %s", getAlgorithm().toString(), String.valueOf(getAddDefaultRule())));
-    if (!getAlgorithm().toString().toUpperCase().equals("PRISM")) {
-      sb.append(String.format(" min freq = %.4f, min strength = %.2f", getMinFrequency(), getMinRuleStrength()));
-    }
+    sb.append(String.format("Classifier = odri , add default rule = %s",
+            getAddDefaultRule()));
+    sb.append(String.format(" min occ = %,d", getMinOccurrence()));
     sb.append("\nNumber of rules generated = " + m_rules.size());
-    String intPattern = MedriUtils.formatIntPattern(m_rules.size());
-    sb.append("\n" + getAlgorithm() + " rules ( frequency, strength ) \n----------\n");
+    String intPattern = OdriUtils.formatIntPattern(m_rules.size());
+    sb.append("\n ORDI rules ( frequency, strength ) \n----------\n");
     for (int i = 0; i < m_rules.size(); i++) {
-      IRule rule = m_rules.get(i);
-      sb.append(String.format(intPattern + " - ", (i + 1)) + rule.toString(data, maxDigit) + "\n");
+      ORule rule = m_rules.get(i);
+      sb.append(String.format(intPattern + " - ",
+              (i + 1)) + rule.toString(data, maxDigit) + "\n");
     }
 
-    sb.append(String.format("\nClassifier = %s , add default rule = %s", getAlgorithm().toString(), String.valueOf(getAddDefaultRule())));
-    if (!getAlgorithm().toString().toUpperCase().equals("PRISM")) {
-      sb.append(String.format(" min freq = %.4f, min strenght = %.2f\n ", getMinFrequency(), getMinRuleStrength()));
-    } else sb.append("\n");
+    sb.append(String.format("\nClassifier = ODRI , add default rule = %s",
+            getAddDefaultRule()));
 
+    sb.append("\n");
     sb.append(String.format("Avg. Weighted Rule Length = %2.2f", getAvgWeightedRuleLength(m_rules)) + "\n");
     sb.append(String.format("Avg. Rule Length = %2.2f", getAvgRuleLength(m_rules)) + "\n");
 
-    int numInstances = moptions.getMaxNumInstances();
+    int numInstances = options.getMaxNumInstances();
     sb.append(String.format("Num of Instances of training dataset = %,d \n", numInstances));
     Pair<Integer, Integer> pnp = getInstancesOfPerfectRules(m_rules);
-    sb.append(String.format("# Instances covered with perfect rules = %,d instances  ( %.2f %% )  \n", (int) pnp.key, (double) pnp.key / pnp.value));
+    sb.append(String.format("# Instances covered with perfect rules = %,d instances  ( %.2f %% )  \n",
+            (int) pnp.key,
+            (double) pnp.key / pnp.value));
 
     Pair<Integer, Integer> pnprules = perfectRules(m_rules);
-    sb.append(String.format("# perfect rules = %,d , # not perfect rules = %,d \n", pnprules.key, pnprules.value));
+    sb.append(String.format("# perfect rules = %,d , # not perfect rules = %,d \n",
+            pnprules.key, pnprules.value));
 
-    long scannedInstances = moptions.getScannedInstances();
-    double scannedInstancesPercent = (double) scannedInstances / (double) numInstances;
-
-
-    sb.append(String.format("Instances scanned to find all rules = %,d  (= %,d * %,3.2f ) \n", scannedInstances, numInstances, scannedInstancesPercent));
     return sb.toString();
   }
 
-  private static Pair<Integer, Integer> perfectRules(List<IRule> rules) {
+  private static Pair<Integer, Integer> perfectRules(List<ORule> rules) {
     int perfectRules = 0;
     int notPerfectRules = 0;
 
-    for (IRule rule : rules) {
+    for (ORule rule : rules) {
       if (1 - rule.getConfidence() < 1e-6) {
         perfectRules++;
       } else notPerfectRules++;
@@ -354,11 +276,11 @@ public class ODRI implements Classifier, OptionHandler,
     return new Pair(perfectRules, notPerfectRules);
   }
 
-  private static Pair<Integer, Integer> getInstancesOfPerfectRules(List<IRule> rules) {
+  private static Pair<Integer, Integer> getInstancesOfPerfectRules(List<ORule> rules) {
     int perfectRules = 0;
     int totals = 0;
 
-    for (IRule rule : rules) {
+    for (ORule rule : rules) {
       int correct = rule.getCorrect();
       totals += correct;
       if (1 - rule.getConfidence() < 1e-6) {
@@ -377,28 +299,24 @@ public class ODRI implements Classifier, OptionHandler,
    * @return a description of the classifier as a string
    */
   public String toString() {
-    int maxDigits = moptions.getMaxNumInstances();
-    Instances data = moptions.getInstances();
+    int maxDigits = options.getMaxNumInstances();
+    Instances data = options.getInstances();
     return toString(data, maxDigits);
   }
 
   //all based of all number of instances, remaining default rule length = 0
-  private double getAvgWeightedRuleLength(List<IRule> rules) {
+  private double getAvgWeightedRuleLength(List<ORule> rules) {
     double result = 0;
-    for (IRule rule : rules) {
+    for (ORule rule : rules) {
       //TODO accumulate rule rule.m_correct instead of final maxNumInstances
       result += rule.getLenghtWeighted();
     }
-    return result / (double) moptions.getMaxNumInstances();
+    return result / (double) options.getMaxNumInstances();
   }
 
-  private double getAvgRuleLength(List<IRule> rules) {
-    double result = 0;
-    for (IRule rule : rules) {
-      result += rule.getLength();
-    }
-    return result / (double) rules.size();
+  private double getAvgRuleLength(List<ORule> rules) {
+    return rules.stream()
+            .mapToInt(rule -> rule.getLength())
+            .sum() / (double) rules.size();
   }
-
-
 }

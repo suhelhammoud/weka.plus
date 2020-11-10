@@ -4,10 +4,13 @@ package weka.classifiers.rules.odri;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import weka.classifiers.rules.edri.EDRIUtils;
+import weka.core.Attribute;
 import weka.core.Instance;
 import weka.core.Instances;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -92,6 +95,13 @@ public class OdriUtils {
     return "%0" + digits + "d";
   }
 
+  public static String[] attributeValues(Attribute att) {
+    String[] result = new String[att.numValues()];
+    for (int i = 0; i < result.length; i++) {
+      result[i] = att.value(i);
+    }
+    return result;
+  }
 
   public static StringBuilder print(Collection<int[]> c) {
     StringBuilder sb = new StringBuilder();
@@ -282,8 +292,7 @@ public class OdriUtils {
   }
 
 
-  public static List<ORule> buildClassifierOdri(int[] numItems,
-                                                int[][] data,
+  public static List<ORule> buildClassifierOdri(int[][] data, int[] numItems,
                                                 int minOcc,
                                                 boolean addDefaultRule) {
     List<ORule> rules = new ArrayList<>();
@@ -391,6 +400,18 @@ public class OdriUtils {
     return result;
   }
 
+  public static BufferedReader readDataFile(String filename) {
+    BufferedReader inputReader = null;
+
+    try {
+      inputReader = new BufferedReader(new FileReader(filename));
+    } catch (FileNotFoundException ex) {
+      System.err.println("File not found: " + filename);
+    }
+
+    return inputReader;
+  }
+
   public static void main(String[] args) throws IOException {
     logger.info("test logger");
 
@@ -399,19 +420,17 @@ public class OdriUtils {
 //    String inFile = "data/arff/contact-lenses.arff";
     String inFile = "data/arff/tic-tac-toe.arff";
 
-    Instances instances = new Instances(EDRIUtils.readDataFile(inFile));
+    Instances instances = new Instances(readDataFile(inFile));
+
     instances.setClassIndex(instances.numAttributes() - 1);
     System.out.println(instances.numInstances());
     final int[] numberOfItems = OdriUtils.countItemsInAttributes(instances);
-    final int numOfLabels = numberOfItems[numberOfItems.length - 1];
-
-    Pair<Collection<int[]>, int[]> linesLabels = OdriUtils.mapIdataAndLabels(instances);
     int[][] data = OdriUtils.mapIdataAndLabelsToArrays(instances);
 
     logger.trace("original lines size = {}", data[0].length);
 
     List<ORule> rules = buildClassifierOdri(
-            numberOfItems, data, 1, true);
+            data, numberOfItems, 1, true);
 
     logger.info("rules generated =\n{}",
             rules.stream()
