@@ -121,7 +121,7 @@ public class OInterpolation {
     a = exp(a);
   }
 
-  public static void main(String[] args) {
+  static void test01() {
     OInterpolation oin = new OInterpolation();
 //    oin.addPoint(1, 100);
 //    oin.addPoint(2, 50);
@@ -154,8 +154,8 @@ public class OInterpolation {
 //    oin.addPoint(29, 3.44827);
     oin.addPoint(30, 3.333333333);
 
-//    oin.fit2();
-    oin.interpolate();
+    oin.fit2();
+//    oin.interpolate();
     System.out.println("oin.getA() = " + oin.getA());
     System.out.println("oin.getB() = " + oin.getB());
 
@@ -163,5 +163,28 @@ public class OInterpolation {
     double numRules = 3.44827;
     System.out.println("oin.numRules(minOcc) = " + oin.numRules(minOcc));
     System.out.println("oin.minOcc(numRules) = " + oin.minOcc(numRules));
+  }
+
+  static void test2() {
+    OInterpolation oin = new OInterpolation();
+    oin.addPoint(1, 120);
+    oin.addPoint(48, 15);
+
+    oin.addPoint(3, 96);
+    oin.addPoint(200, 2);
+    oin.addPoint(100, 7);
+
+//    oin.fit2();
+    oin.interpolate();
+    System.out.println("oin.getA() = " + oin.getA());
+    System.out.println("oin.getB() = " + oin.getB());
+
+//    double minOcc = 30;
+    double numRules = 30;
+//    System.out.println("oin.numRules(minOcc) = " + oin.numRules(minOcc));
+    System.out.println("oin.minOcc(numRules) = " + oin.minOcc(numRules));
+  }
+  public static void main(String[] args) {
+    test2();
   }
 }

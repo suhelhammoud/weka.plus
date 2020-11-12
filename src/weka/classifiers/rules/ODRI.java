@@ -232,17 +232,17 @@ public class ODRI implements Classifier, OptionHandler,
     int[][] data = OdriUtils.mapIdataAndLabelsToArrays(instances);
 
 
-//    return OdriUtils.buildClassifierOdri(data,
-//            numberOfItems,
-//            minOcc,
-//            addDefaultRule);
-
-    return OdriUtils.buildForNumRules(data,
+    return OdriUtils.buildClassifierOdri(data,
             numberOfItems,
-            addDefaultRule,
             minOcc,
-            instances.numInstances(),
-            15);
+            addDefaultRule);
+
+//    return OdriUtils.buildForNumRules(data,
+//            numberOfItems,
+//            addDefaultRule,
+//            minOcc,
+//            instances.numInstances(),
+//            15);
   }
 
   public String toString(Instances data, int maxDigit) {

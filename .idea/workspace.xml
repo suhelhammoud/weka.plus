@@ -32,13 +32,10 @@
   <component name="ChangeListManager">
     <list default="true" id="4b4ffecf-fd2d-4ac9-8d65-3aedb6a8be09" name="Default" comment="Initial commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/odri/res00/5/.~lock.balance-scale.arff.csv#" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/odri/experiments/StoryDriverOdri.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/odri/experiments/StoryDriverOdri.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/odri/experiments/StoryKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/odri/experiments/StoryKey.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/odri/experiments/StoryUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/odri/experiments/StoryUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/odri/conf/conf.properties" beforeDir="false" afterPath="$PROJECT_DIR$/data/odri/conf/conf.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/ODRI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/ODRI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/ORuleStats.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/ORuleStats.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OdriUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OdriUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OInterpolation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OInterpolation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OMaxIndex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OMaxIndex.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,6 +96,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
@@ -218,9 +216,9 @@
     <list>
       <item itemvalue="Application.StoryDriverOdri" />
       <item itemvalue="Application.AppLauncher" />
+      <item itemvalue="Application.OInterpolation" />
       <item itemvalue="JUnit.FilesUtilsTest" />
       <item itemvalue="JUnit.StoryTest.equalsOn" />
-      <item itemvalue="Application.OInterpolation" />
     </list>
     <recent_temporary>
       <list>

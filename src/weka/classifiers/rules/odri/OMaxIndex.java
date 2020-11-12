@@ -220,6 +220,7 @@ public class OMaxIndex {
                        int itemIndex) {
     int sum = sum(itemLabels);
     if (sum < minOcc || sum == 0) return;
+
     double tRank = rank(itemLabels);
     double tRankEx = rankExclude(itemLabels);
 
@@ -229,7 +230,7 @@ public class OMaxIndex {
             && getError() == 0
             && sum < this.bestCover) return; //TODO check this condition
 
-    if (tRank == this.bestRank && tRankEx > this.bestRankExclude) return;
+//    if (tRank == this.bestRank && tRankEx > this.bestRankExclude) return;
 
     /* switch contents (att,item,label, correct, cover) */
     this.bestRank = tRank;
@@ -266,10 +267,10 @@ public class OMaxIndex {
 
     if (tRank < this.bestRank) return;
 //    if (tRank == this.bestRank && sum < this.bestCover) return; //TODO check later
-//    if (tRank == this.bestRank && sum < this.bestCover) return; //TODO check later
+    if (tRank == this.bestRank && sum < this.bestCover) return; //TODO check later
 
 
-    if (tRank == this.bestRank && tRankEx > this.bestRankExclude) return;
+//    if (tRank == this.bestRank && tRankEx > this.bestRankExclude) return;
 
     /* switch contents (att,item, correct, cover), assert same label */
     this.bestRank = tRank;
