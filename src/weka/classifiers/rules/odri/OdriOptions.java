@@ -4,7 +4,6 @@ import ch.qos.logback.classic.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import weka.classifiers.rules.eDRI;
-import weka.classifiers.rules.medri.MedriOptions;
 import weka.core.*;
 
 import java.io.Serializable;
@@ -30,29 +29,6 @@ public class OdriOptions implements OptionHandler, Serializable {
   }
 
 
-  public enum LEVELS {
-    off, trace, debug, info, warn, error, fatal;
-
-    public static Tag[] toTags() {
-      LEVELS[] levels = values();
-      Tag[] result = new Tag[levels.length];
-      for (int i = 0; i < levels.length; i++) {
-        result[i] = new Tag(i, levels[i].name(), levels[i].name());
-      }
-      return result;
-    }
-
-  }
-
-
-
-  protected String m_debugLevel = LEVELS.info.name();
-
-
-  public String debugLevel() {
-    return m_debugLevel;
-  }
-
   protected int minOcc = 1;
 
 
@@ -66,9 +42,6 @@ public class OdriOptions implements OptionHandler, Serializable {
     this.maxNumInstances = maxNumInstances;
   }
 
-  public SelectedTag getDebugLevel() {
-    return new SelectedTag(m_debugLevel, LEVELS.toTags());
-  }
 
 
 
@@ -97,16 +70,12 @@ public class OdriOptions implements OptionHandler, Serializable {
     Vector<Option> result = new Vector<>(1);
     result.addElement(new Option("Add Default Rule?", "R", 0, "-R"));
     result.addElement(new Option("minimum m_support", "S", 1, "-S <lower bound for minimum minOcc >"));
-    result.addElement(new Option("description", "D", 1, "-D < off | trace | debug | info | warn | error | fatal >"));
     return result.elements();
 
   }
 
   @Override
   public void setOptions(String[] options) throws Exception {
-    String optionString = Utils.getOption('D', options);
-    m_debugLevel = LEVELS.valueOf(optionString).name();
-
     String minOccString = Utils.getOption('S', options);
     minOcc = Integer.parseInt(minOccString);
 
@@ -115,10 +84,8 @@ public class OdriOptions implements OptionHandler, Serializable {
 
   @Override
   public String[] getOptions() {
-    String[] result = new String[5];
+    String[] result = new String[3];
     int currentIndex = 0;
-    result[currentIndex++] = "-D";
-    result[currentIndex++] = m_debugLevel;
 
     result[currentIndex++] = "-S";
     result[currentIndex++] = "" + minOcc;
@@ -128,21 +95,6 @@ public class OdriOptions implements OptionHandler, Serializable {
     return result;
   }
 
-  public void setDebugLevel(SelectedTag newMethod) {
-    m_debugLevel = newMethod.getSelectedTag().getIDStr();
-  }
 
-
-  public void changeLogLevelRunTime() {
-    changeLogLevelRunTime(m_debugLevel);
-  }
-
-
-  public static void changeLogLevelRunTime(String logLevel) {
-//        Logger lg = (Logger) LoggerFactory.getLogger(edri.class);
-    ((ch.qos.logback.classic.Logger) LoggerFactory.getLogger(eDRI.class))
-            .setLevel(Level.toLevel(logLevel));
-
-  }
 
 }

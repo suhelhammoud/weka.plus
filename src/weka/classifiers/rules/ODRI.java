@@ -154,16 +154,6 @@ public class ODRI implements Classifier, OptionHandler,
     options.setMinOcc(minOcc);
   }
 
-  public void setDebugLevel(SelectedTag newMethod) {
-    options.setDebugLevel(newMethod);
-  }
-
-  public SelectedTag getDebugLevel() {
-    return options.getDebugLevel();
-  }
-
-
-
 
   /**
    * Returns default capabilities of the classifier.
@@ -219,7 +209,6 @@ public class ODRI implements Classifier, OptionHandler,
   public List<ORule> buildClassifierOdri(Instances instances,
                                          int minOcc,
                                          boolean addDefaultRule) {
-    options.changeLogLevelRunTime();
 
     logger.debug("buildClassifierOdri with minOcc={}, addDefaultRule={}", minOcc, addDefaultRule);
 
