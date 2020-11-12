@@ -111,8 +111,8 @@ public class StoryDriverAutism {
 
   //TODO does it work with this general method?
   public static <T> List<Story> propStories(Story story,
-                                            StoryKey skey,
-                                            List<T> skeyValues) {
+                                                      StoryKey skey,
+                                                      List<T> skeyValues) {
     return skeyValues.stream()
             .map(s -> story.copy(skey, s))
             .collect(Collectors.toList());

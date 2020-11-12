@@ -127,8 +127,12 @@ public class ORule implements Serializable {
   }
 
 
-  public double getLenghtWeighted() {
+  public double getLenghtCorrectWeighted() {
     return this.correct * this.getLength();
+  }
+
+  public double getLenghtCoverWeighted() {
+    return this.covers * this.getLength();
   }
 
   @Override

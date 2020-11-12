@@ -31,8 +31,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b4ffecf-fd2d-4ac9-8d65-3aedb6a8be09" name="Default" comment="Initial commit">
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/suhel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/suhel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/logback.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/Story.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/Story.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryDriverAutism.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryDriverAutism.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryDriverL2Unbalanced.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryDriverL2Unbalanced.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryDriverL2UnbalancedVariance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryDriverL2UnbalancedVariance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/ODRI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/ODRI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OMaxIndex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OMaxIndex.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/ORule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/ORule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/sensetivity/StoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/sensetivity/StoryTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,8 +56,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -57,12 +67,12 @@
         <option value="Suhel Hammoud" />
       </list>
     </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="entropy.strip" />
+        <entry key="$PROJECT_DIR$" value="odri" />
       </map>
     </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
@@ -89,7 +99,7 @@
     <property name="add_unversioned_files" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/weka/classifiers/rules/odri" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/data/odri/conf" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -97,11 +107,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/data/odri/conf" />
+      <recent name="$PROJECT_DIR$/src/odri/experiments" />
+      <recent name="$PROJECT_DIR$/src/odriTests" />
+      <recent name="$PROJECT_DIR$/src/odri-tests" />
       <recent name="$PROJECT_DIR$/src/weka/classifiers/rules/odri" />
-      <recent name="$PROJECT_DIR$/src/weka/classifiers/rules/early" />
-      <recent name="$PROJECT_DIR$/data" />
-      <recent name="$PROJECT_DIR$/data/arff/dsets03" />
-      <recent name="$PROJECT_DIR$/data/aut" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -110,11 +120,11 @@
       <recent name="sensetivity" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="odri.experiments" />
       <recent name="weka.classifiers.rules" />
       <recent name="weka.classifiers.rules.early" />
       <recent name="sensetivity" />
       <recent name="weka.attributeSelection.pas" />
-      <recent name="weka.classifiers.rules.medri" />
     </key>
   </component>
   <component name="RunManager" selected="Application.AppLauncher">
@@ -126,8 +136,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OMaxIndex" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="weka.classifiers.rules.odri.OMaxIndex" />
+    <configuration name="OdriUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="weka.classifiers.rules.odri.OdriUtils" />
       <module name="weka.plus" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
@@ -140,13 +150,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OdriUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="weka.classifiers.rules.odri.OdriUtils" />
+    <configuration name="StoryDriverOdri" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="odri.experiments.StoryDriverOdri" />
       <module name="weka.plus" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="weka.classifiers.rules.odri.*" />
+          <option name="PATTERN" value="odri.experiments.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -210,19 +220,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.AppLauncher" />
-      <item itemvalue="Application.OMaxIndex" />
       <item itemvalue="Application.OdriUtils" />
       <item itemvalue="JUnit.FilesUtilsTest" />
       <item itemvalue="JUnit.StoryTest.equalsOn" />
+      <item itemvalue="Application.StoryDriverOdri" />
+      <item itemvalue="Application.AppLauncher" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.AppLauncher" />
-        <item itemvalue="Application.OdriUtils" />
-        <item itemvalue="Application.OMaxIndex" />
+        <item itemvalue="Application.StoryDriverOdri" />
         <item itemvalue="JUnit.StoryTest.equalsOn" />
         <item itemvalue="JUnit.FilesUtilsTest" />
+        <item itemvalue="Application.OdriUtils" />
       </list>
     </recent_temporary>
   </component>
@@ -270,6 +280,13 @@
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
+        <entry key="1">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+            </State>
+          </value>
+        </entry>
         <entry key="MAIN">
           <value>
             <State>
@@ -294,6 +311,11 @@
             </State>
           </value>
         </entry>
+      </map>
+    </option>
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="1" value="TOOL_WINDOW" />
       </map>
     </option>
     <option name="RECENT_FILTERS">

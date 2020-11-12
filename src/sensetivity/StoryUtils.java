@@ -108,8 +108,8 @@ public class StoryUtils {
 
 
   public static Story playStory(Story story,
-                                Instances data,
-                                boolean withEntropy) {
+                                          Instances data,
+                                          boolean withEntropy) {
 //        Story result = story.copy(StoryKey.dataset, data.relationName());
     Story result = story; //mutual data structure
     try {
@@ -138,9 +138,9 @@ public class StoryUtils {
 
 
   public static List<Story> generate(Story story,
-                                     PropsUtils props,
-                                     TEvaluator eval,
-                                     TClassifier classifier) {
+                                               PropsUtils props,
+                                               TEvaluator eval,
+                                               TClassifier classifier) {
 
     List<Story> result = new ArrayList<>();
     //set evalMethod and classifier
@@ -194,9 +194,9 @@ public class StoryUtils {
 
 
   public static List<Story> generateSami(Story story,
-                                         PropsUtils props,
-                                         TEvaluator eval,
-                                         TClassifier classifier) {
+                                                   PropsUtils props,
+                                                   TEvaluator eval,
+                                                   TClassifier classifier) {
 
     List<Story> result = new ArrayList<>();
     //set evalMethod and classifier
@@ -389,8 +389,8 @@ public class StoryUtils {
 
   //TODO does it work with this general method?
   public static <T> List<Story> propStories(Story story,
-                                            StoryKey skey,
-                                            List<T> skeyValues) {
+                                                      StoryKey skey,
+                                                      List<T> skeyValues) {
     return skeyValues.stream()
             .map(s -> story.copy(skey, s))
             .collect(Collectors.toList());

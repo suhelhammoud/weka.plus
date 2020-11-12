@@ -227,7 +227,8 @@ public class OMaxIndex {
     double tRank = rank(itemLabels);
 
     if (tRank < this.bestRank) return;
-    if (tRank == this.bestRank && sum < this.bestCover) return;
+//    if (tRank == this.bestRank && sum < this.bestCover) return; //TODO check later
+    if (tRank == this.bestRank && sum < this.bestCover) return; //TODO check later
 
     /* switch contents (att,item, correct, cover), assert same label */
     this.bestRank = tRank;

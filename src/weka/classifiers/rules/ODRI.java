@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by suhel on 10/11/2020.
@@ -77,6 +78,12 @@ public class ODRI implements Classifier, OptionHandler,
    * Holds algorithm configurations and MedriOption parameters
    */
   private List<ORule> m_rules = new ArrayList<>();
+
+  public List<ORule> resultORules() {
+    return m_rules.stream()
+            .map(r -> r.copy())
+            .collect(Collectors.toList());
+  }
 
   /**
    * Classifies a given instance.
@@ -312,7 +319,7 @@ public class ODRI implements Classifier, OptionHandler,
     double result = 0;
     for (ORule rule : rules) {
       //TODO accumulate rule rule.m_correct instead of final maxNumInstances
-      result += rule.getLenghtWeighted();
+      result += rule.getLenghtCorrectWeighted();
     }
     return result / (double) options.getMaxNumInstances();
   }

@@ -1,4 +1,4 @@
-package sensetivity;
+package odri.experiments;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
