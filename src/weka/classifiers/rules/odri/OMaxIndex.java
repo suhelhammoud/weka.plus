@@ -230,7 +230,7 @@ public class OMaxIndex {
             && getError() == 0
             && sum < this.bestCover) return; //TODO check this condition
 
-//    if (tRank == this.bestRank && tRankEx > this.bestRankExclude) return;
+    if (tRank == this.bestRank && tRankEx > this.bestRankExclude) return;
 
     /* switch contents (att,item,label, correct, cover) */
     this.bestRank = tRank;
