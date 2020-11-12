@@ -1,4 +1,7 @@
 package weka.classifiers.rules.odri;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.StringJoiner;
 
 /**
@@ -8,6 +11,8 @@ import java.util.StringJoiner;
 public class OMaxIndex {
   public final static int EMPTY = -1;
   private double bestRank = Double.MIN_VALUE;
+  private double bestRankExclude = Double.MIN_VALUE;
+
   private int bestCorrect = EMPTY;//Should start with negative value
   private int bestCover = EMPTY;
   private int bestAtt = EMPTY;
@@ -51,6 +56,7 @@ public class OMaxIndex {
   public OMaxIndex copy() {
     OMaxIndex result = new OMaxIndex(this.minOcc, this.numLabels);
     result.bestRank = this.bestRank;
+    result.bestRankExclude = this.bestRankExclude;
     result.bestAtt = this.bestAtt;
     result.bestItem = this.bestItem;
     result.label = this.label;
@@ -158,6 +164,26 @@ public class OMaxIndex {
     return rank(labels, maxPossibleRank);
   }
 
+  double rankExclude(int[] labels) {
+    return rank(exclude(labels));
+  }
+
+  double rankExclude(int[] labels, int labelIndex) {
+    return rank(exclude(labels, labelIndex));
+  }
+
+
+  private static int[] exclude(int[] labels) {
+    int mxIndex = argMax(labels);
+    return exclude(labels, mxIndex);
+  }
+
+  private static int[] exclude(int[] labels, int mxIndex) {
+    int[] result = Arrays.copyOf(labels, labels.length);
+    result[mxIndex] = 0;
+    return result;
+  }
+
 
   public static OMaxIndex ofOdri(int[][][] count,
                                  int minOcc,
@@ -185,6 +211,9 @@ public class OMaxIndex {
     return mi;
   }
 
+  int getError() {
+    return bestCover - bestCorrect;
+  }
 
   private void maxOdri(int[] itemLabels,
                        int attIndex,
@@ -192,12 +221,19 @@ public class OMaxIndex {
     int sum = sum(itemLabels);
     if (sum < minOcc || sum == 0) return;
     double tRank = rank(itemLabels);
+    double tRankEx = rankExclude(itemLabels);
 
     if (tRank < this.bestRank) return;
-    if (tRank == this.bestRank && sum < this.bestCover) return;
+
+    if (tRank == this.bestRank
+            && getError() == 0
+            && sum < this.bestCover) return; //TODO check this condition
+
+    if (tRank == this.bestRank && tRankEx > this.bestRankExclude) return;
 
     /* switch contents (att,item,label, correct, cover) */
     this.bestRank = tRank;
+    this.bestRankExclude = tRankEx;
     this.bestAtt = attIndex;
     this.bestItem = itemIndex;
     //find best label
@@ -225,13 +261,19 @@ public class OMaxIndex {
     if (mxLabel != label) return;
 
     double tRank = rank(itemLabels);
+    double tRankEx = rankExclude(itemLabels, label);
+
 
     if (tRank < this.bestRank) return;
 //    if (tRank == this.bestRank && sum < this.bestCover) return; //TODO check later
-    if (tRank == this.bestRank && sum < this.bestCover) return; //TODO check later
+//    if (tRank == this.bestRank && sum < this.bestCover) return; //TODO check later
+
+
+    if (tRank == this.bestRank && tRankEx > this.bestRankExclude) return;
 
     /* switch contents (att,item, correct, cover), assert same label */
     this.bestRank = tRank;
+    this.bestRankExclude = tRankEx;
     this.bestAtt = attIndex;
     this.bestItem = itemIndex;
     this.label = label;
