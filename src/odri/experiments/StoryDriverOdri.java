@@ -74,7 +74,7 @@ public class StoryDriverOdri {
             StoryKey.minOccPC,
 
             StoryKey.addDefaultRule,
-
+            StoryKey.pctCorrect,
             StoryKey.errorRate,
             StoryKey.precision,
             StoryKey.recall,

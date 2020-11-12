@@ -21,7 +21,7 @@ import static odri.experiments.TClassifier.ODRI_T;
 public class StoryUtils {
 
   static Logger logger = LoggerFactory.getLogger(StoryUtils.class.getName());
-
+  static Random rnd = new Random(System.nanoTime());
 
   public static Classifier getClassifier(Story story) {
     TClassifier tClassifier = (TClassifier) story.get(StoryKey.classifier);
@@ -64,8 +64,11 @@ public class StoryUtils {
 
 
     Evaluation eval = new Evaluation(data);
+
     //TODO change seed selection method
-    eval.crossValidateModel(odri, data, 10, new Random(1));
+    eval.crossValidateModel(odri, data, 10, rnd);
+
+    result.set(StoryKey.pctCorrect, eval.pctCorrect());
     result.set(StoryKey.errorRate, eval.errorRate());
     result.set(StoryKey.precision, eval.weightedPrecision());
     result.set(StoryKey.recall, eval.weightedRecall());

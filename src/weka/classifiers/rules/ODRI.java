@@ -212,6 +212,7 @@ public class ODRI implements Classifier, OptionHandler,
             options.getAddDefaultRule());
 
 
+
   }
 
 
@@ -230,10 +231,18 @@ public class ODRI implements Classifier, OptionHandler,
     final int[] numberOfItems = OdriUtils.countItemsInAttributes(instances);
     int[][] data = OdriUtils.mapIdataAndLabelsToArrays(instances);
 
-    return OdriUtils.buildClassifierOdri(data,
+
+//    return OdriUtils.buildClassifierOdri(data,
+//            numberOfItems,
+//            minOcc,
+//            addDefaultRule);
+
+    return OdriUtils.buildForNumRules(data,
             numberOfItems,
+            addDefaultRule,
             minOcc,
-            addDefaultRule);
+            instances.numInstances(),
+            15);
   }
 
   public String toString(Instances data, int maxDigit) {

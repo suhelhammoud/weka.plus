@@ -292,7 +292,63 @@ public class OdriUtils {
   }
 
 
-  public static List<ORule> buildClassifierOdri(int[][] data, int[] numItems,
+  public static List<ORule> buildForNumRules(int[][] data,
+                                             int[] numItems,
+                                             boolean addDefaultRule,
+                                             final int numRules,
+                                             final int numInstances,
+                                             final int maxNumTries) {
+
+    OInterpolation oin = new OInterpolation();
+
+    //start with minOcc=1
+    int minOcc = 1;
+    List<ORule> oRules = buildClassifierOdri(data,
+            numItems,
+            minOcc,
+            addDefaultRule);
+    logger.info("numRules for minOcc = 1 is {}", oRules.size());
+    if (oRules.size() < numRules) return oRules;
+
+    oin.addPoint(1, oRules.size());
+    oin.interpolate();
+
+    //then with minOcc= 0.02
+    minOcc = (int) (numInstances * 0.02);
+    oRules = buildClassifierOdri(data,
+            numItems,
+            minOcc,
+            addDefaultRule);
+    if (oRules.size() == numRules) return oRules;
+    oin.addPoint(minOcc, oRules.size());
+    oin.interpolate();
+    logger.info("numRules for minOcc = {} is {}", minOcc, oRules.size());
+
+    for (int i = 0; i < maxNumTries - 2; i++) {
+      logger.info("iteration i = {}", i);
+      minOcc = (int) Math.ceil(oin.minOcc(numRules));
+      logger.info("expected minOcc = {}, for numRules = {}, rule.size={}", minOcc, numRules, oRules.size());
+      oRules = buildClassifierOdri(data,
+              numItems,
+              minOcc,
+              addDefaultRule);
+      logger.info("numRules for minOcc = {} is {}", minOcc, oRules.size());
+      if (oRules.size() > numRules)
+        minOcc++;
+      else
+        minOcc--;
+
+//      if (oRules.size() == numRules) return oRules;
+
+      oin.addPoint(minOcc, oRules.size());
+      oin.interpolate();
+    }
+    logger.info("final minOCC value = {}", minOcc);
+    return oRules;
+  }
+
+  public static List<ORule> buildClassifierOdri(int[][] data,
+                                                int[] numItems,
                                                 int minOcc,
                                                 boolean addDefaultRule) {
     List<ORule> rules = new ArrayList<>();
@@ -370,7 +426,6 @@ public class OdriUtils {
       result[outIndex++] = allLines[allIndex++];
     return result;
   }
-
 
 
   private static ORule getDefaultRule(int[] labels, int numLabels) {

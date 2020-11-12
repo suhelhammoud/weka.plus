@@ -63,7 +63,7 @@ public enum StoryKey {
 
   expectedDimensionality(DOUBLE),
   expectedDimensionalityPC(DOUBLE),
-  expectedErrorsPC(DOUBLE);
+  expectedErrorsPC(DOUBLE), pctCorrect(DOUBLE);
 
   StoryKey(KeyType keyType) {
     this.keyType = keyType;

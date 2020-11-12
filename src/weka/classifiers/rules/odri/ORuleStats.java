@@ -9,6 +9,7 @@ public class ORuleStats {
   private final int numInstances;
   private final int numAttributes;
 
+
   public ORuleStats(List<ORule> rules,
                     int numInstances,
                     int numAttributes) {
@@ -67,5 +68,7 @@ public class ORuleStats {
   public double expectedDimensionalityPC() {
     return expectedDimensionality() / numAttributes;
   }
+
+
 
 }

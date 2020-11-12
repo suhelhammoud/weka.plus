@@ -31,7 +31,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b4ffecf-fd2d-4ac9-8d65-3aedb6a8be09" name="Default" comment="Initial commit">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/odri/res00/5/.~lock.balance-scale.arff.csv#" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/odri/experiments/StoryDriverOdri.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/odri/experiments/StoryDriverOdri.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/odri/experiments/StoryKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/odri/experiments/StoryKey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/odri/experiments/StoryUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/odri/experiments/StoryUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/ODRI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/ODRI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/ORuleStats.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/ORuleStats.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OdriUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OdriUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,8 +132,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OdriUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="weka.classifiers.rules.odri.OdriUtils" />
+    <configuration name="OInterpolation" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="weka.classifiers.rules.odri.OInterpolation" />
       <module name="weka.plus" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
@@ -209,19 +216,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.OdriUtils" />
       <item itemvalue="Application.StoryDriverOdri" />
       <item itemvalue="Application.AppLauncher" />
       <item itemvalue="JUnit.FilesUtilsTest" />
       <item itemvalue="JUnit.StoryTest.equalsOn" />
+      <item itemvalue="Application.OInterpolation" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.AppLauncher" />
         <item itemvalue="Application.StoryDriverOdri" />
+        <item itemvalue="Application.OInterpolation" />
         <item itemvalue="JUnit.StoryTest.equalsOn" />
         <item itemvalue="JUnit.FilesUtilsTest" />
-        <item itemvalue="Application.OdriUtils" />
       </list>
     </recent_temporary>
   </component>
