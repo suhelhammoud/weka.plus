@@ -8,6 +8,8 @@ data/out
 data/resuls
 data/results/*
 
+data/*
+
 # CMake
 cmake-build-debug/
 cmake-build-release/

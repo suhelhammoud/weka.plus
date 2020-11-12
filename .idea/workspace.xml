@@ -31,9 +31,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b4ffecf-fd2d-4ac9-8d65-3aedb6a8be09" name="Default" comment="Initial commit">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/odri/conf/conf.properties" beforeDir="false" afterPath="$PROJECT_DIR$/data/odri/conf/conf.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OMaxIndex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OMaxIndex.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
