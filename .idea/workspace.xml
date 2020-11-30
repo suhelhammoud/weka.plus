@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="weka.pas_1" />
+      <artifact name="odri" />
     </artifacts-to-build>
   </component>
   <component name="BranchesTreeState">
@@ -30,7 +30,10 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4b4ffecf-fd2d-4ac9-8d65-3aedb6a8be09" name="Default" comment="Initial commit" />
+    <list default="true" id="4b4ffecf-fd2d-4ac9-8d65-3aedb6a8be09" name="Default" comment="Initial commit">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OdriUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OdriUtils.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -87,7 +90,7 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/data/odri/conf" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -115,7 +118,7 @@
       <recent name="weka.attributeSelection.pas" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.AppLauncher">
+  <component name="RunManager" selected="Application.OdriNumeric">
     <configuration name="AppLauncher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="AppLauncher" />
       <module name="weka.plus" />
@@ -126,6 +129,34 @@
     </configuration>
     <configuration name="OInterpolation" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="weka.classifiers.rules.odri.OInterpolation" />
+      <module name="weka.plus" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="weka.classifiers.rules.odri.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OdriNumeric" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="weka.classifiers.rules.odri.OdriNumeric" />
+      <module name="weka.plus" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="weka.classifiers.rules.odri.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OdriUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="weka.classifiers.rules.odri.OdriUtils" />
       <module name="weka.plus" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
@@ -158,39 +189,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FilesUtilsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="weka.plus" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="sensetivity.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="sensetivity" />
-      <option name="MAIN_CLASS_NAME" value="sensetivity.FilesUtilsTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="StoryTest.equalsOn" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="weka.plus" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="sensetivity.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="sensetivity" />
-      <option name="MAIN_CLASS_NAME" value="sensetivity.StoryTest" />
-      <option name="METHOD_NAME" value="equalsOn" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="TEST_OBJECT" value="class" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
@@ -208,19 +206,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.StoryDriverOdri" />
       <item itemvalue="Application.AppLauncher" />
       <item itemvalue="Application.OInterpolation" />
-      <item itemvalue="JUnit.FilesUtilsTest" />
-      <item itemvalue="JUnit.StoryTest.equalsOn" />
+      <item itemvalue="Application.OdriNumeric" />
+      <item itemvalue="Application.OdriUtils" />
+      <item itemvalue="Application.StoryDriverOdri" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.AppLauncher" />
+        <item itemvalue="Application.OdriNumeric" />
         <item itemvalue="Application.StoryDriverOdri" />
+        <item itemvalue="Application.OdriUtils" />
         <item itemvalue="Application.OInterpolation" />
-        <item itemvalue="JUnit.StoryTest.equalsOn" />
-        <item itemvalue="JUnit.FilesUtilsTest" />
+        <item itemvalue="Application.AppLauncher" />
       </list>
     </recent_temporary>
   </component>
@@ -284,13 +282,6 @@
                     <value>
                       <list>
                         <option value="master" />
-                      </list>
-                    </value>
-                  </entry>
-                  <entry key="text">
-                    <value>
-                      <list>
-                        <option value="sensitivity" />
                       </list>
                     </value>
                   </entry>

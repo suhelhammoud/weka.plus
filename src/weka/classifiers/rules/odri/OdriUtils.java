@@ -188,28 +188,10 @@ public class OdriUtils {
   public static Map<Boolean, List<int[]>> coveredByRule(
           Collection<int[]> lineData, ORule rule, int resultSize) {
 
-//        assert lineData.size() > resultSize;
-
-//        Collection<int[]> coveredLines = new ArrayList<>(resultSize);
-//        Collection<int[]> notCoveredLines = new ArrayList<>(lineData.size() - resultSize);
-
-//        for (Iterator<int[]> iter = lineData.iterator(); iter.hasNext(); ) {
-//            int[] line = iter.next();
-//
-//            if (rule.classify(line) == IRule.EMPTY) {
-//                notCoveredLines.add(line);
-//            } else {
-//                coveredLines.add(line);
-//            }
-//        }
 
     Map<Boolean, List<int[]>> result = lineData.stream()
             .collect(Collectors.partitioningBy(row -> rule.canCoverInstance(row)));
 
-//        assert coveredLines.size() == resultSize;
-//        assert coveredLines.size() + notCoveredLines.size() == lineData.size();
-//        return new Pair(coveredLines, notCoveredLines);
-//        return new Pair(result.get(true), result.get(false));
     return result;
   }
 
@@ -467,7 +449,7 @@ public class OdriUtils {
     return inputReader;
   }
 
-  public static void main(String[] args) throws IOException {
+  public static void main2(String[] args) throws IOException {
     logger.info("test logger");
 
 //        String inFile = "/media/suhel/workspace/work/wekaprism/data/fadi.arff";
@@ -493,6 +475,11 @@ public class OdriUtils {
                     .collect(Collectors.joining("\n")));
 
   }
+
+  void test() {
+
+  }
+
 
 }
 

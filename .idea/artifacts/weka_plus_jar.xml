@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact name="weka.plus:jar">
+    <output-path>$PROJECT_DIR$/downloads/weka_odri_jar</output-path>
+    <root id="root">
+      <element id="archive" name="weka.plus.jar">
+        <element id="module-output" name="weka.plus" />
+      </element>
+      <element id="library" level="project" name="logback-1.2.3" />
+      <element id="library" level="project" name="weka" />
+    </root>
+  </artifact>
+</component>
