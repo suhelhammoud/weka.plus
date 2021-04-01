@@ -3,7 +3,8 @@ package weka.attributeSelection;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import weka.attributeSelection.pas.*;
+import weka.attributeSelection.pas2.*;
+import weka.attributeSelection.pas2.PasOptions2;
 import weka.core.*;
 import weka.filters.Filter;
 import weka.filters.supervised.attribute.Discretize;
@@ -65,11 +66,9 @@ public class Pas2AttributeEval extends ASEvaluation implements
 
   static Logger logger = LoggerFactory.getLogger(Pas2AttributeEval.class.getName());
 
-  PasOptions pasOptions = new PasOptions();
+  PasOptions2 pasOptions = new PasOptions2();
 
-  public PasOptions getPasOptions() {
-    return pasOptions;
-  }
+
 
   /**
    * for serialization
@@ -205,68 +204,68 @@ public class Pas2AttributeEval extends ASEvaluation implements
     data.setClassIndex(data.numAttributes() - 1);
     logger.debug("build pas evaluator");
 
-    Tuple<Collection<int[]>, int[]> linesLabels = PasUtils.mapIdataAndLabels(data);
+    Tuple2<Collection<int[]>, int[]> linesLabels = PasUtils2.mapIdataAndLabels(data);
     Collection<int[]> lineData = linesLabels.k;
     int[] labelsCount = linesLabels.v;
 //
     logger.trace("original lines size ={}", lineData.size());
 
-    int[] numItems = PasUtils.countItemsInAttributes(data);
+    int[] numItems = PasUtils2.countItemsInAttributes(data);
 
-    int minFreq = (int) Math.ceil(pasOptions.getMinFrequency()
+    int minFreq = (int) Math.ceil(pasOptions.getsetMinItemStrength()
             * data.numInstances() + 1.e-6);
     logger.debug("minFreq used = {}", minFreq);
 
-    List<PasItem> items = new ArrayList<>();
+    List<PasItem2> items = new ArrayList<>();
 
-    final PasMethod pasMethod2 = pasOptions.getPasMethodEnum();
+    final PasMethod2 pasMethod2 = pasOptions.getPasMethodEnum();
 
     switch (pasMethod2) {
       case rules:
-        items = PasUtils.evaluateAttributesRules(numItems,
+        items = PasUtils2.evaluateAttributesRules(numItems,
                 labelsCount,
                 lineData,
                 minFreq,
-                pasOptions.getMinItemStrength(),
+                1 - pasOptions.getMinRuleError(),
                 false);
 //                logger.info("run att eval with algorithm rules = {}", items.size());
 
         break;
       case rules1st:
 
-        items = PasUtils.evaluateAttributesRules1st(numItems,
+        items = PasUtils2.evaluateAttributesRules1st(numItems,
                 labelsCount,
                 lineData,
                 minFreq,
-                pasOptions.getMinItemStrength(),
+                1 - pasOptions.getMinRuleError(),
                 false);
 
 //                logger.info("run att eval with algorithm rules1st = {}", items.size());
 
         break;
       case items:
-        items = PasUtils.evaluateAttributesItems(numItems,
+        items = PasUtils2.evaluateAttributesItems(numItems,
                 labelsCount,
                 lineData,
                 minFreq,
-                pasOptions.getMinItemStrength(),
+                1 - pasOptions.getMinRuleError(),
                 false);
 //                logger.info("run att eval with algorithm items = {}", items.size());
         break;
     }
 
 
-    double[] rawRanks = PasUtils.rankAttributes(
+    double[] rawRanks = PasUtils2.rankAttributes(
             items,
             data.numAttributes() - 1,
             pasMethod2
     );//exclude label class attribute
 
 
-    m_pas = PasUtils.normalizeVector(rawRanks);
+    m_pas = PasUtils2.normalizeVector(rawRanks);
 
     if (pasOptions.getShowDebugMessages()) {
-      String msg = PasUtils.printResult(items,
+      String msg = PasUtils2.printResult(items,
               data,
               Arrays.stream(rawRanks).sum(),
               data.numAttributes() - 1);
@@ -305,14 +304,14 @@ public class Pas2AttributeEval extends ASEvaluation implements
       }
     }
 
-    text.append("\n\t Minimum Support: " + getMinFrequency());
-    text.append("\n\t Minimum Confidence: " + getMinItemStrength());
+    text.append("\n\t Minimum Item Strength: " + getMinItemStrength());
+    text.append("\n\t Minimum Rule Error: " + getMinRuleError());
 
     text.append("\n");
     text.append("\n");
-    text.append(PasUtils.printRanks(m_pas));
+    text.append(PasUtils2.printRanks(m_pas));
     text.append("\n\n");
-    text.append(PasUtils.printCutOffPoint(m_pas, pasOptions.getCutOffThreshold()));
+    text.append(PasUtils2.printCutOffPoint(m_pas, pasOptions.getCutOffThreshold()));
 
 
     text.append("\n");
@@ -328,25 +327,34 @@ public class Pas2AttributeEval extends ASEvaluation implements
     pasOptions.setPasMethod(tag);
   }
 
-  public void setPasMethod(PasMethod pm) {
+  public void setPasMethod(PasMethod2 pm) {
     pasOptions.setPasMethod(pm);
   }
 
-  public double getMinFrequency() {
-    return pasOptions.getMinFrequency();
-  }
-
-  public void setMinFrequency(double minFrequency) {
-    pasOptions.setMinFrequency(minFrequency);
-  }
-
   public double getMinItemStrength() {
-    return pasOptions.getMinItemStrength();
+    return pasOptions.getsetMinItemStrength();
   }
 
-  public void setMinItemStrength(double strength) {
-    pasOptions.setMinItemStrength(strength);
+  public void setMinItemStrength(double minItemStrength) {
+    pasOptions.setMinItemStrength(minItemStrength);
   }
+
+  public String minItemStrengthTipText() {
+    return "Min item strength tip text";
+  }
+
+  public double getMinRuleError() {
+    return pasOptions.getMinRuleError();
+  }
+
+  public void setMinRuleError(double minRuleError) {
+    pasOptions.setMinRuleError(minRuleError);
+  }
+
+  public String minRuleErrorTipText() {
+    return "Min rule error tip text";
+  }
+
 
   public void setMissingMerge(boolean b) {
     pasOptions.setMissingMerge(b);
@@ -380,7 +388,7 @@ public class Pas2AttributeEval extends ASEvaluation implements
     pasOptions.setShowCutOffPoint(b);
   }
 
-  ;
+
 
   /**
    * Returns the revision string.

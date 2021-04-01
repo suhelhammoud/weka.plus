@@ -41,56 +41,6 @@ public class PasUtils2 {
             .collect(Collectors.joining(", ", "[", "]"));
   }
 
-
-//    public static double[] buildEvaluatorRules1st(Instances data,
-//                                                  double support,
-//                                                  double confidence) throws Exception {
-//
-//        int classIndex = data.classIndex();
-//        int numInstances = data.numInstances();
-//        int numClasses = data.attribute(classIndex).numValues();
-//
-//        //TODO look into Chi implementation of contingency tables
-//        logger.debug("buildEvaluator1st with data ={} of size={}", data.relationName(), data.numInstances());
-//
-//        assert data.classIndex() == data.numAttributes() - 1;
-//
-//        data.setClassIndex(data.numAttributes() - 1);
-//
-//        Tuple<Collection<int[]>, int[]> linesLabels = PasUtils.mapIdataAndLabels(data);
-//        Collection<int[]> lineData = linesLabels.k;
-//        int[] labelsCount = linesLabels.v;
-////
-//        logger.trace("original lines size ={}", lineData.size());
-//
-//        int[] numItems = PasUtils.countItemsInAttributes(data);
-//
-//        int minFreq = (int) Math.ceil(support * data.numInstances() + 1.e-6);
-//        logger.debug("minFreq used = {}", minFreq);
-//
-//        List<PasItem> items = PasUtils.evaluateAttributesItems(numItems,
-//                labelsCount,
-//                lineData,
-//                minFreq,
-//                confidence,
-//                false);
-//
-//        double[] rawRanks = PasUtils.rankAttributesFromItems(
-//                items,
-//                data.numAttributes() - 1);//exclude label class attribute
-//
-//
-//        return PasUtils.normalizeVector(rawRanks);
-////
-////        if (m_debug) {
-////            String msg = printResult(result.getRules(),
-////                    data,
-////                    Arrays.stream(rawRanks).sum(),
-////                    data.numAttributes() - 1);
-////            logger.info(msg);
-////        }
-//    }
-
   public static double[] rankAttributes(List<PasItem2> items,
                                         int numAttributes,
                                         PasMethod2 pasMethod2) {

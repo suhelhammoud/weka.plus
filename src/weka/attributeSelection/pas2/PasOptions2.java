@@ -13,8 +13,8 @@ public class PasOptions2 implements OptionHandler, Serializable {
   static final long serialVersionUID = 3110258885025902127L;
 
   protected String m_pasMethod = PasMethod2.items.name();
-  protected double m_minFrequency = 0.01;
-  protected double m_minItemStrength = 0.5;
+  protected double m_minItemStrength = 0.01;
+  protected double m_minRuleError = 0.5;
 
   /**
    * To show more debug results to the output
@@ -79,27 +79,27 @@ public class PasOptions2 implements OptionHandler, Serializable {
     return "choose algorithm";
   }
 
-  public void setMinFrequency(double minFrequency) {
-    m_minFrequency = minFrequency;
+  public void setMinItemStrength(double minItemStrength) {
+    m_minItemStrength = minItemStrength;
   }
 
-  public double getMinFrequency() {
-    return m_minFrequency;
+  public double getsetMinItemStrength() {
+    return m_minItemStrength;
   }
 
   public String minFrequencyTipText() {
     return "min frequency tip text";
   }
 
-  public void setMinItemStrength(double strength) {
-    m_minItemStrength = strength;
+  public void setMinRuleError(double minRuleError) {
+    m_minRuleError = minRuleError;
   }
 
-  public double getMinItemStrength() {
-    return m_minItemStrength;
+  public double getMinRuleError() {
+    return m_minRuleError;
   }
 
-  public String minItemStrengthTipText() {
+  public String minRuleErrorTipText() {
     return "min items strength tip text";
   }
 
@@ -111,8 +111,8 @@ public class PasOptions2 implements OptionHandler, Serializable {
     m_missing_merge = true;
     m_Binarize = false;
     m_debug = false;
-    m_minFrequency = 0.01;
-    m_minItemStrength = .1;
+    m_minItemStrength = 0.01;
+    m_minRuleError = .1;
     showCutOffPoint = true;
     cutOffThreshold = 0.5;
 
@@ -145,11 +145,11 @@ public class PasOptions2 implements OptionHandler, Serializable {
             "M", 0, "-M"));
 
 
-    result.addElement(new Option("\tminimum frequency (support) value "
+    result.addElement(new Option("\tminimum item strength value "
             , "S", 1, "-S"));
 
-    result.addElement(new Option("\tminimum strength (confidence) value "
-            , "C", 1, "-C"));
+    result.addElement(new Option("\tminimum rule error value "
+            , "E", 1, "-E"));
 
     result.addElement(new Option("\tcut off threshold "
             , "T", 1, "-T"));
@@ -176,10 +176,10 @@ public class PasOptions2 implements OptionHandler, Serializable {
    * <p>
    * <pre>
    * -S
-   *  Minimums support threshold.
+   *  Minimums item strength threshold.
    * </pre><pre>
    * -C
-   *  Minimum confidence threshold.
+   *  Minimum rule error threshold.
    * </pre><pre>
    * -M
    *  treat missing values as a separate value.
@@ -206,8 +206,8 @@ public class PasOptions2 implements OptionHandler, Serializable {
     setShowDebugMessages(Utils.getFlag('D', options));
     setShowCutOffPoint(Utils.getFlag('P', options));
 
-    setMinFrequency(Double.parseDouble(Utils.getOption('S', options)));
-    setMinItemStrength(Double.parseDouble(Utils.getOption('C', options)));
+    setMinItemStrength(Double.parseDouble(Utils.getOption('S', options)));
+    setMinRuleError(Double.parseDouble(Utils.getOption('C', options)));
 
     setCutOffThreshold(Double.parseDouble(Utils.getOption('T', options)));
 
@@ -291,10 +291,10 @@ public class PasOptions2 implements OptionHandler, Serializable {
     }
 
     result.add("-S");
-    result.add(String.valueOf(m_minFrequency));
-
-    result.add("-C");
     result.add(String.valueOf(m_minItemStrength));
+
+    result.add("-E");
+    result.add(String.valueOf(m_minRuleError));
 
     result.add("-T");
     result.add(String.valueOf(cutOffThreshold));
