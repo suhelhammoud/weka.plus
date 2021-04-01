@@ -60,10 +60,10 @@ import java.util.*;
  */
 
 
-public class PasAttributeEval extends ASEvaluation implements
+public class Pas2AttributeEval extends ASEvaluation implements
         AttributeEvaluator, OptionHandler {
 
-  static Logger logger = LoggerFactory.getLogger(PasAttributeEval.class.getName());
+  static Logger logger = LoggerFactory.getLogger(Pas2AttributeEval.class.getName());
 
   PasOptions pasOptions = new PasOptions();
 
@@ -119,7 +119,7 @@ public class PasAttributeEval extends ASEvaluation implements
   /**
    * Constructor
    */
-  public PasAttributeEval() {
+  public Pas2AttributeEval() {
     resetOptions();
   }
 
@@ -402,7 +402,7 @@ public class PasAttributeEval extends ASEvaluation implements
    * @param args the options
    */
   public static void main(String[] args) {
-    runEvaluator(new weka.attributeSelection.PasAttributeEval(), args);
+    runEvaluator(new Pas2AttributeEval(), args);
 
   }
 

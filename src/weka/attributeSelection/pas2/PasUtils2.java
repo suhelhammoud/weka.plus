@@ -1,4 +1,4 @@
-package weka.attributeSelection.pas;
+package weka.attributeSelection.pas2;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,11 +9,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class PasUtils {
+public class PasUtils2 {
 
   //TODO use IRule now with one condition test, create separate class later.
 
-  static Logger logger = LoggerFactory.getLogger(PasUtils.class.getName());
+  static Logger logger = LoggerFactory.getLogger(PasUtils2.class.getName());
 
   public static List<Integer> buildEvaluator(Instances data,
                                              double support,
@@ -21,14 +21,14 @@ public class PasUtils {
 
     logger.debug("build pas evaluator");
 
-    Tuple<Collection<int[]>, int[]> linesLabels = PasUtils.mapIdataAndLabels(data);
+    Tuple2<Collection<int[]>, int[]> linesLabels = PasUtils2.mapIdataAndLabels(data);
     Collection<int[]> lineData = linesLabels.k;
     int[] labelsCount = linesLabels.v;
 //
     logger
             .trace("original lines size ={}", lineData.size());
 
-    int[] numItems = PasUtils.countItemsInAttributes(data);
+    int[] numItems = PasUtils2.countItemsInAttributes(data);
 
 
     return null;
@@ -91,9 +91,9 @@ public class PasUtils {
 ////        }
 //    }
 
-  public static double[] rankAttributes(List<PasItem> items,
+  public static double[] rankAttributes(List<PasItem2> items,
                                         int numAttributes,
-                                        PasMethod pasMethod) {
+                                        PasMethod2 pasMethod2) {
 
     int totalLines = items.stream()
             .mapToInt(rule -> rule.getCovers())
@@ -101,13 +101,13 @@ public class PasUtils {
 
     double[] result = new double[numAttributes];
 
-    for (PasItem item : items) {
+    for (PasItem2 item : items) {
       final double weight = item.getCorrect() * totalLines;
       final double weightFirst = item.getFirstCorrect() * totalLines;
 
       totalLines -= item.getCovers();
 
-      switch (pasMethod) {
+      switch (pasMethod2) {
         case rules:
           for (int aIndex : item.getAttIndexes()) {
             result[aIndex] += weight;
@@ -127,13 +127,13 @@ public class PasUtils {
   }
 
 
-  public static List<PasItem> evaluateAttributesItems(int[] numItems,
-                                                      int[] labelsCount,
-                                                      Collection<int[]> lineData,
-                                                      int minFreq,
-                                                      double minConfidence,
-                                                      boolean addDefaultItem) {
-    List<PasItem> items = new ArrayList<>();
+  public static List<PasItem2> evaluateAttributesItems(int[] numItems,
+                                                       int[] labelsCount,
+                                                       Collection<int[]> lineData,
+                                                       int minFreq,
+                                                       double minConfidence,
+                                                       boolean addDefaultItem) {
+    List<PasItem2> items = new ArrayList<>();
 
     int labelIndex = numItems.length - 1;
     int numLabels = numItems[labelIndex];
@@ -149,7 +149,7 @@ public class PasUtils {
 
     while (lineDataSize > 0) {
 
-      Tuple<PasItem, Collection<int[]>> itmlns = calcStepItem(numItems, lines, minFreq, minConfidence);
+      Tuple2<PasItem2, Collection<int[]>> itmlns = calcStepItem(numItems, lines, minFreq, minConfidence);
       if (itmlns == null) break; // stop adding rules for current class. break out to the new class
 
       logger.trace("rule {}", itmlns.k);
@@ -166,7 +166,7 @@ public class PasUtils {
 
     if (addDefaultItem) {
       if (remainingLines != null && remainingLines.size() > 0) {
-        PasItem item = getDefaultPasItem(remainingLines, labelIndex, numLabels);
+        PasItem2 item = getDefaultPasItem(remainingLines, labelIndex, numLabels);
         items.add(item);
       }
     }
@@ -177,13 +177,13 @@ public class PasUtils {
   }
 
 
-  public static List<PasItem> evaluateAttributesRules(int[] numItems,
-                                                      int[] labelsCount,
-                                                      Collection<int[]> lineData,
-                                                      int minFreq,
-                                                      double minConfidence,
-                                                      boolean addDefaultRule) {
-    List<PasItem> result = new ArrayList<>();
+  public static List<PasItem2> evaluateAttributesRules(int[] numItems,
+                                                       int[] labelsCount,
+                                                       Collection<int[]> lineData,
+                                                       int minFreq,
+                                                       double minConfidence,
+                                                       boolean addDefaultRule) {
+    List<PasItem2> result = new ArrayList<>();
 
     int labelIndex = numItems.length - 1;
     int numLabels = numItems[labelIndex];
@@ -199,7 +199,7 @@ public class PasUtils {
 
     while (lineDataSize > 0) {
 
-      Tuple<PasItem, Collection<int[]>> rllns = calcStepRule(numItems, lines, minFreq, minConfidence);
+      Tuple2<PasItem2, Collection<int[]>> rllns = calcStepRule(numItems, lines, minFreq, minConfidence);
       if (rllns == null) break; // stop adding rules for current class. break out to the new class
 
 
@@ -217,7 +217,7 @@ public class PasUtils {
 
     if (addDefaultRule) {
       if (remainingLines != null && remainingLines.size() > 0) {
-        PasItem rule = getDefaultPasItem(remainingLines, labelIndex, numLabels);
+        PasItem2 rule = getDefaultPasItem(remainingLines, labelIndex, numLabels);
         result.add(rule);
       }
     }
@@ -228,13 +228,13 @@ public class PasUtils {
   }
 
 
-  public static List<PasItem> evaluateAttributesRules1st(int[] numItems,
-                                                         int[] labelsCount,
-                                                         Collection<int[]> lineData,
-                                                         int minFreq,
-                                                         double minConfidence,
-                                                         boolean addDefaultRule) {
-    List<PasItem> result = new ArrayList<>();
+  public static List<PasItem2> evaluateAttributesRules1st(int[] numItems,
+                                                          int[] labelsCount,
+                                                          Collection<int[]> lineData,
+                                                          int minFreq,
+                                                          double minConfidence,
+                                                          boolean addDefaultRule) {
+    List<PasItem2> result = new ArrayList<>();
 
     int labelIndex = numItems.length - 1;
     int numLabels = numItems[labelIndex];
@@ -250,7 +250,7 @@ public class PasUtils {
 
     while (lineDataSize > 0) {
 
-      Tuple<PasItem, Collection<int[]>> rllns = calcStepRule(numItems, lines, minFreq, minConfidence);
+      Tuple2<PasItem2, Collection<int[]>> rllns = calcStepRule(numItems, lines, minFreq, minConfidence);
       if (rllns == null) break; // stop adding rules for current class. break out to the new class
 
 
@@ -268,7 +268,7 @@ public class PasUtils {
 
     if (addDefaultRule) {
       if (remainingLines != null && remainingLines.size() > 0) {
-        PasItem rule = getDefaultPasItem(remainingLines, labelIndex, numLabels);
+        PasItem2 rule = getDefaultPasItem(remainingLines, labelIndex, numLabels);
         result.add(rule);
       }
     }
@@ -288,10 +288,10 @@ public class PasUtils {
   }
 
 
-  public static Tuple<PasItem, Collection<int[]>> calcStepItem(int[] numItemsInAtt,
-                                                               Collection<int[]> lineData,
-                                                               int minFreq,
-                                                               double minConfidence) {
+  public static Tuple2<PasItem2, Collection<int[]>> calcStepItem(int[] numItemsInAtt,
+                                                                 Collection<int[]> lineData,
+                                                                 int minFreq,
+                                                                 double minConfidence) {
 
     if (lineData.size() < minFreq) return null;
 
@@ -304,17 +304,17 @@ public class PasUtils {
             lineData,
             intsToArray((availableAttributes)));
 
-    PasMax mx = PasMax.ofThreshold(stepCount, minFreq, minConfidence);
-    if (mx.getLabel() == PasMax.EMPTY)
+    PasMax2 mx = PasMax2.ofThreshold(stepCount, minFreq, minConfidence);
+    if (mx.getLabel() == PasMax2.EMPTY)
       return null; //TODO not reached, check carefully
 
     //found best next item
-    assert mx.getLabel() != PasMax.EMPTY;
+    assert mx.getLabel() != PasMax2.EMPTY;
     assert mx.getBestAtt() >= 0;
     assert mx.getBestItem() >= 0;
 
     //rule with more attributes conditions
-    final PasItem item = new PasItem(mx.getLabel(), mx.getBestCorrect(), mx.getBestCover());
+    final PasItem2 item = new PasItem2(mx.getLabel(), mx.getBestCorrect(), mx.getBestCover());
     item.addTest(mx.getBestAtt(), mx.getBestItem(), mx.getBestCorrect());
 
     List<int[]> notCoveredLines = lineData.stream()
@@ -324,14 +324,14 @@ public class PasUtils {
       return null;
     }
 
-    return Tuple.of(item, notCoveredLines);
+    return Tuple2.of(item, notCoveredLines);
   }
 
 
-  public static Tuple<PasItem, Collection<int[]>> calcStepRule(int[] numItemsInAtt,
-                                                               Collection<int[]> lineData,
-                                                               int minFreq,
-                                                               double minConfidence) {
+  public static Tuple2<PasItem2, Collection<int[]>> calcStepRule(int[] numItemsInAtt,
+                                                                 Collection<int[]> lineData,
+                                                                 int minFreq,
+                                                                 double minConfidence) {
 
     if (lineData.size() < minFreq) return null;
 
@@ -346,8 +346,8 @@ public class PasUtils {
 //        Set<Integer> avAtts = new LinkedHashSet<>();
 //        for (int i = 0; i < labelIndex; i++) avAtts.add(i);
 
-    PasItem rule = null;// null, Does not know the label yet
-    PasMax mx = null;
+    PasItem2 rule = null;// null, Does not know the label yet
+    PasMax2 mx = null;
 
     Collection<int[]> entryLines = lineData; // start with all lines
     Collection<int[]> notCoveredLines = new ArrayList<>(lineData.size());//none covered
@@ -358,21 +358,21 @@ public class PasUtils {
               intsToArray(availableAttributes));
       if (mx == null) {
         //For the first time
-        mx = PasMax.ofThreshold(stepCount, minFreq, minConfidence);
+        mx = PasMax2.ofThreshold(stepCount, minFreq, minConfidence);
 
-        if (mx.getLabel() == PasMax.EMPTY) return null;
-        rule = new PasItem(mx.getLabel());
+        if (mx.getLabel() == PasMax2.EMPTY) return null;
+        rule = new PasItem2(mx.getLabel());
       } else {
-        mx = PasMax.ofThreshold(stepCount,
+        mx = PasMax2.ofThreshold(stepCount,
                 minFreq,
                 minConfidence,
                 mx.getLabel());
-        if (mx.getLabel() == PasMax.EMPTY) break;
+        if (mx.getLabel() == PasMax2.EMPTY) break;
 
       }
 
       //found best next item
-      assert mx.getLabel() != PasMax.EMPTY;
+      assert mx.getLabel() != PasMax2.EMPTY;
       assert mx.getLabel() == rule.label;
       assert mx.getBestAtt() >= 0;
       assert mx.getBestItem() >= 0;
@@ -383,7 +383,7 @@ public class PasUtils {
       rule.addTest(mx.getBestAtt(), mx.getBestItem(), mx.getBestCorrect());
       rule.updateWith(mx);
 
-      PasItem finalRule = rule;
+      PasItem2 finalRule = rule;
       Map<Boolean, List<int[]>> coveredLines = entryLines.stream()
               .collect(Collectors.partitioningBy(row -> finalRule.canCoverInstance(row)));
 
@@ -399,7 +399,7 @@ public class PasUtils {
       return null;
     }
 
-    return Tuple.of(rule, notCoveredLines);
+    return Tuple2.of(rule, notCoveredLines);
   }
 
 
@@ -411,9 +411,9 @@ public class PasUtils {
    * @param numLabels
    * @return
    */
-  private static PasItem getDefaultPasItem(Collection<int[]> lines,
-                                           int labelIndex,
-                                           int numLabels) {
+  private static PasItem2 getDefaultPasItem(Collection<int[]> lines,
+                                            int labelIndex,
+                                            int numLabels) {
     int[] freqs = new int[numLabels];
     for (int[] line : lines) {
       freqs[line[labelIndex]]++;
@@ -426,7 +426,7 @@ public class PasUtils {
         maxIndex = i;
       }
     }
-    return new PasItem(maxIndex, maxVal, PasMax.sum(freqs));
+    return new PasItem2(maxIndex, maxVal, PasMax2.sum(freqs));
   }
 
   /**
@@ -474,7 +474,7 @@ public class PasUtils {
 
 
   //TODO delete later
-  public static String printResult(List<PasItem> rules,
+  public static String printResult(List<PasItem2> rules,
                                    Instances data,
                                    double sumWeights,
                                    int numAttributes) {
@@ -491,7 +491,7 @@ public class PasUtils {
     int availableLines = totalLines;
 
     double[] rawRanks = new double[numAttributes];
-    for (PasItem rule : rules) {
+    for (PasItem2 rule : rules) {
 //            sj.add("rule: " + rule.toString(data, 3));
       sj.add("rule: " + rule.toString());
       final double linesRatio = (double) availableLines / totalLines;
@@ -512,7 +512,7 @@ public class PasUtils {
 
     sj.add("Normalized Attributes weights");
 
-    sj.add(PasUtils.arrayToString(PasUtils.normalizeVector(rawRanks),
+    sj.add(PasUtils2.arrayToString(PasUtils2.normalizeVector(rawRanks),
             "%1.3f"));
 
     return sj.toString();
@@ -534,13 +534,13 @@ public class PasUtils {
 
     StringBuilder sb = new StringBuilder();
     sb.append(String.format("Cutoff point using entropy measure : %02.3f attributes",
-            CutOffPoint.entropy(pasRanks)));
+            CutOffPoint2.entropy(pasRanks)));
     sb.append("\n");
     sb.append(String.format("Cutoff point using Huffman measure : %02.3f attributes",
-            CutOffPoint.huffman(pasRanks)));
+            CutOffPoint2.huffman(pasRanks)));
     sb.append("\n");
     sb.append(String.format("Cutoff point using threshold measure : %02.3f attributes",
-            CutOffPoint.threshold(pasRanks, threshold)));
+            CutOffPoint2.threshold(pasRanks, threshold)));
     return sb.toString();
   }
 
@@ -553,12 +553,12 @@ public class PasUtils {
    * key: List of int arrays represent the internal values of data items
    * value: int array to hold the frequency of each label
    */
-  public static Tuple<Collection<int[]>, int[]> mapIdataAndLabels(Instances data) {
+  public static Tuple2<Collection<int[]>, int[]> mapIdataAndLabels(Instances data) {
     final int labelIndex = data.classIndex();
     assert labelIndex == data.numAttributes() - 1;
 
     Collection<int[]> lineData = data.stream()
-            .map(PasUtils::toIntArray)
+            .map(PasUtils2::toIntArray)
             .collect(Collectors.toList());
 
     int[] labelsCount = new int[data.attribute(data.classIndex()).numValues()];
@@ -566,7 +566,7 @@ public class PasUtils {
             .mapToInt(row -> row[labelIndex])
             .forEach(index -> labelsCount[index]++);
 
-    return Tuple.of(lineData, labelsCount);
+    return Tuple2.of(lineData, labelsCount);
   }
 
   /**

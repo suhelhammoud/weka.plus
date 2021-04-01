@@ -357,12 +357,8 @@ public class OdriUtils {
 
     int numInstances = data[0].length;
     final int[] allLines = IntStream.range(0, numInstances).toArray();
-
     int[] remainingLines = null;
-
-
     int[] lines = allLines;//new ArrayList<>(lineData);//defensive copy
-
 
     while (lines.length > 0) {
 
