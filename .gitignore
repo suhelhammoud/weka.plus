@@ -3,6 +3,9 @@ out/
 data/results
 downloads/
 
+###
+*.class
+
 # experiments
 data/out
 data/resuls
