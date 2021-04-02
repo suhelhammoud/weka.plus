@@ -402,13 +402,13 @@ public class OdriUtils {
 
   /**
    * entrylines is subset of allines
-   *
+   * ! IMPORTANT assume unique sorted arrays
    * @param allLines
    * @param entryLines
    * @return
    */
   public static int[] getNotCovered(int[] allLines, int[] entryLines) {
-    //assume unique sorted arrays
+    //unique sorted arrays
     int[] result = new int[allLines.length - entryLines.length];
     int allIndex = 0;
     int outIndex = 0;

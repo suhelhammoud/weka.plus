@@ -34,11 +34,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b4ffecf-fd2d-4ac9-8d65-3aedb6a8be09" name="Default" comment="Initial commit">
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_1_21,_6_31_PM_[Default]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_1_21,_6_31_PM_[Default]1/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_1_21__6_31_PM__Default_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_1_21__6_31_PM__Default_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/weka/attributeSelection/CasAttributeEval.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/weka/attributeSelection/cas/CasItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/weka/attributeSelection/cas/CasMaxIndex.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/weka/attributeSelection/cas/CasOptions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/weka/attributeSelection/cas/CasTuple.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/weka/attributeSelection/cas/CasUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/Pas2AttributeEval.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/Pas2AttributeEval.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas2/ATest2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas2/PasOptions2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas2/PasOptions2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas2/PasUtils2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas2/PasUtils2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OdriUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OdriUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,7 +142,7 @@
       <recent name="sensetivity" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.AppLauncher">
+  <component name="RunManager" selected="Application.CasUtils">
     <configuration name="ATest2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="weka.attributeSelection.pas2.ATest2" />
       <module name="weka.plus" />
@@ -158,13 +165,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OInterpolation" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="weka.classifiers.rules.odri.OInterpolation" />
+    <configuration name="CasUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="weka.attributeSelection.cas.CasUtils" />
       <module name="weka.plus" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="weka.classifiers.rules.odri.*" />
+          <option name="PATTERN" value="weka.attributeSelection.cas.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -240,18 +247,18 @@
     </configuration>
     <list>
       <item itemvalue="Application.AppLauncher" />
-      <item itemvalue="Application.OInterpolation" />
+      <item itemvalue="Application.ATest2" />
       <item itemvalue="JUnit.FilesUtilsTest" />
       <item itemvalue="JUnit.StoryTest.equalsOn" />
-      <item itemvalue="Application.ATest2" />
+      <item itemvalue="Application.CasUtils" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.CasUtils" />
         <item itemvalue="Application.AppLauncher" />
         <item itemvalue="Application.ATest2" />
         <item itemvalue="JUnit.StoryTest.equalsOn" />
         <item itemvalue="JUnit.FilesUtilsTest" />
-        <item itemvalue="Application.OInterpolation" />
       </list>
     </recent_temporary>
   </component>
@@ -279,6 +286,7 @@
       <workItem from="1617157287817" duration="4312000" />
       <workItem from="1617257346139" duration="1438000" />
       <workItem from="1617259146509" duration="10072000" />
+      <workItem from="1617337252058" duration="10624000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1527230077442</created>
@@ -401,5 +409,8 @@
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/weka_plus$AppLauncher.ic" NAME="AppLauncher Coverage Results" MODIFIED="1592729181260" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
