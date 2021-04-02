@@ -34,18 +34,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b4ffecf-fd2d-4ac9-8d65-3aedb6a8be09" name="Default" comment="Initial commit">
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_1_21,_6_31_PM_[Default]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_1_21,_6_31_PM_[Default]1/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_1_21__6_31_PM__Default_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_1_21__6_31_PM__Default_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/weka/attributeSelection/CasAttributeEval.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/weka/attributeSelection/cas/CasItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/weka/attributeSelection/cas/CasMaxIndex.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/weka/attributeSelection/cas/CasOptions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/weka/attributeSelection/cas/CasTuple.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/weka/attributeSelection/cas/CasUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OdriUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/odri/OdriUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -286,7 +275,7 @@
       <workItem from="1617157287817" duration="4312000" />
       <workItem from="1617257346139" duration="1438000" />
       <workItem from="1617259146509" duration="10072000" />
-      <workItem from="1617337252058" duration="10624000" />
+      <workItem from="1617337252058" duration="11562000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1527230077442</created>
