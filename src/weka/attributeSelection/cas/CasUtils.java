@@ -2,10 +2,13 @@ package weka.attributeSelection.cas;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import weka.classifiers.rules.odri.OdriUtils;
-import weka.classifiers.rules.odri.Pair;
+import weka.classifiers.rules.odri.*;
+import weka.core.Instance;
+import weka.core.Instances;
 
-import java.lang.reflect.Array;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -156,51 +159,146 @@ public class CasUtils {
 //    return result;
   }
 
+  List<CasItem> buildEvaluator(int[][] data,
+                               int[] numItemsInAttribute,
+                               double margin) {
+
+
+    return null;
+  }
+
+  public static ORuleLines calcStepOdri(int[] numItemsInAtt,
+                                        int[][] data,
+                                        int minOcc,
+                                        int[] lines) {
+
+    if (lines.length < minOcc) return null;
+//
+//
+//    /** Start with all attributes, does not include the label attribute*/
+//    Set<Integer> availableAttributes = IntStream.range(0, numItemsInAtt.length - 1)
+//            .boxed()
+//            .collect(Collectors.toSet());
+//
+//    final int numLabels = numItemsInAtt[numItemsInAtt.length - 1];
+//
+//    CasItem rule = null;// null, Does not know the label yet
+//    CasMaxIndex mx = null;
+//
+//    int[] entryLines = lines; // start with all lines
+////
+//    do {
+//
+//      int[][][] stepCount = countStepCas(
+//              numItemsInAtt,
+//              data,
+//              intsToArray(availableAttributes),
+//              entryLines);
+//      if (mx == null) {
+//        //TODO what about minimum confidence here?
+//
+//        mx = CasMaxIndex.of(stepCount);//   .ofOdri(stepCount, minOcc, numLabels);
+//
+//        if (mx.getLabel() == OMaxIndex.EMPTY) return null; //should never reach this
+//        rule = new ORule(mx.getLabel());
+//      } else {
+//        mx = OMaxIndex.ofOdri(stepCount,
+//                minOcc,
+//                numLabels,
+//                mx.getLabel());
+//        if (mx.getLabel() == OMaxIndex.EMPTY) break;
+//
+//      }
+//
+//      //found best next item
+//      assert mx.getLabel() != OMaxIndex.EMPTY;
+//      assert mx.getLabel() == rule.label;
+//      assert mx.getBestAtt() >= 0;
+//      assert mx.getBestItem() >= 0;
+//
+//      availableAttributes.remove(mx.getBestAtt());
+//
+//      //refine rule with more attributes conditions
+//      rule.addTest(mx.getBestAtt(), mx.getBestItem());
+//      rule.updateErrorsWith(mx);
+//
+//      ORule finalRule = rule;
+//
+//      entryLines = filter(entryLines, data[mx.getBestAtt()], mx.getBestItem());
+//
+//
+//    } while (rule.getErrors() > 0
+//            && availableAttributes.size() > 0
+//            && rule.getCorrect() >= minOcc
+//            && entryLines.length > 0); // TODO check this condition
+//
+//    if (rule.getLength() == 0) {//TODO more inspection is needed here
+//      return null;
+//    }
+//
+//    return new ORuleLines(rule, difference(lines, entryLines));
+    return null;
+  }
 
   /**
-   * Optimized
-   * entrylines is subset of allines
-   * ! IMPORTANT assume unique sorted arrays
-   *
-   * @param allLines
-   * @param entryLines
-   * @return
+   * @param numItems
+   * @param data
+   * @param availableAttributes
+   * @return counter of frequencies of labels as an array [i][j][k] :
+   * i: attribute
+   * j: item in attribute i
+   * k: label class
+   * (att, item, label) -> count
    */
-  public static int[] getNotCovered(int[] allLines, int[] entryLines) {
-    //unique sorted arrays
-    int[] result = new int[allLines.length - entryLines.length];
-    int allIndex = 0;
-    int outIndex = 0;
-    for (int line : entryLines) {
-      while (allLines[allIndex] != line) {
-        result[outIndex++] = allLines[allIndex++];
-      }
-      allIndex++;
+  public static int[][][] countStepCas(
+          int[] numItems,
+          int[][] data,
+          int[] availableAttributes,
+          int[] availableLines) {
+
+    int labelIndex = numItems.length - 1;
+    int numLabels = numItems[labelIndex];
+    int[] labels = data[data.length - 1];
+
+    //create array of One attributes, without the class name;
+    int[][][] result = new int[numItems.length][][];
+
+    for (int attIndex : availableAttributes) {
+      result[attIndex] = new int[numItems[attIndex]][numLabels];
     }
-    while (allIndex < allLines.length)
-      result[outIndex++] = allLines[allIndex++];
+    //fill remaining attributes with empty arrays //TODO check in maxIndex
+    for (int i = 0; i < result.length; i++) {
+      if (result[i] == null) result[i] = new int[0][0];
+    }
+
+    //filling
+    for (int attIndex : availableAttributes) {
+      int[] oneAttributeData = data[attIndex];
+      for (int line : availableLines) {
+        result[attIndex][oneAttributeData[line]][labels[line]]++;
+      }
+    }
     return result;
   }
 
   /**
-   *
-   * @param attributeData
-   * @param entryLines should be sorted
-   * @param numItems
+   * @param data
+   * @param lines          should be sorted
+   * @param distinctCounts
    * @return
    */
-  public static int[][] splitToItemLines(int[] attributeData, //
-                                         int[] entryLines,
-                                         int[] numItems) {
-    int[][] result = new int[numItems.length][];
-    int[] indexes = new int[numItems.length];
+  public static int[][] splitToItemLines(int[] data, //
+                                         int[] lines,
+                                         int[] distinctCounts) {
+    int[][] result = new int[distinctCounts.length][];
+    int[] indexes = new int[distinctCounts.length];
 
-    for (int itemIndex = 0; itemIndex < numItems.length; itemIndex++) {
-      result[itemIndex] = new int[numItems[itemIndex]];
+    for (int itemIndex = 0; itemIndex < distinctCounts.length; itemIndex++) {
+      result[itemIndex] = new int[distinctCounts[itemIndex]];
     }
 
-    for (int line : entryLines) {
-      int itemIndex = attributeData[line];
+    for (int line : lines) {
+      int itemIndex = data[line];
       result[itemIndex][indexes[itemIndex]++] = line;
     }
     for (int i = 0; i < result.length; i++) {
@@ -209,7 +307,43 @@ public class CasUtils {
     return result;
   }
 
-  public static void main(String[] args) {
+
+  /**
+   * Find the remaining set of items, lines \ sub
+   * ! IMPORTANT this method assumes unique sorted arrays
+   *
+   * @param lines
+   * @param sub
+   * @return
+   */
+  public static int[] difference(int[] lines, int[] sub) {
+    //unique sorted arrays
+    int[] result = new int[lines.length - sub.length];
+    int allIndex = 0;
+    int outIndex = 0;
+    for (int line : sub) {
+      while (lines[allIndex] != line) {
+        result[outIndex++] = lines[allIndex++];
+      }
+      allIndex++;
+    }
+    while (allIndex < lines.length)
+      result[outIndex++] = lines[allIndex++];
+    return result;
+  }
+
+
+  public static int[] intsToArray(Set<Integer> set) {
+    return set.stream()
+            .mapToInt(Number::intValue)
+            .toArray();
+  }
+
+
+
+
+
+  public static void testsplit(String[] args) {
     int[] attributeData = new int[]{0, 2, 3, 3, 0, 0, 3, 1, 2, 3};
 //    int[] entryLines = IntStream.range(0, 9).toArray();
     int[] entryLines = IntStream.range(0, 5).toArray();

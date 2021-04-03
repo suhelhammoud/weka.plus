@@ -35,6 +35,10 @@
   <component name="ChangeListManager">
     <list default="true" id="4b4ffecf-fd2d-4ac9-8d65-3aedb6a8be09" name="Default" comment="Initial commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/Pas2AttributeEval.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/Pas2AttributeEval.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/cas/CasMaxIndex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/cas/CasMaxIndex.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/cas/CasUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/cas/CasUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas2/PasUtils2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas2/PasUtils2.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +65,7 @@
     </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="cas" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -131,14 +135,14 @@
       <recent name="sensetivity" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.CasUtils">
-    <configuration name="ATest2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="weka.attributeSelection.pas2.ATest2" />
+  <component name="RunManager" selected="Application.CUtils">
+    <configuration name="CUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="weka.attributeSelection.cas.CUtils" />
       <module name="weka.plus" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="weka.attributeSelection.pas2.*" />
+          <option name="PATTERN" value="weka.attributeSelection.cas.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -146,16 +150,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AppLauncher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="AppLauncher" />
+    <configuration name="CasUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="weka.attributeSelection.cas.CasUtils" />
       <module name="weka.plus" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="weka.attributeSelection.cas.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CasUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="weka.attributeSelection.cas.CasUtils" />
+    <configuration name="LSet" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="weka.attributeSelection.cas.LSet" />
       <module name="weka.plus" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
@@ -235,19 +245,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.AppLauncher" />
-      <item itemvalue="Application.ATest2" />
+      <item itemvalue="Application.CasUtils" />
+      <item itemvalue="Application.LSet" />
       <item itemvalue="JUnit.FilesUtilsTest" />
       <item itemvalue="JUnit.StoryTest.equalsOn" />
-      <item itemvalue="Application.CasUtils" />
+      <item itemvalue="Application.CUtils" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.CasUtils" />
-        <item itemvalue="Application.AppLauncher" />
-        <item itemvalue="Application.ATest2" />
+        <item itemvalue="Application.CUtils" />
+        <item itemvalue="Application.LSet" />
         <item itemvalue="JUnit.StoryTest.equalsOn" />
         <item itemvalue="JUnit.FilesUtilsTest" />
+        <item itemvalue="Application.CasUtils" />
       </list>
     </recent_temporary>
   </component>
@@ -276,6 +286,8 @@
       <workItem from="1617257346139" duration="1438000" />
       <workItem from="1617259146509" duration="10072000" />
       <workItem from="1617337252058" duration="11562000" />
+      <workItem from="1617424703582" duration="12158000" />
+      <workItem from="1617450810601" duration="13889000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1527230077442</created>

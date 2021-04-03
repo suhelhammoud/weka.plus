@@ -28,6 +28,7 @@ public class CasMaxIndex {
     }
     return cmi;
   }
+
   public void maxCas(int[][] attData, int attIndex) {
     int correct = max(attData);
     int cover = sum(attData);
@@ -39,6 +40,7 @@ public class CasMaxIndex {
   }
 
 
+  //get all correct values
   public static int max(int[][] data) {
     return Arrays.stream(data)
             .mapToInt(sa -> Arrays.stream(sa).max().getAsInt())

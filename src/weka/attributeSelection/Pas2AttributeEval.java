@@ -69,7 +69,6 @@ public class Pas2AttributeEval extends ASEvaluation implements
   PasOptions2 pasOptions = new PasOptions2();
 
 
-
   /**
    * for serialization
    */
@@ -212,9 +211,9 @@ public class Pas2AttributeEval extends ASEvaluation implements
 
     int[] numItems = PasUtils2.countItemsInAttributes(data);
 
-    int minFreq = (int) Math.ceil(pasOptions.getsetMinItemStrength()
+    int minItemStrength = (int) Math.ceil(pasOptions.getsetMinItemStrength()
             * data.numInstances() + 1.e-6);
-    logger.debug("minFreq used = {}", minFreq);
+    logger.debug("minFreq used = {}", minItemStrength);
 
     List<PasItem2> items = new ArrayList<>();
 
@@ -225,7 +224,7 @@ public class Pas2AttributeEval extends ASEvaluation implements
         items = PasUtils2.evaluateAttributesRules(numItems,
                 labelsCount,
                 lineData,
-                minFreq,
+                minItemStrength,
                 1 - pasOptions.getMinRuleError(),
                 false);
 //                logger.info("run att eval with algorithm rules = {}", items.size());
@@ -236,7 +235,7 @@ public class Pas2AttributeEval extends ASEvaluation implements
         items = PasUtils2.evaluateAttributesRules1st(numItems,
                 labelsCount,
                 lineData,
-                minFreq,
+                minItemStrength,
                 1 - pasOptions.getMinRuleError(),
                 false);
 
@@ -247,7 +246,7 @@ public class Pas2AttributeEval extends ASEvaluation implements
         items = PasUtils2.evaluateAttributesItems(numItems,
                 labelsCount,
                 lineData,
-                minFreq,
+                minItemStrength,
                 1 - pasOptions.getMinRuleError(),
                 false);
 //                logger.info("run att eval with algorithm items = {}", items.size());
@@ -387,7 +386,6 @@ public class Pas2AttributeEval extends ASEvaluation implements
   public void setShowCutOffPoint(boolean b) {
     pasOptions.setShowCutOffPoint(b);
   }
-
 
 
   /**
