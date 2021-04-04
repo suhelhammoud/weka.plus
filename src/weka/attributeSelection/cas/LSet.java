@@ -73,7 +73,7 @@ public class LSet {
     int[] indx = new int[itemCount.length];
     for (int line : lines) {
       int item = attData[line];
-      result[item][indx[item]] = line;
+      result[item][indx[item]++] = line;
     }
     return result;
   }
@@ -81,6 +81,19 @@ public class LSet {
   public static int[][] split(int[] attData, int[] lines, int numItems) {
     int[] count = count(attData, lines, numItems);
     return split(attData, lines, count);
+  }
+
+  public static int[][] split(int[] attData, int numItems) {
+    int[] itemCount = count(attData, numItems);
+    int[][] result = new int[itemCount.length][];
+    for (int i = 0; i < result.length; i++)
+      result[i] = new int[itemCount[i]];
+    int[] indx = new int[itemCount.length];
+    for (int line = 0; line < attData.length; line++) {
+      int item = attData[line];
+      result[item][indx[item]++] = line;
+    }
+    return result;
   }
 
 
@@ -249,14 +262,15 @@ public class LSet {
     return result;
   }
 
-  public static int sum(int[] a){
+  public static int sum(int[] a) {
     int result = 0;
-    for(int v: a)result += v;
+    for (int v : a) result += v;
     return result;
   }
+
   public static int sum(int[][] a) {
     int result = 0;
-    for(int[] v: a)result += sum(v);
+    for (int[] v : a) result += sum(v);
     return result;
   }
 

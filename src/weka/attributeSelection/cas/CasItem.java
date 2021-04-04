@@ -25,6 +25,7 @@ public class CasItem implements Serializable {
   protected int covers;
 
 
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
