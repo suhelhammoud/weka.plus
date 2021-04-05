@@ -5,12 +5,14 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static java.lang.Math.log;
+
 public class CutOffPoint {
 
   public static double entropyValue(double p) {
     if (p < 1e-8 || p > (1 - 1e-8))
       return 0;
-    return -p * Math.log(p) / Math.log(2);
+    return -p * log(p) / log(2);
   }
 
   public static double sum(BitSet bs, double[] ranks) {

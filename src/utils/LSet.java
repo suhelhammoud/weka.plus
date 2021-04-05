@@ -253,6 +253,18 @@ public class LSet {
     return result;
   }
 
+  public static int maxIndex(int[] a) {
+    int maxVal = Integer.MIN_VALUE;
+    int maxIndex = -1;
+    for (int i = 0; i < a.length; i++) {
+      if (a[i] > maxVal) {
+        maxVal = a[i];
+        maxIndex = i;
+      }
+    }
+    return maxIndex;
+  }
+
   public static int correct(int[][] a) {
     int result = 0;
     for (int i = 0; i < a.length; i++)

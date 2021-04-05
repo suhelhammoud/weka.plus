@@ -34,10 +34,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b4ffecf-fd2d-4ac9-8d65-3aedb6a8be09" name="Default" comment="Initial commit">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/CData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/CData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logback.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppLauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppLauncher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/logback.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logging.properties" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/LSet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/LSet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/CutOffPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/CutOffPoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasMax.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weka.plus.iml" beforeDir="false" afterPath="$PROJECT_DIR$/weka.plus.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +120,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/data" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
@@ -122,11 +129,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/lib" />
       <recent name="$PROJECT_DIR$/data" />
       <recent name="$PROJECT_DIR$/data/arff/dsets03" />
       <recent name="$PROJECT_DIR$/data/aut" />
-      <recent name="$PROJECT_DIR$/src" />
-      <recent name="$PROJECT_DIR$/lib" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -142,7 +149,7 @@
       <recent name="weka.attributeSelection" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.AppLauncher">
+  <component name="RunManager" selected="Application.CutOffPoint">
     <configuration name="AppLauncher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="AppLauncher" />
       <module name="weka.plus" />
@@ -165,24 +172,24 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GUILauncher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUILauncher" />
-      <module name="weka.plus" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="StoryDriverMinfo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="sensetivity.StoryDriverMinfo" />
+    <configuration name="CutOffPoint" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="weka.attributeSelection.pas.CutOffPoint" />
       <module name="weka.plus" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="sensetivity.*" />
+          <option name="PATTERN" value="weka.attributeSelection.pas.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GUILauncher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUILauncher" />
+      <module name="weka.plus" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -207,6 +214,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="TEST_OBJECT" value="class" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
@@ -226,17 +244,17 @@
     <list>
       <item itemvalue="Application.AppLauncher" />
       <item itemvalue="Application.GUILauncher" />
-      <item itemvalue="Application.StoryDriverMinfo" />
       <item itemvalue="Application.CData" />
       <item itemvalue="Application.Ttemp" />
+      <item itemvalue="Application.CutOffPoint" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.CutOffPoint" />
         <item itemvalue="Application.AppLauncher" />
         <item itemvalue="Application.GUILauncher" />
         <item itemvalue="Application.Ttemp" />
         <item itemvalue="Application.CData" />
-        <item itemvalue="Application.StoryDriverMinfo" />
       </list>
     </recent_temporary>
   </component>
@@ -250,7 +268,8 @@
       <updated>1527227837904</updated>
       <workItem from="1617600132687" duration="8786000" />
       <workItem from="1617609589404" duration="14840000" />
-      <workItem from="1617635819543" duration="1831000" />
+      <workItem from="1617635819543" duration="4295000" />
+      <workItem from="1617640170789" duration="4061000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1527230077442</created>
@@ -344,13 +363,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/weka/attributeSelection/pas/PasUtils.java</url>
-          <line>216</line>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">

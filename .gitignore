@@ -21,3 +21,7 @@ cmake-build-release/
 .idea/replstate.xml
 
 .attach_*
+
+
+# idea
+idea/workspace.xml

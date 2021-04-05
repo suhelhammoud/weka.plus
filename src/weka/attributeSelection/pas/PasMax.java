@@ -1,8 +1,6 @@
 package weka.attributeSelection.pas;
 
-
 import static utils.LSet.sum;
-
 import java.util.StringJoiner;
 
 /**
