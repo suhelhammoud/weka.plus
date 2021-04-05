@@ -62,23 +62,19 @@ public class PasUtils {
 
 
 
-    int[] remainingLines = null;
 
-
-    int[] lines = cdata.allLines();
-    int lineDataSize = lines.length;
-
+    int[] remainingLines = cdata.allLines();
+    int lineDataSize = remainingLines.length;
 
     while (lineDataSize > 0) {
 
-      Pair<PasItem, int[]> itmlns = calcStepItem(cdata, lines, minFreq, minConfidence);
+      Pair<PasItem, int[]> itmlns = calcStepItem(cdata, remainingLines, minFreq, minConfidence);
       if (itmlns == null) break; // stop adding rules for current class. break out to the new class
 
       logger.trace("rule {}", itmlns.k);
       logger.trace("remaining lines={}", itmlns.v.length);
 
-      lines = itmlns.v;
-      remainingLines = lines;
+      remainingLines = itmlns.v;
       lineDataSize -= itmlns.k.getCorrect();
       logger.trace("took {} , remains {} instances",
               itmlns.k.getCorrect(), lineDataSize);
@@ -157,7 +153,6 @@ public class PasUtils {
     List<PasItem> result = new ArrayList<>();
 
 
-
     int[] remainingLines = null;
 
 
@@ -210,7 +205,7 @@ public class PasUtils {
     int[][][] stepCount = cdata.countStep(lineData, LSet.intsToArray((availableAttributes)));
 
     PasMax mx = PasMax.ofThreshold(stepCount, minFreq, minConfidence);
-    if (mx.getLabel() == PasMax.EMPTY){
+    if (mx.getLabel() == PasMax.EMPTY) {
       System.out.println("EMPTY PasMax");
       return null; //TODO not reached, check carefully
 
@@ -225,9 +220,12 @@ public class PasUtils {
     final PasItem item = new PasItem(mx.getLabel(), mx.getBestCorrect(), mx.getBestCover());
     item.addTest(mx.getBestAtt(), mx.getBestItem(), mx.getBestCorrect());
 
-    int[] notCoveredLines = Arrays.stream(lineData)
-            .filter(line -> !item.canCoverInstance(cdata.instance(line)))
-            .toArray();
+//    int[] notCoveredLines = Arrays.stream(lineData)
+//            .filter(line -> !item.canCoverInstance(cdata.instance(line)))
+//            .toArray();
+    int[] notCoveredLines =
+            filterFor(cdata.att(mx.getBestAtt()), lineData, mx.getBestItem());
+
     if (item.getLength() == 0) {//TODO more inspection is needed here
       return null;
     }
