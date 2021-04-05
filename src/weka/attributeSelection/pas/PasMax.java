@@ -1,6 +1,8 @@
 package weka.attributeSelection.pas;
 
 
+import static utils.LSet.sum;
+
 import java.util.StringJoiner;
 
 /**
@@ -232,10 +234,4 @@ public class PasMax {
             .toString();
   }
 
-  public static int sum(int[] a) {
-//        return Arrays.stream(a).sum(); // TODO performance comparision
-    int result = 0;
-    for (int i : a) result += i;
-    return result;
-  }
 }

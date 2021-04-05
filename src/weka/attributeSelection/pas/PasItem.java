@@ -1,11 +1,15 @@
 package weka.attributeSelection.pas;
 
 
+import utils.LSet;
+import utils.PrintUtils;
 import weka.core.Attribute;
 import weka.core.Instances;
 
 import java.util.Arrays;
 import java.util.StringJoiner;
+
+import static utils.LSet.addElement;
 
 public class PasItem {
 
@@ -64,7 +68,7 @@ public class PasItem {
 
 
   public boolean addTest(int att, int val, int correct) {
-    if (contains(attIndexes, att))
+    if (LSet.contains(attIndexes, att))
       return false;
 
     if (attIndexes.length == 0) {
@@ -74,17 +78,6 @@ public class PasItem {
     attValues = addElement(attValues, val);
 
     return true;
-  }
-
-  /**
-   * @param a
-   * @param e
-   * @return
-   */
-  protected static int[] addElement(int[] a, int e) {
-    a = Arrays.copyOf(a, a.length + 1);
-    a[a.length - 1] = e;
-    return a;
   }
 
 
@@ -99,14 +92,9 @@ public class PasItem {
     return result;
   }
 
-  public static boolean contains(int[] arr, int att) {
-    for (int i = 0; i < arr.length; i++)
-      if (arr[i] == att) return true;
-    return false;
-  }
 
   public boolean addTest(int att, int val) {
-    if (contains(attIndexes, att))
+    if (LSet.contains(attIndexes, att))
       return false;
     attIndexes = addElement(attIndexes, att);
     attValues = addElement(attValues, val);
@@ -165,7 +153,7 @@ public class PasItem {
 
   public String toString(Instances data, int maxDigits) {
 
-    String pattern = "( " + PasUtils.formatIntPattern(maxDigits) + " , %.2f ) ";
+    String pattern = "( " + PrintUtils.formatIntPattern(maxDigits) + " , %.2f ) ";
 
 
     StringBuilder sb = new StringBuilder();

@@ -3,6 +3,9 @@ package weka.attributeSelection;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import utils.InstancesUtils;
+import utils.LSet;
+import utils.Pair;
 import weka.attributeSelection.pas.*;
 import weka.core.*;
 import weka.filters.Filter;
@@ -179,99 +182,7 @@ public class CasAttributeEval extends ASEvaluation implements
    */
   @Override
   public void buildEvaluator(Instances initialData) throws Exception {
-    // can evaluator handle dataset?
-    getCapabilities().testWithFail(initialData);
 
-    Instances data = null;
-
-    if (!pasOptions.getBinarizeNumericAttributes()) {
-      Discretize disTransform = new Discretize();
-      disTransform.setUseBetterEncoding(true);
-      disTransform.setInputFormat(initialData);
-      data = Filter.useFilter(initialData, disTransform);
-    } else {
-      NumericToBinary binTransform = new NumericToBinary();
-      binTransform.setInputFormat(initialData);
-      data = Filter.useFilter(initialData, binTransform);
-    }
-
-    data.setRelationName(initialData.relationName());
-
-    //TODO look into Chi implementation of contingency tables
-    logger.debug("build classifier with data ={} of size={}", data.relationName(), data.numInstances());
-
-    assert data.classIndex() == data.numAttributes() - 1;
-
-    data.setClassIndex(data.numAttributes() - 1);
-    logger.debug("build pas evaluator");
-
-    Tuple<Collection<int[]>, int[]> linesLabels = PasUtils.mapIdataAndLabels(data);
-    Collection<int[]> lineData = linesLabels.k;
-    int[] labelsCount = linesLabels.v;
-//
-    logger.trace("original lines size ={}", lineData.size());
-
-    int[] numItems = PasUtils.countItemsInAttributes(data);
-
-    int minFreq = (int) Math.ceil(pasOptions.getMinFrequency()
-            * data.numInstances() + 1.e-6);
-    logger.debug("minFreq used = {}", minFreq);
-
-    List<PasItem> items = new ArrayList<>();
-
-    final PasMethod pasMethod2 = pasOptions.getPasMethodEnum();
-
-    switch (pasMethod2) {
-      case rules:
-        items = PasUtils.evaluateAttributesRules(numItems,
-                labelsCount,
-                lineData,
-                minFreq,
-                pasOptions.getMinItemStrength(),
-                false);
-//                logger.info("run att eval with algorithm rules = {}", items.size());
-
-        break;
-      case rules1st:
-
-        items = PasUtils.evaluateAttributesRules1st(numItems,
-                labelsCount,
-                lineData,
-                minFreq,
-                pasOptions.getMinItemStrength(),
-                false);
-
-//                logger.info("run att eval with algorithm rules1st = {}", items.size());
-
-        break;
-      case items:
-        items = PasUtils.evaluateAttributesItems(numItems,
-                labelsCount,
-                lineData,
-                minFreq,
-                pasOptions.getMinItemStrength(),
-                false);
-//                logger.info("run att eval with algorithm items = {}", items.size());
-        break;
-    }
-
-
-    double[] rawRanks = PasUtils.rankAttributes(
-            items,
-            data.numAttributes() - 1,
-            pasMethod2
-    );//exclude label class attribute
-
-
-    m_pas = PasUtils.normalizeVector(rawRanks);
-
-    if (pasOptions.getShowDebugMessages()) {
-      String msg = PasUtils.printResult(items,
-              data,
-              Arrays.stream(rawRanks).sum(),
-              data.numAttributes() - 1);
-      logger.info(msg);
-    }
   }
 
 

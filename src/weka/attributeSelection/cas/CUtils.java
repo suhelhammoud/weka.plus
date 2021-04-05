@@ -3,17 +3,20 @@ package weka.attributeSelection.cas;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import utils.CData;
+import utils.FilesUtils;
+import utils.InstancesUtils;
 import weka.core.Instance;
 import weka.core.Instances;
+import static utils.PrintUtils.print;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Arrays;
-import java.util.List;
 import java.util.StringJoiner;
 
-import static weka.attributeSelection.cas.LSet.*;
+import static utils.LSet.*;
 
 public class CUtils {
 
@@ -45,74 +48,6 @@ public class CUtils {
   }
 
 
-  public static int[][] mapIdataAndLabelsToArrays(Instances data) {
-    assert data.classIndex() == data.numAttributes() - 1;
-    int numAttributes = data.numAttributes();
-    int numInstances = data.numInstances();
-    int[][] result = new int[numAttributes][numInstances];
-    for (int line = 0; line < numInstances; line++) {
-      Instance instance = data.instance(line);
-      for (int attIndex = 0; attIndex < numAttributes; attIndex++) {
-        result[attIndex][line] = (int) instance.value(attIndex);
-      }
-    }
-    return result;
-  }
-
-
-  public static String IntsJoin(String delimeter, int[] arr) {
-    StringJoiner result = new StringJoiner(", ");
-    for (int i : arr) {
-      result.add(String.valueOf(i));
-    }
-    return result.toString();
-  }
-
-  public static StringBuilder print(int[][] arr) {
-    StringBuilder sb = new StringBuilder();
-    if (arr == null || arr.length == 0) return sb;
-    for (int i = 0; i < arr.length; i++) {
-      sb.append(IntsJoin(", ", arr[i]));
-      sb.append("\n");
-    }
-    return sb;
-  }
-
-  public static StringBuilder print(int[][][] d) {
-    StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < d.length; i++) {
-      sb.append("********** " + i + " *********\n");
-      sb.append(print(d[i]));
-    }
-    return sb;
-  }
-
-
-  public static BufferedReader readDataFile(String filename) {
-    BufferedReader inputReader = null;
-
-    try {
-      inputReader = new BufferedReader(new FileReader(filename));
-    } catch (FileNotFoundException ex) {
-      System.err.println("File not found: " + filename);
-    }
-
-    return inputReader;
-  }
-
-  /**
-   * Return array containing number of items in each corresponding attribute
-   *
-   * @param data
-   * @return number of distinct items in each attributes
-   */
-  public static int[] getItemsNumber(Instances data) {
-    int[] result = new int[data.numAttributes()];
-    for (int i = 0; i < result.length; i++) {
-      result[i] = data.attribute(i).numValues();
-    }
-    return result;
-  }
 
 
   public static void main(String[] args) throws Exception {
@@ -123,9 +58,9 @@ public class CUtils {
     String inFile = "data/arff/contact-lenses.arff";
 //    String inFile = "data/arff/tic-tac-toe.arff";
 
-    Instances instances = new Instances(readDataFile(inFile));
-    final int[] numItems = getItemsNumber(instances);
-    int[][] data = mapIdataAndLabelsToArrays(instances);
+    Instances instances = InstancesUtils.instancesOf(inFile);
+    final int[] numItems = CData.getItemsNumber(instances);
+    int[][] data = CData.getData(instances);
     buildEvaluator(data, numItems, 0.01);
 
   }

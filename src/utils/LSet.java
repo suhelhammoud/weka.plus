@@ -1,9 +1,6 @@
-package weka.attributeSelection.cas;
+package utils;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.IntStream;
 
 public class LSet {
@@ -273,5 +270,38 @@ public class LSet {
     for (int[] v : a) result += sum(v);
     return result;
   }
+
+
+  /**
+   * @param a
+   * @param e
+   * @return
+   */
+  public static int[] addElement(int[] a, int e) {
+    a = Arrays.copyOf(a, a.length + 1);
+    a[a.length - 1] = e;
+    return a;
+  }
+
+
+  public static boolean contains(int[] arr, int att) {
+    for (int i = 0; i < arr.length; i++)
+      if (arr[i] == att) return true;
+    return false;
+  }
+
+  public static double[] normalizeVector(double[] values) {
+    double sum = Arrays.stream(values).sum();
+    return Arrays.stream(values)
+            .map(value -> value / sum)
+            .toArray();
+  }
+
+  public static int[] intsToArray(Set<Integer> set) {
+    return set.stream()
+            .mapToInt(Number::intValue)
+            .toArray();
+  }
+
 
 }

@@ -1,5 +1,6 @@
 package weka.attributeSelection.cas;
 
+import utils.LSet;
 import weka.classifiers.rules.odri.OdriUtils;
 import weka.core.Attribute;
 import weka.core.Instances;
@@ -74,29 +75,13 @@ public class CasItem implements Serializable {
     this.attValues = Arrays.copyOf(attValues, attValues.length);
   }
 
-  /**
-   * @param a
-   * @param e
-   * @return
-   */
-  protected static int[] addElement(int[] a, int e) {
-    a = Arrays.copyOf(a, a.length + 1);
-    a[a.length - 1] = e;
-    return a;
-  }
 
-
-  public static boolean contains(int[] arr, int att) {
-    for (int i = 0; i < arr.length; i++)
-      if (arr[i] == att) return true;
-    return false;
-  }
 
   public CasItem addTest(int att, int val) {
-    if (contains(attIndexes, att))
+    if (LSet.contains(attIndexes, att))
       return null;
-    return new CasItem(addElement(attIndexes, att),
-            addElement(attValues, val));
+    return new CasItem(LSet.addElement(attIndexes, att),
+            LSet.addElement(attValues, val));
   }
 
   public void updateErrorsWith(CasMaxIndex maxIndex) {

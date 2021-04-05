@@ -2,6 +2,10 @@ package weka.attributeSelection.pas;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import utils.FilesUtils;
+import utils.LSet;
+import utils.Pair;
+import utils.PrintUtils;
 import weka.core.Instance;
 import weka.core.Instances;
 
@@ -9,87 +13,13 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static utils.LSet.sum;
+
 public class PasUtils {
 
   //TODO use IRule now with one condition test, create separate class later.
 
   static Logger logger = LoggerFactory.getLogger(PasUtils.class.getName());
-
-  public static List<Integer> buildEvaluator(Instances data,
-                                             double support,
-                                             double confidence) {
-
-    logger.debug("build pas evaluator");
-
-    Tuple<Collection<int[]>, int[]> linesLabels = PasUtils.mapIdataAndLabels(data);
-    Collection<int[]> lineData = linesLabels.k;
-    int[] labelsCount = linesLabels.v;
-//
-    logger
-            .trace("original lines size ={}", lineData.size());
-
-    int[] numItems = PasUtils.countItemsInAttributes(data);
-
-
-    return null;
-  }
-
-  public static String arrayToString(double[] arr, String format) {
-    return Arrays.stream(arr)
-            .boxed()
-            .map(d -> String.format(format, d))
-            .collect(Collectors.joining(", ", "[", "]"));
-  }
-
-
-//    public static double[] buildEvaluatorRules1st(Instances data,
-//                                                  double support,
-//                                                  double confidence) throws Exception {
-//
-//        int classIndex = data.classIndex();
-//        int numInstances = data.numInstances();
-//        int numClasses = data.attribute(classIndex).numValues();
-//
-//        //TODO look into Chi implementation of contingency tables
-//        logger.debug("buildEvaluator1st with data ={} of size={}", data.relationName(), data.numInstances());
-//
-//        assert data.classIndex() == data.numAttributes() - 1;
-//
-//        data.setClassIndex(data.numAttributes() - 1);
-//
-//        Tuple<Collection<int[]>, int[]> linesLabels = PasUtils.mapIdataAndLabels(data);
-//        Collection<int[]> lineData = linesLabels.k;
-//        int[] labelsCount = linesLabels.v;
-////
-//        logger.trace("original lines size ={}", lineData.size());
-//
-//        int[] numItems = PasUtils.countItemsInAttributes(data);
-//
-//        int minFreq = (int) Math.ceil(support * data.numInstances() + 1.e-6);
-//        logger.debug("minFreq used = {}", minFreq);
-//
-//        List<PasItem> items = PasUtils.evaluateAttributesItems(numItems,
-//                labelsCount,
-//                lineData,
-//                minFreq,
-//                confidence,
-//                false);
-//
-//        double[] rawRanks = PasUtils.rankAttributesFromItems(
-//                items,
-//                data.numAttributes() - 1);//exclude label class attribute
-//
-//
-//        return PasUtils.normalizeVector(rawRanks);
-////
-////        if (m_debug) {
-////            String msg = printResult(result.getRules(),
-////                    data,
-////                    Arrays.stream(rawRanks).sum(),
-////                    data.numAttributes() - 1);
-////            logger.info(msg);
-////        }
-//    }
 
   public static double[] rankAttributes(List<PasItem> items,
                                         int numAttributes,
@@ -126,7 +56,6 @@ public class PasUtils {
 
   }
 
-
   public static List<PasItem> evaluateAttributesItems(int[] numItems,
                                                       int[] labelsCount,
                                                       Collection<int[]> lineData,
@@ -149,7 +78,7 @@ public class PasUtils {
 
     while (lineDataSize > 0) {
 
-      Tuple<PasItem, Collection<int[]>> itmlns = calcStepItem(numItems, lines, minFreq, minConfidence);
+      Pair<PasItem, Collection<int[]>> itmlns = calcStepItem(numItems, lines, minFreq, minConfidence);
       if (itmlns == null) break; // stop adding rules for current class. break out to the new class
 
       logger.trace("rule {}", itmlns.k);
@@ -199,7 +128,7 @@ public class PasUtils {
 
     while (lineDataSize > 0) {
 
-      Tuple<PasItem, Collection<int[]>> rllns = calcStepRule(numItems, lines, minFreq, minConfidence);
+      Pair<PasItem, Collection<int[]>> rllns = calcStepRule(numItems, lines, minFreq, minConfidence);
       if (rllns == null) break; // stop adding rules for current class. break out to the new class
 
 
@@ -250,7 +179,7 @@ public class PasUtils {
 
     while (lineDataSize > 0) {
 
-      Tuple<PasItem, Collection<int[]>> rllns = calcStepRule(numItems, lines, minFreq, minConfidence);
+      Pair<PasItem, Collection<int[]>> rllns = calcStepRule(numItems, lines, minFreq, minConfidence);
       if (rllns == null) break; // stop adding rules for current class. break out to the new class
 
 
@@ -280,18 +209,10 @@ public class PasUtils {
   }
 
 
-  public static double[] normalizeVector(double[] values) {
-    double sum = Arrays.stream(values).sum();
-    return Arrays.stream(values)
-            .map(value -> value / sum)
-            .toArray();
-  }
-
-
-  public static Tuple<PasItem, Collection<int[]>> calcStepItem(int[] numItemsInAtt,
-                                                               Collection<int[]> lineData,
-                                                               int minFreq,
-                                                               double minConfidence) {
+  public static Pair<PasItem, Collection<int[]>> calcStepItem(int[] numItemsInAtt,
+                                                              Collection<int[]> lineData,
+                                                              int minFreq,
+                                                              double minConfidence) {
 
     if (lineData.size() < minFreq) return null;
 
@@ -302,7 +223,7 @@ public class PasUtils {
 
     int[][][] stepCount = countStep(numItemsInAtt,
             lineData,
-            intsToArray((availableAttributes)));
+            LSet.intsToArray((availableAttributes)));
 
     PasMax mx = PasMax.ofThreshold(stepCount, minFreq, minConfidence);
     if (mx.getLabel() == PasMax.EMPTY)
@@ -324,14 +245,14 @@ public class PasUtils {
       return null;
     }
 
-    return Tuple.of(item, notCoveredLines);
+    return Pair.of(item, notCoveredLines);
   }
 
 
-  public static Tuple<PasItem, Collection<int[]>> calcStepRule(int[] numItemsInAtt,
-                                                               Collection<int[]> lineData,
-                                                               int minFreq,
-                                                               double minConfidence) {
+  public static Pair<PasItem, Collection<int[]>> calcStepRule(int[] numItemsInAtt,
+                                                              Collection<int[]> lineData,
+                                                              int minFreq,
+                                                              double minConfidence) {
 
     if (lineData.size() < minFreq) return null;
 
@@ -355,7 +276,7 @@ public class PasUtils {
 
       int[][][] stepCount = countStep(numItemsInAtt,
               entryLines,
-              intsToArray(availableAttributes));
+              LSet.intsToArray(availableAttributes));
       if (mx == null) {
         //For the first time
         mx = PasMax.ofThreshold(stepCount, minFreq, minConfidence);
@@ -399,7 +320,7 @@ public class PasUtils {
       return null;
     }
 
-    return Tuple.of(rule, notCoveredLines);
+    return Pair.of(rule, notCoveredLines);
   }
 
 
@@ -426,7 +347,7 @@ public class PasUtils {
         maxIndex = i;
       }
     }
-    return new PasItem(maxIndex, maxVal, PasMax.sum(freqs));
+    return new PasItem(maxIndex, maxVal, sum(freqs));
   }
 
   /**
@@ -465,12 +386,6 @@ public class PasUtils {
     return result;
   }
 
-
-  public static int[] intsToArray(Set<Integer> set) {
-    return set.stream()
-            .mapToInt(Number::intValue)
-            .toArray();
-  }
 
 
   //TODO delete later
@@ -512,7 +427,7 @@ public class PasUtils {
 
     sj.add("Normalized Attributes weights");
 
-    sj.add(PasUtils.arrayToString(PasUtils.normalizeVector(rawRanks),
+    sj.add(PrintUtils.arrayToString(LSet.normalizeVector(rawRanks),
             "%1.3f"));
 
     return sj.toString();
@@ -553,12 +468,12 @@ public class PasUtils {
    * key: List of int arrays represent the internal values of data items
    * value: int array to hold the frequency of each label
    */
-  public static Tuple<Collection<int[]>, int[]> mapIdataAndLabels(Instances data) {
+  public static Pair<Collection<int[]>, int[]> mapIdataAndLabels(Instances data) {
     final int labelIndex = data.classIndex();
     assert labelIndex == data.numAttributes() - 1;
 
     Collection<int[]> lineData = data.stream()
-            .map(PasUtils::toIntArray)
+            .map(FilesUtils::toIntArray)
             .collect(Collectors.toList());
 
     int[] labelsCount = new int[data.attribute(data.classIndex()).numValues()];
@@ -566,41 +481,9 @@ public class PasUtils {
             .mapToInt(row -> row[labelIndex])
             .forEach(index -> labelsCount[index]++);
 
-    return Tuple.of(lineData, labelsCount);
+    return Pair.of(lineData, labelsCount);
   }
 
-  /**
-   * Return array containing number of items in each corresponding attribute
-   *
-   * @param data
-   * @return number of distinct items in each attributes
-   */
-  public static int[] countItemsInAttributes(Instances data) {
-    int[] result = new int[data.numAttributes()];
-    for (int i = 0; i < result.length; i++) {
-      result[i] = data.attribute(i).numValues();
-    }
-    return result;
-  }
-
-  public static String formatIntPattern(int maxDigit) {
-    int digits = (int) (Math.ceil(Math.log10(maxDigit)));
-    return "%0" + digits + "d";
-  }
-
-  /**
-   * map and instance to ints internal representation in Instances class in "int" format rather than double
-   *
-   * @param instance
-   * @return
-   */
-  public static int[] toIntArray(Instance instance) {
-    int[] result = new int[instance.numValues()]; //assert numValues == numAttributes data is not sparse
-    for (int i = 0; i < result.length; i++) {
-      result[i] = (int) instance.value(i);
-    }
-    return result;
-  }
 
 
 }

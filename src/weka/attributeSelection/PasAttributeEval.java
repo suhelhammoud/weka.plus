@@ -3,6 +3,9 @@ package weka.attributeSelection;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import utils.InstancesUtils;
+import utils.LSet;
+import utils.Pair;
 import weka.attributeSelection.pas.*;
 import weka.core.*;
 import weka.filters.Filter;
@@ -205,13 +208,13 @@ public class PasAttributeEval extends ASEvaluation implements
     data.setClassIndex(data.numAttributes() - 1);
     logger.debug("build pas evaluator");
 
-    Tuple<Collection<int[]>, int[]> linesLabels = PasUtils.mapIdataAndLabels(data);
+    Pair<Collection<int[]>, int[]> linesLabels = PasUtils.mapIdataAndLabels(data);
     Collection<int[]> lineData = linesLabels.k;
     int[] labelsCount = linesLabels.v;
 //
     logger.trace("original lines size ={}", lineData.size());
 
-    int[] numItems = PasUtils.countItemsInAttributes(data);
+    int[] numItems = InstancesUtils.countItemsInAttributes(data);
 
     int minFreq = (int) Math.ceil(pasOptions.getMinFrequency()
             * data.numInstances() + 1.e-6);
@@ -263,7 +266,7 @@ public class PasAttributeEval extends ASEvaluation implements
     );//exclude label class attribute
 
 
-    m_pas = PasUtils.normalizeVector(rawRanks);
+    m_pas = LSet.normalizeVector(rawRanks);
 
     if (pasOptions.getShowDebugMessages()) {
       String msg = PasUtils.printResult(items,
