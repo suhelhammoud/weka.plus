@@ -34,7 +34,7 @@ public class CData {
     this.labelIdex = data.length - 1;
     this.labels = data[labelIdex];
     this.numLabels = numItems[labelIdex];
-    this.numAttributes = labelIdex;
+    this.numAttributes = data.length - 1;
     this.numInstances = labels.length;
   }
 
@@ -42,7 +42,11 @@ public class CData {
     return IntStream.range(0, numAttributes).boxed().collect(Collectors.toSet());
   }
 
-  public  int value(int att, int line) {
+  public int[] attributesIndices() {
+    return IntStream.range(0, numAttributes).toArray();
+  }
+
+  public int value(int att, int line) {
     return data[att][line];
   }
 
@@ -237,6 +241,14 @@ public class CData {
     return result;
   }
 
+
+  public int[][][] countStep(){
+    return countStep(allLines());
+  }
+
+  public int[][][] countStep(int[] lines) {
+    return countStep(lines, attributesIndices());
+  }
 
   public int[][][] countStep(int[] lines,
                              int[] availableAttributes) {

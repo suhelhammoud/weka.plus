@@ -3,8 +3,6 @@ package weka.attributeSelection.pas;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import utils.*;
-import weka.classifiers.rules.odri.ORuleLines;
-import weka.core.Instance;
 import weka.core.Instances;
 
 import java.util.*;
@@ -59,9 +57,6 @@ public class PasUtils {
                                                       double minConfidence,
                                                       boolean addDefaultItem) {
     List<PasItem> items = new ArrayList<>();
-
-
-
 
     int[] remainingLines = cdata.allLines();
     int lineDataSize = remainingLines.length;
@@ -193,22 +188,19 @@ public class PasUtils {
 
 
   public static Pair<PasItem, int[]> calcStepItem(CData cdata,
-                                                  int[] lineData,
+                                                  int[] lines,
                                                   int minFreq,
                                                   double minConfidence) {
 
-    if (lineData.length < minFreq) return null;
+    if (lines.length < minFreq) return null;
 
-    /** Start with all attributes, does not include the label attribute*/
-    Set<Integer> availableAttributes = cdata.attributeSet();
-
-    int[][][] stepCount = cdata.countStep(lineData, LSet.intsToArray((availableAttributes)));
+    /* Start with all attributes, does not include the label attribute*/
+    int[][][] stepCount = cdata.countStep(lines);
 
     PasMax mx = PasMax.ofThreshold(stepCount, minFreq, minConfidence);
     if (mx.getLabel() == PasMax.EMPTY) {
       System.out.println("EMPTY PasMax");
       return null; //TODO not reached, check carefully
-
     }
 
     //found best next item
@@ -217,14 +209,13 @@ public class PasUtils {
     assert mx.getBestItem() >= 0;
 
     //rule with more attributes conditions
-    final PasItem item = new PasItem(mx.getLabel(), mx.getBestCorrect(), mx.getBestCover());
+    final PasItem item = new PasItem(mx.getLabel(),
+            mx.getBestCorrect(),
+            mx.getBestCover());
     item.addTest(mx.getBestAtt(), mx.getBestItem(), mx.getBestCorrect());
 
-//    int[] notCoveredLines = Arrays.stream(lineData)
-//            .filter(line -> !item.canCoverInstance(cdata.instance(line)))
-//            .toArray();
-    int[] notCoveredLines =
-            filterFor(cdata.att(mx.getBestAtt()), lineData, mx.getBestItem());
+    int[] notCoveredLines = filterNotFor(cdata.att(mx.getBestAtt()), lines, mx.getBestItem());
+    assert lines.length - mx.getBestCover() == notCoveredLines.length;
 
     if (item.getLength() == 0) {//TODO more inspection is needed here
       return null;

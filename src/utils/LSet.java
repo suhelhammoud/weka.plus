@@ -321,5 +321,11 @@ public class LSet {
             .toArray();
   }
 
+  public static int[] filterNotFor(int[] attData, int[] lines, int item) {
+    return Arrays.stream(lines)
+            .filter(line -> attData[line] != item)
+            .toArray();
+  }
+
 
 }
