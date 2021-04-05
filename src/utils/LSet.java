@@ -1,6 +1,7 @@
 package utils;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class LSet {
@@ -300,6 +301,23 @@ public class LSet {
   public static int[] intsToArray(Set<Integer> set) {
     return set.stream()
             .mapToInt(Number::intValue)
+            .toArray();
+  }
+
+  public static int[] intArrayExclude(int last) {
+    return IntStream.range(0, last).toArray();
+  }
+
+  public static Set<Integer> intSetExclude(int last) {
+    return Arrays.stream(intArrayExclude(last))
+            .boxed()
+            .collect(Collectors.toSet());
+  }
+
+
+  public static int[] filterFor(int[] attData, int[] lines, int item) {
+    return Arrays.stream(lines)
+            .filter(line -> attData[line] == item)
             .toArray();
   }
 

@@ -3,6 +3,7 @@ package weka.attributeSelection;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import utils.CData;
 import utils.InstancesUtils;
 import utils.LSet;
 import utils.Pair;
@@ -208,11 +209,12 @@ public class PasAttributeEval extends ASEvaluation implements
     data.setClassIndex(data.numAttributes() - 1);
     logger.debug("build pas evaluator");
 
-    Pair<Collection<int[]>, int[]> linesLabels = PasUtils.mapIdataAndLabels(data);
-    Collection<int[]> lineData = linesLabels.k;
-    int[] labelsCount = linesLabels.v;
+    CData cdata = CData.of(data);
+//    Pair<Collection<int[]>, int[]> linesLabels = PasUtils.mapIdataAndLabels(data);
+//    Collection<int[]> lineData = linesLabels.k;
+//    int[] labelsCount = linesLabels.v;
 //
-    logger.trace("original lines size ={}", lineData.size());
+    logger.trace("original lines size ={}", cdata.numInstances);
 
     int[] numItems = InstancesUtils.countItemsInAttributes(data);
 
@@ -224,11 +226,11 @@ public class PasAttributeEval extends ASEvaluation implements
 
     final PasMethod pasMethod2 = pasOptions.getPasMethodEnum();
 
+    logger.debug("pathMethod = {}", pasMethod2);
+
     switch (pasMethod2) {
       case rules:
-        items = PasUtils.evaluateAttributesRules(numItems,
-                labelsCount,
-                lineData,
+        items = PasUtils.evaluateAttributesRules(cdata,
                 minFreq,
                 pasOptions.getMinItemStrength(),
                 false);
@@ -237,9 +239,7 @@ public class PasAttributeEval extends ASEvaluation implements
         break;
       case rules1st:
 
-        items = PasUtils.evaluateAttributesRules1st(numItems,
-                labelsCount,
-                lineData,
+        items = PasUtils.evaluateAttributesRules1st(cdata,
                 minFreq,
                 pasOptions.getMinItemStrength(),
                 false);
@@ -248,9 +248,7 @@ public class PasAttributeEval extends ASEvaluation implements
 
         break;
       case items:
-        items = PasUtils.evaluateAttributesItems(numItems,
-                labelsCount,
-                lineData,
+        items = PasUtils.evaluateAttributesItems(cdata,
                 minFreq,
                 pasOptions.getMinItemStrength(),
                 false);
@@ -392,7 +390,7 @@ public class PasAttributeEval extends ASEvaluation implements
    */
   @Override
   public String getRevision() {
-    return RevisionUtils.extract("$Revision: 00007778 $"); //arbitrary number
+    return RevisionUtils.extract("$Revision: 00007278 $"); //arbitrary number
   }
 
   // ============

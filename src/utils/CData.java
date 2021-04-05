@@ -8,6 +8,9 @@ import weka.core.Instances;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static utils.LSet.*;
 import static utils.LSet.count;
@@ -22,6 +25,7 @@ public class CData {
   final public int[] numItems;
   final public int numLabels;
   final public int numAttributes;
+  final public int numInstances;
 
 
   public CData(int[][] data, int[] numItems) {
@@ -31,6 +35,23 @@ public class CData {
     this.labels = data[labelIdex];
     this.numLabels = numItems[labelIdex];
     this.numAttributes = labelIdex;
+    this.numInstances = labels.length;
+  }
+
+  public Set<Integer> attributeSet() {
+    return IntStream.range(0, numAttributes).boxed().collect(Collectors.toSet());
+  }
+
+  public  int value(int att, int line) {
+    return data[att][line];
+  }
+
+  public int[] instance(int line) {
+    int[] result = new int[numAttributes];
+    for (int att = 0; att < result.length; att++) {
+      result[att] = data[line][att];
+    }
+    return result;
   }
 
   public int[] att(int i) {
@@ -51,6 +72,10 @@ public class CData {
 
   public int[] countItems(int i, int[] lines) {
     return LSet.count(data[i], lines, numItems[i]);
+  }
+
+  public int[] countLabels(int[] lines) {
+    return LSet.count(labels, lines, numLabels);
   }
 
   public int[][] splitAtt(int i, int[] lines, int[] itemCount) {
@@ -76,6 +101,9 @@ public class CData {
     return new CData(data, numItems);
   }
 
+  public int[] allLines() {
+    return IntStream.range(0, numInstances).toArray();
+  }
 
   public static CData of(String filename) {
     return of(InstancesUtils.instancesOf(filename));
@@ -180,7 +208,7 @@ public class CData {
   public static int[][][] countStep(
           int[][] data,
           int[] numItems
-          ) {
+  ) {
 
     assert data.length == numItems.length;
     final int labelIndex = numItems.length - 1;
@@ -190,11 +218,11 @@ public class CData {
     //create array of One attributes, without the class name;
     int[][][] result = new int[data.length][][];
 
-    for (int attIndex = 0; attIndex < numItems.length ; attIndex++) {
+    for (int attIndex = 0; attIndex < numItems.length; attIndex++) {
       result[attIndex] = new int[numItems[attIndex]][numLabels];
     }
 
-    for (int attIndex = 0; attIndex < numItems.length ; attIndex++) {
+    for (int attIndex = 0; attIndex < numItems.length; attIndex++) {
       result[attIndex] = count(data[attIndex],
               numItems[attIndex],
               labels,
@@ -210,8 +238,8 @@ public class CData {
   }
 
 
-  public int[][][] countStep( int[] lines,
-                              int[] availableAttributes){
+  public int[][][] countStep(int[] lines,
+                             int[] availableAttributes) {
     return countStep(data, lines, numItems, availableAttributes);
   }
 

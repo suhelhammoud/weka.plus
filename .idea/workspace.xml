@@ -34,30 +34,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b4ffecf-fd2d-4ac9-8d65-3aedb6a8be09" name="Default" comment="Initial commit">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/CasAttributeEval.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/CasAttributeEval.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/Pas2AttributeEval.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/logback.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/CData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/CData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/LSet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/LSet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/PasAttributeEval.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/PasAttributeEval.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/cas/CData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/CData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/cas/CUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/cas/CUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/cas/CasEval.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/cas/CasItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/cas/CasItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/cas/CasTuple.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/Pair.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/cas/LSet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/LSet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/ATest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasMax.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/Tuple.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas2/CutOffPoint2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas2/PasItem2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas2/PasMax2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas2/PasMethod2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas2/PasOptions2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas2/PasUtils2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas2/Tuple2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/Pair.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/classifiers/rules/medri/Pair.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,6 +86,9 @@
       </set>
     </option>
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="1" />
+  </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
   </component>
@@ -135,7 +120,7 @@
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.tabs" />
+    <property name="settings.editor.selected.configurable" value="debugger.hotswap" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -277,7 +262,7 @@
       <option name="presentableId" value="Default" />
       <updated>1527227837904</updated>
       <workItem from="1617600132687" duration="8786000" />
-      <workItem from="1617609589404" duration="1331000" />
+      <workItem from="1617609589404" duration="11185000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1527230077442</created>
@@ -383,19 +368,19 @@
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/weka/attributeSelection/PasAttributeEval.java</url>
-          <line>261</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/weka/attributeSelection/PasAttributeEval.java</url>
-          <line>250</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/weka/attributeSelection/minfo/MinfoUtil.java</url>
           <line>129</line>
           <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/weka/attributeSelection/PasAttributeEval.java</url>
+          <line>228</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/weka/attributeSelection/pas/PasUtils.java</url>
+          <line>204</line>
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
