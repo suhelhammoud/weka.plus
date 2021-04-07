@@ -257,7 +257,7 @@ public class PasAttributeEval extends ASEvaluation implements
     }
 
 
-    double[] rawRanks = PasUtils.rankAttributes(
+    double[] rawRanks = PasUtils.rankAttributes2(
             items,
             data.numAttributes() - 1,
             pasMethod2

@@ -2,6 +2,7 @@ package odri.experiments;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import utils.experiments.TClassifier;
 import weka.attributeSelection.pas.PasMethod;
 
 import java.io.FileReader;

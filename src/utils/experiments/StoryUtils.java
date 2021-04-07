@@ -1,10 +1,7 @@
-package sensetivity;
+package utils.experiments;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import utils.experiments.Story;
-import utils.experiments.TClassifier;
-import utils.experiments.TEvaluator;
 import weka.attributeSelection.ASEvaluation;
 import weka.attributeSelection.AttributeEvaluator;
 import weka.attributeSelection.Ranker;
@@ -21,9 +18,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static utils.experiments.TClassifier.MEDRI;
+import static utils.experiments.TClassifier.ODRI_T;
 import static utils.experiments.TEvaluator.PAS;
-
-import utils.experiments.StoryKey;
 
 public class StoryUtils {
 
@@ -67,6 +63,10 @@ public class StoryUtils {
         double support = (double) story.get(StoryKey.support);
         double confidence = (double) story.get(StoryKey.confidence);
         return MEDRI.getWith(support, confidence);
+      case ODRI_T:
+        int minOcc = (int) story.get(StoryKey.minOcc);
+        boolean addDefaultRule = (boolean) story.get(StoryKey.addDefaultRule);
+        return ODRI_T.getWith(minOcc, addDefaultRule);
       default:
         tClassifier.get();
     }
@@ -113,8 +113,8 @@ public class StoryUtils {
 
 
   public static Story playStory(Story story,
-                                Instances data,
-                                boolean withEntropy) {
+                                          Instances data,
+                                          boolean withEntropy) {
 //        Story result = story.copy(StoryKey.dataset, data.relationName());
     Story result = story; //mutual data structure
     try {
@@ -143,9 +143,9 @@ public class StoryUtils {
 
 
   public static List<Story> generate(Story story,
-                                     PropsUtils props,
-                                     TEvaluator eval,
-                                     TClassifier classifier) {
+                                               PropsUtils props,
+                                               TEvaluator eval,
+                                               TClassifier classifier) {
 
     List<Story> result = new ArrayList<>();
     //set evalMethod and classifier
@@ -199,9 +199,9 @@ public class StoryUtils {
 
 
   public static List<Story> generateSami(Story story,
-                                         PropsUtils props,
-                                         TEvaluator eval,
-                                         TClassifier classifier) {
+                                                   PropsUtils props,
+                                                   TEvaluator eval,
+                                                   TClassifier classifier) {
 
     List<Story> result = new ArrayList<>();
     //set evalMethod and classifier
@@ -394,8 +394,8 @@ public class StoryUtils {
 
   //TODO does it work with this general method?
   public static <T> List<Story> propStories(Story story,
-                                            StoryKey skey,
-                                            List<T> skeyValues) {
+                                                      StoryKey skey,
+                                                      List<T> skeyValues) {
     return skeyValues.stream()
             .map(s -> story.copy(skey, s))
             .collect(Collectors.toList());

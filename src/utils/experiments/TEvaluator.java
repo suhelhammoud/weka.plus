@@ -1,4 +1,4 @@
-package sensetivity;
+package utils.experiments;
 
 import weka.attributeSelection.*;
 import weka.attributeSelection.pas.PasMethod;

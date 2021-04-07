@@ -1,21 +1,19 @@
-package sensetivity;
+package utils.experiments;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import utils.experiments.TClassifier;
-import utils.experiments.TEvaluator;
 import weka.attributeSelection.pas.PasMethod;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class PropsUtils extends Properties {
   static Logger logger = LoggerFactory.getLogger(PropsUtils.class.getName());
+//  static Random rnd = new Random(System.nanoTime());
+  static Random rnd = new Random(1L);//TODO change seed in production
 
   public static PropsUtils of(String fileName) throws IOException {
     PropsUtils result = new PropsUtils();
@@ -143,7 +141,7 @@ public class PropsUtils extends Properties {
   private Stream<String> getStream(String property, String defaultValue) {
     return Arrays.stream(getProperty(property, defaultValue)
             .trim().split("\\s+"))
-            .map(s -> s.trim())
+            .map(s -> s.trim()) //TODO no need for trim with regex \\s+
             .filter(s -> s.length() > 0);
   }
 
@@ -212,6 +210,7 @@ public class PropsUtils extends Properties {
 
     printRanks = Boolean.valueOf(getProperty("print.ranks", "false"));
   }
+
 
   public static void main(String[] args)
           throws IOException {

@@ -34,17 +34,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b4ffecf-fd2d-4ac9-8d65-3aedb6a8be09" name="Default" comment="Initial commit">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logback.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppLauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppLauncher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/logback.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logging.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/LSet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/LSet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/CutOffPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/CutOffPoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasMax.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/odri/experiments/FilesUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/odri/experiments/PropsUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/odri/experiments/PropsUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/odri/experiments/Story.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/odri/experiments/StoryDriverOdri.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/experiments/drivers/StoryDriverOdri.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/odri/experiments/StoryKey.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/odri/experiments/StoryUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/odri/experiments/StoryUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/odri/experiments/TClassifier.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/FilesUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/PropsUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/PropsUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/Story.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryDriver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryDriver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryDriverAutism.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/experiments/drivers/StoryDriverAutism.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryDriverL2Unbalanced.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/experiments/drivers/StoryDriverL2Unbalanced.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryDriverL2UnbalancedVariance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/experiments/drivers/StoryDriverL2UnbalancedVariance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryDriverTemp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/experiments/drivers/StoryDriverTemp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryKey.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensetivity/StoryUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/TClassifier.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensetivity/TEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/experiments/TEvaluator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/FilesUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/FilesUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/experiments/Story.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/experiments/Story.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/PasAttributeEval.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/PasAttributeEval.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/weka/attributeSelection/pas/PasUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/weka.plus.iml" beforeDir="false" afterPath="$PROJECT_DIR$/weka.plus.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/sensetivity/FilesUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/sensetivity/FilesUtilsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/sensetivity/StoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/sensetivity/StoryTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,12 +135,13 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/odri/experiments/TClassifier.java" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="debugger.hotswap" />
+    <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/src/odri/experiments/TClassifier.java" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -149,7 +165,7 @@
       <recent name="weka.attributeSelection" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.CutOffPoint">
+  <component name="RunManager" selected="Application.AppLauncher">
     <configuration name="AppLauncher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="AppLauncher" />
       <module name="weka.plus" />
@@ -214,17 +230,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="TEST_OBJECT" value="class" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
@@ -250,8 +255,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.CutOffPoint" />
         <item itemvalue="Application.AppLauncher" />
+        <item itemvalue="Application.CutOffPoint" />
         <item itemvalue="Application.GUILauncher" />
         <item itemvalue="Application.Ttemp" />
         <item itemvalue="Application.CData" />
@@ -270,6 +275,7 @@
       <workItem from="1617609589404" duration="14840000" />
       <workItem from="1617635819543" duration="4295000" />
       <workItem from="1617640170789" duration="4061000" />
+      <workItem from="1617813910047" duration="476000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1527230077442</created>

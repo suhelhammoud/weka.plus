@@ -1,9 +1,12 @@
-package sensetivity;
+package utils.experiments.drivers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import utils.FilesUtils;
+//import utils.experiments.StoryUtils;
+//import utils.experiments.StoryUtils;
+import utils.experiments.PropsUtils;
 import utils.experiments.Story;
+import utils.experiments.StoryUtils;
 import weka.core.Instances;
 
 import java.io.IOException;
@@ -12,6 +15,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static utils.FilesUtils.*;
+import static utils.InstancesUtils.instancesOf;
 
 public class StoryDriver {
 
@@ -25,7 +31,7 @@ public class StoryDriver {
 
     Path confPath = Paths.get(confName);
 
-    Path resultDir = FilesUtils.createOutDir(params.getOutDir());
+    Path resultDir = createOutDir(params.getOutDir());
     logger.info("result directory : {}", resultDir.toString());
 
     //copy config file to output
@@ -34,7 +40,7 @@ public class StoryDriver {
 
     List<String> dataSetsNames = params.getDatasets();
 
-    List<Path> arffDatasets = FilesUtils.listFiles(
+    List<Path> arffDatasets = listFiles(
             params.getArffDir(),
             ".arff").stream()
             .filter(path -> dataSetsNames.contains(
@@ -44,7 +50,7 @@ public class StoryDriver {
 
     for (Path datasetPath : arffDatasets) {
 
-      Instances data = FilesUtils.instancesOf(datasetPath);
+      Instances data = instancesOf(datasetPath);
       data.setClassIndex(data.numAttributes() - 1);
 
       List<Story> stories = StoryUtils.generateStories(params, data);
@@ -57,7 +63,7 @@ public class StoryDriver {
                 StoryUtils.playStory(story, data, true);
               });
 
-      FilesUtils.writeStoriesToFile(resultDir,
+      writeStoriesToFile(resultDir,
               datasetPath.getFileName().toString() + ".csv"
               , stories);
     }
@@ -71,7 +77,7 @@ public class StoryDriver {
 
     Path confPath = Paths.get(confName);
 
-    Path resultDir = FilesUtils.createOutDir(params.getOutDir());
+    Path resultDir = createOutDir(params.getOutDir());
     logger.info("result directory : {}", resultDir.toString());
 
     //copy config file to output
@@ -80,7 +86,7 @@ public class StoryDriver {
 
     List<String> dataSetsNames = params.getDatasets();
 
-    List<Path> arffDatasets = FilesUtils.listFiles(
+    List<Path> arffDatasets = listFiles(
             params.getArffDir(),
             ".arff").stream()
             .filter(path -> dataSetsNames.contains(
@@ -90,7 +96,7 @@ public class StoryDriver {
 
     for (Path datasetPath : arffDatasets) {
 
-      Instances data = FilesUtils.instancesOf(datasetPath);
+      Instances data = instancesOf(datasetPath);
       data.setClassIndex(data.numAttributes() - 1);
 
       List<Story> stories = StoryUtils.generateStoriesSami(params, data);
@@ -103,7 +109,7 @@ public class StoryDriver {
                 StoryUtils.playStory(story, data, true);
               });
 
-      FilesUtils.writeStoriesToFile(resultDir,
+      utils.FilesUtils.writeStoriesToFile(resultDir,
               datasetPath.getFileName().toString() + ".csv"
               , stories);
     }

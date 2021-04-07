@@ -1,7 +1,13 @@
-package sensetivity;
+package utils.experiments.drivers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sensetivity.PropsUtils;
+import utils.FilesUtils;
+import utils.experiments.Story;
+import utils.experiments.StoryKey;
+import utils.experiments.TClassifier;
+import utils.experiments.TEvaluator;
 import weka.attributeSelection.ASEvaluation;
 import weka.attributeSelection.Ranker;
 import weka.classifiers.Classifier;
@@ -20,7 +26,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static sensetivity.StoryUtils.getASEvaluation;
-import static sensetivity.TClassifier.NB;
+import static utils.experiments.TClassifier.NB;
 
 public class StoryDriverAutism {
 

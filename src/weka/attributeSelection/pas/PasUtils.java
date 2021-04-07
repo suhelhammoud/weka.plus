@@ -52,6 +52,35 @@ public class PasUtils {
     return result;
   }
 
+  public static double[] rankAttributes2(List<PasItem> items,
+                                        int numAttributes,
+                                        PasMethod pasMethod) {
+
+
+
+    double[] result = new double[numAttributes];
+
+    for (PasItem item : items) {
+      final double weight = item.getCorrect() / item.getLength();
+      final double weightFirst = item.getFirstCorrect() ;
+
+      switch (pasMethod) {
+        case rules:
+          for (int aIndex : item.getAttIndexes()) {
+            result[aIndex] += weight;
+          }
+          break;
+        case rules1st:
+          result[item.getAttIndexes()[0]] += weightFirst;
+          break;
+        case items:
+          result[item.getAttIndexes()[0]] += weight;
+          break;
+      }
+    }
+    return result;
+  }
+
   public static List<PasItem> evaluateAttributesItems(CData cdata,
                                                       int minFreq,
                                                       double minConfidence,

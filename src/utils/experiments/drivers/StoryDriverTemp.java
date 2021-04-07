@@ -1,7 +1,13 @@
-package sensetivity;
+package utils.experiments.drivers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sensetivity.PropsUtils;
+import utils.FilesUtils;
+import utils.experiments.Story;
+import utils.experiments.StoryKey;
+import utils.experiments.TClassifier;
+import utils.experiments.TEvaluator;
 import weka.attributeSelection.ASEvaluation;
 import weka.attributeSelection.Ranker;
 import weka.classifiers.Classifier;
@@ -15,16 +21,20 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static sensetivity.StoryUtils.getASEvaluation;
-import static sensetivity.TClassifier.NB;
+import static utils.experiments.StoryUtils.getASEvaluation;
+import static utils.experiments.TClassifier.NB;
 
-public class StoryDriverL2Unbalanced {
 
-  static Logger logger = LoggerFactory.getLogger(StoryDriverL2Unbalanced.class.getName());
+public class StoryDriverTemp {
+
+  static Logger logger = LoggerFactory.getLogger(StoryDriverTemp.class.getName());
 
 
   public static Instances applyFilter(Story story, Instances data) {
@@ -36,20 +46,37 @@ public class StoryDriverL2Unbalanced {
       return new Instances(data);
     } else {
 
-      AttributeSelection attEval = getAttributeSelection(story);
+      AttributeSelection attEval = getAttributeSelectionFilter(story);
+
       try {
         attEval.setInputFormat(data);
-
         return Filter.useFilter(data, attEval);
       } catch (Exception e) {
         e.printStackTrace();
         logger.error("exception in numAttributesToSelect filter");
       }
-      return new Instances(data);//this line should be never reached
+      return new Instances(data);//TODO , never reached
     }
   }
 
-  public static AttributeSelection getAttributeSelection(Story story) {
+  public static Instances applyAttSelectionFilter(
+          AttributeSelection attEval, Instances data) {
+    int numAttributes = data.numAttributes() - 1;//minus class attribute
+    int numToSelect = ((Ranker) attEval.getSearch()).getNumToSelect();
+
+    if (numAttributes <= numToSelect)
+      return new Instances(data);
+    try {
+      attEval.setInputFormat(data);
+      return Filter.useFilter(data, attEval);
+    } catch (Exception e) {
+      e.printStackTrace();
+      logger.error("exception in numAttributesToSelect filter");
+    }
+    return null;//TODO , change to throw exception
+  }
+
+  public static AttributeSelection getAttributeSelectionFilter(Story story) {
 
     int numToSelect = (int) story.get(StoryKey.numAttributesToSelect);
 
@@ -94,8 +121,8 @@ public class StoryDriverL2Unbalanced {
 
   //TODO does it work with this general method?
   public static <T> List<Story> propStories(Story story,
-                                                      StoryKey skey,
-                                                      List<T> skeyValues) {
+                                            StoryKey skey,
+                                            List<T> skeyValues) {
     return skeyValues.stream()
             .map(s -> story.copy(skey, s))
             .collect(Collectors.toList());
@@ -136,10 +163,9 @@ public class StoryDriverL2Unbalanced {
   public static List<Story> setRepeat(List<Story> stories, int iteration) {
     return stories.stream()
             .map(s -> s.copy()
-                            .set(StoryKey.l2ClassExperimentIteration, iteration + 1)
-//                        .set(StoryKey.l2ClassExperimentID, s.id)
-            )
-            .collect(Collectors.toList());
+                    .set(StoryKey.l2ClassExperimentIteration, iteration + 1)
+                    .set(StoryKey.experimentID, s.id)
+            ).collect(Collectors.toList());
   }
 
   public static Story applyCrossValidation(
@@ -153,11 +179,18 @@ public class StoryDriverL2Unbalanced {
     Evaluation eval = new Evaluation(train);
     //TODO change seed selection method
     eval.crossValidateModel(classifier, train, 10, new Random(1)); //TODO check random seed
-//        result.set(StoryKey.classifier, TClassifier.NB);
+    //result.set(StoryKey.classifier, TClassifier.NB);
     result.set(StoryKey.errorRate, eval.errorRate());
     result.set(StoryKey.precision, eval.weightedPrecision());
     result.set(StoryKey.recall, eval.weightedRecall());
     result.set(StoryKey.fMeasure, eval.weightedFMeasure());
+    //added for the autism dataset test updates
+
+
+    result.set(StoryKey.areaUnderROC0, eval.areaUnderROC(0));//
+    result.set(StoryKey.areaUnderROC1, eval.areaUnderROC(1));//
+    result.set(StoryKey.weightedAreaUnderROC, eval.weightedAreaUnderROC());
+
     return result;
   }
 
@@ -166,7 +199,7 @@ public class StoryDriverL2Unbalanced {
     Random rnd = new Random(0);
     StoryKey[] headers = getStorykeysHeaders();
 
-    String confName = args.length > 0 ? args[0] : "data/experimentL2Unbalanced.properties";
+    String confName = args.length > 0 ? args[0] : "data/conf_l2_aut.properties";
     PropsUtils params = PropsUtils.of(confName);
 
     Path confPath = Paths.get(confName);
@@ -176,7 +209,8 @@ public class StoryDriverL2Unbalanced {
 
     //copy config file to output
     Files.copy(confPath,
-            resultDir.getParent().resolve(resultDir.getFileName() + ".properties"));
+            resultDir.getParent().resolve(resultDir.getFileName() + "_" + confPath.getFileName()));
+//            resultDir.getParent().resolve(resultDir.getFileName() + ".properties"));
 
     List<String> dataSetsNames = params.getDatasets();
 
@@ -214,8 +248,6 @@ public class StoryDriverL2Unbalanced {
                 eval);
 
         for (int iteration = 0; iteration < repeat; iteration++) {
-
-
           Instances unbalancedData = applyResampleClassFilter(data,
                   resampleSize,
                   classRatios.get(ratioIndex),
@@ -224,23 +256,24 @@ public class StoryDriverL2Unbalanced {
 
           unbalancedData.setRelationName(data.relationName());
           List<Story> iterStories = setRepeat(expStories, iteration);
-
           iterStories.parallelStream()
                   .forEach(
                           s -> playStory(s, unbalancedData)
                   );
-
           stories.addAll(iterStories);
         }
       }
 
+//      List<Story> avgStories = stories;
       List<Story> avgStories = storiesWithAvg(stories,
               StoryKey.errorRate,
               StoryKey.precision,
               StoryKey.recall,
-              StoryKey.fMeasure);
+              StoryKey.fMeasure,
+              StoryKey.weightedAreaUnderROC,
+              StoryKey.areaUnderROC0,
+              StoryKey.areaUnderROC1);
 
-//            List<Story> avgStories = stories;
       FilesUtils.writeStoriesToFile(resultDir,
               datasetPath.getFileName().toString() + ".csv"
               , avgStories, headers);
@@ -257,58 +290,76 @@ public class StoryDriverL2Unbalanced {
             StoryKey.l2ClassRepeat,
             StoryKey.l2ResampleSizeRatio,
             StoryKey.numAttributesToSelect,
+            StoryKey.experimentID,
             StoryKey.l2ClassRatio,
             StoryKey.errorRate,
+            StoryKey.errorRateVariance,
             StoryKey.precision,
+            StoryKey.precisionVariance,
             StoryKey.recall,
-            StoryKey.fMeasure
+            StoryKey.recallVariance,
+            StoryKey.fMeasure,
+            StoryKey.fMeasureVariance,
+            StoryKey.weightedAreaUnderROC,
+            StoryKey.weightedAreaUnderROCVariance,
+            StoryKey.areaUnderROC0,
+            StoryKey.areaUnderROC0Variance,
+            StoryKey.areaUnderROC1,
+            StoryKey.areaUnderROC1Variance,
     };
   }
 
-  ;
+
+  private static Story storyWithAvgVar(List<Story> subStories, StoryKey... keys) {
+    Story outStory = subStories.get(0).copy();
+
+    //calc Average
+    for (StoryKey key : keys) {
+      double avg = subStories.stream()
+              .mapToDouble(s -> (Double) s.get(key))
+              .average()
+              .getAsDouble();
+      outStory.set(key, avg);
+
+      if (StoryKey.contains(key.name() + "Variance")) {
+        double variance = subStories.stream()
+                .mapToDouble(s -> Math.pow((Double) s.get(key) - avg, 2))
+                .sum() / subStories.size();
+
+        StoryKey keyVar = StoryKey.valueOf(key.name() + "Variance");
+        outStory.set(keyVar, variance);
+      }
+    }
+    return outStory;
+  }
 
   public static List<Story> storiesWithAvg(List<Story> stories, StoryKey... keys) {
-    List<Story> result = new ArrayList<>();
 
     Map<Long, List<Story>> mappedStories = stories.stream()
             .collect(Collectors.groupingBy(item -> (Long) item.get(StoryKey.experimentID)));
 
-    for (List<Story> subStories : mappedStories.values()) {
-      Story outStory = subStories.get(0).copy();
-
-      for (StoryKey key : keys) {
-        double dbl = subStories.stream()
-                .mapToDouble(s -> (Double) s.get(key))
-                .average()
-                .getAsDouble();
-        outStory.set(key, dbl);
-      }
-
-      result.add(outStory);
-    }
-
-    return result;
+    return mappedStories.values().stream()
+            .parallel()
+            .map(stories1 -> storyWithAvgVar(stories1, keys))
+            .collect(Collectors.toList());
   }
-
-  ;
 
   public static void playStory(Story story, Instances data) {
 //        if(true) return;
-    Instances dataFiltered = applyFilter(story, data);
+    AttributeSelection attSelectionFilter = getAttributeSelectionFilter(story);
+    Instances dataFiltered = applyAttSelectionFilter(attSelectionFilter, data);
+//    Instances dataFiltered = applyFilter(story, data);
     assert (int) story.get(StoryKey.numAttributesToSelect) == dataFiltered.numAttributes() - 1;
     Classifier classifier = NB.get(); //Can initiate it dynamically from story
-
     try {
       Story cvStory = applyCrossValidation(dataFiltered, classifier);
       story.update(cvStory);
-
     } catch (Exception e) {
       e.printStackTrace();
     }
   }
 
   public static void main(String[] args) throws IOException {
-    experimentL2Unbalanced("data/conf_l2_unbalanced.properties");
+    experimentL2Unbalanced("data/conf_l2_aut.properties");
   }
-
 }

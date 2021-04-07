@@ -2,6 +2,9 @@ package odri.experiments;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import utils.experiments.Story;
+import utils.experiments.StoryKey;
+import utils.experiments.TClassifier;
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
 import weka.classifiers.rules.ODRI;
@@ -15,8 +18,9 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static odri.experiments.TClassifier.MEDRI;
-import static odri.experiments.TClassifier.ODRI_T;
+import static utils.experiments.TClassifier.MEDRI;
+import static utils.experiments.TClassifier.ODRI_T;
+
 
 public class StoryUtils {
 

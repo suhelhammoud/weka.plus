@@ -2,6 +2,8 @@ package utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import utils.experiments.Story;
+import utils.experiments.StoryKey;
 import weka.core.Instance;
 import weka.core.Instances;
 
@@ -46,22 +48,6 @@ public class FilesUtils {
   }
 
 
-  private static String suggestName(String outDir) {
-    for (int i = 0; i < 1000000; i++) {
-      Path path = Paths.get(outDir, String.valueOf(i));
-      if (!path.toFile().exists()) {
-        return path.toAbsolutePath().toString();
-      }
-    }
-    logger.error("Could not generate outpath from {}", outDir);
-    return "/tmp/" + outDir + System.nanoTime(); //never reached TODO
-  }
-
-  public static Path createOutDir(String outDir) {
-    Path outPath = Paths.get(suggestName(outDir));
-    outPath.toFile().mkdirs();
-    return outPath.toAbsolutePath();
-  }
 
 
 
@@ -98,5 +84,51 @@ public class FilesUtils {
     }
     return result;
   }
+
+
+  public static boolean writeStoriesToFile(Path outDir,
+                                           String filename,
+                                           List<Story> stories,
+                                           StoryKey... keys) {
+
+    List<String> content = new ArrayList<>(stories.size() + 2);
+    content.add(keys.length > 0 ?
+            StoryKey.csvHeaders(keys) :
+            StoryKey.csvHeaders());
+
+    content.addAll(stories.stream()
+            .map(s -> s.stringValues(keys))
+            .collect(Collectors.toList()));
+    return writeToFile(outDir, filename, content);
+  }
+
+  private static String suggestName(String outDir) {
+    for (int i = 0; i < 1000000; i++) {
+      Path path = Paths.get(outDir, String.valueOf(i));
+      if (!path.toFile().exists()) {
+        return path.toAbsolutePath().toString();
+      }
+    }
+    logger.error("Could not generate outpath from {}", outDir);
+    return "/tmp/" + outDir + System.nanoTime(); //never reached TODO
+  }
+
+  public static Path createOutDir(String outDir) {
+    Path outPath = Paths.get(suggestName(outDir));
+    outPath.toFile().mkdirs();
+    return outPath.toAbsolutePath();
+  }
+
+
+  public static Instances instancesOf(Path path) {
+    try {
+      return new Instances(new FileReader(path.toFile()));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    logger.error("Could not generate Instances from {}", path.toString());
+    return null;
+  }
+
 
 }
