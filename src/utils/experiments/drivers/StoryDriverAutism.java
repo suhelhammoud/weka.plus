@@ -2,12 +2,8 @@ package utils.experiments.drivers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sensetivity.PropsUtils;
 import utils.FilesUtils;
-import utils.experiments.Story;
-import utils.experiments.StoryKey;
-import utils.experiments.TClassifier;
-import utils.experiments.TEvaluator;
+import utils.experiments.*;
 import weka.attributeSelection.ASEvaluation;
 import weka.attributeSelection.Ranker;
 import weka.classifiers.Classifier;
@@ -25,7 +21,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static sensetivity.StoryUtils.getASEvaluation;
 import static utils.experiments.TClassifier.NB;
 
 public class StoryDriverAutism {
@@ -33,27 +28,6 @@ public class StoryDriverAutism {
   static Logger logger = LoggerFactory.getLogger(StoryDriverAutism.class.getName());
 
 
-  public static Instances applyFilter(Story story, Instances data) {
-
-    int numAttributes = (int) story.get(StoryKey.numAttributes);
-    int numToSelect = (int) story.get(StoryKey.numAttributesToSelect);
-
-    if (numAttributes == numToSelect) {
-      return new Instances(data);
-    } else {
-
-      AttributeSelection attEval = getAttributeSelectionFilter(story);
-
-      try {
-        attEval.setInputFormat(data);
-        return Filter.useFilter(data, attEval);
-      } catch (Exception e) {
-        e.printStackTrace();
-        logger.error("exception in numAttributesToSelect filter");
-      }
-      return new Instances(data);//TODO , never reached
-    }
-  }
 
   public static Instances applyAttSelectionFilter(
           AttributeSelection attEval, Instances data) {
@@ -79,7 +53,7 @@ public class StoryDriverAutism {
     Ranker search = new Ranker();
     search.setNumToSelect(numToSelect);
 
-    ASEvaluation evaluator = getASEvaluation(story);
+    ASEvaluation evaluator = StoryUtils.getASEvaluation(story);
 
     AttributeSelection result = new AttributeSelection();
     result.setEvaluator(evaluator);

@@ -6,8 +6,13 @@ import org.slf4j.LoggerFactory;
 //import utils.experiments.StoryUtils;
 import utils.experiments.PropsUtils;
 import utils.experiments.Story;
+import utils.experiments.StoryKey;
 import utils.experiments.StoryUtils;
+import weka.attributeSelection.ASEvaluation;
+import weka.attributeSelection.Ranker;
 import weka.core.Instances;
+import weka.filters.Filter;
+import weka.filters.supervised.attribute.AttributeSelection;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,11 +23,51 @@ import java.util.stream.Collectors;
 
 import static utils.FilesUtils.*;
 import static utils.InstancesUtils.instancesOf;
+import static utils.experiments.StoryUtils.getASEvaluation;
+import static utils.experiments.TClassifier.NB;
 
 public class StoryDriver {
 
   static Logger logger = LoggerFactory.getLogger(StoryDriver.class.getName());
 
+
+
+  public static AttributeSelection getAttributeSelection(Story story) {
+
+    int numToSelect = (int) story.get(StoryKey.numAttributesToSelect);
+
+    Ranker search = new Ranker();
+    search.setNumToSelect(numToSelect);
+
+    ASEvaluation evaluator = getASEvaluation(story);
+
+    AttributeSelection result = new AttributeSelection();
+    result.setEvaluator(evaluator);
+    result.setSearch(search);
+    return result;
+  }
+
+  public static Instances applyFilter(Story story, Instances data) {
+
+    int numAttributes = (int) story.get(StoryKey.numAttributes);
+    int numToSelect = (int) story.get(StoryKey.numAttributesToSelect);
+
+    if (numAttributes == numToSelect) {
+      return new Instances(data);
+    } else {
+
+      AttributeSelection attEval = getAttributeSelection(story);
+      try {
+        attEval.setInputFormat(data);
+
+        return Filter.useFilter(data, attEval);
+      } catch (Exception e) {
+        e.printStackTrace();
+        logger.error("exception in numAttributesToSelect filter");
+      }
+      return new Instances(data);//this line should be never reached
+    }
+  }
 
   public static void experiment1(String... args) throws IOException {
 
@@ -114,6 +159,7 @@ public class StoryDriver {
               , stories);
     }
   }
+
 
 
   public static void main(String[] args) throws IOException {

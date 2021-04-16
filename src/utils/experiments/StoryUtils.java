@@ -410,6 +410,40 @@ public class StoryUtils {
   }
 
 
+
+  public static List<Story> propStoriesMinOcc(Story story) {
+    final int numInstances = (int) story.get(StoryKey.numInstances);
+    return IntStream.range(1, numInstances)
+            .mapToObj(i -> story.copy(
+                    StoryKey.minOcc, i,
+                    StoryKey.minOccPC, (double) i / numInstances))
+            .collect(Collectors.toList());
+  }
+
+  public static List<Story> storiesForDefaultRules(List<Story> stories) {
+    List<Story> result = new ArrayList<>(stories.size() * 2);
+    for (Story st : stories) {
+      result.add(st.copy().set(StoryKey.addDefaultRule, false));
+      result.add(st.copy().set(StoryKey.addDefaultRule, true));
+    }
+    return result;
+  }
+
+
+  public static List<Story> generateStoriesODRI(Instances data) {
+    Story bs = Story.get()
+            .set(StoryKey.dataset, data.relationName())
+            .set(StoryKey.numInstances, data.numInstances())
+            .set(StoryKey.numAttributes, data.numAttributes() - 1);
+    bs.set(StoryKey.classifier, ODRI_T);
+
+    List<Story> result = new ArrayList<>(data.numInstances() * 2);
+    List<Story> tmp = propStoriesMinOcc(bs);
+    result.addAll(storiesForDefaultRules(tmp));
+
+    return result;
+  }
+
   public static void main(String[] args) throws Exception {
 //        runDemo("data/demo1.properties");
 //        experiment1("data/conf.properties");
