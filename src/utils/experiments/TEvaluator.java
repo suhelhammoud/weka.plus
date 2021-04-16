@@ -6,7 +6,7 @@ import weka.attributeSelection.pas.PasMethod;
 public enum TEvaluator {
   IG, CHI, L2, PAS;
 
-  public ASEvaluation get() {
+  public ASEvaluation aseEvaluation() {
     switch (this) {
       case IG:
         return new InfoGainAttributeEval();
@@ -30,7 +30,7 @@ public enum TEvaluator {
    *             args[3]: cutoffThreshold
    * @return
    */
-  public ASEvaluation getWith(Object... args) {
+  public ASEvaluation aseEvaluationWith(Object... args) {
     switch (this) {
       case PAS:
         PasAttributeEval result = new PasAttributeEval();
@@ -40,7 +40,7 @@ public enum TEvaluator {
         result.setCutOffThreshold((Double) args[3]);
         return result;
       default:
-        return get();
+        return aseEvaluation();
     }
   }
 

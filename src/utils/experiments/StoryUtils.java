@@ -35,12 +35,12 @@ public class StoryUtils {
         double cutoffThreshold = (double) story.get(StoryKey.cutoffThreshold);
         PasMethod pasmethod = (PasMethod) story.get(StoryKey.pasMethod);
 
-        return (T) PAS.getWith(evalSupport,
+        return (T) PAS.aseEvaluationWith(evalSupport,
                 evalConfidence,
                 pasmethod,
                 cutoffThreshold);
       default:
-        return (T) tEvaluator.get();
+        return (T) tEvaluator.aseEvaluation();
     }
   }
 

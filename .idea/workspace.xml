@@ -34,37 +34,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b4ffecf-fd2d-4ac9-8d65-3aedb6a8be09" name="Default" comment="Initial commit">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_1_21,_6_31_PM_[Default]1/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_1_21__6_31_PM__Default_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_2_21,_8_18_PM_[Default]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_2_21,_8_27_PM_[Default]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_2_21__8_18_PM__Default_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_2_21__8_27_PM__Default_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_4_21,_10_39_AM_[Default]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_4_21,_11_21_AM_[Default]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_4_21,_8_17_PM_[Default]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_4_21__10_39_AM__Default_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_4_21__11_21_AM__Default_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_4_21__8_17_PM__Default_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/odri/experiments/PropsUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/odri/experiments/StoryUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/odri/experiments/odricsv/ORLine.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/odri/experiments/odricsv/ORTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/odri/experiments/odricsv/RTags.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/PropsUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryDriver.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/StoryUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/l2/L2RLine.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/l2/L2RTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensetivity/l2/RTags.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/experiments/StoryUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/experiments/StoryUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/experiments/drivers/StoryDriver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/experiments/drivers/StoryDriver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/experiments/drivers/StoryDriverAutism.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/experiments/drivers/StoryDriverAutism.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/experiments/drivers/StoryDriverL2Unbalanced.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/experiments/drivers/StoryDriverL2UnbalancedVariance.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/experiments/drivers/StoryDriverOdri.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/experiments/drivers/StoryDriverOdri.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/experiments/drivers/StoryDriverTemp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/experiments/drivers/StoryDriverTemp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/experiments/TEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/experiments/TEvaluator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,7 +121,7 @@
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="reference.idesettings.debugger.capture" />
     <property name="show.migrate.to.gradle.popup" value="false" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/src/odri/experiments/TClassifier.java" />
   </component>
@@ -179,7 +151,6 @@
     <configuration name="AppLauncher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="AppLauncher" />
       <module name="weka.plus" />
-      <option name="VM_PARAMETERS" value="-ea" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -291,6 +262,7 @@
       <workItem from="1618374584079" duration="33000" />
       <workItem from="1618374635881" duration="4105000" />
       <workItem from="1618558807830" duration="126000" />
+      <workItem from="1618558957183" duration="2395000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1527230077442</created>
