@@ -12,11 +12,11 @@ class StoryTest {
 
   @Test
   void of() {
-    Story a = Story.get()
+    Story a = Story.create()
             .set(StoryKey.dataset, "ds1")
             .set(StoryKey.attEvalMethod, TEvaluator.IG);
 
-    Story b = Story.get()
+    Story b = Story.create()
             .set(StoryKey.dataset, "ds2")
             .set(StoryKey.errorRate, 0);
 
@@ -27,7 +27,7 @@ class StoryTest {
 
   @Test
   void copy() {
-    Story s = Story.get()
+    Story s = Story.create()
             .set(StoryKey.numAttributes, 10)
             .set(StoryKey.numInstances, 100);
     assertEquals(2, s.size());
@@ -48,11 +48,11 @@ class StoryTest {
             StoryKey.numInstances,
             StoryKey.confidence};
 
-    Story s1 = Story.get()
+    Story s1 = Story.create()
             .set(StoryKey.numAttributes, 10)
             .set(StoryKey.numInstances, 100)
             .set(StoryKey.confidence, .112233);
-    Story s2 = Story.get()
+    Story s2 = Story.create()
             .set(StoryKey.numAttributes, 10)
             .set(StoryKey.numInstances, 100)
             .set(StoryKey.confidence, .112233);

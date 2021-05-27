@@ -5,11 +5,12 @@ import weka.classifiers.bayes.NaiveBayes;
 import weka.classifiers.rules.MeDRI;
 import weka.classifiers.rules.ODRI;
 import weka.classifiers.rules.medri.MedriOptions;
+import weka.classifiers.trees.J48;
 
 public enum TClassifier {
-  NB, MEDRI, ODRI_T;
+  NB, MEDRI, ODRI_T, J48_T;
 
-  public Classifier get() {
+  public Classifier classifier() {
     switch (this) {
       case NB:
         return new NaiveBayes();
@@ -17,13 +18,15 @@ public enum TClassifier {
         return new MeDRI();
       case ODRI_T:
         return new ODRI();
+      case J48_T:
+        return new J48();
       default:
         System.err.println(name() + " unknown Classifier");
     }
     return null;
   }
 
-  public Classifier getWith(Object... args) {
+  public Classifier classifierWith(Object... args) {
     switch (this) {
       case MEDRI:
         double support = (double) args[0];
@@ -43,11 +46,11 @@ public enum TClassifier {
         return oResult;
 
       default:
-        return get();
+        return classifier();
     }
   }
 
-  public String className() {
+  public String classifierClassName() {
     switch (this) {
       case NB:
         return NaiveBayes.class.getName();
@@ -55,6 +58,8 @@ public enum TClassifier {
         return MeDRI.class.getName();
       case ODRI_T:
         return ODRI.class.getName();
+      case J48_T:
+        return J48.class.getName();
       default:
         return "error class name for " + this;
     }

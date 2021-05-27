@@ -62,15 +62,15 @@ public class StoryUtils {
       case MEDRI:
         double support = (double) story.get(StoryKey.support);
         double confidence = (double) story.get(StoryKey.confidence);
-        return MEDRI.getWith(support, confidence);
+        return MEDRI.classifierWith(support, confidence);
       case ODRI_T:
         int minOcc = (int) story.get(StoryKey.minOcc);
         boolean addDefaultRule = (boolean) story.get(StoryKey.addDefaultRule);
-        return ODRI_T.getWith(minOcc, addDefaultRule);
+        return ODRI_T.classifierWith(minOcc, addDefaultRule);
       default:
-        tClassifier.get();
+        tClassifier.classifier();
     }
-    return tClassifier.get(); //never reached !
+    return tClassifier.classifier(); //never reached !
   }
 
 
@@ -94,7 +94,7 @@ public class StoryUtils {
           Classifier classifier)
           throws Exception {
     train.setClassIndex(train.numAttributes() - 1);
-    Story result = Story.get();
+    Story result = Story.create();
 
     Evaluation eval = new Evaluation(train);
     //TODO change seed selection method
@@ -298,7 +298,7 @@ public class StoryUtils {
   public static List<Story> generateStories(PropsUtils props, Instances data) {
     List<Story> result = new ArrayList<>();
 
-    Story bs = Story.get()
+    Story bs = Story.create()
             .set(StoryKey.dataset, data.relationName())
             .set(StoryKey.numInstances, data.numInstances())
             .set(StoryKey.numAttributes, data.numAttributes() - 1)
@@ -330,7 +330,7 @@ public class StoryUtils {
    */
   public static List<Story> generateStoriesSami(PropsUtils props, Instances data) {
     List<Story> result = new ArrayList<>();
-    Story bs = Story.get()
+    Story bs = Story.create()
             .set(StoryKey.dataset, data.relationName())
             .set(StoryKey.numInstances, data.numInstances())
             .set(StoryKey.numAttributes, data.numAttributes() - 1)
@@ -431,7 +431,7 @@ public class StoryUtils {
 
 
   public static List<Story> generateStoriesODRI(Instances data) {
-    Story bs = Story.get()
+    Story bs = Story.create()
             .set(StoryKey.dataset, data.relationName())
             .set(StoryKey.numInstances, data.numInstances())
             .set(StoryKey.numAttributes, data.numAttributes() - 1);

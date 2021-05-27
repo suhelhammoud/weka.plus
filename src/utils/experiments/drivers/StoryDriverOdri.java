@@ -133,7 +133,7 @@ public class StoryDriverOdri {
           (Instances data,
            Classifier classifier) throws Exception {
     data.setClassIndex(data.numAttributes() - 1);
-    Story result = Story.get();
+    Story result = Story.create();
     ODRI odri = (ODRI) classifier;
     odri.buildClassifier(data);
     List<ORule> rules = odri.resultORules();

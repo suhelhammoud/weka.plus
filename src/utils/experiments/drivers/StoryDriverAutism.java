@@ -115,7 +115,7 @@ public class StoryDriverAutism {
           TClassifier classifier,
           TEvaluator eval
   ) {
-    Story bs = Story.get()
+    Story bs = Story.create()
             .set(StoryKey.dataset, relationName)
             .set(StoryKey.numInstances, numInstances)
             .set(StoryKey.numAttributes, numAttributes)
@@ -144,7 +144,7 @@ public class StoryDriverAutism {
           throws Exception {
 
     train.setClassIndex(train.numAttributes() - 1);
-    Story result = Story.get();
+    Story result = Story.create();
 
     Evaluation eval = new Evaluation(train);
     //TODO change seed selection method
@@ -320,7 +320,7 @@ public class StoryDriverAutism {
     Instances dataFiltered = applyAttSelectionFilter(attSelectionFilter, data);
 //    Instances dataFiltered = applyFilter(story, data);
     assert (int) story.get(StoryKey.numAttributesToSelect) == dataFiltered.numAttributes() - 1;
-    Classifier classifier = NB.get(); //Can initiate it dynamically from story
+    Classifier classifier = NB.classifier(); //Can initiate it dynamically from story
     try {
       Story cvStory = applyCrossValidation(dataFiltered, classifier);
       story.update(cvStory);

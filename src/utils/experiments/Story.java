@@ -12,10 +12,13 @@ import java.util.stream.Collectors;
 
 public class Story {
   static Logger logger = LoggerFactory.getLogger(Story.class.getName());
-
   private final static AtomicLong ID = new AtomicLong();
+  public static Story NONE = new Story();
 
-  private static boolean compareTwo(StoryKey.KeyType type, Object o1, Object o2) {
+  public final long id = ID.getAndIncrement();
+  final private Map<StoryKey, Object> data = new HashMap<>(StoryKey.values().length);
+
+  private static boolean equalsOn(StoryKey.KeyType type, Object o1, Object o2) {
     switch (type) {
       case DOUBLE:
         return Double.compare((Double) o1, (Double) o2) == 0;
@@ -28,42 +31,21 @@ public class Story {
 
   public static boolean equalsOn(Story s1, Story s2, StoryKey... keys) {
     return Arrays.stream(keys)
-            .allMatch(key -> compareTwo(key.keyType, s1.get(key), s2.get(key)));
+            .allMatch(key -> equalsOn(key.keyType, s1.get(key), s2.get(key)));
   }
 
   public boolean equalsOn(Story that, StoryKey... keys) {
     return equalsOn(this, that, keys);
   }
 
-  public static Story NONE = new Story(-1l);
-
-  public final long id;
-
-  final private Map<StoryKey, Object> data;
-
-  private Story(long id) {
-    this.id = id;
-
-    data = new HashMap<>(StoryKey.values().length);
-  }
 
   public int size() {
     return data.size();
   }
 
-//  public boolean equalsOn(Story that, StoryKey... keys) {
-//    return Arrays.stream(keys)
-//            .allMatch(storyKey -> {
-//
-//            })
-//  }
-
-  private Story() {
-    this(ID.getAndIncrement());
-  }
 
   public boolean isNone() {
-    return id == -1;
+    return id == NONE.id;
   }
 
   /**
@@ -86,8 +68,7 @@ public class Story {
   public Story update(Story that) {
     that.data.entrySet()
             .stream()
-            .forEach(entry ->
-                    this.set(entry.getKey(), entry.getValue()));
+            .forEach(entry -> set(entry.getKey(), entry.getValue()));
     return this;
   }
 
@@ -97,7 +78,7 @@ public class Story {
    * @param that
    * @return updated new instance using defensive copy
    */
-  public Story defUpdate(Story that) {
+  public Story immulalUpdate(Story that) {
     return Story.of(this).update(that);
   }
 
@@ -122,7 +103,7 @@ public class Story {
     return result;
   }
 
-  public static Story get() {
+  public static Story create() {
     return new Story();
   }
 
