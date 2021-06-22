@@ -34,8 +34,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b4ffecf-fd2d-4ac9-8d65-3aedb6a8be09" name="Default" comment="Initial commit">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/ArffMeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/CsvToArff.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,9 +152,17 @@
       <recent name="weka.attributeSelection.minfo" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.ArffMeta">
-    <configuration name="ArffMeta" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="utils.ArffMeta" />
+  <component name="RunManager" selected="Application.GUILauncher">
+    <configuration name="AppLauncher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="AppLauncher" />
+      <module name="weka.plus" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CsvToArff" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="utils.CsvToArff" />
       <module name="weka.plus" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
@@ -196,9 +204,10 @@
       </method>
     </configuration>
     <configuration name="GUILauncher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="/usr/lib/jvm/java-11-openjdk-amd64" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="GUILauncher" />
       <module name="weka.plus" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -255,15 +264,15 @@
       <item itemvalue="Application.GUILauncher" />
       <item itemvalue="Application.Ttemp" />
       <item itemvalue="Application.CsvToArff" />
-      <item itemvalue="Application.ArffMeta" />
+      <item itemvalue="Application.AppLauncher" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ArffMeta" />
+        <item itemvalue="Application.GUILauncher" />
+        <item itemvalue="Application.AppLauncher" />
+        <item itemvalue="Application.CsvToArff" />
         <item itemvalue="Application.CsvToArff" />
         <item itemvalue="Application.Ttemp" />
-        <item itemvalue="Application.GUILauncher" />
-        <item itemvalue="Application.CutOffPoint" />
       </list>
     </recent_temporary>
   </component>
@@ -315,7 +324,7 @@
       <workItem from="1623953993376" duration="2830000" />
       <workItem from="1624003315384" duration="8460000" />
       <workItem from="1624290104063" duration="831000" />
-      <workItem from="1624334973015" duration="25059000" />
+      <workItem from="1624334973015" duration="27464000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1527230077442</created>

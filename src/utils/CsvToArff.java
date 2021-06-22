@@ -26,7 +26,7 @@ enum HeaderType {
   }
 }
 
-public class ArffMeta {
+public class CsvToArff {
   public final static String missingValue = "?";
 
   final String relationName;
@@ -41,12 +41,12 @@ public class ArffMeta {
   List<String> csvHeaders;
   List<List<String>> values;
 
-  private ArffMeta(String relationName,
-                   String directory,
-                   String inFile,
-                   String outFile,
-                   List<String> headerNames,
-                   List<HeaderType> headerTypes) {
+  private CsvToArff(String relationName,
+                    String directory,
+                    String inFile,
+                    String outFile,
+                    List<String> headerNames,
+                    List<HeaderType> headerTypes) {
     this.relationName = relationName;
     this.directory = directory;
     this.headerNames = headerNames;
@@ -89,7 +89,7 @@ public class ArffMeta {
             .trim();
   }
 
-  public static ArffMeta of(String metaFile) throws Exception {
+  public static CsvToArff of(String metaFile) throws Exception {
 
     List<String> lines = readLines(metaFile);
 
@@ -110,7 +110,6 @@ public class ArffMeta {
     List<HeaderType> headerTypes = new ArrayList<>(lines.size());
 
     for (String line : lines) {
-
       List<String> items = Arrays.stream(line.split("\\s*:\\s*"))
               .map(item -> item.trim())
               .collect(Collectors.toList());
@@ -122,7 +121,7 @@ public class ArffMeta {
         headerTypes.add(HeaderType.of(items.get(1)));
       }
     }
-    return new ArffMeta(relationName,
+    return new CsvToArff(relationName,
             directory,
             inFile,
             outFile,
@@ -267,7 +266,11 @@ public class ArffMeta {
   }
 
   public static void main(String[] args) throws Exception {
-    ArffMeta meta = ArffMeta.of("data/manual/data/new/Subset_1.meta");
+    String metaFile = args.length > 0 ?
+            args[0] :
+            "data/manual/data/new/Subset_12.meta";
+
+    CsvToArff meta = CsvToArff.of(metaFile);
     System.out.println(meta);
     meta.loadLines();
     meta.toArff();
