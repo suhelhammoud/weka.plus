@@ -34,19 +34,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b4ffecf-fd2d-4ac9-8d65-3aedb6a8be09" name="Default" comment="Initial commit">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/experiments/Story.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/experiments/Story.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/experiments/StoryUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/experiments/StoryUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/experiments/TClassifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/experiments/TClassifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/experiments/drivers/StoryDriverAutism.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/experiments/drivers/StoryDriverAutism.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/experiments/drivers/StoryDriverOdri.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/experiments/drivers/StoryDriverOdri.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/experiments/drivers/StoryDriverTemp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/experiments/drivers/StoryDriverTemp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/sensetivity/StoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/sensetivity/StoryTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
   </component>
   <component name="CodeStyleSettingsInfer">
     <option name="done" value="true" />
@@ -94,9 +91,6 @@
     <setting file="jrt:///usr/lib/jvm/java-1.11.0-openjdk-amd64!/java.base/java/lang/StrictMath.class" root0="SKIP_INSPECTION" />
     <setting file="jar://$PROJECT_DIR$/lib/weka-src.jar!/src/main/java/weka/classifiers/trees/J48.java" root0="SKIP_INSPECTION" />
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedIndex" value="1" />
-  </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
   </component>
@@ -107,6 +101,7 @@
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
+    <option name="sortByType" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="Downloaded.Files.Path.Enabled" value="true" />
@@ -117,29 +112,31 @@
     <property name="Repository.Attach.Annotations" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="add_unversioned_files" value="true" />
+    <property name="add_unversioned_files" value="true&#10;/home/suhel/workspace/fadi/weka.plus/data/manual/data/new/Subset_1.props" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="dart.analysis.tool.window.visible" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/odri/experiments/TClassifier.java" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Debugger" />
     <property name="show.migrate.to.gradle.popup" value="false" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/src/odri/experiments/TClassifier.java" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/data/manual" />
       <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/lib" />
       <recent name="$PROJECT_DIR$/data" />
       <recent name="$PROJECT_DIR$/data/arff/dsets03" />
-      <recent name="$PROJECT_DIR$/data/aut" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -148,23 +145,30 @@
       <recent name="sensetivity" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="utils.experiments.drivers" />
       <recent name="utils.experiments" />
       <recent name="utils" />
       <recent name="sensetivity" />
       <recent name="weka.attributeSelection.minfo" />
-      <recent name="weka.attributeSelection" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.AppLauncher">
-    <configuration name="AppLauncher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="AppLauncher" />
+  <component name="RunManager" selected="Application.ArffMeta">
+    <configuration name="ArffMeta" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="utils.ArffMeta" />
       <module name="weka.plus" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CData" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="utils.CData" />
+    <configuration name="CsvToArff" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="utils.CsvToArff" />
       <module name="weka.plus" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
@@ -219,6 +223,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="TEST_OBJECT" value="class" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
@@ -236,19 +251,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.AppLauncher" />
-      <item itemvalue="Application.CData" />
       <item itemvalue="Application.CutOffPoint" />
       <item itemvalue="Application.GUILauncher" />
       <item itemvalue="Application.Ttemp" />
+      <item itemvalue="Application.CsvToArff" />
+      <item itemvalue="Application.ArffMeta" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.ArffMeta" />
+        <item itemvalue="Application.CsvToArff" />
         <item itemvalue="Application.Ttemp" />
         <item itemvalue="Application.GUILauncher" />
         <item itemvalue="Application.CutOffPoint" />
-        <item itemvalue="Application.CData" />
-        <item itemvalue="Application.AppLauncher" />
       </list>
     </recent_temporary>
   </component>
@@ -286,6 +301,21 @@
       <workItem from="1621576658693" duration="44000" />
       <workItem from="1621769768607" duration="1177000" />
       <workItem from="1621771931099" duration="3000" />
+      <workItem from="1622090813475" duration="1647000" />
+      <workItem from="1622113718684" duration="630000" />
+      <workItem from="1622617128984" duration="1276000" />
+      <workItem from="1622694612594" duration="1762000" />
+      <workItem from="1622696428927" duration="1773000" />
+      <workItem from="1622698304412" duration="1669000" />
+      <workItem from="1622700975451" duration="1814000" />
+      <workItem from="1622702833052" duration="996000" />
+      <workItem from="1622704972297" duration="1862000" />
+      <workItem from="1622722669801" duration="1783000" />
+      <workItem from="1623009481398" duration="613000" />
+      <workItem from="1623953993376" duration="2830000" />
+      <workItem from="1624003315384" duration="8460000" />
+      <workItem from="1624290104063" duration="831000" />
+      <workItem from="1624334973015" duration="25059000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1527230077442</created>
@@ -376,17 +406,6 @@
     <MESSAGE value="Initial Commit" />
     <MESSAGE value="Initial commit" />
     <option name="LAST_COMMIT_MESSAGE" value="Initial commit" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <default-breakpoints>
-        <breakpoint type="python-exception">
-          <properties notifyOnTerminate="true" exception="BaseException">
-            <option name="notifyOnTerminate" value="true" />
-          </properties>
-        </breakpoint>
-      </default-breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
