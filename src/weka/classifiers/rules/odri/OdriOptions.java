@@ -1,10 +1,11 @@
 package weka.classifiers.rules.odri;
 
-import ch.qos.logback.classic.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import weka.classifiers.rules.eDRI;
-import weka.core.*;
+import weka.core.Instances;
+import weka.core.Option;
+import weka.core.OptionHandler;
+import weka.core.Utils;
 
 import java.io.Serializable;
 import java.util.Enumeration;
@@ -43,8 +44,6 @@ public class OdriOptions implements OptionHandler, Serializable {
   }
 
 
-
-
   public int getMinOcc() {
     return minOcc;
   }
@@ -65,9 +64,20 @@ public class OdriOptions implements OptionHandler, Serializable {
   }
 
 
+  boolean m_Binarize = false;
+
+  public boolean getBinarize() {
+    return m_Binarize;
+  }
+
+  public void setBinaraize(boolean b) {
+    m_Binarize = b;
+  }
+
   @Override
   public Enumeration listOptions() {
-    Vector<Option> result = new Vector<>(1);
+    Vector<Option> result = new Vector<>(3);
+    result.addElement(new Option("Use Binary Discretizer?", "B", 0, "-B"));
     result.addElement(new Option("Add Default Rule?", "R", 0, "-R"));
     result.addElement(new Option("minimum m_support", "S", 1, "-S <lower bound for minimum minOcc >"));
     return result.elements();
@@ -80,21 +90,22 @@ public class OdriOptions implements OptionHandler, Serializable {
     minOcc = Integer.parseInt(minOccString);
 
     addDefaultRule = Utils.getFlag('R', options);
+    m_Binarize = Utils.getFlag('B', options);
   }
 
   @Override
   public String[] getOptions() {
-    String[] result = new String[3];
+    String[] result = new String[4];
     int currentIndex = 0;
 
     result[currentIndex++] = "-S";
     result[currentIndex++] = "" + minOcc;
 
-    result[currentIndex++] = addDefaultRule? "-R": "";
+    result[currentIndex++] = addDefaultRule ? "-R" : "";
+    result[currentIndex++] = m_Binarize ? "-B" : "";
 
     return result;
   }
-
 
 
 }

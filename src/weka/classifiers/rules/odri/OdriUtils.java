@@ -91,8 +91,8 @@ public class OdriUtils {
   }
 
   public static String formatIntPattern(int maxDigit) {
-    int digits = (int) (Math.ceil(Math.log10(maxDigit)));
-    return "%0" + digits + "d";
+    int digits = (int) (Math.ceil(Math.log10(maxDigit+ 1e-3)));
+    return "% " + digits + "d";
   }
 
   public static String[] attributeValues(Attribute att) {

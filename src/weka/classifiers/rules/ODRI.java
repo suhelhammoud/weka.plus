@@ -3,11 +3,15 @@ package weka.classifiers.rules;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import weka.classifiers.Classifier;
-import weka.classifiers.rules.medri.*;
+import weka.classifiers.rules.medri.IRule;
+import weka.classifiers.rules.medri.Pair;
 import weka.classifiers.rules.odri.ORule;
 import weka.classifiers.rules.odri.OdriOptions;
 import weka.classifiers.rules.odri.OdriUtils;
 import weka.core.*;
+import weka.filters.Filter;
+import weka.filters.supervised.attribute.Discretize;
+import weka.filters.unsupervised.attribute.NumericToBinary;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -145,6 +149,13 @@ public class ODRI implements Classifier, OptionHandler,
     options.setAddDefaultRule(b);
   }
 
+  public boolean getBinarize(){
+    return options.getBinarize();
+  }
+
+  public void setBinarize(boolean b) {
+    options.setBinaraize(b);
+  }
 
   public int getMinOccurrence() {
     return options.getMinOcc();
@@ -168,6 +179,7 @@ public class ODRI implements Classifier, OptionHandler,
 
     // attributes
     result.enable(Capabilities.Capability.NOMINAL_ATTRIBUTES);
+    result.enable(Capabilities.Capability.NUMERIC_ATTRIBUTES);
 
     // class
     result.enable(Capabilities.Capability.NOMINAL_CLASS);
@@ -199,8 +211,8 @@ public class ODRI implements Classifier, OptionHandler,
 
     m_rules = buildClassifierOdri(data,
             options.getMinOcc(),
-            options.getAddDefaultRule());
-
+            options.getAddDefaultRule(),
+            options.getBinarize());
 
 
   }
@@ -208,7 +220,9 @@ public class ODRI implements Classifier, OptionHandler,
 
   public List<ORule> buildClassifierOdri(Instances instances,
                                          int minOcc,
-                                         boolean addDefaultRule) {
+                                         boolean addDefaultRule,
+                                         boolean binarize)
+          throws Exception {
 
     logger.debug("buildClassifierOdri with minOcc={}, addDefaultRule={}", minOcc, addDefaultRule);
 
@@ -217,21 +231,26 @@ public class ODRI implements Classifier, OptionHandler,
     logger.debug("relation= {}, num instances = {}",
             instances.relationName(),
             instances.numInstances());
-    final int[] numberOfItems = OdriUtils.countItemsInAttributes(instances);
-    int[][] data = OdriUtils.mapIdataAndLabelsToArrays(instances);
 
+    if (!binarize) {
+      Discretize disTransform = new Discretize();
+      disTransform.setUseBetterEncoding(true);
+      disTransform.setInputFormat(instances);
+      instances = Filter.useFilter(instances, disTransform);
+    } else {
+      NumericToBinary binTransform = new NumericToBinary();
+      binTransform.setInputFormat(instances);
+      instances = Filter.useFilter(instances, binTransform);
+    }
+
+    final int[] numberOfItems = OdriUtils.countItemsInAttributes(instances);
+
+    int[][] data = OdriUtils.mapIdataAndLabelsToArrays(instances);
 
     return OdriUtils.buildClassifierOdri(data,
             numberOfItems,
             minOcc,
             addDefaultRule);
-
-//    return OdriUtils.buildForNumRules(data,
-//            numberOfItems,
-//            addDefaultRule,
-//            minOcc,
-//            instances.numInstances(),
-//            15);
   }
 
   public String toString(Instances data, int maxDigit) {
@@ -239,20 +258,21 @@ public class ODRI implements Classifier, OptionHandler,
 
     StringBuilder sb = new StringBuilder();
 
-    sb.append(String.format("Classifier = odri , add default rule = %s",
+    sb.append(String.format("Classifier = odri "));
+    sb.append(String.format("\n\tAdd default rule = %s",
             getAddDefaultRule()));
-    sb.append(String.format(" min occ = %,d", getMinOccurrence()));
-    sb.append("\nNumber of rules generated = " + m_rules.size());
+    sb.append(String.format("\n\tUse binary discretization = %s",
+            getBinarize()));
+    sb.append(String.format("\n\tMinimum occurrence = %,d", getMinOccurrence()));
+
+    sb.append("\n\nNumber of rules generated = " + m_rules.size());
     String intPattern = OdriUtils.formatIntPattern(m_rules.size());
-    sb.append("\n ORDI rules ( frequency, strength ) \n----------\n");
+    sb.append("\n\n ORDI rules ( frequency, strength ) \n----------\n");
     for (int i = 0; i < m_rules.size(); i++) {
       ORule rule = m_rules.get(i);
       sb.append(String.format(intPattern + " - ",
               (i + 1)) + rule.toString(data, maxDigit) + "\n");
     }
-
-    sb.append(String.format("\nClassifier = ODRI , add default rule = %s",
-            getAddDefaultRule()));
 
     sb.append("\n");
     sb.append(String.format("Avg. Weighted Rule Length = %2.2f", getAvgWeightedRuleLength(m_rules)) + "\n");

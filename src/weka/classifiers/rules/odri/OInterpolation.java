@@ -1,6 +1,6 @@
 package weka.classifiers.rules.odri;
 
-import java.util.ArrayList;
+import java .util.ArrayList;
 import java.util.List;
 import java.util.function.IntToDoubleFunction;
 import java.util.stream.IntStream;
